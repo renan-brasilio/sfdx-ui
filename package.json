@@ -1,0 +1,97 @@
+{
+  "name": "sfdx-easy-tools",
+  "displayName": "SFDX Easy Tools",
+  "description": "SFDX Made Easy",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.61.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onView:sfdx-easy-tools-sidebar",
+    "onCommand:sfdx-easy-tools.helloWorld",
+    "onCommand:sfdx-easy-tools.askQuestion",
+    "onCommand:sfdx-easy-tools.refresh"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "sfdx-easy-tools-sidebar-view",
+          "title": "SFDX Easy Tools",
+          "icon": "media/SFDXEasy.svg"
+        }
+      ]
+    },
+    "views": {
+      "sfdx-easy-tools-sidebar-view": [
+        {
+          "type": "webview",
+          "id": "sfdx-easy-tools-sidebar",
+          "name": "SFDX Easy Tools",
+          "icon": "media/SFDXEasy.svg",
+          "contextualTitle": "SFDX Easy Tools"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "sfdx-easy-tools.helloWorld",
+        "category": "SFDX Easy Tools",
+        "title": "Hello World"
+      },
+      {
+        "command": "sfdx-easy-tools.askQuestion",
+        "category": "SFDX Easy Tools",
+        "title": "Ask Question"
+      },
+      {
+        "command": "sfdx-easy-tools.refresh",
+        "category": "SFDX Easy Tools",
+        "title": "Refresh"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "webpack",
+    "watch": "concurrently \"rollup -c -w\" \"webpack --watch\"",
+    "package": "webpack --mode production --devtool hidden-source-map",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p -w . --outDir out",
+    "pretest": "npm run compile-tests && npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^21.0.1",
+    "@rollup/plugin-node-resolve": "^13.0.6",
+    "@rollup/plugin-typescript": "^8.3.0",
+    "@tsconfig/svelte": "^2.0.1",
+    "@types/glob": "^7.1.4",
+    "@types/mocha": "^9.0.0",
+    "@types/node": "14.x",
+    "@types/vscode": "^1.61.0",
+    "@typescript-eslint/eslint-plugin": "^4.31.1",
+    "@typescript-eslint/parser": "^4.31.1",
+    "@vscode/test-electron": "^1.6.2",
+    "concurrently": "^6.3.0",
+    "eslint": "^7.32.0",
+    "glob": "^7.1.7",
+    "mocha": "^9.1.1",
+    "rollup": "^2.58.0",
+    "rollup-plugin-svelte": "^6.1.1",
+    "rollup-plugin-terser": "^7.0.2",
+    "svelte": "^3.44.0",
+    "svelte-check": "^2.2.7",
+    "svelte-preprocess": "^4.9.8",
+    "svelte-select": "^4.4.3",
+    "ts-loader": "^9.2.5",
+    "typescript": "^4.4.3",
+    "webpack": "^5.59.1",
+    "webpack-cli": "^4.9.1"
+  }
+}
