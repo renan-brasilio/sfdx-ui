@@ -1,6 +1,7 @@
 import * as vscode from "vscode";
 import { getNonce } from "./getNonce";
 import * as cp from "child_process";
+import { setInterval } from "timers";
 
 export class SidebarProvider implements vscode.WebviewViewProvider {
   _view?: vscode.WebviewView;
@@ -37,15 +38,17 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
           break;
         }
         case "onTerminal": {
-          if (!data.value) {
+          if(!data.value){
             return;
           }
-
-          console.log('Starting the Terminal + Script: Retrieve');
           
           let term = vscode.window.createTerminal('SFDX');
           term.show();
           term.sendText(`${data.value}`);
+
+          vscode.window.onDidCloseTerminal((terminal) => {
+            vscode.window.showInformationMessage(`onDidCloseTerminal, name: ${terminal.name}`);
+          });
 
           break;
         }
