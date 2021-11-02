@@ -1,26 +1,32 @@
 <script>
-    import retrieveTab from "./tabs/retrieveTab.svelte";
-    import changesetTab from "./tabs/changesetTab.svelte";
-    import deployTab from "./tabs/deployTab.svelte";
+    import alias from "./tabs/_force/force.svelte";
+    import auth from "./tabs/_force/force.svelte";
+    import config from "./tabs/_force/force.svelte";
+    import force from "./tabs/_force/force.svelte";
     import Tabs from "./Tabs.svelte";
 
     // List of tab items with labels, values and assigned components
     let items = [
         { 
-            label: "Retrieve",
+            label: "alias",
             value: 1,
-            component: retrieveTab
+            component: alias
         },
         { 
-            label: "Package",
+            label: "auth",
             value: 2,
-            component: changesetTab
+            component: auth
         },
         { 
-            label: "Deploy",
+            label: "config",
             value: 3,
-            component: deployTab
-        }
+            component: config
+        },
+        { 
+            label: "force",
+            value: 4,
+            component: force
+        },
     ];
 </script>
 
