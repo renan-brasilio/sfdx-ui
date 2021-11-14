@@ -11,40 +11,22 @@
     import { pickFolderType } from '../../-helperFiles/GlobalStore'
     import { mapErrors } from '../../-helperFiles/GlobalStore'
     import { mapSpinner } from '../../-helperFiles/GlobalStore'
-    import { mapInformation } from '../../-helperFiles/GlobalStore'
-    import { mapForceShowSections } from '../../-helperFiles/GlobalStore'
-    import { mapSource } from '../../-helperFiles/GlobalStore'
-    import { mapSectionValidation } from '../../-helperFiles/GlobalStore'
     import JSONSection from '../../-commonSections/JSONSection.svelte'
     import LOGLEVELSection from '../../-commonSections/LOGLEVELSection.svelte'
     import TARGETUSERNAMESection from '../../-commonSections/TARGETUSERNAMESection.svelte'
     import APIVERSIONSection from '../../-commonSections/APIVERSIONSection.svelte'
     import SOURCEPATHSection from '../../-commonSections/SOURCEPATHSection.svelte'
     import WAITSection from '../../-commonSections/WAITSection.svelte'
-    import MANIFESTSection from '../../-commonSections/MANIFESTSection.svelte';
     import METADATASection from '../../-commonSections/METADATASection.svelte';
-    import PACKAGENAMESSection from '../../-commonSections/PACKAGENAMESSection.svelte';
     import VERBOSESection from '../../-commonSections/VERBOSESection.svelte';
     import ADVANCEDSection from '../../-commonSections/ADVANCEDSection.svelte';
 
-    $mapSpinner.forceRetrieve = true;
+    $mapSpinner.forceDelete = true;
 
     //Initial loading
     setTimeout(() => {
-        $mapSpinner.forceRetrieve = false;
+        $mapSpinner.forceDelete = false;
     }, 1000);
-
-    if($mapShowSections){
-        for(const key in $mapShowSections){
-            $mapShowSections[key] = false;
-        }
-    }
-
-    if($mapSectionValidation){
-        for(const key in $mapSectionValidation){
-            $mapSectionValidation[key] = 0;
-        }
-    }
 
     // Webview Listener
     onMount(() => {
@@ -68,34 +50,21 @@
                         $mapShowSections.targetusernamespinner = false;
                     }
                     break;
-                case 'sfdxClosed':
-                    if($mapShowSections){
-                        for(const key in $mapShowSections){
-                            $mapShowSections[key] = false;
-                        }
-                    }
-
-                    if($mapSectionValidation){
-                        for(const key in $mapSectionValidation){
-                            $mapSectionValidation[key] = 0;
-                        }
-                    }
-
-                    $mapSpinner.main = false;
-                    $mapInformation.main = false;
-                    $mapForceShowSections.source = true;
-                    $mapSource.retrieve = true;
-                    break;
             }
         });
     });
 
-    function retrieve() {
+    function deleteF() {
+        tsvscode.postMessage({
+            type: 'onInfo',
+            value: 'Starting the Terminal + Script: Retrieve' 
+        });
+
         let message = {
             type: 'onTerminalRetrieve'
         };
 
-        message.sfdx = 'force:source:retrieve';
+        message.sfdx = 'force:source:delete';
 
         if($mapShowSections.json){
             message.sJSON = $mapShowSections.json;
@@ -186,10 +155,6 @@
             message.vWAIT = $mapInputVariables.wait;
         }
 
-        if($mapShowSections.manifest && $mapInputVariables.manifest){
-            message.vMANIFEST = $mapInputVariables.manifest;
-        }
-
         if($mapShowSections.metadata){
             if($mapInputVariables.metadata && $mapInputVariables.metadata.length > 0){
                 $mapErrors.metadata = '';
@@ -206,24 +171,6 @@
             }
         }else{
             $mapErrors.metadata = '';
-        }
-
-        if($mapShowSections.packagenames){
-            if($mapInputVariables.packagenames){
-                $mapErrors.packagenames = '';
-                message.vPACKAGENAMES = $mapInputVariables.packagenames;
-            }else{
-                $mapErrors.packagenames = 'sfdxet-error-button';
-
-                tsvscode.postMessage({
-                    type: 'onError',
-                    value: `ERROR: Please insert one or more Package Name or uncheck the [-n PACKAGENAMES] checkbox.` 
-                });
-
-                return;
-            }
-        }else{
-            $mapErrors.packagenames = '';
         }
 
         if($mapShowSections.verbose){
@@ -244,55 +191,23 @@
             }
         }
 
-        let validation = 0;
+        // $mapSpinner.main = true;
+        // $mapInformation.main = true;
 
-        for(let i in $mapSectionValidation){
-            if($mapSectionValidation[i] === 1){
-                validation++;
-                break;
-            }
-        }
-
-        if(validation === 0){
-            $mapErrors.metadata = 'sfdxet-error-span';
-            $mapErrors.manifest = 'sfdxet-error-span';
-            $mapErrors.sourcepath = 'sfdxet-error-span';
-
-            tsvscode.postMessage({
-                    type: 'onError',
-                    value: `ERROR: Select one between: SOURCEPATH, MANIFEST or METADATA` 
-                });
-
-                return;
-        }else{
-            $mapErrors.metadata = '';
-            $mapErrors.manifest = '';
-            $mapErrors.sourcepath = '';
-
-            tsvscode.postMessage({
-                type: 'onInfo',
-                value: 'Starting the Terminal + Script: Retrieve' 
-            });
-
-            $mapSpinner.main = true;
-            $mapInformation.main = true;
-    
-            tsvscode.postMessage(message);
-        }
-
+        tsvscode.postMessage(message);
     }
 </script>
 
-{#if $mapSpinner.forceRetrieve}
+{#if $mapSpinner.forceDelete}
     <div class="sfdxet-spinner">
         <Circle2 size="60" colorOuter="#034efc" unit="px"></Circle2>
     </div>
 {:else}
     <div class="sfdxet-absolute-center">
-        <h3>sfdx force:source:retrieve</h3>
+        <h3>sfdx force:source:delete</h3>
         <br/>
         <br/>
-        <button class="sfdxet-buttons" on:click={retrieve}>Retrieve</button>
+        <button class="sfdxet-buttons" on:click={deleteF}>Delete</button>
         <br/>
         <br/>
         <h3>Options:</h3>
@@ -311,20 +226,20 @@
         <!-- APIVERSION -->
         <APIVERSIONSection />
 
-        <!-- SOURCEPATH -->
-        <SOURCEPATHSection />
+        <!-- CHECKONLY -->
 
         <!-- WAIT -->
         <WAITSection />
 
-        <!-- MANIFEST -->
-        <MANIFESTSection />
+        <!-- TESTLEVEL -->
+
+        <!-- NOPROMPT -->
 
         <!-- METADATA -->
         <METADATASection />
 
-        <!-- PACKAGENAMES -->
-        <PACKAGENAMESSection />
+        <!-- SOURCEPATH -->
+        <SOURCEPATHSection />
 
         <!-- VERBOSE -->
         <VERBOSESection />

@@ -1,6 +1,6 @@
 {
   "name": "sfdx-easy-tools",
-  "displayName": "SFDX Easy Tools",
+  "displayName": "SFDX UI",
   "description": "SFDX Made Easy",
   "version": "0.0.1",
   "engines": {
@@ -18,7 +18,7 @@
       "activitybar": [
         {
           "id": "sfdx-easy-tools-sidebar-view",
-          "title": "SFDX Easy Tools",
+          "title": "SFDX UI",
           "icon": "media/SFDXEasy.svg"
         }
       ]
@@ -28,9 +28,9 @@
         {
           "type": "webview",
           "id": "sfdx-easy-tools-sidebar",
-          "name": "SFDX Easy Tools",
+          "name": "SFDX UI",
           "icon": "media/SFDXEasy.svg",
-          "contextualTitle": "SFDX Easy Tools"
+          "contextualTitle": "SFDX UI"
         }
       ]
     },

@@ -30,13 +30,14 @@
         --background: #111c23;
         --borderRadius: 5px;
         --placeholderColor: white;
-        --itemColor: white
+        --itemColor: white;
         --itemIsActiveColor: black;
         --listBackground: #111c23;
         --borderHoverColor: white;
         --itemHoverColor: black;
         padding-left: 10%;
         padding-right: 10%;
+        --multiItemBG: #2e688d;
     }
 
     :global(.sfdxet-inner-span) {
@@ -44,8 +45,22 @@
     }
 
     :global(.sfdxet-section) {
-        border: 1px solid #ccc;
-        border-radius: 10px;
+        border: 1px solid rgba(105, 104, 104, 0.555);
+        border-radius: 5px;
         padding: 10px;
+    }
+
+    :global(.sfdxet-error-select) {
+        --border: 1px solid red!important;
+        --placeholderColor: red!important;
+    }
+
+    :global(.sfdxet-error-button) {
+        border: 1px solid red!important;
+        color: red!important;
+    }
+
+    :global(.sfdxet-error-span) {
+        color: red!important;
     }
 </style>

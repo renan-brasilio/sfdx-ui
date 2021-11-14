@@ -2,6 +2,7 @@ import * as vscode from "vscode";
 import { getNonce } from "./getNonce";
 import * as cp from "child_process";
 import { setInterval } from "timers";
+import { basename } from 'path';
 
 export class SidebarProvider implements vscode.WebviewViewProvider {
   _view?: vscode.WebviewView;
@@ -13,7 +14,7 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
 
   public resolveWebviewView(webviewView: vscode.WebviewView) {
     this._view = webviewView;
-    this._sfdxetName = "SFDX Easy Tools";
+    this._sfdxetName = "SFDX UI";
     this._sfdxetVersion = "v0.0.1";
 
     webviewView.webview.options = {
@@ -51,26 +52,66 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
             type: "folderUri",
             value: folderUris
           });
+					
+          break;
+        }
+        case "onShowFilePick": {
+          const fileUri = await vscode.window.showOpenDialog({ canSelectFolders: false, canSelectFiles: true, canSelectMany: false, openLabel: 'Select File' });
+          if (!fileUri) {
+            return null;
+          }
 
-          console.log(folderUris);
+          console.log({fileUri});
+
+          this._view?.webview.postMessage({
+            type: "fileUri",
+            value: fileUri
+          });
+					
+          break;
+        }
+        case "onGetAliasUsers": {
+          const fs = require("fs");
+          const path = require("path");
+
+          const homedir = require('os').homedir();
+
+          const filePath = path.join(homedir + '/.sfdx/', `alias.json`);
+
+          let fileExists = false;
+
+          try {
+            const file = fs.readFileSync(filePath);
+            fileExists = file ? true : false;
+
+            const fileJSON = JSON.parse(file);
+            if(fileJSON){
+              this._view?.webview.postMessage({
+                type: "aliasJSON",
+                value: fileJSON.orgs
+              });
+            }
+          } catch (error) {
+            console.error(`${this._sfdxetName}: File ${filePath} not found.`);
+          }
 					
           break;
         }
         case "onTerminalRetrieve": {
-          // let term = vscode.window.createTerminal('SFDX');
-          // term.show();
-          // term.sendText(`clear && echo "- Starting SFDX Retrieve" && echo`);
-
-          let sfdx = 'sfdx force:source:retrieve --manifest package.xml';
-
+          let term = vscode.window.createTerminal('SFDX');
+          term.show();
+          term.sendText(`clear && echo "- Starting SFDX: ${data.sfdx}" && echo`);
+          
           console.log(JSON.stringify(data));
+
+          let sfdx = 'sfdx ' + data.sfdx;
 
           // JSON
           if(data.sJSON){
             const fs = require("fs");
             const path = require("path");
 
-            const filePath = path.join(vscode.workspace.rootPath, `${data.vJSON ? data.vJSON : 'output'}.json`);
+            const filePath = path.join(data.vJSONPath ? data.vJSONPath : vscode.workspace.rootPath, `${data.vJSON ? data.vJSON : 'output'}.json`);
 
             let fileExists = false;
 
@@ -91,7 +132,7 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
               console.error(`${this._sfdxetName}: File ${filePath} not found.`);
             }
 
-            sfdx += ` --json > ${data.vJSON ? data.vJSON : 'output'}.json`;
+            sfdx += ` --json > ${data.vJSONPath ? data.vJSONPath + '/' : ''}${data.vJSON ? data.vJSON : 'output'}.json`;
           }
 
           // LOGLEVEL
@@ -112,13 +153,46 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
           // SOURCEPATH
           if(data.vSOURCEPATH){
             sfdx += ` -a ${data.vSOURCEPATH}`;
+          }else if(data.vMANIFEST){ // MANIFEST
+            sfdx += ` -x ${data.vMANIFEST}`;
+          }else if(data.vMETADATA){ // METADATA
+            sfdx += ` -m ${data.vMETADATA}`;
           }
 
-          console.log(`sfdx: ${sfdx}`);
+          // vPACKAGENAMES
+          if(data.vPACKAGENAMES){
+            sfdx += ` -n ${data.vPACKAGENAMES}`;
+          }
 
-          // vscode.window.onDidCloseTerminal((terminal) => {
-          //   vscode.window.showInformationMessage(`onDidCloseTerminal, name: ${terminal.name}`);
-          // });
+          // VERBOSE
+          if(data.sVERBOSE){
+            sfdx += ` --verbose`;
+          }
+
+          // ADVANCED
+          if(data.vADVANCED){
+            sfdx += ` ${data.vADVANCED}`;
+          }
+
+          // ROOTDIR
+          if(data.vROOTDIR){
+            sfdx += ` -r ${data.vROOTDIR}`;
+          }
+
+          // OUTPUTDIR
+          if(data.sOUTPUTDIR){
+            sfdx += ` -d ${data.vOUTPUTDIR ? data.vOUTPUTDIR : ''}`;
+          }
+
+          term.sendText(sfdx);
+
+          vscode.window.onDidCloseTerminal((terminal) => {
+            if(terminal.name === 'SFDX'){
+              this._view?.webview.postMessage({
+                type: "sfdxClosed"
+              });
+            }
+          });
 
           break;
         }
@@ -126,6 +200,38 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
       }
     });
   }
+
+  private getEditorInfo(): { text?: string; tooltip?: string; color?: string; } | null {
+    const editor = vscode.window.activeTextEditor;
+
+    // If no workspace is opened or just a single folder, we return without any status label
+    // because our extension only works when more than one folder is opened in a workspace.
+    if (!editor || !vscode.workspace.workspaceFolders || vscode.workspace.workspaceFolders.length < 2) {
+        return null;
+    }
+
+    let text: string | undefined;
+    let tooltip: string | undefined;
+    let color: string | undefined;
+
+    // If we have a file:// resource we resolve the WorkspaceFolder this file is from and update
+    // the status accordingly.
+    const resource = editor.document.uri;
+    if (resource.scheme === 'file') {
+        const folder = vscode.workspace.getWorkspaceFolder(resource);
+        if (!folder) {
+            text = `$(alert) <outside workspace> → ${basename(resource.fsPath)}`;
+        } else {
+            text = `$(file-submodule) ${basename(folder.uri.fsPath)} (${folder.index + 1} of ${vscode.workspace.workspaceFolders.length}) → $(file-code) ${basename(resource.fsPath)}`;
+            tooltip = resource.fsPath;
+
+            const multiRootConfigForResource = vscode.workspace.getConfiguration('multiRootSample', resource);
+            color = multiRootConfigForResource.get('statusColor');
+        }
+    }
+
+    return { text, tooltip, color };
+  } 
 
   public revive(panel: vscode.WebviewView) {
     this._view = panel;

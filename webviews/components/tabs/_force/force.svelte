@@ -1,7 +1,13 @@
 <script>
     import Select from 'svelte-select';
-    import CSS from '../GlobalCSS.svelte'
-    import Retrieve from './_source/retrieve.svelte'
+    import CSS from '../-helperFiles/GlobalCSS.svelte';
+    import Retrieve from './_source/retrieve.svelte';
+    import Convert from './_source/convert.svelte';
+    import Delete from './_source/delete.svelte';
+    import { mapForceShowSections } from '../-helperFiles/GlobalStore';
+    import { mapSource } from '../-helperFiles/GlobalStore';
+    import { lastValueForce } from '../-helperFiles/GlobalStore';
+    import { mapLastValue } from '../-helperFiles/GlobalStore';
     import { tooltip as tooltipv1 } from '../--tooltip/tooltip.v1';
 
     const force = [
@@ -29,36 +35,50 @@
     ];
 
     const source = [
-        {value: 'retrieve', label: 'force:source:retrieve'}
+        {value: 'retrieve', label: 'force:source:retrieve'},
+        {value: 'convert', label: 'force:source:convert'},
+        {value: 'delete', label: 'force:source:delete'}
     ];
 
-    let mapMainValues = {
-        "analytics": false,
-        "source": false
-    };
-
-    let mapSource = {
-        "retrieve": false
-    };
-
-    let lastValueMain, lastValueSource;
-
-    function handleForceSelect(event) {
-        mapMainValues[event.detail.value] = true;
-        lastValueMain = event.detail.value;
+    function handleSelect(event, type) {
+        if(event.type === "select" && event.detail){
+            if(type === 'force'){
+                $mapForceShowSections[event.detail.value] = true;
+            }else if(type === 'analytics'){
+                $mapForceShowSections.analytics = true;
+            }else if(type === 'source'){
+                $mapForceShowSections.source = true;
+                $mapSource[event.detail.value] = true;
+                
+                if($mapSource && $mapLastValue){
+                    $mapSource[$mapLastValue[type]] = false;
+                }
+            }
+            
+            $mapLastValue[type] = event.detail.value;
+        }
 	}
 	
-	function handleForceClear() {
-		mapMainValues[lastValueMain] = false;
-	}
-
-    function handleSourceSelect(event) {
-        mapSource[event.detail.value] = true;
-        lastValueSource = event.detail.value;
-	}
-	
-	function handleSourceClear() {
-		mapSource[lastValueSource] = false;
+	function handleClear(event, type) {
+        if(event.type === "clear"){
+            if($mapLastValue[type]){
+                if(type === 'force' || type === 'analytics'){
+                    $mapForceShowSections[$mapLastValue[type]] = false;
+                }if(type === 'source'){
+                    $mapSource[$mapLastValue[type]] = false;
+                }
+            }
+    
+            if(type === 'force'){
+                $mapForceShowSections[type] = false;
+            }else if(type === 'analytics'){
+                $mapForceShowSections.analytics = false;
+            }else if(type === 'source'){
+                $mapSource[type] = false;
+            }
+    
+            $mapLastValue[type] = '';
+        }
 	}
 </script>
 
@@ -66,25 +86,34 @@
     <div class="sfdxet-select-theme sfdxet-absolute-center">
         <h4>force Namespace</h4>
         <br/>
-        <Select id="force" items={force} on:select={handleForceSelect} on:clear={handleForceClear}></Select>
+        <Select id="force" items={force} on:select={e => { handleSelect(e, 'force') }} on:clear={e => { handleClear(e, 'force') }} value={$mapLastValue['force']}></Select>
     </div>
 <br/>
 
-{#if mapMainValues.analytics}
+{#if $mapForceShowSections.analytics}
     <div class="sfdxet-select-theme sfdxet-absolute-center" title="force:analytics:template:create" use:tooltipv1>
         <Select id="analytics" items={analytics} isDisabled="true" value="force:analytics:template:create"></Select>
+        <br/>
+        <br/>
+        <!-- <Analytcs /> -->
     </div>
 {/if}
 
-{#if mapMainValues.source}
+{#if $mapForceShowSections.source}
     <div class="sfdxet-select-theme sfdxet-absolute-center">
         <h4>source Commands</h4>
         <br/>
-        <Select id="source" items={source} on:select={handleSourceSelect} on:clear={handleSourceClear}></Select>
+        <Select id="source" items={source} on:select={e => { handleSelect(e, 'source') }} on:clear={e => { handleClear(e, 'source') }} value={$mapLastValue['source']}></Select>
         <br/>
         <br/>
-        {#if mapSource.retrieve}
+        {#if $mapSource.retrieve}
             <Retrieve />
+        {/if}
+        {#if $mapSource.convert}
+            <Convert />
+        {/if}
+        {#if $mapSource.delete}
+            <Delete />
         {/if}
     </div>
 {/if}

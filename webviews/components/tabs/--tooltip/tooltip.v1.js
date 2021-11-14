@@ -33,7 +33,7 @@ export function tooltip(element) {
 	}
 	
 	element.addEventListener('mouseover', mouseOver);
-  element.addEventListener('mouseleave', mouseLeave);
+  	element.addEventListener('mouseleave', mouseLeave);
 	element.addEventListener('mousemove', mouseMove);
 	
 	return {

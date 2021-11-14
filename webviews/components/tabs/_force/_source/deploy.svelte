@@ -1,6 +1,6 @@
 <script>
     import Select from 'svelte-select';
-    import CSS from '../../GlobalCSS.svelte'
+    import CSS from '../../-helperFiles/GlobalCSS.svelte'
 
     let originOrgList = ['Developer', 'Trailhead'];
     let destinOrgList = ['Trailhead', 'Developer'];
