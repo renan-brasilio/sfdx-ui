@@ -7,8 +7,39 @@
     import { showDebug } from '../-helperFiles/GlobalStore';
     import { mapSectionValidation } from '../-helperFiles/GlobalStore';
     import { mapErrors } from '../-helperFiles/GlobalStore';
+    import CollapsibleSection from "../--collapsible/CollapsibleSection.svelte";
 
     let fileName = 'LOGLEVELSection';
+
+    export let mapDocument;
+    export let required = false;
+
+    let type = `<b><i>Optional</i></b>`;
+    let body = `
+            <br/><br/>            
+            The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.
+            <br/><br/>
+            Type: enum<br/>
+            Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+            Default value: warn
+        `;
+
+    if(!mapDocument){ // Default
+        mapDocument = {
+            type: type,
+            body: body
+        };
+    }else{
+        if(!mapDocument.type){
+            mapDocument.type = type;
+        }
+
+        if(!mapDocument.body){
+            mapDocument.body = body;
+        }
+    }
+
+    $mapInputVariables.loglevel = 'warn';
     
     function handleShowSections(event, sectionName){
         let methodName = 'handleShowSections()';
@@ -104,16 +135,22 @@
 
 <br/>
 <label for="loglevel">
-    <span title={js.mapTooltips['tLOGLEVEL']} use:tooltipv1>[--loglevel LOGLEVEL]</span> <input type="checkbox" id="loglevel" name="loglevel" on:change={e => { handleShowSections(e, 'loglevel') }}>
+    <span title={js.mapTooltips['defaultSection']} use:tooltipv1 class={required ? 'sfdxet-required' : ''}>{required ? '*' : ''}[--loglevel LOGLEVEL]</span> <input type="checkbox" id="loglevel" name="loglevel" on:change={e => { handleShowSections(e, 'loglevel') }}>
 </label>
 <br/>
 
 {#if $mapShowSections.loglevel}
     <br/>
+    <CollapsibleSection headerText={'Documentation'}>
+        <div class="content">
+            {@html mapDocument.type}
+            {@html mapDocument.body}
+        </div>
+        <br/>
+    </CollapsibleSection>
     <section class="sfdxet-section">
         <div class="sfdxet-select-theme sfdxet-absolute-center {$mapErrors.loglevel}">
-            <Select id="loglevelsel" items={js.lLOGLEVEL} on:select={e => { handleSelect(e, 'loglevel', false) }} on:clear={e => { handleSelectClear(e, 'loglevel', false) }}></Select>
+            <Select id="loglevelsel" items={js.lLOGLEVEL} on:select={e => { handleSelect(e, 'loglevel', false) }} on:clear={e => { handleSelectClear(e, 'loglevel', false) }} value={$mapInputVariables.loglevel}></Select>
         </div>
     </section>
-    <br/>
 {/if}

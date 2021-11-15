@@ -1,12 +1,38 @@
 <script>
     import * as js from "../-helperFiles/GlobalJS";
-    import { tooltip as tooltipv1 } from '../--tooltip/tooltip.v1'
-    import { mapInputVariables } from "../-helperFiles/GlobalStore"
-    import { mapShowSections } from "../-helperFiles/GlobalStore"
+    import { tooltip as tooltipv1 } from "../--tooltip/tooltip.v1";
+    import { mapInputVariables } from "../-helperFiles/GlobalStore";
+    import { mapShowSections } from "../-helperFiles/GlobalStore";
     import { mapSectionValidation } from "../-helperFiles/GlobalStore";
     import { showDebug } from "../-helperFiles/GlobalStore";
+    import CollapsibleSection from "../--collapsible/CollapsibleSection.svelte";
 
     let fileName = 'JSONSection';
+
+    export let mapDocument;
+    export let required = false;
+
+    let type = `<b><i>Optional</i></b>`;
+    let body = `
+            <br/><br/>
+            Format output as JSON.<br/><br/>
+            Type: boolean
+        `;
+
+    if(!mapDocument){ // Default
+        mapDocument = {
+            type: type,
+            body: body
+        };
+    }else{
+        if(!mapDocument.type){
+            mapDocument.type = type;
+        }
+
+        if(!mapDocument.body){
+            mapDocument.body = body;
+        }
+    }
     
     function handleShowSections(event, sectionName){
         let methodName = 'handleShowSections()';
@@ -59,13 +85,21 @@
 </script>
 
 <label for="json">
-    <span title={js.mapTooltips['tJSON']} use:tooltipv1>[--json]</span> <input type="checkbox" id="json" name="json" on:change={e => { handleShowSections(e, 'json') }}>
+    <span title={js.mapTooltips['defaultSection']} use:tooltipv1 class={required ? 'sfdxet-required' : ''}>{required ? '*' : ''}[--json]</span> <input type="checkbox" id="json" name="json" on:change={e => { handleShowSections(e, 'json') }}>
 </label>
 <br/>
 
 {#if $mapShowSections.json}
     <br/>
+    <CollapsibleSection headerText={'Documentation'}>
+        <div class="content">
+            {@html mapDocument.type}
+            {@html mapDocument.body}
+        </div>
+        <br/>
+    </CollapsibleSection>
     <section class="sfdxet-section">
+        <br/>
         <label for="jsoninput">
             JSON File Name
             <input type="text" id="jsoninput" name="jsoninput" class="sfdxet-absolute-center" title="Insert the JSON filename (don't include .json), or leave blank for the default: output" use:tooltipv1 placeholder="output" bind:value={$mapInputVariables.json}/>
@@ -96,5 +130,4 @@
             <br/>
         {/if}
     </section>
-    <br/>
 {/if}

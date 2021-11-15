@@ -10,6 +10,10 @@
     import { pickFolderType } from '../../-helperFiles/GlobalStore'
     import { mapErrors } from '../../-helperFiles/GlobalStore'
     import { mapSpinner } from '../../-helperFiles/GlobalStore'
+    import { mapSectionValidation } from '../../-helperFiles/GlobalStore'
+    import { mapInformation } from '../../-helperFiles/GlobalStore'
+    import { mapForceShowSections } from '../../-helperFiles/GlobalStore'
+    import { mapSource } from '../../-helperFiles/GlobalStore'
     import JSON from '../../-commonSections/JSONSection.svelte'
     import LOGLEVEL from '../../-commonSections/LOGLEVELSection.svelte'
     import SOURCEPATH from '../../-commonSections/SOURCEPATHSection.svelte'
@@ -26,6 +30,22 @@
     setTimeout(() => {
         $mapSpinner.forceConvert = false;
     }, 1000);
+
+    if($mapShowSections){
+        for(const key in $mapShowSections){
+            $mapShowSections[key] = false;
+        }
+    }
+
+    if($mapSectionValidation){
+        for(const key in $mapSectionValidation){
+            $mapSectionValidation[key] = 0;
+        }
+    }
+
+    $mapErrors.metadata = '';
+    $mapErrors.manifest = '';
+    $mapErrors.sourcepath = '';
 
     // Webview Listener
     onMount(() => {
@@ -48,6 +68,24 @@
 
                         $mapShowSections.targetusernamespinner = false;
                     }
+                    break;
+                case 'sfdxClosed':
+                    if($mapShowSections){
+                        for(const key in $mapShowSections){
+                            $mapShowSections[key] = false;
+                        }
+                    }
+
+                    if($mapSectionValidation){
+                        for(const key in $mapSectionValidation){
+                            $mapSectionValidation[key] = 0;
+                        }
+                    }
+
+                    $mapSpinner.main = false;
+                    $mapInformation.main = false;
+                    $mapForceShowSections.source = true;
+                    $mapSource.convert = true;
                     break;
             }
         });

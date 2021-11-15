@@ -7,8 +7,35 @@
     import { showDebug } from "../-helperFiles/GlobalStore";
     import { pickFolderType } from "../-helperFiles/GlobalStore";
     import { mapErrors } from "../-helperFiles/GlobalStore";
+    import CollapsibleSection from "../--collapsible/CollapsibleSection.svelte";
 
     let fileName = 'OUTPUTDIRSection';
+
+    export let mapDocument;
+    export let required = false;
+
+    let type = `<b><i>Optional</i></b>`;
+    let body = `
+            <br/><br/>
+            A source directory other than the default package to convert.
+            <br/><br/>
+            Type: directory
+        `;
+
+    if(!mapDocument){ // Default
+        mapDocument = {
+            type: type,
+            body: body
+        };
+    }else{
+        if(!mapDocument.type){
+            mapDocument.type = type;
+        }
+
+        if(!mapDocument.body){
+            mapDocument.body = body;
+        }
+    }
     
     function handleShowSections(event, sectionName){
         let methodName = 'handleShowSections()';
@@ -68,12 +95,19 @@
 
 <br/>
 <label for="outputdir">
-    <span title={js.mapTooltips['tOUTPUTDIR']} use:tooltipv1>[-d OUTPUTDIR]</span> <input type="checkbox" id="outputdir" name="outputdir" on:change={e => { handleShowSections(e, 'outputdir') }}> 
+    <span title={js.mapTooltips['defaultSection']} use:tooltipv1 class:sfdxet-required={required} class:sfdxet-error-span={$mapErrors.outputdir}>{required ? '*' : ''}[-d OUTPUTDIR]</span> <input type="checkbox" id="outputdir" name="outputdir" on:change={e => { handleShowSections(e, 'outputdir') }}> 
 </label>
 <br/>
 
 {#if $mapShowSections.outputdir}
     <br/>
+    <CollapsibleSection headerText={'Documentation'}>
+        <div class="content">
+            {@html mapDocument.type}
+            {@html mapDocument.body}
+        </div>
+        <br/>
+    </CollapsibleSection>
     <section class="sfdxet-section">
         <button class="sfdxet-buttons {$mapErrors.outputdir}" on:click={() => {showFolderPick('outputdir')}}>Set Folder Path</button>
         <br/>

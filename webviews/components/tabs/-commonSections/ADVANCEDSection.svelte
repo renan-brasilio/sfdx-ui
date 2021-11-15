@@ -5,8 +5,33 @@
     import { mapShowSections } from "../-helperFiles/GlobalStore"
     import { mapSectionValidation } from "../-helperFiles/GlobalStore";
     import { showDebug } from "../-helperFiles/GlobalStore";
+    import { mapErrors } from "../-helperFiles/GlobalStore";
 
     let fileName = 'ADVANCEDSection';
+
+    export let mapDocument;
+    export let required = false;
+
+    let type = `<b><i>Optional</i></b>`;
+    let body = `
+            <br/><br/>
+            Here you can insert any extra or manual tags.
+        `;
+
+    if(!mapDocument){ // Default
+        mapDocument = {
+            type: type,
+            body: body
+        };
+    }else{
+        if(!mapDocument.type){
+            mapDocument.type = type;
+        }
+
+        if(!mapDocument.body){
+            mapDocument.body = body;
+        }
+    }
     
     function handleShowSections(event, sectionName){
         let methodName = 'handleShowSections()';
@@ -60,7 +85,7 @@
 
 <br/>
 <label for="advanced">
-    <span title={js.mapTooltips['tADVANCED']} use:tooltipv1 style="color: green;">Advanced:</span> <input type="checkbox" id="advanced" name="advanced" on:change={e => { handleShowSections(e, 'advanced') }}>
+    <span title={js.mapTooltips['tADVANCED']} use:tooltipv1 style="color: green;" class:sfdxet-required={required} class:sfdxet-error-span={$mapErrors.advanced}>{required ? '*' : ''}Advanced:</span> <input type="checkbox" id="advanced" name="advanced" on:change={e => { handleShowSections(e, 'advanced') }}>
 </label>
 <br/>
 

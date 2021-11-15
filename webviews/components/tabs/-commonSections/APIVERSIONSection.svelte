@@ -10,6 +10,32 @@
     
     let fileName = 'APIVERSIONSection';
 
+    export let mapDocument;
+    export let required = false;
+
+    let type = `<b><i>Optional</i></b>`;
+    let body = `
+            <br/><br/>
+            Override the API version used for API requests made by this command.
+            <br/><br/>
+            Type: string
+        `;
+
+    if(!mapDocument){ // Default
+        mapDocument = {
+            type: type,
+            body: body
+        };
+    }else{
+        if(!mapDocument.type){
+            mapDocument.type = type;
+        }
+
+        if(!mapDocument.body){
+            mapDocument.body = body;
+        }
+    }
+
     $mapInputVariables['apiversion'] = js.dAPIVERSION;
     
     tsvscode.postMessage({
@@ -110,7 +136,7 @@
 
 <br/>
 <label for="apiversion">
-    <span title={js.mapTooltips['tAPIVERSION']} use:tooltipv1>[-a APIVERSION]</span> <input type="checkbox" id="apiversion" name="apiversion" on:change={e => { handleShowSections(e, 'apiversion') }}>
+    <span title={js.mapTooltips['defaultSection']} use:tooltipv1 class:sfdxet-required={required} class:sfdxet-error-span={$mapErrors.apiversion}>{required ? '*' : ''}[-a APIVERSION]</span> <input type="checkbox" id="apiversion" name="apiversion" on:change={e => { handleShowSections(e, 'apiversion') }}>
 </label>
 <br/>
 

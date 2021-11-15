@@ -8,8 +8,37 @@
     import { mapSectionValidation } from '../-helperFiles/GlobalStore';
     import { mapErrors } from '../-helperFiles/GlobalStore';
     import { lMETADATA } from '../-helperFiles/retrieve_metadatalist'
+    import CollapsibleSection from "../--collapsible/CollapsibleSection.svelte";
 
     let fileName = 'METADATASection';
+
+    export let mapDocument;
+    export let required = false;
+
+    let type = `<b><i>Optional</i></b>`;
+    let body = `
+            <br/><br/>
+            A comma-separated list of names of metadata components to retrieve from the org.
+            <br/><br/>
+            If you specify this parameter, don’t specify --manifest or --sourcepath.
+            <br/><br/>
+            Type: array
+        `;
+
+    if(!mapDocument){ // Default
+        mapDocument = {
+            type: type,
+            body: body
+        };
+    }else{
+        if(!mapDocument.type){
+            mapDocument.type = type;
+        }
+
+        if(!mapDocument.body){
+            mapDocument.body = body;
+        }
+    }
 
     tsvscode.postMessage({
         type: 'onGetAliasUsers'
@@ -107,12 +136,19 @@
 
 <br/>
 <label for="metadata">
-    <span title={js.mapTooltips['tMETADATA']} use:tooltipv1 class={$mapErrors.metadata}>*[-m METADATA]</span> <input type="checkbox" id="metadata" name="metadata" on:change={e => { handleShowSections(e, 'metadata') }}> 
+    <span title={js.mapTooltips['defaultSection']} use:tooltipv1 class:sfdxet-required={required} class:sfdxet-error-span={$mapErrors.metadata}>{required ? '*' : ''}[-m METADATA]</span> <input type="checkbox" id="metadata" name="metadata" on:change={e => { handleShowSections(e, 'metadata') }}> 
 </label>
 <br/>
 
 {#if $mapShowSections.metadata}
     <br/>
+    <CollapsibleSection headerText={'Documentation'}>
+        <div class="content">
+            {@html mapDocument.type}
+            {@html mapDocument.body}
+        </div>
+        <br/>
+    </CollapsibleSection>
     <section class="sfdxet-section">
         <div class="sfdxet-select-theme sfdxet-absolute-center {$mapErrors.metadata}">
             <Select items={lMETADATA} id="metadatasel" on:select={e => { handleSelect(e, 'metadata', true) }} on:clear={e => { handleSelectClear(e, 'metadata', true) }} isMulti={true}></Select>

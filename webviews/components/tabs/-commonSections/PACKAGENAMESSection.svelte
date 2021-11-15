@@ -6,8 +6,35 @@
     import { mapSectionValidation } from "../-helperFiles/GlobalStore";
     import { showDebug } from "../-helperFiles/GlobalStore";
     import { mapErrors } from "../-helperFiles/GlobalStore";
+    import CollapsibleSection from "../--collapsible/CollapsibleSection.svelte";
 
     let fileName = 'PACKAGENAMESSection';
+
+    export let mapDocument;
+    export let required = false;
+
+    let type = `<b><i>Optional</i></b>`;
+    let body = `
+            <br/><br/>
+            A comma-separated list of packages to retrieve.
+            <br/><br/>
+            Type: array
+        `;
+
+    if(!mapDocument){ // Default
+        mapDocument = {
+            type: type,
+            body: body
+        };
+    }else{
+        if(!mapDocument.type){
+            mapDocument.type = type;
+        }
+
+        if(!mapDocument.body){
+            mapDocument.body = body;
+        }
+    }
     
     function handleShowSections(event, sectionName){
         let methodName = 'handleShowSections()';
@@ -61,12 +88,19 @@
 
 <br/>
 <label for="packagenames">
-    <span title={js.mapTooltips['tPACKAGENAMES']} use:tooltipv1>[-n PACKAGENAMES]</span> <input type="checkbox" id="packagenames" name="packagenames" on:change={e => { handleShowSections(e, 'packagenames') }}>
+    <span title={js.mapTooltips['defaultSection']} use:tooltipv1 class:sfdxet-required={required} class:sfdxet-error-span={$mapErrors.packagenames}>{required ? '*' : ''}[-n PACKAGENAMES]</span> <input type="checkbox" id="packagenames" name="packagenames" on:change={e => { handleShowSections(e, 'packagenames') }}>
 </label>
 <br/>
 
 {#if $mapShowSections.packagenames}
     <br/>
+    <CollapsibleSection headerText={'Documentation'}>
+        <div class="content">
+            {@html mapDocument.type}
+            {@html mapDocument.body}
+        </div>
+        <br/>
+    </CollapsibleSection>
     <section class="sfdxet-section">
         <label for="packagenamesinput">
             Package(s) Name(s)

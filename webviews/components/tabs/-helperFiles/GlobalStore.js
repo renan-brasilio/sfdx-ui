@@ -9,6 +9,7 @@ export const mapMainValues = writable({});
 export const mapForceShowSections = writable({});
 export const mapSource = writable({});
 export const mapLastValue = writable({});
+export const mapRequired = writable({});
 export const lTARGETUSERNAME = writable([]);
 
 export const mapShowSections = writable({

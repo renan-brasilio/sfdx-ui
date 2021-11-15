@@ -5,8 +5,38 @@
     import { mapInputVariables } from '../-helperFiles/GlobalStore';
     import { showDebug } from '../-helperFiles/GlobalStore';
     import { mapSectionValidation } from '../-helperFiles/GlobalStore';
+    import { mapErrors } from '../-helperFiles/GlobalStore';
+    import CollapsibleSection from "../--collapsible/CollapsibleSection.svelte";
 
     let fileName = 'WAITSection';
+
+    export let mapDocument;
+    export let required = false;
+
+    let type = `<b><i>Optional</i></b>`;
+    let body = `
+            <br/><br/>
+            A comma-separated list of names of metadata components to retrieve from the org.
+            <br/><br/>
+            If you specify this parameter, don’t specify --manifest or --sourcepath.
+            <br/><br/>
+            Type: array
+        `;
+
+    if(!mapDocument){ // Default
+        mapDocument = {
+            type: type,
+            body: body
+        };
+    }else{
+        if(!mapDocument.type){
+            mapDocument.type = type;
+        }
+
+        if(!mapDocument.body){
+            mapDocument.body = body;
+        }
+    }
     
     function handleShowSections(event, sectionName){
         let methodName = 'handleShowSections()';
@@ -60,12 +90,19 @@
 
 <br/>
 <label for="wait">
-    <span title={js.mapTooltips['tWAIT']} use:tooltipv1>[-w WAIT]</span> <input type="checkbox" id="wait" name="wait" on:change={e => { handleShowSections(e, 'wait') }}> 
+    <span title={js.mapTooltips['defaultSection']} use:tooltipv1 class:sfdxet-required={required} class:sfdxet-error-span={$mapErrors.wait}>{required ? '*' : ''}[-w WAIT]</span> <input type="checkbox" id="wait" name="wait" on:change={e => { handleShowSections(e, 'wait') }}> 
 </label>
 <br/>
 
 {#if $mapShowSections.wait}
     <br/>
+    <CollapsibleSection headerText={'Documentation'}>
+        <div class="content">
+            {@html mapDocument.type}
+            {@html mapDocument.body}
+        </div>
+        <br/>
+    </CollapsibleSection>
     <section class="sfdxet-section">
         <input type="number" on:keypress={e => {if(e.key==='.'){e.preventDefault();}}} on:input={e => {e.target.value = e.target.value.replace(/[^0-9]*/g,'');}} class="sfdxet-absolute-center" title="Type: minutes; Default value: 33 minutes." use:tooltipv1 placeholder="33" bind:value={$mapInputVariables.wait}/>
     </section>

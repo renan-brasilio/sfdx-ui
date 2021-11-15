@@ -11,15 +11,19 @@
     import { pickFolderType } from '../../-helperFiles/GlobalStore'
     import { mapErrors } from '../../-helperFiles/GlobalStore'
     import { mapSpinner } from '../../-helperFiles/GlobalStore'
-    import JSONSection from '../../-commonSections/JSONSection.svelte'
-    import LOGLEVELSection from '../../-commonSections/LOGLEVELSection.svelte'
-    import TARGETUSERNAMESection from '../../-commonSections/TARGETUSERNAMESection.svelte'
-    import APIVERSIONSection from '../../-commonSections/APIVERSIONSection.svelte'
-    import SOURCEPATHSection from '../../-commonSections/SOURCEPATHSection.svelte'
-    import WAITSection from '../../-commonSections/WAITSection.svelte'
-    import METADATASection from '../../-commonSections/METADATASection.svelte';
-    import VERBOSESection from '../../-commonSections/VERBOSESection.svelte';
-    import ADVANCEDSection from '../../-commonSections/ADVANCEDSection.svelte';
+    import { mapSectionValidation } from '../../-helperFiles/GlobalStore'
+    import { mapInformation } from '../../-helperFiles/GlobalStore'
+    import { mapForceShowSections } from '../../-helperFiles/GlobalStore'
+    import { mapSource } from '../../-helperFiles/GlobalStore'
+    import JSON from '../../-commonSections/JSONSection.svelte'
+    import LOGLEVEL from '../../-commonSections/LOGLEVELSection.svelte'
+    import TARGETUSERNAME from '../../-commonSections/TARGETUSERNAMESection.svelte'
+    import APIVERSION from '../../-commonSections/APIVERSIONSection.svelte'
+    import SOURCEPATH from '../../-commonSections/SOURCEPATHSection.svelte'
+    import WAIT from '../../-commonSections/WAITSection.svelte'
+    import METADATA from '../../-commonSections/METADATASection.svelte';
+    import VERBOSE from '../../-commonSections/VERBOSESection.svelte';
+    import ADVANCED from '../../-commonSections/ADVANCEDSection.svelte';
 
     $mapSpinner.forceDelete = true;
 
@@ -27,6 +31,21 @@
     setTimeout(() => {
         $mapSpinner.forceDelete = false;
     }, 1000);
+
+    if($mapShowSections){
+        for(const key in $mapShowSections){
+            $mapShowSections[key] = false;
+        }
+    }
+
+    if($mapSectionValidation){
+        for(const key in $mapSectionValidation){
+            $mapSectionValidation[key] = 0;
+        }
+    }
+
+    $mapErrors.metadata = '';
+    $mapErrors.sourcepath = '';
 
     // Webview Listener
     onMount(() => {
@@ -49,6 +68,24 @@
 
                         $mapShowSections.targetusernamespinner = false;
                     }
+                    break;
+                case 'sfdxClosed':
+                    if($mapShowSections){
+                        for(const key in $mapShowSections){
+                            $mapShowSections[key] = false;
+                        }
+                    }
+
+                    if($mapSectionValidation){
+                        for(const key in $mapSectionValidation){
+                            $mapSectionValidation[key] = 0;
+                        }
+                    }
+
+                    $mapSpinner.main = false;
+                    $mapInformation.main = false;
+                    $mapForceShowSections.source = true;
+                    $mapSource.convert = true;
                     break;
             }
         });
@@ -215,37 +252,37 @@
         <br/>
 
         <!-- JSON -->
-        <JSONSection />
+        <JSON />
         
         <!-- LOGLEVEL -->
-        <LOGLEVELSection />
+        <LOGLEVEL />
         
         <!-- TARGETUSERNAME -->
-        <TARGETUSERNAMESection />
+        <TARGETUSERNAME />
 
         <!-- APIVERSION -->
-        <APIVERSIONSection />
+        <APIVERSION />
 
         <!-- CHECKONLY -->
 
         <!-- WAIT -->
-        <WAITSection />
+        <WAIT />
 
         <!-- TESTLEVEL -->
 
         <!-- NOPROMPT -->
 
         <!-- METADATA -->
-        <METADATASection />
+        <METADATA />
 
         <!-- SOURCEPATH -->
-        <SOURCEPATHSection />
+        <SOURCEPATH />
 
         <!-- VERBOSE -->
-        <VERBOSESection />
+        <VERBOSE />
 
         <!-- ADVANCED -->
-        <ADVANCEDSection />
+        <ADVANCED />
     </div>
 {/if}
 

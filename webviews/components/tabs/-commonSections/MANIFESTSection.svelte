@@ -7,8 +7,37 @@
     import { showDebug } from "../-helperFiles/GlobalStore";
     import { pickFolderType } from "../-helperFiles/GlobalStore";
     import { mapErrors } from "../-helperFiles/GlobalStore";
+    import CollapsibleSection from "../--collapsible/CollapsibleSection.svelte";
 
     let fileName = 'MANIFESTSection';
+
+    export let mapDocument;
+    export let required = false;
+
+    let type = `<b><i>Optional</i></b>`;
+    let body = `
+            <br/><br/>
+            The complete path for the manifest (package.xml) file that specifies the components to retrieve.
+            <br/><br/>
+            If you specify this parameter, don’t specify --metadata or --sourcepath.
+            <br/><br/>
+            Type: filepath
+        `;
+
+    if(!mapDocument){ // Default
+        mapDocument = {
+            type: type,
+            body: body
+        };
+    }else{
+        if(!mapDocument.type){
+            mapDocument.type = type;
+        }
+
+        if(!mapDocument.body){
+            mapDocument.body = body;
+        }
+    }
     
     function handleShowSections(event, sectionName){
         let methodName = 'handleShowSections()';
@@ -68,12 +97,19 @@
 
 <br/>
 <label for="manifest">
-    <span title={js.mapTooltips['tMANIFEST']} use:tooltipv1 class={$mapErrors.manifest}>*[-x MANIFEST]</span> <input type="checkbox" id="manifest" name="manifest" on:change={e => { handleShowSections(e, 'manifest') }}> 
+    <span title={js.mapTooltips['defaultSection']} use:tooltipv1 class:sfdxet-required={required} class:sfdxet-error-span={$mapErrors.manifest}>{required ? '*' : ''}[-x MANIFEST]</span> <input type="checkbox" id="manifest" name="manifest" on:change={e => { handleShowSections(e, 'manifest') }}> 
 </label>
 <br/>
 
 {#if $mapShowSections.manifest}
     <br/>
+    <CollapsibleSection headerText={'Documentation'}>
+        <div class="content">
+            {@html mapDocument.type}
+            {@html mapDocument.body}
+        </div>
+        <br/>
+    </CollapsibleSection>
     <section class="sfdxet-section">
         <button class="sfdxet-buttons" on:click={() => {showFolderPick('manifest')}}>Select File</button>
         <br/>

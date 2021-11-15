@@ -7,8 +7,37 @@
     import { showDebug } from "../-helperFiles/GlobalStore";
     import { pickFolderType } from "../-helperFiles/GlobalStore";
     import { mapErrors } from "../-helperFiles/GlobalStore";
+    import CollapsibleSection from "../--collapsible/CollapsibleSection.svelte";
 
     let fileName = 'SOURCEPATHSection';
+
+    export let mapDocument;
+    export let required = false;
+
+    let type = `<b><i>Optional</i></b>`;
+    let body = `
+            <br/><br/>
+            A comma-separated list of file paths for source to retrieve from the org. The supplied paths can be to a single file (in which case the operation is applied to only one file) or to a folder (in which case the operation is applied to all source files in the directory and its sub-directories).
+            <br/><br/>
+            If you specify this parameter, don’t specify --manifest or --metadata.
+            <br/><br/>
+            Type: array
+        `;
+
+    if(!mapDocument){ // Default
+        mapDocument = {
+            type: type,
+            body: body
+        };
+    }else{
+        if(!mapDocument.type){
+            mapDocument.type = type;
+        }
+
+        if(!mapDocument.body){
+            mapDocument.body = body;
+        }
+    }
     
     function handleShowSections(event, sectionName){
         let methodName = 'handleShowSections()';
@@ -68,12 +97,19 @@
 
 <br/>
 <label for="sourcepath">
-    <span title={js.mapTooltips['tSOURCEPATH']} use:tooltipv1 class={$mapErrors.sourcepath}>*[-p SOURCEPATH]</span> <input type="checkbox" id="sourcepath" name="sourcepath" on:change={e => { handleShowSections(e, 'sourcepath') }}> 
+    <span title={js.mapTooltips['defaultSection']} use:tooltipv1 class:sfdxet-required={required} class:sfdxet-error-span={$mapErrors.sourcepath}>{required ? '*' : ''}[-p SOURCEPATH]</span> <input type="checkbox" id="sourcepath" name="sourcepath" on:change={e => { handleShowSections(e, 'sourcepath') }}> 
 </label>
 <br/>
 
 {#if $mapShowSections.sourcepath}
     <br/>
+    <CollapsibleSection headerText={'Documentation'}>
+        <div class="content">
+            {@html mapDocument.type}
+            {@html mapDocument.body}
+        </div>
+        <br/>
+    </CollapsibleSection>
     <section class="sfdxet-section">
         <button class="sfdxet-buttons {$mapErrors.sourcepath}" on:click={() => {showFolderPick('sourcepath')}}>Set Folder Path</button>
         <br/>

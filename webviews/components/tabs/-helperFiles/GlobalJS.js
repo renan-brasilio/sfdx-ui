@@ -13,7 +13,8 @@ export let listValidation = ['sourcepath', 'manifest', 'metadata'];
 
 // Tooltips
 export let mapTooltips = {
-	'tJSON': 'Optional: Format output as JSON',
+	'defaultSection': 'Check it to see more details and the documentation.',
+	'tJSON2': 'Open the folder explorer to select the folder output.',
 	'tJSON2': 'Open the folder explorer to select the folder output.',
 	'tJSON3': 'Manually define the folder path.',
 	'tLOGLEVEL': 'Optional: The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.',
@@ -31,7 +32,7 @@ export let mapTooltips = {
 	'tROOTDIR2': 'Manually define the root folder path.',
 	'tOUTPUTDIR': 'Optional: Output directory to store the Metadata API–formatted files in. Default: metadataPackage_1636067288937',
 	'tOUTPUTDIR2': 'Manually define the output folder path.',
-	'tPACKAGENAME': 'Optional: Name of the package to associate with the metadata-formatted files.'
+	'tPACKAGENAME': 'Optional: Name of the package to associate with the metadata-formatted files.',
 };
 
 // Selects lists

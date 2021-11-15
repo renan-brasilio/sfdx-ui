@@ -63,4 +63,8 @@
     :global(.sfdxet-error-span) {
         color: red!important;
     }
+
+    :global(.sfdxet-required) {
+        color: rgb(247, 54, 54)!important;
+    }
 </style>

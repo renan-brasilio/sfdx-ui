@@ -9,8 +9,35 @@
     import { mapSectionValidation } from '../-helperFiles/GlobalStore';
     import { mapErrors } from '../-helperFiles/GlobalStore';
     import { lTARGETUSERNAME } from '../-helperFiles/GlobalStore';
+    import CollapsibleSection from "../--collapsible/CollapsibleSection.svelte";
 
     let fileName = 'TARGETUSERNAMESection';
+
+    export let mapDocument;
+    export let required = false;
+
+    let type = `<b><i>Optional</i></b>`;
+    let body = `
+            <br/><br/>            
+            A username or alias for the target org. Overrides the default target org.
+            <br/><br/> 
+            Type: string
+        `;
+
+    if(!mapDocument){ // Default
+        mapDocument = {
+            type: type,
+            body: body
+        };
+    }else{
+        if(!mapDocument.type){
+            mapDocument.type = type;
+        }
+
+        if(!mapDocument.body){
+            mapDocument.body = body;
+        }
+    }
     
     function handleShowSections(event, sectionName){
         let methodName = 'handleShowSections()';
@@ -106,12 +133,19 @@
 
 <br/>
 <label for="targetusername">
-    <span title={js.mapTooltips['tTARGETUSERNAME']} use:tooltipv1>[-u TARGETUSERNAME]</span> <input type="checkbox" id="targetusername" name="targetusername" on:change={e => { handleShowSections(e, 'targetusername') }}>
+    <span title={js.mapTooltips['defaultSection']} use:tooltipv1 class:sfdxet-required={required} class:sfdxet-error-span={$mapErrors.targetusername}>[-u TARGETUSERNAME]</span> <input type="checkbox" id="targetusername" name="targetusername" on:change={e => { handleShowSections(e, 'targetusername') }}>
 </label>
 <br/>
 
 {#if $mapShowSections.targetusername}
     <br/>
+    <CollapsibleSection headerText={'Documentation'}>
+        <div class="content">
+            {@html mapDocument.type}
+            {@html mapDocument.body}
+        </div>
+        <br/>
+    </CollapsibleSection>
     {#if $mapShowSections.targetusernamespinner}
         <div class="sfdxet-spinner">
             <Circle2 size="60" colorOuter="#034efc" unit="px"></Circle2>

@@ -5,8 +5,35 @@
     import { mapSectionValidation } from "../-helperFiles/GlobalStore";
     import { showDebug } from "../-helperFiles/GlobalStore";
     import { mapErrors } from "../-helperFiles/GlobalStore";
+    import CollapsibleSection from "../--collapsible/CollapsibleSection.svelte";
 
     let fileName = 'VERBOSESection';
+
+    export let mapDocument;
+    export let required = false;
+
+    let type = `<b><i>Optional</i></b>`;
+    let body = `
+            <br/><br/>
+            Emit additional command output to stdout.
+            <br/><br/>
+            Type: boolean
+        `;
+
+    if(!mapDocument){ // Default
+        mapDocument = {
+            type: type,
+            body: body
+        };
+    }else{
+        if(!mapDocument.type){
+            mapDocument.type = type;
+        }
+
+        if(!mapDocument.body){
+            mapDocument.body = body;
+        }
+    }
     
     function handleShowSections(event, sectionName){
         let methodName = 'handleShowSections()';
@@ -60,6 +87,18 @@
 
 <br/>
 <label for="verbose">
-    <span title={js.mapTooltips['tVERBOSE']} use:tooltipv1>[--verbose]</span> <input class="{$mapErrors.verbose}" type="checkbox" id="verbose" name="verbose" on:change={e => { handleShowSections(e, 'verbose') }}>
+    <span title={js.mapTooltips['defaultSection']} use:tooltipv1 class:sfdxet-required={required} class:sfdxet-error-span={$mapErrors.verbose}>{required ? '*' : ''}[--verbose]</span> <input class="{$mapErrors.verbose}" type="checkbox" id="verbose" name="verbose" on:change={e => { handleShowSections(e, 'verbose') }}>
 </label>
 <br/>
+
+{#if $mapShowSections.verbose}
+    <br/>
+    <CollapsibleSection headerText={'Documentation'}>
+        <div class="content">
+            {@html mapDocument.type}
+            {@html mapDocument.body}
+        </div>
+        <br/>
+    </CollapsibleSection>
+    <br/>
+{/if}

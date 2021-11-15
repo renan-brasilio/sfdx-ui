@@ -15,17 +15,17 @@
     import { mapForceShowSections } from '../../-helperFiles/GlobalStore'
     import { mapSource } from '../../-helperFiles/GlobalStore'
     import { mapSectionValidation } from '../../-helperFiles/GlobalStore'
-    import JSONSection from '../../-commonSections/JSONSection.svelte'
-    import LOGLEVELSection from '../../-commonSections/LOGLEVELSection.svelte'
-    import TARGETUSERNAMESection from '../../-commonSections/TARGETUSERNAMESection.svelte'
-    import APIVERSIONSection from '../../-commonSections/APIVERSIONSection.svelte'
-    import SOURCEPATHSection from '../../-commonSections/SOURCEPATHSection.svelte'
-    import WAITSection from '../../-commonSections/WAITSection.svelte'
-    import MANIFESTSection from '../../-commonSections/MANIFESTSection.svelte';
-    import METADATASection from '../../-commonSections/METADATASection.svelte';
-    import PACKAGENAMESSection from '../../-commonSections/PACKAGENAMESSection.svelte';
-    import VERBOSESection from '../../-commonSections/VERBOSESection.svelte';
-    import ADVANCEDSection from '../../-commonSections/ADVANCEDSection.svelte';
+    import JSON from '../../-commonSections/JSONSection.svelte'
+    import LOGLEVEL from '../../-commonSections/LOGLEVELSection.svelte'
+    import TARGETUSERNAME from '../../-commonSections/TARGETUSERNAMESection.svelte'
+    import APIVERSION from '../../-commonSections/APIVERSIONSection.svelte'
+    import SOURCEPATH from '../../-commonSections/SOURCEPATHSection.svelte'
+    import WAIT from '../../-commonSections/WAITSection.svelte'
+    import MANIFEST from '../../-commonSections/MANIFESTSection.svelte';
+    import METADATA from '../../-commonSections/METADATASection.svelte';
+    import PACKAGENAMES from '../../-commonSections/PACKAGENAMESSection.svelte';
+    import VERBOSE from '../../-commonSections/VERBOSESection.svelte';
+    import ADVANCED from '../../-commonSections/ADVANCEDSection.svelte';
 
     $mapSpinner.forceRetrieve = true;
 
@@ -45,6 +45,14 @@
             $mapSectionValidation[key] = 0;
         }
     }
+
+    $mapErrors.metadata = '';
+    $mapErrors.manifest = '';
+    $mapErrors.sourcepath = '';
+
+    let mapDocRequired = {
+        type: `<b>1/3 Required</b>`,
+    };
 
     // Webview Listener
     onMount(() => {
@@ -300,37 +308,37 @@
         <br/>
 
         <!-- JSON -->
-        <JSONSection />
+        <JSON />
         
         <!-- LOGLEVEL -->
-        <LOGLEVELSection />
+        <LOGLEVEL />
         
         <!-- TARGETUSERNAME -->
-        <TARGETUSERNAMESection />
+        <TARGETUSERNAME />
 
         <!-- APIVERSION -->
-        <APIVERSIONSection />
+        <APIVERSION />
 
         <!-- SOURCEPATH -->
-        <SOURCEPATHSection />
+        <SOURCEPATH mapDocument={mapDocRequired} required={true}/>
 
         <!-- WAIT -->
-        <WAITSection />
+        <WAIT />
 
         <!-- MANIFEST -->
-        <MANIFESTSection />
+        <MANIFEST mapDocument={mapDocRequired} required={true}/>
 
         <!-- METADATA -->
-        <METADATASection />
+        <METADATA mapDocument={mapDocRequired} required={true}/>
 
         <!-- PACKAGENAMES -->
-        <PACKAGENAMESSection />
+        <PACKAGENAMES />
 
         <!-- VERBOSE -->
-        <VERBOSESection />
+        <VERBOSE />
 
         <!-- ADVANCED -->
-        <ADVANCEDSection />
+        <ADVANCED />
     </div>
 {/if}
 
