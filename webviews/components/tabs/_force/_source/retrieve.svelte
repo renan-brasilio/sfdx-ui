@@ -15,23 +15,25 @@
     import { mapForceShowSections } from '../../-helperFiles/GlobalStore'
     import { mapSource } from '../../-helperFiles/GlobalStore'
     import { mapSectionValidation } from '../../-helperFiles/GlobalStore'
-    import JSON from '../../-commonSections/JSONSection.svelte'
-    import LOGLEVEL from '../../-commonSections/LOGLEVELSection.svelte'
-    import TARGETUSERNAME from '../../-commonSections/TARGETUSERNAMESection.svelte'
-    import APIVERSION from '../../-commonSections/APIVERSIONSection.svelte'
-    import SOURCEPATH from '../../-commonSections/SOURCEPATHSection.svelte'
-    import WAIT from '../../-commonSections/WAITSection.svelte'
-    import MANIFEST from '../../-commonSections/MANIFESTSection.svelte';
-    import METADATA from '../../-commonSections/METADATASection.svelte';
-    import PACKAGENAMES from '../../-commonSections/PACKAGENAMESSection.svelte';
-    import VERBOSE from '../../-commonSections/VERBOSESection.svelte';
-    import ADVANCED from '../../-commonSections/ADVANCEDSection.svelte';
+    import JSONs from '../../-commonSections/JSONSection.svelte'
+    import LOGLEVELs from '../../-commonSections/LOGLEVELSection.svelte'
+    import TARGETUSERNAMEs from '../../-commonSections/TARGETUSERNAMESection.svelte'
+    import APIVERSIONs from '../../-commonSections/APIVERSIONSection.svelte'
+    import SOURCEPATHs from '../../-commonSections/SOURCEPATHSection.svelte'
+    import WAITs from '../../-commonSections/WAITSection.svelte'
+    import MANIFESTs from '../../-commonSections/MANIFESTSection.svelte';
+    import METADATAs from '../../-commonSections/METADATASection.svelte';
+    import PACKAGENAMESs from '../../-commonSections/PACKAGENAMESSection.svelte';
+    import VERBOSEs from '../../-commonSections/VERBOSESection.svelte';
+    import ADVANCEDs from '../../-commonSections/ADVANCEDSection.svelte';
 
-    $mapSpinner.forceRetrieve = true;
+    $mapSpinner.force = {
+        retrieve: true
+    };
 
     //Initial loading
     setTimeout(() => {
-        $mapSpinner.forceRetrieve = false;
+        $mapSpinner.force.retrieve = false;
     }, 1000);
 
     if($mapShowSections){
@@ -40,15 +42,14 @@
         }
     }
 
-    if($mapSectionValidation){
-        for(const key in $mapSectionValidation){
-            $mapSectionValidation[key] = 0;
-        }
-    }
+    $mapSectionValidation = {
+        sourcepath: 0,
+        manifest: 0,
+        metadata: 0
+    };
 
-    $mapErrors.metadata = '';
-    $mapErrors.manifest = '';
-    $mapErrors.sourcepath = '';
+    $mapErrors = {};
+    $mapInputVariables = {};
 
     let mapDocRequired = {
         type: `<b>1/3 Required</b>`,
@@ -89,6 +90,14 @@
                         }
                     }
 
+                    if($mapSource){
+                        for(const key in $mapSource){
+                            if(key !== 'retrieve'){
+                                $mapSource[key] = false;
+                            }
+                        }
+                    }
+
                     $mapSpinner.main = false;
                     $mapInformation.main = false;
                     $mapForceShowSections.source = true;
@@ -105,22 +114,31 @@
 
         message.sfdx = 'force:source:retrieve';
 
+        // JSON
         if($mapShowSections.json){
-            message.sJSON = $mapShowSections.json;
-        }
-
-        if($mapShowSections.json && $mapInputVariables.json){
-            message.vJSON = $mapInputVariables.json;
+            message.sfdx += ' --json > ';
+            
+            if($mapInputVariables.json){
+                message.sfdx += $mapInputVariables.json;
+            }else{
+                message.sfdx += 'output.json';
+            }
         }
 
         if($mapInputVariables.json2){
+            message.pJSON = ' --json';
             message.vJSONPath = $mapInputVariables.json2;
+
+            if($mapInputVariables.json){
+                message.vJSON += $mapInputVariables.json;
+            }
         }
 
+        // LOGLEVEL
         if($mapShowSections.loglevel){
             if($mapInputVariables.loglevel){
                 $mapErrors.loglevel = '';
-                message.vLOGLEVEL = $mapInputVariables.loglevel;
+                message.sfdx += ` --loglevel ${$mapInputVariables.loglevel}`;
             }else{
                 $mapErrors.loglevel = 'sfdxet-error-select';
 
@@ -134,12 +152,12 @@
         }else{
             $mapErrors.loglevel = '';
         }
-
         
+        // TARGETUSERNAME
         if($mapShowSections.targetusername){
             if($mapInputVariables.targetusername){
                 $mapErrors.targetusername = '';
-                message.vTARGETUSERNAME = $mapInputVariables.targetusername;
+                message.sfdx += ` -u ${$mapInputVariables.targetusername}`;
             }else{
                 $mapErrors.targetusername = 'sfdxet-error-select';
 
@@ -154,10 +172,11 @@
             $mapErrors.targetusername = '';
         }
 
+        // APIVERSION
         if($mapShowSections.apiversion){
             if($mapInputVariables.apiversion){
                 $mapErrors.apiversion = '';
-                message.vAPIVERSION = $mapInputVariables.apiversion;
+                message.sfdx += ` --apiversion ${$mapInputVariables.apiversion}`;
             }else{
                 $mapErrors.apiversion = 'sfdxet-error-select';
 
@@ -172,10 +191,11 @@
             $mapErrors.apiversion = '';
         }
 
+        // SOURCEPATH
         if($mapShowSections.sourcepath){
             if($mapInputVariables.sourcepath){
                 $mapErrors.sourcepath = '';
-                message.vSOURCEPATH = $mapInputVariables.sourcepath;
+                message.sfdx += ` -p ${$mapInputVariables.sourcepath}`;
             }else{
                 $mapErrors.sourcepath = 'sfdxet-error-button';
 
@@ -186,22 +206,17 @@
 
                 return;
             }
-        }else{
+        }else if($mapShowSections.manifest && $mapInputVariables.manifest){ // MANIFEST
             $mapErrors.sourcepath = '';
-        }
+            $mapErrors.metadata = '';
 
-        if($mapShowSections.wait && $mapInputVariables.wait){
-            message.vWAIT = $mapInputVariables.wait;
-        }
-
-        if($mapShowSections.manifest && $mapInputVariables.manifest){
-            message.vMANIFEST = $mapInputVariables.manifest;
-        }
-
-        if($mapShowSections.metadata){
+            message.sfdx += ` -x ${$mapInputVariables.manifest}`;
+        }else if($mapShowSections.metadata){ // METADATA
+            $mapErrors.sourcepath = '';
+            
             if($mapInputVariables.metadata && $mapInputVariables.metadata.length > 0){
                 $mapErrors.metadata = '';
-                message.vMETADATA = $mapInputVariables.metadata;
+                message.sfdx += ` -m ${$mapInputVariables.metadata}`;
             }else{
                 $mapErrors.metadata = 'sfdxet-error-select';
 
@@ -212,14 +227,18 @@
 
                 return;
             }
-        }else{
-            $mapErrors.metadata = '';
         }
 
+        // WAIT
+        if($mapShowSections.wait && $mapInputVariables.wait){
+            message.sfdx += ` -w ${$mapInputVariables.wait}`;
+        }
+
+        // PACKAGENAMES
         if($mapShowSections.packagenames){
             if($mapInputVariables.packagenames){
                 $mapErrors.packagenames = '';
-                message.vPACKAGENAMES = $mapInputVariables.packagenames;
+                message.sfdx += ` -n ${$mapInputVariables.packagenames}`;
             }else{
                 $mapErrors.packagenames = 'sfdxet-error-button';
 
@@ -234,14 +253,16 @@
             $mapErrors.packagenames = '';
         }
 
+        // VERBOSE
         if($mapShowSections.verbose){
-            message.sVERBOSE = $mapShowSections.verbose;
+            message.sfdx += ` --verbose`;
         }
 
+        // ADVANCED
         if($mapShowSections.advanced){
             if($mapInputVariables.advanced){
                 $mapErrors.advanced = '';
-                message.vADVANCED = $mapInputVariables.advanced;
+                message.sfdx += ` ${$mapInputVariables.advanced}`;
             }else{
                 tsvscode.postMessage({
                     type: 'onError',
@@ -287,11 +308,10 @@
     
             tsvscode.postMessage(message);
         }
-
     }
 </script>
 
-{#if $mapSpinner.forceRetrieve}
+{#if $mapSpinner.force.retrieve}
     <div class="sfdxet-spinner">
         <Circle2 size="60" colorOuter="#034efc" unit="px"></Circle2>
     </div>
@@ -308,37 +328,37 @@
         <br/>
 
         <!-- JSON -->
-        <JSON />
+        <JSONs />
         
         <!-- LOGLEVEL -->
-        <LOGLEVEL />
+        <LOGLEVELs />
         
         <!-- TARGETUSERNAME -->
-        <TARGETUSERNAME />
+        <TARGETUSERNAMEs />
 
         <!-- APIVERSION -->
-        <APIVERSION />
+        <APIVERSIONs />
 
         <!-- SOURCEPATH -->
-        <SOURCEPATH mapDocument={mapDocRequired} required={true}/>
+        <SOURCEPATHs mapDocument={mapDocRequired} required={true}/>
 
         <!-- WAIT -->
-        <WAIT />
+        <WAITs />
 
         <!-- MANIFEST -->
-        <MANIFEST mapDocument={mapDocRequired} required={true}/>
+        <MANIFESTs mapDocument={mapDocRequired} required={true}/>
 
         <!-- METADATA -->
-        <METADATA mapDocument={mapDocRequired} required={true}/>
+        <METADATAs mapDocument={mapDocRequired} required={true}/>
 
         <!-- PACKAGENAMES -->
-        <PACKAGENAMES />
+        <PACKAGENAMESs />
 
         <!-- VERBOSE -->
-        <VERBOSE />
+        <VERBOSEs />
 
         <!-- ADVANCED -->
-        <ADVANCED />
+        <ADVANCEDs />
     </div>
 {/if}
 

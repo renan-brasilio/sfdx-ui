@@ -15,7 +15,7 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
   public resolveWebviewView(webviewView: vscode.WebviewView) {
     this._view = webviewView;
     this._sfdxetName = "SFDX UI";
-    this._sfdxetVersion = "v0.0.1";
+    this._sfdxetVersion = "v0.0.5";
 
     webviewView.webview.options = {
       // Allow scripts in the webview
@@ -107,7 +107,7 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
           let sfdx = 'sfdx ' + data.sfdx;
 
           // JSON
-          if(data.sJSON){
+          if(data.vJSONPath){
             const fs = require("fs");
             const path = require("path");
 
@@ -132,56 +132,7 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
               console.error(`${this._sfdxetName}: File ${filePath} not found.`);
             }
 
-            sfdx += ` --json > ${data.vJSONPath ? data.vJSONPath + '/' : ''}${data.vJSON ? data.vJSON : 'output'}.json`;
-          }
-
-          // LOGLEVEL
-          if(data.vLOGLEVEL){
-            sfdx += ` --loglevel ${data.vLOGLEVEL}`;
-          }
-
-          // TARGETUSERNAME
-          if(data.vTARGETUSERNAME){
-            sfdx += ` -u ${data.vTARGETUSERNAME}`;
-          }
-
-          // APIVERSION
-          if(data.vAPIVERSION){
-            sfdx += ` -a ${data.vAPIVERSION}`;
-          }
-
-          // SOURCEPATH
-          if(data.vSOURCEPATH){
-            sfdx += ` -a ${data.vSOURCEPATH}`;
-          }else if(data.vMANIFEST){ // MANIFEST
-            sfdx += ` -x ${data.vMANIFEST}`;
-          }else if(data.vMETADATA){ // METADATA
-            sfdx += ` -m ${data.vMETADATA}`;
-          }
-
-          // vPACKAGENAMES
-          if(data.vPACKAGENAMES){
-            sfdx += ` -n ${data.vPACKAGENAMES}`;
-          }
-
-          // VERBOSE
-          if(data.sVERBOSE){
-            sfdx += ` --verbose`;
-          }
-
-          // ADVANCED
-          if(data.vADVANCED){
-            sfdx += ` ${data.vADVANCED}`;
-          }
-
-          // ROOTDIR
-          if(data.vROOTDIR){
-            sfdx += ` -r ${data.vROOTDIR}`;
-          }
-
-          // OUTPUTDIR
-          if(data.sOUTPUTDIR){
-            sfdx += ` -d ${data.vOUTPUTDIR ? data.vOUTPUTDIR : ''}`;
+            sfdx += ` ${data.pJSON} > ${data.vJSONPath ? data.vJSONPath + '/' : ''}${data.vJSON ? data.vJSON : 'output'}.json`;
           }
 
           term.sendText(sfdx);

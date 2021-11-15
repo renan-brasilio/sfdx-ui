@@ -15,21 +15,26 @@
     import { mapInformation } from '../../-helperFiles/GlobalStore'
     import { mapForceShowSections } from '../../-helperFiles/GlobalStore'
     import { mapSource } from '../../-helperFiles/GlobalStore'
-    import JSON from '../../-commonSections/JSONSection.svelte'
-    import LOGLEVEL from '../../-commonSections/LOGLEVELSection.svelte'
-    import TARGETUSERNAME from '../../-commonSections/TARGETUSERNAMESection.svelte'
-    import APIVERSION from '../../-commonSections/APIVERSIONSection.svelte'
-    import SOURCEPATH from '../../-commonSections/SOURCEPATHSection.svelte'
-    import WAIT from '../../-commonSections/WAITSection.svelte'
-    import METADATA from '../../-commonSections/METADATASection.svelte';
-    import VERBOSE from '../../-commonSections/VERBOSESection.svelte';
-    import ADVANCED from '../../-commonSections/ADVANCEDSection.svelte';
+    import JSONs from '../../-commonSections/JSONSection.svelte'
+    import LOGLEVELs from '../../-commonSections/LOGLEVELSection.svelte'
+    import TARGETUSERNAMEs from '../../-commonSections/TARGETUSERNAMESection.svelte'
+    import APIVERSIONs from '../../-commonSections/APIVERSIONSection.svelte'
+    import SOURCEPATHs from '../../-commonSections/SOURCEPATHSection.svelte'
+    import WAITs from '../../-commonSections/WAITSection.svelte'
+    import METADATAs from '../../-commonSections/METADATASection.svelte';
+    import VERBOSEs from '../../-commonSections/VERBOSESection.svelte';
+    import ADVANCEDs from '../../-commonSections/ADVANCEDSection.svelte';
+    import CHECKONLYs from '../../-commonSections/CHECKONLYSection.svelte';
+    import TESTLEVELs from '../../-commonSections/TESTLEVELSection.svelte';
+    import NOPROMPTs from '../../-commonSections/NOPROMPTSection.svelte';
 
-    $mapSpinner.forceDelete = true;
+    $mapSpinner.force = {
+        delete: true
+    };
 
     //Initial loading
     setTimeout(() => {
-        $mapSpinner.forceDelete = false;
+        $mapSpinner.force.delete = false;
     }, 1000);
 
     if($mapShowSections){
@@ -38,14 +43,17 @@
         }
     }
 
-    if($mapSectionValidation){
-        for(const key in $mapSectionValidation){
-            $mapSectionValidation[key] = 0;
-        }
-    }
+    $mapSectionValidation = {
+        sourcepath: 0,
+        metadata: 0
+    };
 
-    $mapErrors.metadata = '';
-    $mapErrors.sourcepath = '';
+    $mapErrors = {};
+    $mapInputVariables = {};
+
+    let mapDocRequired = {
+        type: `<b>1/2 Required</b>`,
+    };
 
     // Webview Listener
     onMount(() => {
@@ -82,43 +90,55 @@
                         }
                     }
 
+                    if($mapSource){
+                        for(const key in $mapSource){
+                            if(key !== 'delete'){
+                                $mapSource[key] = false;
+                            }
+                        }
+                    }
+
                     $mapSpinner.main = false;
                     $mapInformation.main = false;
                     $mapForceShowSections.source = true;
-                    $mapSource.convert = true;
+                    $mapSource.delete = true;
                     break;
             }
         });
     });
 
     function deleteF() {
-        tsvscode.postMessage({
-            type: 'onInfo',
-            value: 'Starting the Terminal + Script: Retrieve' 
-        });
-
         let message = {
             type: 'onTerminalRetrieve'
         };
 
         message.sfdx = 'force:source:delete';
 
+        // JSON
         if($mapShowSections.json){
-            message.sJSON = $mapShowSections.json;
-        }
-
-        if($mapShowSections.json && $mapInputVariables.json){
-            message.vJSON = $mapInputVariables.json;
+            message.sfdx += ' --json > ';
+            
+            if($mapInputVariables.json){
+                message.sfdx += $mapInputVariables.json;
+            }else{
+                message.sfdx += 'output.json';
+            }
         }
 
         if($mapInputVariables.json2){
+            message.pJSON = ' --json';
             message.vJSONPath = $mapInputVariables.json2;
+
+            if($mapInputVariables.json){
+                message.vJSON += $mapInputVariables.json;
+            }
         }
 
+        // LOGLEVEL
         if($mapShowSections.loglevel){
             if($mapInputVariables.loglevel){
                 $mapErrors.loglevel = '';
-                message.vLOGLEVEL = $mapInputVariables.loglevel;
+                message.sfdx += ` --loglevel ${$mapInputVariables.loglevel}`;
             }else{
                 $mapErrors.loglevel = 'sfdxet-error-select';
 
@@ -133,11 +153,11 @@
             $mapErrors.loglevel = '';
         }
 
-        
+        // TARGETUSERNAME
         if($mapShowSections.targetusername){
             if($mapInputVariables.targetusername){
                 $mapErrors.targetusername = '';
-                message.vTARGETUSERNAME = $mapInputVariables.targetusername;
+                message.sfdx += ` -u ${$mapInputVariables.targetusername}`;
             }else{
                 $mapErrors.targetusername = 'sfdxet-error-select';
 
@@ -152,10 +172,11 @@
             $mapErrors.targetusername = '';
         }
 
+        // APIVERSION
         if($mapShowSections.apiversion){
             if($mapInputVariables.apiversion){
                 $mapErrors.apiversion = '';
-                message.vAPIVERSION = $mapInputVariables.apiversion;
+                message.sfdx += ` --apiversion ${$mapInputVariables.apiversion}`;
             }else{
                 $mapErrors.apiversion = 'sfdxet-error-select';
 
@@ -170,10 +191,21 @@
             $mapErrors.apiversion = '';
         }
 
+        // CHECKONLY
+        if($mapShowSections.checkonly){
+            message.sfdx += ` -c ${$mapInputVariables.checkonly}`;
+        }
+
+        // WAIT
+        if($mapShowSections.wait && $mapInputVariables.wait){
+            message.sfdx += ` -w ${$mapInputVariables.wait}`;
+        }
+
+        // SOURCEPATH
         if($mapShowSections.sourcepath){
             if($mapInputVariables.sourcepath){
                 $mapErrors.sourcepath = '';
-                message.vSOURCEPATH = $mapInputVariables.sourcepath;
+                message.sfdx += ` -p ${$mapInputVariables.sourcepath}`;
             }else{
                 $mapErrors.sourcepath = 'sfdxet-error-button';
 
@@ -184,18 +216,12 @@
 
                 return;
             }
-        }else{
+        }else if($mapShowSections.metadata){ // METADATA
             $mapErrors.sourcepath = '';
-        }
-
-        if($mapShowSections.wait && $mapInputVariables.wait){
-            message.vWAIT = $mapInputVariables.wait;
-        }
-
-        if($mapShowSections.metadata){
+            
             if($mapInputVariables.metadata && $mapInputVariables.metadata.length > 0){
                 $mapErrors.metadata = '';
-                message.vMETADATA = $mapInputVariables.metadata;
+                message.sfdx += ` -m ${$mapInputVariables.metadata}`;
             }else{
                 $mapErrors.metadata = 'sfdxet-error-select';
 
@@ -206,18 +232,42 @@
 
                 return;
             }
-        }else{
-            $mapErrors.metadata = '';
         }
 
+        // VERBOSE
         if($mapShowSections.verbose){
-            message.sVERBOSE = $mapShowSections.verbose;
+            message.sfdx += ` --verbose`;
         }
 
+        // TESTLEVEL
+        if($mapShowSections.testlevel){
+            if($mapInputVariables.testlevel){
+                $mapErrors.testlevel = '';
+                message.sfdx += ` -l ${$mapInputVariables.testlevel}`;
+            }else{
+                $mapErrors.testlevel = 'sfdxet-error-select';
+
+                tsvscode.postMessage({
+                    type: 'onError',
+                    value: `ERROR: Please select a TestLevel or uncheck the [-l TESTLEVEL] checkbox.` 
+                });
+
+                return;
+            }
+        }else{
+            $mapErrors.testlevel = '';
+        }
+
+        // VERBOSE
+        if($mapShowSections.noprompt){
+            message.sfdx += ` -r`;
+        }
+
+        // ADVANCED
         if($mapShowSections.advanced){
             if($mapInputVariables.advanced){
                 $mapErrors.advanced = '';
-                message.vADVANCED = $mapInputVariables.advanced;
+                message.sfdx += ` ${$mapInputVariables.advanced}`;
             }else{
                 tsvscode.postMessage({
                     type: 'onError',
@@ -228,14 +278,43 @@
             }
         }
 
-        // $mapSpinner.main = true;
-        // $mapInformation.main = true;
+        let validation = 0;
 
-        tsvscode.postMessage(message);
+        for(let i in $mapSectionValidation){
+            if($mapSectionValidation[i] === 1){
+                validation++;
+                break;
+            }
+        }
+
+        if(validation === 0){
+            $mapErrors.metadata = 'sfdxet-error-span';
+            $mapErrors.sourcepath = 'sfdxet-error-span';
+
+            tsvscode.postMessage({
+                    type: 'onError',
+                    value: `ERROR: Select one between: SOURCEPATH or METADATA` 
+                });
+
+                return;
+        }else{
+            $mapErrors.metadata = '';
+            $mapErrors.sourcepath = '';
+
+            tsvscode.postMessage({
+                type: 'onInfo',
+                value: 'Starting the Terminal + Script: Delete' 
+            });
+
+            $mapSpinner.main = true;
+            $mapInformation.main = true;
+    
+            tsvscode.postMessage(message);
+        }
     }
 </script>
 
-{#if $mapSpinner.forceDelete}
+{#if $mapSpinner.force.delete}
     <div class="sfdxet-spinner">
         <Circle2 size="60" colorOuter="#034efc" unit="px"></Circle2>
     </div>
@@ -252,37 +331,40 @@
         <br/>
 
         <!-- JSON -->
-        <JSON />
+        <JSONs />
         
         <!-- LOGLEVEL -->
-        <LOGLEVEL />
+        <LOGLEVELs />
         
         <!-- TARGETUSERNAME -->
-        <TARGETUSERNAME />
+        <TARGETUSERNAMEs />
 
         <!-- APIVERSION -->
-        <APIVERSION />
+        <APIVERSIONs />
 
         <!-- CHECKONLY -->
+        <CHECKONLYs />
 
         <!-- WAIT -->
-        <WAIT />
+        <WAITs />
 
         <!-- TESTLEVEL -->
+        <TESTLEVELs />
 
         <!-- NOPROMPT -->
+        <NOPROMPTs />
 
         <!-- METADATA -->
-        <METADATA />
+        <METADATAs mapDocument={mapDocRequired} required={true}/>
 
         <!-- SOURCEPATH -->
-        <SOURCEPATH />
+        <SOURCEPATHs mapDocument={mapDocRequired} required={true}/>
 
         <!-- VERBOSE -->
-        <VERBOSE />
+        <VERBOSEs />
 
         <!-- ADVANCED -->
-        <ADVANCED />
+        <ADVANCEDs />
     </div>
 {/if}
 

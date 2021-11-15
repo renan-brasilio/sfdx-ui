@@ -10,18 +10,13 @@ export const mapForceShowSections = writable({});
 export const mapSource = writable({});
 export const mapLastValue = writable({});
 export const mapRequired = writable({});
+export const mapSectionValidation = writable({});
 export const lTARGETUSERNAME = writable([]);
 
 export const mapShowSections = writable({
 	spinner: true,
 	button: false,
 	information: false
-});
-
-export const mapSectionValidation = writable({
-	sourcepath: 0,
-	manifest: 0,
-	metadata: 0
 });
 
 export const showDebug = writable(false);

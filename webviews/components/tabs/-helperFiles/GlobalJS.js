@@ -13,26 +13,7 @@ export let listValidation = ['sourcepath', 'manifest', 'metadata'];
 
 // Tooltips
 export let mapTooltips = {
-	'defaultSection': 'Check it to see more details and the documentation.',
-	'tJSON2': 'Open the folder explorer to select the folder output.',
-	'tJSON2': 'Open the folder explorer to select the folder output.',
-	'tJSON3': 'Manually define the folder path.',
-	'tLOGLEVEL': 'Optional: The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.',
-	'tTARGETUSERNAME': 'Optional: A username or alias for the target org. Overrides the default target org.',
-	'tAPIVERSION': 'Optional: Override the API version used for API requests made by this command.',
-	'tSOURCEPATH': '*1/3 Required: A comma-separated list of file paths for source to retrieve from the org. The supplied paths can be to a single file (in which case the operation is applied to only one file) or to a folder (in which case the operation is applied to all source files in the directory and its sub-directories). **If you specify this parameter, don’t specify --manifest or --metadata.',
-	'tSOURCEPATH2': 'Manually define the folder path.',
-	'tWAIT': 'Optional: Number of minutes to wait for the command to complete and display results to the terminal window. If the command continues to run after the wait period, the CLI returns control of the terminal window to you.',
-	'tMANIFEST': '*1/3 Required: The complete path for the manifest (package.xml) file that specifies the components to retrieve. **If you specify this parameter, don’t specify --metadata or --sourcepath.',
-	'tMETADATA': '*1/3 Required: A comma-separated list of names of metadata components to retrieve from the org. **If you specify this parameter, don’t specify --manifest or --sourcepath.',
-	'tMETADATA2': 'Example: ApexClass, ApexTrigger',
-	'tPACKAGENAMES': 'Optional: A comma-separated list of packages to retrieve.',
-	'tVERBOSE': 'Optional: Emit additional command output to stdout.',
-	'tROOTDIR': 'Optional: A source directory other than the default package to convert.',
-	'tROOTDIR2': 'Manually define the root folder path.',
-	'tOUTPUTDIR': 'Optional: Output directory to store the Metadata API–formatted files in. Default: metadataPackage_1636067288937',
-	'tOUTPUTDIR2': 'Manually define the output folder path.',
-	'tPACKAGENAME': 'Optional: Name of the package to associate with the metadata-formatted files.',
+	'defaultSection': 'Check it to see more details and the documentation.'
 };
 
 // Selects lists
@@ -49,6 +30,12 @@ export const lLOGLEVEL = [
 	{value: 'WARN', label: 'WARN'},
 	{value: 'ERROR', label: 'ERROR'},
 	{value: 'FATAL', label: 'FATAL'},
+];
+
+export const lTESTLEVEL = [
+	{value: 'NoTestRun', label: 'NoTestRun'},
+	{value: 'RunLocalTests', label: 'RunLocalTests'},
+	{value: 'RunAllTestsInOrg', label: 'RunAllTestsInOrg'},
 ];
 
 export const lAPIVERSION = [];

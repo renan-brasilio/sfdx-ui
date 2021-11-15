@@ -9,25 +9,26 @@
     import { lastValueForce } from '../-helperFiles/GlobalStore';
     import { mapLastValue } from '../-helperFiles/GlobalStore';
     import { tooltip as tooltipv1 } from '../--tooltip/tooltip.v1';
+    import Deploy from './_source/deploy.svelte';
 
     const force = [
-        {value: 'analytics', label: 'analytics', selectable: false},
-        {value: 'apex', label: 'apex', selectable: false},
-        {value: 'cmdt', label: 'cmdt', selectable: false},
-        {value: 'community', label: 'community', selectable: false},
-        {value: 'data', label: 'data', selectable: false},
-        {value: 'lightning', label: 'lightning', selectable: false},
-        {value: 'limits', label: 'limits', selectable: false},
-        {value: 'mdapi', label: 'mdapi', selectable: false},
-        {value: 'org', label: 'org', selectable: false},
-        {value: 'package', label: 'package', selectable: false},
-        {value: 'package1', label: 'package1', selectable: false},
-        {value: 'project', label: 'project', selectable: false},
-        {value: 'schema', label: 'schema', selectable: false},
+        // {value: 'analytics', label: 'analytics', selectable: false},
+        // {value: 'apex', label: 'apex', selectable: false},
+        // {value: 'cmdt', label: 'cmdt', selectable: false},
+        // {value: 'community', label: 'community', selectable: false},
+        // {value: 'data', label: 'data', selectable: false},
+        // {value: 'lightning', label: 'lightning', selectable: false},
+        // {value: 'limits', label: 'limits', selectable: false},
+        // {value: 'mdapi', label: 'mdapi', selectable: false},
+        // {value: 'org', label: 'org', selectable: false},
+        // {value: 'package', label: 'package', selectable: false},
+        // {value: 'package1', label: 'package1', selectable: false},
+        // {value: 'project', label: 'project', selectable: false},
+        // {value: 'schema', label: 'schema', selectable: false},
         {value: 'source', label: 'source'},
-        {value: 'staticresource', label: 'staticresource', selectable: false},
-        {value: 'user', label: 'user', selectable: false},
-        {value: 'visualforce', label: 'visualforce', selectable: false}
+        // {value: 'staticresource', label: 'staticresource', selectable: false},
+        // {value: 'user', label: 'user', selectable: false},
+        // {value: 'visualforce', label: 'visualforce', selectable: false}
     ];
 
     const analytics = [
@@ -37,7 +38,8 @@
     const source = [
         {value: 'retrieve', label: 'force:source:retrieve'},
         {value: 'convert', label: 'force:source:convert'},
-        {value: 'delete', label: 'force:source:delete'}
+        {value: 'delete', label: 'force:source:delete'},
+        {value: 'deploy', label: 'force:source:deploy'}
     ];
 
     function handleSelect(event, type) {
@@ -114,6 +116,9 @@
         {/if}
         {#if $mapSource.delete}
             <Delete />
+        {/if}
+        {#if $mapSource.deploy}
+            <Deploy />
         {/if}
     </div>
 {/if}

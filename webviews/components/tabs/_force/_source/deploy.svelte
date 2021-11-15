@@ -1,69 +1,382 @@
 <script>
-    import Select from 'svelte-select';
+    import { } from 'os';
+    import { Circle2 } from 'svelte-loading-spinners'
     import CSS from '../../-helperFiles/GlobalCSS.svelte'
+    import { onMount } from 'svelte'
+    import * as js from '../../-helperFiles/GlobalJS'
+    import { mapInputVariables } from '../../-helperFiles/GlobalStore'
+    import { mapShowSections } from '../../-helperFiles/GlobalStore'
+    import { lTARGETUSERNAME } from '../../-helperFiles/GlobalStore'
+    import { mapTargetUsername } from '../../-helperFiles/GlobalStore'
+    import { pickFolderType } from '../../-helperFiles/GlobalStore'
+    import { mapErrors } from '../../-helperFiles/GlobalStore'
+    import { mapSpinner } from '../../-helperFiles/GlobalStore'
+    import { mapInformation } from '../../-helperFiles/GlobalStore'
+    import { mapForceShowSections } from '../../-helperFiles/GlobalStore'
+    import { mapSource } from '../../-helperFiles/GlobalStore'
+    import { mapSectionValidation } from '../../-helperFiles/GlobalStore'
+    import JSONs from '../../-commonSections/JSONSection.svelte'
+    import LOGLEVELs from '../../-commonSections/LOGLEVELSection.svelte'
+    import TARGETUSERNAMEs from '../../-commonSections/TARGETUSERNAMESection.svelte'
+    import APIVERSIONs from '../../-commonSections/APIVERSIONSection.svelte'
+    import SOURCEPATHs from '../../-commonSections/SOURCEPATHSection.svelte'
+    import WAITs from '../../-commonSections/WAITSection.svelte'
+    import MANIFESTs from '../../-commonSections/MANIFESTSection.svelte';
+    import METADATAs from '../../-commonSections/METADATASection.svelte';
+    import PACKAGENAMESs from '../../-commonSections/PACKAGENAMESSection.svelte';
+    import VERBOSEs from '../../-commonSections/VERBOSESection.svelte';
+    import ADVANCEDs from '../../-commonSections/ADVANCEDSection.svelte';
+    import CHECKONLYs from '../../-commonSections/CHECKONLYSection.svelte';
 
-    let originOrgList = ['Developer', 'Trailhead'];
-    let destinOrgList = ['Trailhead', 'Developer'];
-	
-	let pkgName = '';
-	let originOrg = '';
-	let destinOrg = '';
+    $mapSpinner.force = {
+        deploy: true
+    };
 
-    function handleOriginSelect(event) {
-        originOrg = event.detail;
-	}
-	
-	function handleOriginClear() {
-		originOrg = '';
-	}
+    //Initial loading
+    setTimeout(() => {
+        $mapSpinner.force.deploy = false;
+    }, 1000);
 
-    function handleDestinSelect(event) {
-        destinOrg = event.detail;
-	}
-	
-	function handleDestinClear() {
-		destinOrg = '';
-	}
+    if($mapShowSections){
+        for(const key in $mapShowSections){
+            $mapShowSections[key] = false;
+        }
+    }
+
+    $mapSectionValidation = {
+        sourcepath: 0,
+        manifest: 0,
+        metadata: 0
+    };
+
+    $mapErrors = {};
+    $mapInputVariables = {};
+
+    let mapDocRequired = {
+        type: `<b>1/3 Required</b>`,
+    };
+
+    // Webview Listener
+    onMount(() => {
+        window.addEventListener('message', event => {
+            const message = event.data; // The json data that the extension sent
+            switch (message.type) {
+                case 'folderUri':
+                    $mapInputVariables[$pickFolderType] = message.value[0].path;
+                    break;
+                case 'fileUri':
+                    $mapInputVariables[$pickFolderType] = message.value[0].path;
+                    $mapShowSections[$pickFolderType] = true;
+                    break;
+                case 'aliasJSON':
+                    for(const key in message.value){
+                        let option = {value: key, label: key};
+
+                        $mapTargetUsername[key] = message.value[key];
+                        $lTARGETUSERNAME.push(option);
+
+                        $mapShowSections.targetusernamespinner = false;
+                    }
+                    break;
+                case 'sfdxClosed':
+                    if($mapShowSections){
+                        for(const key in $mapShowSections){
+                            $mapShowSections[key] = false;
+                        }
+                    }
+
+                    if($mapSectionValidation){
+                        for(const key in $mapSectionValidation){
+                            $mapSectionValidation[key] = 0;
+                        }
+                    }
+
+                    if($mapSource){
+                        for(const key in $mapSource){
+                            if(key !== 'deploy'){
+                                $mapSource[key] = false;
+                            }
+                        }
+                    }
+
+                    $mapSpinner.main = false;
+                    $mapInformation.main = false;
+                    $mapForceShowSections.source = true;
+                    $mapSource.deploy = true;
+                    break;
+            }
+        });
+    });
+
+    function deploy() {
+        let message = {
+            type: 'onTerminalRetrieve'
+        };
+
+        message.sfdx = 'force:source:deploy';
+
+        // JSON
+        if($mapShowSections.json){
+            message.sfdx += ' --json > ';
+            
+            if($mapInputVariables.json){
+                message.sfdx += $mapInputVariables.json;
+            }else{
+                message.sfdx += 'output.json';
+            }
+        }
+
+        if($mapInputVariables.json2){
+            message.pJSON = ' --json';
+            message.vJSONPath = $mapInputVariables.json2;
+
+            if($mapInputVariables.json){
+                message.vJSON += $mapInputVariables.json;
+            }
+        }
+
+        // LOGLEVEL
+        if($mapShowSections.loglevel){
+            if($mapInputVariables.loglevel){
+                $mapErrors.loglevel = '';
+                message.sfdx += ` --loglevel ${$mapInputVariables.loglevel}`;
+            }else{
+                $mapErrors.loglevel = 'sfdxet-error-select';
+
+                tsvscode.postMessage({
+                    type: 'onError',
+                    value: `ERROR: Please select a Loglevel or uncheck the [--loglevel LOGLEVEL] checkbox.` 
+                });
+
+                return;
+            }
+        }else{
+            $mapErrors.loglevel = '';
+        }
+        
+        // TARGETUSERNAME
+        if($mapShowSections.targetusername){
+            if($mapInputVariables.targetusername){
+                $mapErrors.targetusername = '';
+                message.sfdx += ` -u ${$mapInputVariables.targetusername}`;
+            }else{
+                $mapErrors.targetusername = 'sfdxet-error-select';
+
+                tsvscode.postMessage({
+                    type: 'onError',
+                    value: `ERROR: Please select a Targetusername or uncheck the [-u TARGETUSERNAME] checkbox.` 
+                });
+
+                return;
+            }
+        }else{
+            $mapErrors.targetusername = '';
+        }
+
+        // APIVERSION
+        if($mapShowSections.apiversion){
+            if($mapInputVariables.apiversion){
+                $mapErrors.apiversion = '';
+                message.sfdx += ` --apiversion ${$mapInputVariables.apiversion}`;
+            }else{
+                $mapErrors.apiversion = 'sfdxet-error-select';
+
+                tsvscode.postMessage({
+                    type: 'onError',
+                    value: `ERROR: Please select a Apiversion or uncheck the [-a APIVERSION] checkbox.` 
+                });
+
+                return;
+            }
+        }else{
+            $mapErrors.apiversion = '';
+        }
+
+        // SOURCEPATH
+        if($mapShowSections.sourcepath){
+            if($mapInputVariables.sourcepath){
+                $mapErrors.sourcepath = '';
+                message.sfdx += ` -p ${$mapInputVariables.sourcepath}`;
+            }else{
+                $mapErrors.sourcepath = 'sfdxet-error-button';
+
+                tsvscode.postMessage({
+                    type: 'onError',
+                    value: `ERROR: Please select a Folder or uncheck the [-p SOURCEPATH] checkbox.` 
+                });
+
+                return;
+            }
+        }else if($mapShowSections.manifest && $mapInputVariables.manifest){ // MANIFEST
+            $mapErrors.sourcepath = '';
+            $mapErrors.metadata = '';
+
+            message.sfdx += ` -x ${$mapInputVariables.manifest}`;
+        }else if($mapShowSections.metadata){ // METADATA
+            $mapErrors.sourcepath = '';
+            
+            if($mapInputVariables.metadata && $mapInputVariables.metadata.length > 0){
+                $mapErrors.metadata = '';
+                message.sfdx += ` -m ${$mapInputVariables.metadata}`;
+            }else{
+                $mapErrors.metadata = 'sfdxet-error-select';
+
+                tsvscode.postMessage({
+                    type: 'onError',
+                    value: `ERROR: Please select a Metadata or uncheck the [-m METADATA] checkbox.` 
+                });
+
+                return;
+            }
+        }
+
+        // WAIT
+        if($mapShowSections.wait && $mapInputVariables.wait){
+            message.sfdx += ` -w ${$mapInputVariables.wait}`;
+        }
+
+        // PACKAGENAMES
+        if($mapShowSections.packagenames){
+            if($mapInputVariables.packagenames){
+                $mapErrors.packagenames = '';
+                message.sfdx += ` -n ${$mapInputVariables.packagenames}`;
+            }else{
+                $mapErrors.packagenames = 'sfdxet-error-button';
+
+                tsvscode.postMessage({
+                    type: 'onError',
+                    value: `ERROR: Please insert one or more Package Name or uncheck the [-n PACKAGENAMES] checkbox.` 
+                });
+
+                return;
+            }
+        }else{
+            $mapErrors.packagenames = '';
+        }
+
+        // VERBOSE
+        if($mapShowSections.verbose){
+            message.sfdx += ` --verbose`;
+        }
+
+        // ADVANCED
+        if($mapShowSections.advanced){
+            if($mapInputVariables.advanced){
+                $mapErrors.advanced = '';
+                message.sfdx += ` ${$mapInputVariables.advanced}`;
+            }else{
+                tsvscode.postMessage({
+                    type: 'onError',
+                    value: `ERROR: Please insert your advanced input or uncheck the Advanced checkbox.` 
+                });
+
+                return;
+            }
+        }
+
+        let validation = 0;
+
+        for(let i in $mapSectionValidation){
+            if($mapSectionValidation[i] === 1){
+                validation++;
+                break;
+            }
+        }
+
+        if(validation === 0){
+            $mapErrors.metadata = 'sfdxet-error-span';
+            $mapErrors.manifest = 'sfdxet-error-span';
+            $mapErrors.sourcepath = 'sfdxet-error-span';
+
+            tsvscode.postMessage({
+                    type: 'onError',
+                    value: `ERROR: Select one between: SOURCEPATH, MANIFEST or METADATA` 
+                });
+
+                return;
+        }else{
+            $mapErrors.metadata = '';
+            $mapErrors.manifest = '';
+            $mapErrors.sourcepath = '';
+
+            tsvscode.postMessage({
+                type: 'onInfo',
+                value: 'Starting the Terminal + Script: Retrieve' 
+            });
+
+            $mapSpinner.main = true;
+            $mapInformation.main = true;
+    
+            tsvscode.postMessage(message);
+        }
+    }
 </script>
 
-<div class="sfdxet-absolute-center">
-    <label for="originOrg">Choose the Origin ORG:</label>
-    <br/>
-    <br/>
-
-    <div class="sfdxet-select-theme sfdxet-absolute-center">
-        <Select id="originOrg" items={originOrgList} data-type="origin" on:select={handleOriginSelect} on:clear={handleOriginClear}></Select>
+{#if $mapSpinner.force.deploy}
+    <div class="sfdxet-spinner">
+        <Circle2 size="60" colorOuter="#034efc" unit="px"></Circle2>
     </div>
+{:else}
+    <div class="sfdxet-absolute-center">
+        <h3>sfdx force:source:deploy</h3>
+        <br/>
+        <br/>
+        <button class="sfdxet-buttons" on:click={deploy}>Retrieve</button>
+        <br/>
+        <br/>
+        <h3>Options:</h3>
+        <h4><a target="_blank" href="https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference_force_source.htm#cli_reference_force_source_deploy">Official Documentation</a></h4>
+        <br/>
 
-    <br/>
-    <br/>
-    <br/>
-    <br/>
+        <!-- JSON -->
+        <JSONs />
+        
+        <!-- LOGLEVEL -->
+        <LOGLEVELs />
+        
+        <!-- TARGETUSERNAME -->
+        <TARGETUSERNAMEs />
 
-    <label for="destinOrg">Choose the Destin ORG:</label>
-    <br/>
-    <br/>
+        <!-- APIVERSION -->
+        <APIVERSIONs />
 
-    <div class="sfdxet-select-theme sfdxet-absolute-center">
-        <Select id="destinOrg" items={destinOrgList} data-type="destin" on:select={handleDestinSelect} on:clear={handleDestinClear}></Select>
+        <!-- CHECKONLY -->
+        <CHECKONLYs />
+
+        <!-- SOAPDEPLOY -->
+
+        <!-- WAIT -->
+        <WAITs />
+
+        <!-- TESTLEVEL -->
+
+        <!-- RUNTESTS -->
+
+        <!-- IGNOREERRORS -->
+
+        <!-- IGNOREWARNINGS -->
+
+        <!-- VALIDATEDDEPLOYREQUESTID -->
+
+        <!-- VERBOSE -->
+        <VERBOSEs />
+
+        <!-- METADATA -->
+        <METADATAs mapDocument={mapDocRequired} required={true}/>
+
+        <!-- SOURCEPATH -->
+        <SOURCEPATHs mapDocument={mapDocRequired} required={true}/>
+
+        <!-- MANIFEST -->
+        <MANIFESTs mapDocument={mapDocRequired} required={true}/>
+
+        <!-- PREDESTRUCTIVECHANGES -->
+
+        <!-- POSTDESTRUCTIVECHANGES -->
+
+        <!-- ADVANCED -->
+        <ADVANCEDs />
     </div>
-
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-
-    <label for="changeset">Change set/Package Name</label>
-    <br/>
-    <br/>
-
-    <input class="sfdxet-absolute-center" name="changeset" placeholder="Insert..." bind:value={pkgName}/>   
-
-    <br/>
-    <br/>
-    <br/>
-    
-    <button class="sfdxet-buttons">Deploy</button>
-</div>
+{/if}
 
 <CSS />
