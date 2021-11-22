@@ -23,10 +23,10 @@
     import WAITs from '../../-commonSections/WAITSection.svelte'
     import MANIFESTs from '../../-commonSections/MANIFESTSection.svelte';
     import METADATAs from '../../-commonSections/METADATASection.svelte';
-    import PACKAGENAMESs from '../../-commonSections/PACKAGENAMESSection.svelte';
     import VERBOSEs from '../../-commonSections/VERBOSESection.svelte';
     import ADVANCEDs from '../../-commonSections/ADVANCEDSection.svelte';
     import CHECKONLYs from '../../-commonSections/CHECKONLYSection.svelte';
+    import SOAPDEPLOYs from '../../-commonSections/SOAPDEPLOYSection.svelte';
 
     $mapSpinner.force = {
         deploy: true
@@ -344,6 +344,7 @@
         <CHECKONLYs />
 
         <!-- SOAPDEPLOY -->
+        <SOAPDEPLOYs />
 
         <!-- WAIT -->
         <WAITs />

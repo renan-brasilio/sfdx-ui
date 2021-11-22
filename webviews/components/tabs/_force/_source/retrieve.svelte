@@ -4,17 +4,19 @@
     import CSS from '../../-helperFiles/GlobalCSS.svelte'
     import { onMount } from 'svelte'
     import * as js from '../../-helperFiles/GlobalJS'
-    import { mapInputVariables } from '../../-helperFiles/GlobalStore'
-    import { mapShowSections } from '../../-helperFiles/GlobalStore'
-    import { lTARGETUSERNAME } from '../../-helperFiles/GlobalStore'
-    import { mapTargetUsername } from '../../-helperFiles/GlobalStore'
-    import { pickFolderType } from '../../-helperFiles/GlobalStore'
-    import { mapErrors } from '../../-helperFiles/GlobalStore'
-    import { mapSpinner } from '../../-helperFiles/GlobalStore'
-    import { mapInformation } from '../../-helperFiles/GlobalStore'
-    import { mapForceShowSections } from '../../-helperFiles/GlobalStore'
-    import { mapSource } from '../../-helperFiles/GlobalStore'
-    import { mapSectionValidation } from '../../-helperFiles/GlobalStore'
+    import { 
+        mapInputVariables, 
+        mapShowSections, 
+        lTARGETUSERNAME, 
+        mapTargetUsername, 
+        pickFolderType,
+        mapErrors,
+        mapSpinner,
+        mapInformation,
+        mapForceShowSections,
+        mapSource,
+        mapSectionValidation
+    } from '../../-helperFiles/GlobalStore';
     import JSONs from '../../-commonSections/JSONSection.svelte'
     import LOGLEVELs from '../../-commonSections/LOGLEVELSection.svelte'
     import TARGETUSERNAMEs from '../../-commonSections/TARGETUSERNAMESection.svelte'
@@ -213,6 +215,8 @@
             message.sfdx += ` -x ${$mapInputVariables.manifest}`;
         }else if($mapShowSections.metadata){ // METADATA
             $mapErrors.sourcepath = '';
+
+            console.log(`$mapInputVariables.metadata: ${JSON.stringify($mapInputVariables.metadata)}`);
             
             if($mapInputVariables.metadata && $mapInputVariables.metadata.length > 0){
                 $mapErrors.metadata = '';
@@ -275,6 +279,10 @@
 
         let validation = 0;
 
+        console.log(`message.sfdx: ${message.sfdx}`);
+
+        console.log(`$mapSectionValidation: ${JSON.stringify($mapSectionValidation)}`);
+
         for(let i in $mapSectionValidation){
             if($mapSectionValidation[i] === 1){
                 validation++;
@@ -298,18 +306,29 @@
             $mapErrors.manifest = '';
             $mapErrors.sourcepath = '';
 
-            tsvscode.postMessage({
-                type: 'onInfo',
-                value: 'Starting the Terminal + Script: Retrieve' 
-            });
+            tsvscode.window.showInformationMessage(
+                "This action will start the Terminal, are you sure?",
+                ...["Yes", "No"]
+            ).then((answer) => {
+                if (answer === "Yes") {
+                    tsvscode.postMessage({
+                        type: 'onInfo',
+                        value: 'Starting the Terminal + Script: Retrieve' 
+                    });
 
-            $mapSpinner.main = true;
-            $mapInformation.main = true;
-    
-            tsvscode.postMessage(message);
+                    $mapSpinner.main = true;
+                    $mapInformation.main = true;
+            
+                    tsvscode.postMessage(message);
+                }
+            });
         }
     }
 </script>
+
+<svelte:head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css">
+</svelte:head>
 
 {#if $mapSpinner.force.retrieve}
     <div class="sfdxet-spinner">
@@ -327,38 +346,43 @@
         <h4><a target="_blank" href="https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference_force_source.htm#cli_reference_force_source_retrieve">Official Documentation</a></h4>
         <br/>
 
-        <!-- JSON -->
-        <JSONs />
+        <div class="container">
+            <div class="row">
+                <!-- JSON -->
+                <JSONs />
+                
+                <!-- LOGLEVEL -->
+                <LOGLEVELs />
+                
+                <!-- TARGETUSERNAME -->
+                <TARGETUSERNAMEs />
         
-        <!-- LOGLEVEL -->
-        <LOGLEVELs />
+                <!-- APIVERSION -->
+                <APIVERSIONs />
         
-        <!-- TARGETUSERNAME -->
-        <TARGETUSERNAMEs />
+                <!-- SOURCEPATH -->
+                <SOURCEPATHs mapDocument={mapDocRequired} required={true}/>
+        
+                <!-- WAIT -->
+                <WAITs />
+        
+                <!-- MANIFEST -->
+                <MANIFESTs mapDocument={mapDocRequired} required={true}/>
+        
+                <!-- METADATA -->
+                <METADATAs mapDocument={mapDocRequired} required={true}/>
+        
+                <!-- PACKAGENAMES -->
+                <PACKAGENAMESs />
+        
+                <!-- VERBOSE -->
+                <VERBOSEs />
+        
+                <!-- ADVANCED -->
+                <ADVANCEDs />
+            </div>
+        </div>
 
-        <!-- APIVERSION -->
-        <APIVERSIONs />
-
-        <!-- SOURCEPATH -->
-        <SOURCEPATHs mapDocument={mapDocRequired} required={true}/>
-
-        <!-- WAIT -->
-        <WAITs />
-
-        <!-- MANIFEST -->
-        <MANIFESTs mapDocument={mapDocRequired} required={true}/>
-
-        <!-- METADATA -->
-        <METADATAs mapDocument={mapDocRequired} required={true}/>
-
-        <!-- PACKAGENAMES -->
-        <PACKAGENAMESs />
-
-        <!-- VERBOSE -->
-        <VERBOSEs />
-
-        <!-- ADVANCED -->
-        <ADVANCEDs />
     </div>
 {/if}
 

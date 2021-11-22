@@ -1,53 +1,43 @@
 <script>
     import * as js from "../-helperFiles/GlobalJS";
-    import { tooltip as tooltipv1 } from '../--tooltip/tooltip.v1'
-    import { mapInputVariables } from "../-helperFiles/GlobalStore"
-    import { mapShowSections } from "../-helperFiles/GlobalStore"
-    import { mapSectionValidation } from "../-helperFiles/GlobalStore";
-    import { showDebug } from "../-helperFiles/GlobalStore";
-    import { pickFolderType } from "../-helperFiles/GlobalStore";
-    import { mapErrors } from "../-helperFiles/GlobalStore";
-    import CollapsibleSection from "../--collapsible/CollapsibleSection.svelte";
+    import { tooltip as tooltipv1 } from "../--tooltip/tooltip.v1";
+    import { mapInputVariables, mapShowSections, mapSectionValidation, showDebug, pickFolderType, mapErrors } from "../-helperFiles/GlobalStore";
+    import Title from "../--collapsible/Title.svelte";
+    import Documentation from "../--collapsible/Documentation.svelte";
 
-    let fileName = 'SOURCEPATHSection';
+    let fileName = "sourcepath";
+    let sectionUCase = fileName.toUpperCase();
 
-    export let mapDocument;
+    export let mapDoc;
     export let required = false;
+    export let onlyOneError = "";
 
     let type = `<b><i>Optional</i></b>`;
     let body = `
-            <br/><br/>
-            A comma-separated list of file paths for source to retrieve from the org. The supplied paths can be to a single file (in which case the operation is applied to only one file) or to a folder (in which case the operation is applied to all source files in the directory and its sub-directories).
-            <br/><br/>
-            If you specify this parameter, don’t specify --manifest or --metadata.
-            <br/><br/>
-            Type: array
-        `;
+        <br/><br/>
+        A comma-separated list of file paths for source to retrieve from the org. The supplied paths can be to a single file (in which case the operation is applied to only one file) or to a folder (in which case the operation is applied to all source files in the directory and its sub-directories).
+        <br/><br/>
+        If you specify this parameter, don’t specify --manifest or --metadata.
+        <br/><br/>
+        Type: array
+    `;
 
-    if(!mapDocument){ // Default
-        mapDocument = {
+    if(!mapDoc){ // Default
+        mapDoc = {
             type: type,
             body: body
         };
     }else{
-        if(!mapDocument.type){
-            mapDocument.type = type;
+        if(!mapDoc.type){
+            mapDoc.type = type;
         }
 
-        if(!mapDocument.body){
-            mapDocument.body = body;
+        if(!mapDoc.body){
+            mapDoc.body = body;
         }
     }
     
     function handleShowSections(event, sectionName){
-        let methodName = 'handleShowSections()';
-        
-        if($showDebug){
-            console.info(fileName + '.' + methodName + ' - event: ');
-            console.info(event);
-            console.info(fileName + '.' + methodName + ' - sectionName: ' + sectionName);
-        }
-        
         if(event.target.checked === true){
             let selected;
             
@@ -59,7 +49,7 @@
                         event.target.checked = false;
         
                         tsvscode.postMessage({
-                            type: 'onError',
+                            type: "onError",
                             value: `ERROR: You already selected: ${selected.toUpperCase()}, Select only one between: SOURCEPATH, MANIFEST or METADATA` 
                         });
         
@@ -90,36 +80,26 @@
         $pickFolderType = type;
 
         tsvscode.postMessage({
-            type: 'onShowFolderPick'
+            type: "onShowFolderPick"
         });
     }
 </script>
 
-<br/>
-<label for="sourcepath">
-    <span title={js.mapTooltips['defaultSection']} use:tooltipv1 class:sfdxet-required={required} class:sfdxet-error-span={$mapErrors.sourcepath}>{required ? '*' : ''}[-p SOURCEPATH]</span> <input type="checkbox" id="sourcepath" name="sourcepath" on:change={e => { handleShowSections(e, 'sourcepath') }}> 
-</label>
-<br/>
+<div class="col align-self-center sfdxet-br">
+    <Title pRequired={required} sectionTag="-p" sectionName={sectionUCase} elementName={fileName} fileName={fileName} onlyOneError={onlyOneError}/>
+    <Documentation headerD={sectionUCase} typeD={mapDoc.type} bodyD={mapDoc.body} sectionName={fileName}/>
 
-{#if $mapShowSections.sourcepath}
-    <br/>
-    <CollapsibleSection headerText={'Documentation'}>
-        <div class="content">
-            {@html mapDocument.type}
-            {@html mapDocument.body}
-        </div>
-        <br/>
-    </CollapsibleSection>
-    <section class="sfdxet-section">
-        <button class="sfdxet-buttons {$mapErrors.sourcepath}" on:click={() => {showFolderPick('sourcepath')}}>Set Folder Path</button>
-        <br/>
-        <br/>
-        <label for="sourcepath">
-            <span title={js.mapTooltips['tSOURCEPATH2']} use:tooltipv1>Manually define</span> <input type="checkbox" id="sourcepath" name="sourcepath" on:change={e => { handleShowSections(e, 'sourcepath2') }}> 
-        </label>
-        {#if $mapShowSections.sourcepath2}
-            <input type="text" class="sfdxet-absolute-center" title={$mapInputVariables.sourcepath} use:tooltipv1 placeholder="Insert..." bind:value={$mapInputVariables.sourcepath2}/>
-        {/if}
-    </section>
-    <br/>
-{/if}
+    {#if $mapShowSections.sourcepath}
+        <section class="sfdxet-section sfdxet-br">
+            <button class="sfdxet-buttons {$mapErrors.sourcepath}" on:click={() => {showFolderPick("sourcepath")}}>Set Folder Path</button>
+            <br/>
+            <br/>
+            <label for="sourcepath">
+                <span title={js.mapTooltips["tSOURCEPATH2"]} use:tooltipv1>Manually define</span> <input type="checkbox" id="sourcepath" name="sourcepath" on:change={e => { handleShowSections(e, "sourcepath2") }}> 
+            </label>
+            {#if $mapShowSections.sourcepath2}
+                <input type="text" class="sfdxet-absolute-center" title={$mapInputVariables.sourcepath} use:tooltipv1 placeholder="Insert..." bind:value={$mapInputVariables.sourcepath2}/>
+            {/if}
+        </section>
+    {/if}
+</div>

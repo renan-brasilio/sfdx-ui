@@ -1,158 +1,55 @@
 <script>
     import * as js from "../-helperFiles/GlobalJS";
-    import Select from 'svelte-select'
-    import { tooltip as tooltipv1 } from '../--tooltip/tooltip.v1'
-    import { mapShowSections } from '../-helperFiles/GlobalStore';
-    import { mapInputVariables } from '../-helperFiles/GlobalStore';
-    import { showDebug } from '../-helperFiles/GlobalStore';
-    import { mapSectionValidation } from '../-helperFiles/GlobalStore';
-    import { mapErrors } from '../-helperFiles/GlobalStore';
-    import { lMETADATA } from '../-helperFiles/retrieve_metadatalist'
-    import CollapsibleSection from "../--collapsible/CollapsibleSection.svelte";
+    import { mapShowSections, mapErrors } from "../-helperFiles/GlobalStore";
+    import { lMETADATA } from "../-helperFiles/retrieve_metadatalist"
+    import Title from "../--collapsible/Title.svelte";
+    import Documentation from "../--collapsible/Documentation.svelte";
+    import SelectCommon from "../--collapsible/SelectCommon.svelte";
 
-    let fileName = 'METADATASection';
+    let fileName = "metadata";
+    let sectionUCase = fileName.toUpperCase();
 
-    export let mapDocument;
+    export let mapDoc;
     export let required = false;
+    export let onlyOneError = "";
 
     let type = `<b><i>Optional</i></b>`;
     let body = `
-            <br/><br/>
-            A comma-separated list of names of metadata components to retrieve from the org.
-            <br/><br/>
-            If you specify this parameter, don’t specify --manifest or --sourcepath.
-            <br/><br/>
-            Type: array
-        `;
+        <br/><br/>
+        A comma-separated list of names of metadata components to retrieve from the org.
+        <br/><br/>
+        If you specify this parameter, don’t specify --manifest or --sourcepath.
+        <br/><br/>
+        Type: array
+    `;
 
-    if(!mapDocument){ // Default
-        mapDocument = {
+    if(!mapDoc){ // Default
+        mapDoc = {
             type: type,
             body: body
         };
     }else{
-        if(!mapDocument.type){
-            mapDocument.type = type;
+        if(!mapDoc.type){
+            mapDoc.type = type;
         }
 
-        if(!mapDocument.body){
-            mapDocument.body = body;
+        if(!mapDoc.body){
+            mapDoc.body = body;
         }
     }
 
     tsvscode.postMessage({
-        type: 'onGetAliasUsers'
+        type: "onGetAliasUsers"
     });
-    
-    function handleShowSections(event, sectionName){
-        let methodName = 'handleShowSections()';
-        
-        if($showDebug){
-            console.info(fileName + '.' + methodName + ' - event: ');
-            console.info(event);
-            console.info(fileName + '.' + methodName + ' - sectionName: ' + sectionName);
-        }
-        
-        if(event.target.checked === true){
-            let selected;
-            
-            if($mapSectionValidation && js.listValidation.includes(sectionName)){
-                for(let key in $mapSectionValidation){
-                    if($mapSectionValidation[key] === 1){
-                        selected = key;
-        
-                        event.target.checked = false;
-        
-                        tsvscode.postMessage({
-                            type: 'onError',
-                            value: `ERROR: You already selected: ${selected.toUpperCase()}, Select only one between: SOURCEPATH, MANIFEST or METADATA` 
-                        });
-        
-                        return;
-                    }
-                }
-        
-                if($mapSectionValidation[sectionName] === 0){
-                    $mapSectionValidation[sectionName] = 1;
-        
-                    $mapShowSections[sectionName] = event.target.checked;
-                }else{
-                    $mapShowSections[sectionName] = event.target.checked;
-                }
-            }else{
-                $mapShowSections[sectionName] = event.target.checked;
-            }
-        }else{
-            $mapShowSections[sectionName] = event.target.checked;
-
-            if($mapSectionValidation[sectionName]){
-                $mapSectionValidation[sectionName] = 0;
-            }
-        }
-    }
-
-    function handleSelect(event, inputName, isMulti) {
-        if(event.type === "select" && event.detail){
-            if(isMulti && event.detail){
-                if($mapInputVariables[inputName]){
-                    for(let i=0; i < event.detail.length; i++){
-                        if(!$mapInputVariables[inputName].includes(event.detail[i].value)){
-                            $mapInputVariables[inputName].push(event.detail[i].value);
-                        }
-                    }
-                }else{
-                    $mapInputVariables[inputName] = [];
-                    $mapInputVariables[inputName].push(event.detail[0].value);
-                }
-            }else{
-                $mapInputVariables[inputName] = event.detail.value;
-            }
-        }
-    }
-
-    function handleSelectClear(event, inputName, isMulti) {
-        if(event.type === "clear"){
-            if(isMulti){
-                if($mapInputVariables[inputName]){
-                    if(event.detail){
-                        for(let i=0; i < $mapInputVariables[inputName].length; i++){
-                            if($mapInputVariables[inputName][i].includes(event.detail.value)){
-                                $mapInputVariables[inputName].splice(i, 1);
-                                break;
-                            }
-                        }
-                    }else{
-                        for(let i=0; i < $mapInputVariables[inputName].length; i++){
-                            $mapInputVariables[inputName].splice(i, 1);
-                        }
-                    }
-                }
-            }else{
-                $mapInputVariables[inputName] = '';
-            }
-        }
-    }
 </script>
 
-<br/>
-<label for="metadata">
-    <span title={js.mapTooltips['defaultSection']} use:tooltipv1 class:sfdxet-required={required} class:sfdxet-error-span={$mapErrors.metadata}>{required ? '*' : ''}[-m METADATA]</span> <input type="checkbox" id="metadata" name="metadata" on:change={e => { handleShowSections(e, 'metadata') }}> 
-</label>
-<br/>
+<div class="col align-self-center sfdxet-br">
+    <Title pRequired={required} sectionTag="-m" sectionName={sectionUCase} elementName={fileName} fileName={fileName} onlyOneError={onlyOneError}/>
+    <Documentation headerD={sectionUCase} typeD={mapDoc.type} bodyD={mapDoc.body} sectionName={fileName}/>
 
-{#if $mapShowSections.metadata}
-    <br/>
-    <CollapsibleSection headerText={'Documentation'}>
-        <div class="content">
-            {@html mapDocument.type}
-            {@html mapDocument.body}
-        </div>
-        <br/>
-    </CollapsibleSection>
-    <section class="sfdxet-section">
-        <div class="sfdxet-select-theme sfdxet-absolute-center {$mapErrors.metadata}">
-            <Select items={lMETADATA} id="metadatasel" on:select={e => { handleSelect(e, 'metadata', true) }} on:clear={e => { handleSelectClear(e, 'metadata', true) }} isMulti={true}></Select>
-        </div>
-    </section>
-    <br/>
-{/if}
+    {#if $mapShowSections.metadata}
+        <section class="sfdxet-section">
+            <SelectCommon error={$mapErrors.apiversion} pList={lMETADATA} sectionName={fileName} pIsMulti={true}/>
+        </section>
+    {/if}
+</div>

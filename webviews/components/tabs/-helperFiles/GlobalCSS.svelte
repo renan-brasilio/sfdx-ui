@@ -67,4 +67,8 @@
     :global(.sfdxet-required) {
         color: rgb(247, 54, 54)!important;
     }
+
+    :global(.sfdxet-br) {
+        margin-top: 10px;
+    }
 </style>

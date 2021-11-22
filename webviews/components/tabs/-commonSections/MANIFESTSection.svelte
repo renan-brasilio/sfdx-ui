@@ -1,122 +1,56 @@
 <script>
     import * as js from "../-helperFiles/GlobalJS";
-    import { tooltip as tooltipv1 } from '../--tooltip/tooltip.v1'
-    import { mapInputVariables } from "../-helperFiles/GlobalStore"
-    import { mapShowSections } from "../-helperFiles/GlobalStore"
-    import { mapSectionValidation } from "../-helperFiles/GlobalStore";
-    import { showDebug } from "../-helperFiles/GlobalStore";
-    import { pickFolderType } from "../-helperFiles/GlobalStore";
-    import { mapErrors } from "../-helperFiles/GlobalStore";
-    import CollapsibleSection from "../--collapsible/CollapsibleSection.svelte";
+    import { tooltip as tooltipv1 } from "../--tooltip/tooltip.v1";
+    import { mapInputVariables, mapShowSections, mapDocument } from "../-helperFiles/GlobalStore";
+    import Title from "../--collapsible/Title.svelte";
+    import Documentation from "../--collapsible/Documentation.svelte";
 
-    let fileName = 'MANIFESTSection';
+    let fileName = "manifest";
+    let sectionUCase = fileName.toUpperCase();
 
-    export let mapDocument;
+    export let mapDoc;
     export let required = false;
+    export let onlyOneError = "";
+    $mapDocument[fileName] = false;
 
     let type = `<b><i>Optional</i></b>`;
     let body = `
-            <br/><br/>
-            The complete path for the manifest (package.xml) file that specifies the components to retrieve.
-            <br/><br/>
-            If you specify this parameter, don’t specify --metadata or --sourcepath.
-            <br/><br/>
-            Type: filepath
-        `;
+        <br/><br/>
+        The complete path for the manifest (package.xml) file that specifies the components to retrieve.
+        <br/><br/>
+        If you specify this parameter, don’t specify --metadata or --sourcepath.
+        <br/><br/>
+        Type: filepath
+    `;
 
-    if(!mapDocument){ // Default
-        mapDocument = {
+    if(!mapDoc){ // Default
+        mapDoc = {
             type: type,
             body: body
         };
     }else{
-        if(!mapDocument.type){
-            mapDocument.type = type;
+        if(!mapDoc.type){
+            mapDoc.type = type;
         }
 
-        if(!mapDocument.body){
-            mapDocument.body = body;
+        if(!mapDoc.body){
+            mapDoc.body = body;
         }
-    }
-    
-    function handleShowSections(event, sectionName){
-        let methodName = 'handleShowSections()';
-        
-        if($showDebug){
-            console.info(fileName + '.' + methodName + ' - event: ');
-            console.info(event);
-            console.info(fileName + '.' + methodName + ' - sectionName: ' + sectionName);
-        }
-        
-        if(event.target.checked === true){
-            let selected;
-            
-            if($mapSectionValidation && js.listValidation.includes(sectionName)){
-                for(let key in $mapSectionValidation){
-                    if($mapSectionValidation[key] === 1){
-                        selected = key;
-        
-                        event.target.checked = false;
-        
-                        tsvscode.postMessage({
-                            type: 'onError',
-                            value: `ERROR: You already selected: ${selected.toUpperCase()}, Select only one between: SOURCEPATH, MANIFEST or METADATA` 
-                        });
-        
-                        return;
-                    }
-                }
-        
-                if($mapSectionValidation[sectionName] === 0){
-                    $mapSectionValidation[sectionName] = 1;
-        
-                    $mapShowSections[sectionName] = event.target.checked;
-                }else{
-                    $mapShowSections[sectionName] = event.target.checked;
-                }
-            }else{
-                $mapShowSections[sectionName] = event.target.checked;
-            }
-        }else{
-            $mapShowSections[sectionName] = event.target.checked;
-
-            if($mapSectionValidation[sectionName]){
-                $mapSectionValidation[sectionName] = 0;
-            }
-        }
-    }
-
-    function showFolderPick(type) {
-        $pickFolderType = type;
-
-        tsvscode.postMessage({
-            type: 'onShowFolderPick'
-        });
     }
 </script>
 
-<br/>
-<label for="manifest">
-    <span title={js.mapTooltips['defaultSection']} use:tooltipv1 class:sfdxet-required={required} class:sfdxet-error-span={$mapErrors.manifest}>{required ? '*' : ''}[-x MANIFEST]</span> <input type="checkbox" id="manifest" name="manifest" on:change={e => { handleShowSections(e, 'manifest') }}> 
-</label>
-<br/>
+<div class="col align-self-center sfdxet-br">
+    <Title pRequired={required} sectionTag="-x" sectionName={sectionUCase} elementName={fileName} fileName={fileName} onlyOneError={onlyOneError}/>
+    <Documentation headerD={sectionUCase} typeD={mapDoc.type} bodyD={mapDoc.body} sectionName={fileName}/>
 
-{#if $mapShowSections.manifest}
-    <br/>
-    <CollapsibleSection headerText={'Documentation'}>
-        <div class="content">
-            {@html mapDocument.type}
-            {@html mapDocument.body}
-        </div>
-        <br/>
-    </CollapsibleSection>
-    <section class="sfdxet-section">
-        <button class="sfdxet-buttons" on:click={() => {showFolderPick('manifest')}}>Select File</button>
-        <br/>
-        <br/>
-        {#if $mapShowSections.manifest2}
-            <input type="text" class="sfdxet-absolute-center" title={$mapInputVariables.manifest} use:tooltipv1 value={$mapInputVariables.manifest} disabled/>
-        {/if}
-    </section>
-    <br/>
-{/if}
+    {#if $mapShowSections.manifest}
+        <section class="sfdxet-section sfdxet-br">
+            <button class="sfdxet-buttons" on:click={() => {js.showFolderPick({fileName})}}>Select File</button>
+            <br/>
+            <br/>
+            {#if $mapShowSections.manifest2}
+                <input type="text" class="sfdxet-absolute-center" title={$mapInputVariables.manifest} use:tooltipv1 value={$mapInputVariables.manifest} disabled/>
+            {/if}
+        </section>
+    {/if}
+</div>

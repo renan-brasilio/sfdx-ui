@@ -3,7 +3,7 @@
     import Title from "../--collapsible/Title.svelte";
     import Documentation from "../--collapsible/Documentation.svelte";
 
-    let fileName = "noprompt";
+    let fileName = "soapdeploy";
     let sectionUCase = fileName.toUpperCase();
 
     export let mapDoc;
@@ -13,7 +13,7 @@
     let type = `<b><i>Optional</i></b>`;
     let body = `
         <br/><br/>
-        Do not prompt for delete confirmation.
+        Deploy metadata with SOAP API instead of REST API.
         <br/><br/>
         Type: boolean
     `;
@@ -35,6 +35,6 @@
 </script>
 
 <div class="col align-self-center sfdxet-br">
-    <Title pRequired={required} sectionTag="-r" sectionName={sectionUCase} elementName={fileName} fileName={fileName} onlyOneError={onlyOneError}/>
+    <Title pRequired={required} sectionTag="--soapdeploy" elementName={fileName} fileName={fileName} onlyOneError={onlyOneError}/>
     <Documentation headerD={sectionUCase} typeD={mapDoc.type} bodyD={mapDoc.body} sectionName={fileName}/>
 </div>

@@ -1,16 +1,16 @@
 <script>
-    export let headerText;
+    export let headerText = '';
 
     let expanded = false
 </script>
 
-<div class="collapsible">
+<div class="collapsible" title="Documentation">
     <h3>
         <button aria-expanded={expanded} on:click={() => expanded = !expanded}>{headerText}
-        <svg viewBox="0 0 20 20" fill="none" >
-            <path class="vert" d="M10 1V19" stroke="white" stroke-width="2"/>
-            <path d="M1 10L19 10" stroke="white" stroke-width="2"/>
-        </svg>
+            <svg viewBox="0 0 20 20" fill="none" >
+                <path class="vert" d="M10 1V19" stroke="white" stroke-width="2"/>
+                <path d="M1 10L19 10" stroke="white" stroke-width="2"/>
+            </svg>
         </button>
     </h3>
     <br/>
@@ -25,20 +25,20 @@
         border-radius: 5px;
     }
     
-	h3 {
+	/* h3 {
 		margin: 0;
         color: white;
-	}
+	} */
 	
     button {
         background-color: var(--background, #fff);
         color: white;
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
-        border: none;
-        margin: 0;
-        padding: 1em 0.5em;
+        /* display: flex; */
+        /* justify-content: space-between; */
+        /* width: 100%; */
+        /* border: none; */
+        /* margin: 0; */
+        /* padding: 1em 0.5em; */
     }
 
     button[aria-expanded="true"] .vert {
