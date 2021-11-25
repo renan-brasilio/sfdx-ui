@@ -2,9 +2,9 @@
     import * as js from "../-helperFiles/GlobalJS";
     import { mapShowSections, mapErrors } from "../-helperFiles/GlobalStore";
     import { lMETADATA } from "../-helperFiles/retrieve_metadatalist"
-    import Title from "../--collapsible/Title.svelte";
-    import Documentation from "../--collapsible/Documentation.svelte";
-    import SelectCommon from "../--collapsible/SelectCommon.svelte";
+    import Title from "../-commonPages/Title.svelte";
+    import Documentation from "../-commonPages/Documentation.svelte";
+    import SelectCommon from "../-commonPages/SelectCommon.svelte";
 
     let fileName = "metadata";
     let sectionUCase = fileName.toUpperCase();

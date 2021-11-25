@@ -2,8 +2,8 @@
     import * as js from "../-helperFiles/GlobalJS";
     import { tooltip as tooltipv1 } from "../--tooltip/tooltip.v1";
     import { mapInputVariables, mapShowSections, mapErrors } from "../-helperFiles/GlobalStore";
-    import Title from "../--collapsible/Title.svelte";
-    import Documentation from "../--collapsible/Documentation.svelte";
+    import Title from "../-commonPages/Title.svelte";
+    import Documentation from "../-commonPages/Documentation.svelte";
 
     let fileName = "packagename";
     let sectionUCase = fileName.toUpperCase();

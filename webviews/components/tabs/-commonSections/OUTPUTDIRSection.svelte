@@ -2,8 +2,8 @@
     import * as js from "../-helperFiles/GlobalJS";
     import { tooltip as tooltipv1 } from "../--tooltip/tooltip.v1";
     import { mapInputVariables, mapShowSections, mapSectionValidation, showDebug, pickFolderType, mapErrors } from "../-helperFiles/GlobalStore";
-    import Title from "../--collapsible/Title.svelte";
-    import Documentation from "../--collapsible/Documentation.svelte";
+    import Title from "../-commonPages/Title.svelte";
+    import Documentation from "../-commonPages/Documentation.svelte";
 
     let fileName = "outputdir";
     let sectionUCase = fileName.toUpperCase();
@@ -37,21 +37,24 @@
     
     function handleShowSections(event, pSectionName, pOnlyOneError){
         if(event.target.checked === true){
-            if($mapSectionValidation[pSectionName] && js.listValidation.includes(pSectionName)){
+            if($mapSectionValidation[pSectionName] != null && js.listValidation.includes(pSectionName)){
                 for(let key in $mapSectionValidation){
-                    if(this.$mapSectionValidation[key] === 1){
-                        let errorMsg = `ERROR: You already selected: ${key.toUpperCase()}, Select only one between: ${pOnlyOneError ? pOnlyOneError : "SOURCEPATH, MANIFEST or METADATA"}`;
+                    console.log(`$mapSectionValidation[key]: ${$mapSectionValidation[key]}`);
+                    if($mapSectionValidation[key] === 1){
+                        let errorMsg = `ERROR: You already selected: ${key.toUpperCase()}, Select only one between: ${pOnlyOneError ? pOnlyOneError : 'SOURCEPATH, MANIFEST or METADATA'}`;
         
                         event.target.checked = false;
         
                         tsvscode.postMessage({
-                            type: "onError",
+                            type: 'onError',
                             value: errorMsg
                         });
         
                         return;
                     }
                 }
+
+                console.log(`$mapSectionValidation[pSectionName]: ${$mapSectionValidation[pSectionName]}`);
         
                 if($mapSectionValidation[pSectionName] === 0){
                     $mapSectionValidation[pSectionName] = 1;
@@ -92,7 +95,7 @@
             <br/>
             <label for={fileName}>
                 <span title={js.mapTooltips["manuallyDefine"]} use:tooltipv1>Manually define</span> 
-                <input type="checkbox" id={fileName} name={fileName} on:change={e => { handleShowSections(e, "outputdir2") }}> 
+                <input type="checkbox" id={fileName} name={fileName} on:change={e => { handleShowSections(e, "outputdir2", null) }}> 
             </label>
             {#if $mapShowSections.outputdir2}
                 <input 

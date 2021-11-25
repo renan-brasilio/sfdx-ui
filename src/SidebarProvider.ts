@@ -20,7 +20,6 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
     webviewView.webview.options = {
       // Allow scripts in the webview
       enableScripts: true,
-
       localResourceRoots: [this._extensionUri],
     };
 
@@ -147,7 +146,27 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
 
           break;
         }
+        case "onConfirm": {
+          console.log("onConfirm");
+          vscode.window.showInformationMessage(
+            data.title,
+            ...[data.confirmLabel, data.declineLabel]
+          ).then((answer) => {
+            if (answer === data.confirmLabel) {
+              this._view?.webview.postMessage({
+                type: "onConfirmRet",
+                value: true
+              });
+            }else{
+              this._view?.webview.postMessage({
+                type: "onConfirmRet",
+                value: false
+              });
+            }
+          });
 
+          break;
+        }
       }
     });
   }
@@ -189,18 +208,22 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
   }
 
   private _getHtmlForWebview(webview: vscode.Webview) {
+    // JS
     const scriptUri = webview.asWebviewUri(
-    vscode.Uri.joinPath(this._extensionUri, "out/compiled", "sidebar.js")
+      vscode.Uri.joinPath(this._extensionUri, "out/compiled", "sidebar.js")
     );
+
+    // CSS
     const styleMainUri = webview.asWebviewUri(
-    vscode.Uri.joinPath(this._extensionUri, "out/compiled", "sidebar.css")
+      vscode.Uri.joinPath(this._extensionUri, "out/compiled", "sidebar.css")
     );
 
     const styleResetUri = webview.asWebviewUri(
       vscode.Uri.joinPath(this._extensionUri, "media", "reset.css")
     );
+
     const styleVSCodeUri = webview.asWebviewUri(
-        vscode.Uri.joinPath(this._extensionUri, "media", "vscode.css")
+      vscode.Uri.joinPath(this._extensionUri, "media", "vscode.css")
     );
     
     // Use a nonce to only allow a specific script to be run.

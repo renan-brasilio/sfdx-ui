@@ -25,3 +25,4 @@ export const pickFolderType = writable(0);
 export const pickFileType = writable(0);
 export const lastValueForce = writable(0);
 export const lastValueSource = writable(0);
+export const modal = writable(null);

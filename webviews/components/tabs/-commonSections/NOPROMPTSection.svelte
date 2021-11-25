@@ -1,7 +1,7 @@
 <script>
     import * as js from "../-helperFiles/GlobalJS";
-    import Title from "../--collapsible/Title.svelte";
-    import Documentation from "../--collapsible/Documentation.svelte";
+    import Title from "../-commonPages/Title.svelte";
+    import Documentation from "../-commonPages/Documentation.svelte";
 
     let fileName = "noprompt";
     let sectionUCase = fileName.toUpperCase();

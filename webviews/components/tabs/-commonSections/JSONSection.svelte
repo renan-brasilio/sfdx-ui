@@ -2,8 +2,8 @@
     import * as js from "../-helperFiles/GlobalJS";
     import { tooltip as tooltipv1 } from "../--tooltip/tooltip.v1";
     import { mapInputVariables, mapShowSections, mapSectionValidation } from "../-helperFiles/GlobalStore";
-    import Title from "../--collapsible/Title.svelte";
-    import Documentation from "../--collapsible/Documentation.svelte";
+    import Title from "../-commonPages/Title.svelte";
+    import Documentation from "../-commonPages/Documentation.svelte";
 
     let fileName = "json";
     let sectionUCase = fileName.toUpperCase();
@@ -36,21 +36,24 @@
 
     function handleShowSections(event, pSectionName, pOnlyOneError){
         if(event.target.checked === true){
-            if($mapSectionValidation[pSectionName] && js.listValidation.includes(pSectionName)){
+            if($mapSectionValidation[pSectionName] != null && js.listValidation.includes(pSectionName)){
                 for(let key in $mapSectionValidation){
-                    if(this.$mapSectionValidation[key] === 1){
-                        let errorMsg = `ERROR: You already selected: ${key.toUpperCase()}, Select only one between: ${pOnlyOneError ? pOnlyOneError : "SOURCEPATH, MANIFEST or METADATA"}`;
+                    console.log(`$mapSectionValidation[key]: ${$mapSectionValidation[key]}`);
+                    if($mapSectionValidation[key] === 1){
+                        let errorMsg = `ERROR: You already selected: ${key.toUpperCase()}, Select only one between: ${pOnlyOneError ? pOnlyOneError : 'SOURCEPATH, MANIFEST or METADATA'}`;
         
                         event.target.checked = false;
         
                         tsvscode.postMessage({
-                            type: "onError",
+                            type: 'onError',
                             value: errorMsg
                         });
         
                         return;
                     }
                 }
+
+                console.log(`$mapSectionValidation[pSectionName]: ${$mapSectionValidation[pSectionName]}`);
         
                 if($mapSectionValidation[pSectionName] === 0){
                     $mapSectionValidation[pSectionName] = 1;
@@ -86,7 +89,7 @@
             <br/>
     
             <label for="json2">
-                <span title={js.mapTooltips["tJSON2"]} use:tooltipv1 class="sfdxet-inner-span">Define output folder?</span> <input type="checkbox" id="json2" name="json2" on:change={e => { handleShowSections(e, "json2") }}> 
+                <span title={js.mapTooltips["tJSON2"]} use:tooltipv1 class="sfdxet-inner-span">Define output folder?</span> <input type="checkbox" id="json2" name="json2" on:change={e => { handleShowSections(e, "json2", null) }}> 
             </label>
             <br/>
             <br/>
@@ -96,7 +99,7 @@
                 <br/>
                 <br/>
                 <label for="json3">
-                    <span title={js.mapTooltips["tJSON3"]} use:tooltipv1 class="sfdxet-inner-span">Manually define</span> <input type="checkbox" id="json3" name="json3" on:change={e => { handleShowSections(e, "json3") }}> 
+                    <span title={js.mapTooltips["tJSON3"]} use:tooltipv1 class="sfdxet-inner-span">Manually define</span> <input type="checkbox" id="json3" name="json3" on:change={e => { handleShowSections(e, "json3", null) }}> 
                 </label>
                 {#if $mapShowSections.json3}
                     <br/>
