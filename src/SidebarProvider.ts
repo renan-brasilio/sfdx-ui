@@ -15,7 +15,7 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
   public resolveWebviewView(webviewView: vscode.WebviewView) {
     this._view = webviewView;
     this._sfdxetName = "SFDX UI";
-    this._sfdxetVersion = "v0.0.5";
+    this._sfdxetVersion = "v0.0.9";
 
     webviewView.webview.options = {
       // Allow scripts in the webview
@@ -60,8 +60,6 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
             return null;
           }
 
-          console.log({fileUri});
-
           this._view?.webview.postMessage({
             type: "fileUri",
             value: fileUri
@@ -96,12 +94,12 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
 					
           break;
         }
-        case "onTerminalRetrieve": {
+        case "onTerminalSFDX": {
           let term = vscode.window.createTerminal('SFDX');
           term.show();
           term.sendText(`clear && echo "- Starting SFDX: ${data.sfdx}" && echo`);
           
-          console.log(JSON.stringify(data));
+          // console.log(JSON.stringify(data));
 
           let sfdx = 'sfdx ' + data.sfdx;
 
@@ -124,7 +122,7 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
                     console.error(err);
                   }
     
-                  console.log(`${this._sfdxetName}: Successfully deleted ${filePath}.`);
+                  console.info(`${this._sfdxetName}: Successfully deleted ${filePath}.`);
                 });
               }
             } catch (error) {
@@ -147,7 +145,6 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
           break;
         }
         case "onConfirm": {
-          console.log("onConfirm");
           vscode.window.showInformationMessage(
             data.title,
             ...[data.confirmLabel, data.declineLabel]

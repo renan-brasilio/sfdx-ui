@@ -109,7 +109,7 @@
 
     function deleteF() {
         let message = {
-            type: 'onTerminalRetrieve'
+            type: 'onTerminalSFDX'
         };
 
         message.sfdx = 'force:source:delete';
@@ -355,10 +355,10 @@
         <NOPROMPTs />
 
         <!-- METADATA -->
-        <METADATAs mapDocument={mapDocRequired} required={true}/>
+        <METADATAs mapDoc={mapDocRequired} required={true}/>
 
         <!-- SOURCEPATH -->
-        <SOURCEPATHs mapDocument={mapDocRequired} required={true}/>
+        <SOURCEPATHs mapDoc={mapDocRequired} required={true}/>
 
         <!-- VERBOSE -->
         <VERBOSEs />

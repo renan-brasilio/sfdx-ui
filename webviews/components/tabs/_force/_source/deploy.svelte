@@ -110,7 +110,7 @@
 
     function deploy() {
         let message = {
-            type: 'onTerminalRetrieve'
+            type: 'onTerminalSFDX'
         };
 
         message.sfdx = 'force:source:deploy';
@@ -363,13 +363,13 @@
         <VERBOSEs />
 
         <!-- METADATA -->
-        <METADATAs mapDocument={mapDocRequired} required={true}/>
+        <METADATAs mapDoc={mapDocRequired} required={true}/>
 
         <!-- SOURCEPATH -->
-        <SOURCEPATHs mapDocument={mapDocRequired} required={true}/>
+        <SOURCEPATHs mapDoc={mapDocRequired} required={true}/>
 
         <!-- MANIFEST -->
-        <MANIFESTs mapDocument={mapDocRequired} required={true}/>
+        <MANIFESTs mapDoc={mapDocRequired} required={true}/>
 
         <!-- PREDESTRUCTIVECHANGES -->
 

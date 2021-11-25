@@ -1,5 +1,4 @@
 <script>
-    import * as js from "../-helperFiles/GlobalJS";
     import { mapShowSections, mapErrors } from "../-helperFiles/GlobalStore";
     import { lMETADATA } from "../-helperFiles/retrieve_metadatalist"
     import Title from "../-commonPages/Title.svelte";

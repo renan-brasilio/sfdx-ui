@@ -5,6 +5,4 @@
     const vscode = acquireVsCodeApi();
 
     const oldState = /** @type {{ count: number} | undefined} */ (vscode.getState());
-
-    console.log("Hello from JS!");
 }());

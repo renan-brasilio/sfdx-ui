@@ -30,18 +30,18 @@
         Default value: NoTestRun
     `;
 
-    if(!mapDocument){ // Default
-        mapDocument = {
+    if(!mapDoc){ // Default
+        mapDoc = {
             type: type,
             body: body
         };
     }else{
-        if(!mapDocument.type){
-            mapDocument.type = type;
+        if(!mapDoc.type){
+            mapDoc.type = type;
         }
 
-        if(!mapDocument.body){
-            mapDocument.body = body;
+        if(!mapDoc.body){
+            mapDoc.body = body;
         }
     }
 

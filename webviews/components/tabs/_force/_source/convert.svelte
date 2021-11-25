@@ -111,7 +111,7 @@
         });
 
         let message = {
-            type: 'onTerminalRetrieve'
+            type: 'onTerminalSFDX'
         };
 
         message.sfdx = 'force:source:convert';
@@ -321,13 +321,13 @@
         <PACKAGENAMEs />
 
         <!-- MANIFEST -->
-        <MANIFESTs mapDocument={mapDocRequired} required={true}/>
+        <MANIFESTs mapDoc={mapDocRequired} required={true}/>
 
         <!-- SOURCEPATH -->
-        <SOURCEPATHs mapDocument={mapDocRequired} required={true}/>
+        <SOURCEPATHs mapDoc={mapDocRequired} required={true}/>
 
         <!-- METADATA -->
-        <METADATAs mapDocument={mapDocRequired} required={true}/>
+        <METADATAs mapDoc={mapDocRequired} required={true}/>
 
         <!-- ADVANCED -->
         <ADVANCEDs />

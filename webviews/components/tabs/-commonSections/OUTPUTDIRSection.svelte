@@ -39,7 +39,6 @@
         if(event.target.checked === true){
             if($mapSectionValidation[pSectionName] != null && js.listValidation.includes(pSectionName)){
                 for(let key in $mapSectionValidation){
-                    console.log(`$mapSectionValidation[key]: ${$mapSectionValidation[key]}`);
                     if($mapSectionValidation[key] === 1){
                         let errorMsg = `ERROR: You already selected: ${key.toUpperCase()}, Select only one between: ${pOnlyOneError ? pOnlyOneError : 'SOURCEPATH, MANIFEST or METADATA'}`;
         
@@ -53,8 +52,6 @@
                         return;
                     }
                 }
-
-                console.log(`$mapSectionValidation[pSectionName]: ${$mapSectionValidation[pSectionName]}`);
         
                 if($mapSectionValidation[pSectionName] === 0){
                     $mapSectionValidation[pSectionName] = 1;

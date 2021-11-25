@@ -11,8 +11,6 @@
     export let pStyle = '';
     export let pClass = '';
 
-    console.log(`$mapShowSections[${fileName}]: ${$mapShowSections[fileName]}`);
-
     function handleShowSections(event, pSectionName, pOnlyOneError){
         if(event.target.checked === true){
             if($mapSectionValidation[pSectionName] != null && js.listValidation.includes(pSectionName)){

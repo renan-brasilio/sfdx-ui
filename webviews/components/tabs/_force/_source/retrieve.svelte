@@ -28,8 +28,6 @@
     import VERBOSEs from "../../-commonSections/VERBOSESection.svelte";
     import ADVANCEDs from "../../-commonSections/ADVANCEDSection.svelte";
 
-    console.log(`$mapShowSections: ${JSON.stringify($mapShowSections)}`);
-
     $mapSpinner.force = {
         retrieve: true
     };
@@ -64,9 +62,6 @@
             const message = event.data; // The json data that the extension sent
             switch (message.type) {
                 case "onConfirmRet":
-                    console.log("onConfirmRet");
-                    console.log(`message: ${JSON.stringify(message)}`);
-
                     if(message.value === true){
                         retrieve();
                     }else{
@@ -123,7 +118,7 @@
     });
 
     let message = {
-        type: "onTerminalRetrieve"
+        type: "onTerminalSFDX"
     };
 
     function validateRetrieve() {
