@@ -12,6 +12,7 @@ export const mapLastValue = writable({});
 export const mapRequired = writable({});
 export const mapSectionValidation = writable({});
 export const mapDocument = writable({});
+export const mapSFDX = writable({});
 export const lTARGETUSERNAME = writable([]);
 
 export const mapShowSections = writable({

@@ -3,7 +3,7 @@
     import { mapErrors, mapSectionValidation, mapShowSections, mapDocument } from "../-helperFiles/GlobalStore";
 
     export let pRequired = false;
-    export let sectionTag = '';
+    export let pSFDXParameter = '';
     export let sectionName = '';
     export let elementName = '';
     export let fileName = '';
@@ -64,7 +64,7 @@
     on:click={openDoc}
     style={pStyle}
     class={pClass}
->{pRequired ? '*' : ''}[{sectionTag ? sectionTag : ''}{sectionName ? ' ' + sectionName : ''}]</span> 
+>{pRequired ? '*' : ''}[{pSFDXParameter ? pSFDXParameter : ''}{sectionName ? ' ' + sectionName : ''}]</span> 
 
 <input 
     type="checkbox" 

@@ -73,7 +73,7 @@
 </script>
 
 <div class="col align-self-center sfdxet-br">
-    <Title pRequired={required} sectionTag="--json" elementName={fileName} fileName={fileName} onlyOneError={onlyOneError}/>
+    <Title pRequired={required} pSFDXParameter="--json" elementName={fileName} fileName={fileName} onlyOneError={onlyOneError}/>
     <Documentation headerD={sectionUCase} typeD={mapDoc.type} bodyD={mapDoc.body} sectionName={fileName}/>
     
     {#if $mapShowSections.json}
@@ -81,12 +81,31 @@
         <section class="sfdxet-section">
             <label for="jsoninput">
                 JSON File Name
-                <input type="text" id="jsoninput" name="jsoninput" class="sfdxet-absolute-center" title="Insert the JSON filename (don't include .json), or leave blank for the default: output" use:tooltipv1 placeholder="output" bind:value={$mapInputVariables.json}/>
+                <input 
+                    type="text" 
+                    id="jsoninput" 
+                    name="jsoninput" 
+                    class="sfdxet-absolute-center" 
+                    title="Insert the JSON filename (don't include .json), or leave blank for the default: output" 
+                    use:tooltipv1 
+                    placeholder="output" 
+                    bind:value={$mapInputVariables.json}
+                />
             </label>
             <br/>
     
             <label for="json2">
-                <span title={js.mapTooltips["tJSON2"]} use:tooltipv1 class="sfdxet-inner-span">Define output folder?</span> <input type="checkbox" id="json2" name="json2" on:change={e => { handleShowSections(e, "json2", null) }}> 
+                <span 
+                    title={js.mapTooltips["tJSON2"]} 
+                    use:tooltipv1 
+                    class="sfdxet-inner-span"
+                >Define output folder?</span> 
+                <input 
+                    type="checkbox" 
+                    id="json2" 
+                    name="json2" 
+                    on:change={e => { handleShowSections(e, "json2", null) }}
+                > 
             </label>
             <br/>
             <br/>
@@ -96,14 +115,28 @@
                 <br/>
                 <br/>
                 <label for="json3">
-                    <span title={js.mapTooltips["tJSON3"]} use:tooltipv1 class="sfdxet-inner-span">Manually define</span> <input type="checkbox" id="json3" name="json3" on:change={e => { handleShowSections(e, "json3", null) }}> 
+                    <span 
+                        title={js.mapTooltips["tJSON3"]} 
+                        use:tooltipv1 
+                        class="sfdxet-inner-span"
+                    >Manually define</span> <input type="checkbox" id="json3" name="json3" on:change={e => { handleShowSections(e, "json3", null) }}> 
                 </label>
                 {#if $mapShowSections.json3}
                     <br/>
                     <br/>
                     <label for="jsonpath">
                         JSON Folder Path
-                        <input type="text" id="jsonpath" name="jsonpath" class="sfdxet-absolute-center" disabled={!$mapShowSections.json3} title={$mapInputVariables.json2} use:tooltipv1 placeholder="Insert..." bind:value={$mapInputVariables.json2}/>
+                        <input 
+                            type="text" 
+                            id="jsonpath" 
+                            name="jsonpath" 
+                            class="sfdxet-absolute-center" 
+                            disabled={!$mapShowSections.json3} 
+                            title={$mapInputVariables.json2} 
+                            use:tooltipv1 
+                            placeholder="Insert..." 
+                            bind:value={$mapInputVariables.json2}
+                        />
                     </label>
                 {/if}
                 <br/>

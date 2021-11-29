@@ -35,7 +35,7 @@
 </script>
 
 <div class="col align-self-center sfdxet-br">
-    <Title pRequired={required} sectionTag={sectionUCase} elementName={fileName} fileName={fileName} onlyOneError={onlyOneError} pStyle="color: green;"/>
+    <Title pRequired={required} pSFDXParameter={sectionUCase} elementName={fileName} fileName={fileName} onlyOneError={onlyOneError} pStyle="color: green;"/>
     <Documentation headerD={sectionUCase} typeD={mapDoc.type} bodyD={mapDoc.body} sectionName={fileName}/>
     
     {#if $mapShowSections.advanced}

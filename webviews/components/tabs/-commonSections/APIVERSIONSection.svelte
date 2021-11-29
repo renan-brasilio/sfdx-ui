@@ -61,7 +61,7 @@
 </script>
 
 <div class="col align-self-center sfdxet-br">
-    <Title pRequired={required} sectionTag="-a" sectionName={sectionUCase} elementName={fileName} fileName={fileName} onlyOneError={onlyOneError}/>
+    <Title pRequired={required} pSFDXParameter="-a" sectionName={sectionUCase} elementName={fileName} fileName={fileName} onlyOneError={onlyOneError}/>
     <Documentation headerD={sectionUCase} typeD={mapDoc.type} bodyD={mapDoc.body} sectionName={fileName}/>
 
     {#if $mapShowSections.apiversion}
