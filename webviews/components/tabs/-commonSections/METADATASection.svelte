@@ -36,10 +36,6 @@
             mapDoc.body = body;
         }
     }
-
-    tsvscode.postMessage({
-        type: "onGetAliasUsers"
-    });
 </script>
 
 <div class="col align-self-center sfdxet-br">

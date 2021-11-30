@@ -97,9 +97,9 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
         case "onTerminalSFDX": {
           let term = vscode.window.createTerminal('SFDX');
           term.show();
-          term.sendText(`clear && echo "- Starting SFDX: ${data.sfdx}" && echo`);
+          term.sendText(`echo "- Starting SFDX..." && echo`);
           
-          // console.log(JSON.stringify(data));
+          console.log(JSON.stringify(data));
 
           let sfdx = 'sfdx ' + data.sfdx;
 

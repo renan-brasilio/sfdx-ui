@@ -1,9 +1,16 @@
 <script>
-    import * as js from "../-helperFiles/GlobalJS";
+    // Helper Files
     import { tooltip as tooltipv1 } from "../--tooltip/tooltip.v1";
-    import { mapInputVariables, mapShowSections, mapDocument } from "../-helperFiles/GlobalStore";
     import Title from "../-commonPages/Title.svelte";
     import Documentation from "../-commonPages/Documentation.svelte";
+
+    // Store
+    import { 
+        mapInputVariables, 
+        mapShowSections, 
+        mapDocument, 
+        pickFileType 
+    } from "../-helperFiles/GlobalStore";
 
     let fileName = "manifest";
     let sectionUCase = fileName.toUpperCase();
@@ -37,6 +44,14 @@
             mapDoc.body = body;
         }
     }
+
+    function onShowFilePick(type) {
+        $pickFileType = type;
+
+        tsvscode.postMessage({
+            type: 'onShowFilePick'
+        });
+    }
 </script>
 
 <div class="col align-self-center sfdxet-br">
@@ -45,7 +60,7 @@
 
     {#if $mapShowSections.manifest}
         <section class="sfdxet-section sfdxet-br">
-            <button class="sfdxet-buttons" on:click={() => {js.showFolderPick({fileName})}}>Select File</button>
+            <button class="sfdxet-buttons" on:click={() => {onShowFilePick({fileName})}}>Select File</button>
             <br/>
             <br/>
             {#if $mapShowSections.manifest2}

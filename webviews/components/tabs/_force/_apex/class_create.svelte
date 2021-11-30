@@ -7,17 +7,17 @@
 
     // Store
     import { 
-        mapInputVariables,
-        mapShowSections,
         lTARGETUSERNAME,
-        mapTargetUsername,
-        pickFolderType,
+        mapApex, 
         mapErrors,
-        mapSpinner,
-        mapSectionValidation,
-        mapInformation,
         mapForceShowSections,
-        mapApex 
+        mapInformation,
+        mapInputVariables,
+        mapSectionValidation,
+        mapShowSections,
+        mapSpinner,
+        mapTargetUsername,
+        pickFolderType
     } from "../../-helperFiles/GlobalStore";
 
     // Sections
@@ -29,6 +29,7 @@
     import ADVANCEDs from "../../-commonSections/ADVANCEDSection.svelte";
     import OUTPUTDIRs from "../../-commonSections/OUTPUTDIRSection.svelte";
 
+    // Initial loading
     $mapSpinner.force = {
         class_create: true
     };
@@ -41,7 +42,6 @@
         }
     }
 
-    //Initial loading
     setTimeout(() => {
         $mapSpinner.force.class_create= false;
     }, 1000);
@@ -60,10 +60,6 @@
 
     $mapErrors = {};
     $mapInputVariables = {};
-
-    let mapDocRequired = {
-        type: `<b>Required</b>`,
-    };
 
     // Webview Listener
     onMount(() => {

@@ -1,6 +1,10 @@
 <script>
-    import * as js from "../-helperFiles/GlobalJS";
-    import { mapShowSections, mapErrors, lTARGETUSERNAME } from "../-helperFiles/GlobalStore";
+    import { 
+        lTARGETUSERNAME, 
+        mapErrors, 
+        mapShowSections 
+    } from "../-helperFiles/GlobalStore";
+
     import Title from "../-commonPages/Title.svelte";
     import Documentation from "../-commonPages/Documentation.svelte";
     import SelectCommon from "../-commonPages/SelectCommon.svelte";
@@ -34,6 +38,10 @@
             mapDoc.body = body;
         }
     }
+
+    tsvscode.postMessage({
+        type: "onGetAliasUsers"
+    });
 </script>
 
 <div class="col align-self-center sfdxet-br">

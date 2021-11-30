@@ -26,7 +26,7 @@
         analytics: true
     };
 
-    //Initial loading
+    // Initial loading
     setTimeout(() => {
         $mapSpinner.force.analytics = false;
     }, 1000);

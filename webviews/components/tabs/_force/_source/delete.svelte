@@ -32,7 +32,7 @@
         delete: true
     };
 
-    //Initial loading
+    // Initial loading
     setTimeout(() => {
         $mapSpinner.force.delete = false;
     }, 1000);
@@ -67,7 +67,7 @@
                     $mapInputVariables[$pickFolderType] = message.value[0].path;
                     $mapShowSections[$pickFolderType] = true;
                     break;
-                case 'aliasJSON':
+                case "aliasJSON":
                     for(const key in message.value){
                         let option = {value: key, label: key};
 

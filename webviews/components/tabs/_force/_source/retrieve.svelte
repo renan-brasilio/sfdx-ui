@@ -1,21 +1,26 @@
 <script>
+    // Helper Files
     import { } from "os";
     import { Circle2 } from "svelte-loading-spinners";
     import CSS from "../../-helperFiles/GlobalCSS.svelte";
     import { onMount } from "svelte";
+
+    // Store
     import { 
-        mapInputVariables, 
-        mapShowSections, 
         lTARGETUSERNAME, 
-        mapTargetUsername, 
-        pickFolderType,
         mapErrors,
-        mapSpinner,
-        mapInformation,
         mapForceShowSections,
+        mapInformation,
+        mapInputVariables, 
+        mapSectionValidation,
+        mapShowSections, 
         mapSource,
-        mapSectionValidation
+        mapSpinner,
+        mapTargetUsername, 
+        pickFolderType
     } from "../../-helperFiles/GlobalStore";
+
+    // Sections
     import JSONs from "../../-commonSections/JSONSection.svelte";
     import LOGLEVELs from "../../-commonSections/LOGLEVELSection.svelte";
     import TARGETUSERNAMEs from "../../-commonSections/TARGETUSERNAMESection.svelte";
@@ -32,7 +37,7 @@
         retrieve: true
     };
 
-    //Initial loading
+    // Initial loading
     setTimeout(() => {
         $mapSpinner.force.retrieve = false;
     }, 1000);
@@ -330,11 +335,6 @@
 
         tsvscode.postMessage(message);
     }
-
-    let titleModal = "";
-    let messageModal = "";
-    titleModal = `<h2 style="color: black;">Are you sure?</h2>`; 
-    messageModal = `<code style="color: black;">If you continue, the result will be: <br/><br/>sfdx ${message.sfdx}</code>`;
 </script>
 
 {#if $mapSpinner.force.retrieve}

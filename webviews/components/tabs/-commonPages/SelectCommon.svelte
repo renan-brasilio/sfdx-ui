@@ -5,12 +5,12 @@
     export let error = "";
     export let pList = [];
     export let sectionName = "";
-    export let defaultVal = "";
+    export let defaultVal;
     export let pIsMulti = false;
 
-    function handleSelect(event, inputName, isMulti) {
+    function handleSelect(event, inputName) {
         if(event.type === "select" && event.detail){
-            if(isMulti){
+            if(pIsMulti){
                 if($mapInputVariables[inputName]){
                     for(let i=0; i < event.detail.length; i++){
                         if(!$mapInputVariables[inputName].includes(event.detail[i].value)){
@@ -27,9 +27,9 @@
         }
     }
 
-    function handleSelectClear(event, inputName, isMulti) {
+    function handleSelectClear(event, inputName) {
         if(event.type === "clear"){
-            if(isMulti){
+            if(pIsMulti){
                 if($mapInputVariables[inputName]){
                     if(event.detail){
                         for(let i=0; i < $mapInputVariables[inputName].length; i++){
@@ -55,8 +55,8 @@
     <Select 
         id={sectionName + 'sel'} 
         items={pList} 
-        on:select={e => { handleSelect(e, `${sectionName}`, {pIsMulti}) }} 
-        on:clear={e => { handleSelectClear(e, `${sectionName}`, {pIsMulti}) }} 
+        on:select={e => { handleSelect(e, `${sectionName}`) }} 
+        on:clear={e => { handleSelectClear(e, `${sectionName}`) }} 
         value={defaultVal}
         isMulti={pIsMulti}
     >

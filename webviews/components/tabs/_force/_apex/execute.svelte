@@ -1,27 +1,35 @@
 <script>
+    // Helper Files
     import { } from "os";
     import { Circle2 } from "svelte-loading-spinners";
     import CSS from "../../-helperFiles/GlobalCSS.svelte";
     import { onMount } from "svelte";
+
+    // Store
     import { 
-        mapInputVariables,
-        mapShowSections,
         lTARGETUSERNAME,
-        mapTargetUsername,
-        pickFolderType,
+        mapApex,
         mapErrors,
-        mapSpinner,
-        mapSectionValidation,
-        mapInformation,
         mapForceShowSections,
-        mapApex 
+        mapInformation,
+        mapInputVariables,
+        mapSectionValidation,
+        mapShowSections,
+        mapSpinner,
+        mapTargetUsername,
+        pickFileType, 
+        pickFolderType
     } from "../../-helperFiles/GlobalStore";
+
+    // Sections
     import JSONs from "../../-commonSections/JSONSection.svelte";
     import LOGLEVELs from "../../-commonSections/LOGLEVELSection.svelte";
     import TARGETUSERNAMEs from "../../-commonSections/TARGETUSERNAMESection.svelte";
     import APIVERSIONs from "../../-commonSections/APIVERSIONSection.svelte";
+    import APEXCODEFILEs from "../../-commonSections/APEXCODEFILESection.svelte";
     import ADVANCEDs from "../../-commonSections/ADVANCEDSection.svelte";
 
+    // Initial loading
     $mapSpinner.force = {
         execute: true
     };
@@ -34,7 +42,6 @@
         }
     }
 
-    //Initial loading
     setTimeout(() => {
         $mapSpinner.force.execute = false;
     }, 1000);
@@ -45,28 +52,29 @@
         }
     }
 
-    $mapSectionValidation = {
-        classname: 0
-    };
-
     $mapErrors = {};
     $mapInputVariables = {};
-
-    let mapDocRequired = {
-        type: `<b>Required</b>`,
-    };
 
     // Webview Listener
     onMount(() => {
         window.addEventListener("message", event => {
             const message = event.data; // The json data that the extension sent
             switch (message.type) {
+                case "onConfirmRet":
+                    if(message.value === true){
+                        callSFDX();
+                    }else{
+                        $mapSpinner.main = false;
+                        $mapInformation.main = false;
+                    }
+
+                    break;
                 case "folderUri":
                     $mapInputVariables[$pickFolderType] = message.value[0].path;
                     break;
                 case "fileUri":
-                    $mapInputVariables[$pickFolderType] = message.value[0].path;
-                    $mapShowSections[$pickFolderType] = true;
+                    $mapInputVariables[$pickFileType] = message.value[0].path;
+                    $mapShowSections[$pickFileType] = true;
                     break;
                 case "aliasJSON":
                     for(const key in message.value){
@@ -108,15 +116,12 @@
         });
     });
 
-    function execute() {
-        tsvscode.postMessage({
-            type: "onInfo",
-            value: "Starting the Terminal + Script: Execute" 
-        });
+    let message = {
+        type: "onTerminalSFDX"
+    };
 
-        let message = {
-            type: "onTerminalSFDX"
-        };
+    function execute() {
+        message.sfdx = "";
 
         message.sfdx = "force:apex:execute";
 
@@ -160,10 +165,68 @@
         }
 
         // TARGETUSERNAME
+        if($mapShowSections.targetusername){
+            if($mapInputVariables.targetusername){
+                $mapErrors.targetusername = "";
+                message.sfdx += ` -u ${$mapInputVariables.targetusername}`;
+            }else{
+                $mapErrors.targetusername = "sfdxet-error-select";
+
+                tsvscode.postMessage({
+                    type: "onError",
+                    value: `ERROR: Please select a Targetusername or uncheck the [-u TARGETUSERNAME] checkbox.` 
+                });
+
+                return;
+            }
+        }else{
+            $mapErrors.targetusername = "";
+        }
 
         // APIVERSION
+        if($mapShowSections.apiversion){
+            if($mapInputVariables.apiversion){
+                $mapErrors.apiversion = "";
+                message.sfdx += ` --apiversion ${$mapInputVariables.apiversion}`;
+            }else{
+                $mapErrors.apiversion = "sfdxet-error-select";
+
+                tsvscode.postMessage({
+                    type: "onError",
+                    value: `ERROR: Please select a Apiversion or uncheck the [-a APIVERSION] checkbox.` 
+                });
+
+                return;
+            }
+        }else{
+            $mapErrors.apiversion = "";
+        }
 
         // APEXCODEFILE
+        if($mapShowSections.apexcodefile){
+            message.sfdx += ` -f `;
+
+            console.log(`mapInputVariables: ${JSON.stringify($mapInputVariables)}`);
+
+            if($mapShowSections.apexcodefile2){
+                if($mapInputVariables.apexcodefile2){
+                    $mapErrors.apexcodefile2 = "";
+                    message.sfdx += $mapInputVariables.apexcodefile2;
+                }
+            }else if($mapInputVariables.apexcodefile){
+                $mapErrors.apexcodefile = "";
+                message.sfdx += $mapInputVariables.apexcodefile;
+            }else{
+                $mapErrors.apexcodefile = "sfdxet-error-span";
+
+                tsvscode.postMessage({
+                    type: "onError",
+                    value: `ERROR: Please select/insert a Folder or uncheck the [-f APEXCODEFILE] checkbox.` 
+                });
+
+                return;
+            }
+        }
 
         // ADVANCED
         if($mapShowSections.advanced){
@@ -180,37 +243,24 @@
             }
         }
 
-        let validation = 0;
+        $mapSpinner.main = true;
+        $mapInformation.main = true;
 
-        for(let i in $mapSectionValidation){
-            if($mapSectionValidation[i] === 1){
-                validation++;
-                break;
-            }
-        }
+        tsvscode.postMessage({
+            type: "onConfirm",
+            title: "This action will start the terminal with the selected options, Continue?",
+            confirmLabel: "Continue",
+            declineLabel: "Cancel" 
+        });
+    }
 
-        if(validation === 0){
-            $mapErrors.classname = "sfdxet-error-span";
+    function callSFDX(){
+        tsvscode.postMessage({
+            type: "onInfo",
+            value: "Starting the Terminal + Script: Execute" 
+        });
 
-            tsvscode.postMessage({
-                    type: "onError",
-                    value: `ERROR: CLASSNAME is required.` 
-                });
-
-                return;
-        }else{
-            $mapErrors.classname = "";
-
-            tsvscode.postMessage({
-                type: "onInfo",
-                value: "Starting the Terminal + Script: Execute" 
-            });
-
-            $mapSpinner.main = true;
-            $mapInformation.main = true;
-    
-            tsvscode.postMessage(message);
-        }
+        tsvscode.postMessage(message);
     }
 </script>
 
@@ -243,6 +293,7 @@
         <APIVERSIONs />
 
         <!-- [-f APEXCODEFILE] -->
+        <APEXCODEFILEs />
 
         <!-- ADVANCED -->
         <ADVANCEDs />

@@ -1,27 +1,33 @@
 <script>
+    // Helper Files
     import { } from "os";
     import { Circle2 } from "svelte-loading-spinners";
     import CSS from "../../-helperFiles/GlobalCSS.svelte";
     import { onMount } from "svelte";
+
+    // Store
     import { 
-        mapInputVariables,
-        mapShowSections,
         lTARGETUSERNAME,
-        mapTargetUsername,
-        pickFolderType,
+        mapApex, 
         mapErrors,
-        mapSpinner,
-        mapSectionValidation,
-        mapInformation,
         mapForceShowSections,
-        mapApex 
+        mapInformation,
+        mapInputVariables,
+        mapSectionValidation,
+        mapShowSections,
+        mapSpinner,
+        mapTargetUsername,
+        pickFolderType
     } from "../../-helperFiles/GlobalStore";
+
+    // Sections
     import JSONs from "../../-commonSections/JSONSection.svelte";
     import LOGLEVELs from "../../-commonSections/LOGLEVELSection.svelte";
     import APIVERSIONs from "../../-commonSections/APIVERSIONSection.svelte";
     import ADVANCEDs from "../../-commonSections/ADVANCEDSection.svelte";
     import OUTPUTDIRs from "../../-commonSections/OUTPUTDIRSection.svelte";
 
+    // Initial loading
     $mapSpinner.force = {
         trigger_create: true
     };
@@ -34,7 +40,6 @@
         }
     }
 
-    //Initial loading
     setTimeout(() => {
         $mapSpinner.force.trigger_create= false;
     }, 1000);
