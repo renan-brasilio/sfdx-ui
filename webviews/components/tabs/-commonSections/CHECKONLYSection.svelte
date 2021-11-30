@@ -1,15 +1,18 @@
 <script>
-    import * as js from "../-helperFiles/GlobalJS";
+    // Helper Pages
     import Title from "../-commonPages/Title.svelte";
     import Documentation from "../-commonPages/Documentation.svelte";
 
+    // Default
     let fileName = "checkonly";
     let sectionUCase = fileName.toUpperCase();
 
+    // Parameters
     export let mapDoc;
     export let required = false;
     export let onlyOneError = "";
 
+    // Documentation
     let type = `<b><i>Optional</i></b>`;
     let body = `
         <br/><br/>

@@ -1,32 +1,25 @@
 <script>
-    // Store
-    import { 
-        mapShowSections, 
-        mapInputVariables, 
-        mapErrors 
-    } from "../-helperFiles/GlobalStore";
-    
-    // Helper Pages
+    import { mapShowSections, mapInputVariables, mapErrors } from "../-helperFiles/GlobalStore";
     import Title from "../-commonPages/Title.svelte";
     import Documentation from "../-commonPages/Documentation.svelte";
     import SelectCommon from "../-commonPages/SelectCommon.svelte";
     
-    // Default
-    let fileName = "apiversion";
+    let fileName = "template";
     let sectionUCase = fileName.toUpperCase();
 
-    // Parameters
     export let mapDoc;
     export let required = false;
     export let onlyOneError = "";
 
-    // Documentation
     let type = `<b><i>Optional</i></b>`;
     let body = `
         <br/><br/>
-        Override the API version used for API requests made by this command.
+        The template to use to create the file. Supplied parameter values or default values are filled into a copy of the template.
         <br/><br/>
         Type: string
+        <br/>
+        Permissible values are: ApexException, ApexUnitTest, DefaultApexClass, InboundEmailService<br/>
+        Default value: DefaultApexClass
     `;
 
     if(!mapDoc){ // Default
@@ -44,34 +37,25 @@
         }
     }
 
-    const lAPIVERSION = [];
-    let dAPIVERSION;
+    const lTEMPLATE = [
+        {value: "ApexException", label: "ApexException"},
+        {value: "ApexUnitTest", label: "ApexUnitTest"},
+        {value: "DefaultApexClass", label: "DefaultApexClass"},
+        {value: "InboundEmailService", label: "InboundEmailService"}
+    ];
 
-    for(let i=8; i < 54; i++){
-        if(i === 53){
-            dAPIVERSION = i.toFixed(1);
-        }
+    let dTEMPLATE = "DefaultApexClass";
 
-        lAPIVERSION.push({value: i.toFixed(1), label: i.toFixed(1)});
-        
-        if(i === 11){
-            let j = i + .1;
-            lAPIVERSION.push({value: j.toFixed(1), label: j.toFixed(1)});
-        }
-    }
-
-    lAPIVERSION.reverse();
-
-    $mapInputVariables[fileName] = dAPIVERSION;
+    $mapInputVariables[fileName] = dTEMPLATE;
 </script>
 
 <div class="col align-self-center sfdxet-br">
     <Title pRequired={required} pSFDXParameter="-a" sectionName={sectionUCase} elementName={fileName} fileName={fileName} onlyOneError={onlyOneError}/>
     <Documentation headerD={sectionUCase} typeD={mapDoc.type} bodyD={mapDoc.body} sectionName={fileName}/>
 
-    {#if $mapShowSections.apiversion}
+    {#if $mapShowSections.template}
         <section class="sfdxet-section sfdxet-br">
-            <SelectCommon error={$mapErrors.apiversion} pList={lAPIVERSION} sectionName={fileName} defaultVal={dAPIVERSION}/>
+            <SelectCommon error={$mapErrors.template} pList={lTEMPLATE} sectionName={fileName} defaultVal={dTEMPLATE}/>
         </section>
     {/if}
 </div>

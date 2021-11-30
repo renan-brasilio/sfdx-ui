@@ -11,6 +11,7 @@
     export let mapDoc;
     export let required = false;
     export let onlyOneError = "";
+    export let defaultFolder = "";
 
     let type = `<b><i>Optional</i></b>`;
     let body = `
@@ -87,7 +88,7 @@
 
     {#if $mapShowSections.outputdir}
         <section class="sfdxet-section sfdxet-br">
-            <button class="sfdxet-buttons {$mapErrors.outputdir}" on:click={() => {showFolderPick({fileName})}}>Set Folder Path</button>
+            <button class="sfdxet-buttons {$mapErrors.outputdir}" on:click={() => {showFolderPick(`${fileName}`)}}>Set Folder Path</button>
             <br/>
             <br/>
             <label for={fileName}>
@@ -100,7 +101,7 @@
                     class="sfdxet-absolute-center" 
                     title={$mapInputVariables.outputdir} 
                     use:tooltipv1 
-                    placeholder="metadataPackage_1636067288937" 
+                    placeholder={defaultFolder} 
                     bind:value={$mapInputVariables.outputdir2}
                 />
             {/if}

@@ -1,0 +1,89 @@
+<script>
+    // Store
+    import { 
+        mapInputVariables, 
+        mapShowSections, 
+        mapErrors 
+    } from "../-helperFiles/GlobalStore";
+    
+    // Helper Pages
+    import { tooltip as tooltipv1 } from "../--tooltip/tooltip.v1";
+    import Title from "../-commonPages/Title.svelte";
+    import Documentation from "../-commonPages/Documentation.svelte";
+
+    // Default
+    let fileName = "classname";
+    let sectionUCase = fileName.toUpperCase();
+
+    // Parameters
+    export let mapDoc;
+    export let required = false;
+    export let onlyOneError = "";
+
+    // Documentation
+    let type = `<b>Required</b>`;
+    let body = `
+        <br/><br/>
+        The name of the new Apex class. The name can be up to 40 characters and must start with a letter.<br/><br/>
+        Type: string
+    `;
+
+    if(!mapDoc){ // Default
+        mapDoc = {
+            type: type,
+            body: body
+        };
+    }else{
+        if(!mapDoc.type){
+            mapDoc.type = type;
+        }
+
+        if(!mapDoc.body){
+            mapDoc.body = body;
+        }
+    }
+
+    function validatePattern(){
+        const pattern = /^[a-zA-Z0-9]*$/;
+
+        if(!pattern.test($mapInputVariables.classname)){
+            $mapErrors.classname2 = "sfdxet-error-span";
+
+            tsvscode.postMessage({
+                type: "onError",
+                value: `ERROR: Name must contain only alphanumeric characters.` 
+            });
+
+            return;
+        }else{
+            $mapErrors.classname2 = "";
+        }
+    }
+</script>
+
+<div class="col align-self-center sfdxet-br">
+    <Title pRequired={required} pSFDXParameter="--classname" elementName={fileName} fileName={fileName} onlyOneError={onlyOneError}/>
+    <Documentation headerD={sectionUCase} typeD={mapDoc.type} bodyD={mapDoc.body} sectionName={fileName}/>
+    
+    {#if $mapShowSections.classname}
+        <h4 class="sfdxet-br"><b>CLASSNAME Options:</b></h4>
+        <section class="sfdxet-section">
+            <label for="jsoninput">
+                Apex Class Name
+                <input 
+                    type="text" 
+                    id="jsoninput" 
+                    name="jsoninput" 
+                    class="sfdxet-absolute-center" 
+                    title="Insert the name of the new Apex Class." 
+                    use:tooltipv1 
+                    placeholder="Insert..."
+                    maxlength="40" 
+                    on:change={validatePattern}
+                    class:sfdxet-error-span={$mapErrors.classname2} 
+                    bind:value={$mapInputVariables.classname}
+                />
+            </label>
+        </section>
+    {/if}
+</div>

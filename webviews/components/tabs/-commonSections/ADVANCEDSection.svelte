@@ -1,17 +1,25 @@
 <script>
-    import * as js from "../-helperFiles/GlobalJS";
+    // Store
+    import { 
+        mapInputVariables, 
+        mapShowSections 
+    } from "../-helperFiles/GlobalStore";
+
+    // Helper Pages
     import { tooltip as tooltipv1 } from "../--tooltip/tooltip.v1";
-    import { mapInputVariables, mapShowSections } from "../-helperFiles/GlobalStore";
     import Title from "../-commonPages/Title.svelte";
     import Documentation from "../-commonPages/Documentation.svelte";
 
+    // Default
     let fileName = "advanced";
     let sectionUCase = fileName.toUpperCase();
 
+    // Parameters
     export let mapDoc;
     export let required = false;
     export let onlyOneError = "";
 
+    // Documentation
     let type = `<b><i>Optional</i></b>`;
     let body = `
         <br/><br/>
