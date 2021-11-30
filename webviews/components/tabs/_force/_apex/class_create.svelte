@@ -70,6 +70,15 @@
         window.addEventListener("message", event => {
             const message = event.data; // The json data that the extension sent
             switch (message.type) {
+                case "onConfirmRet":
+                    if(message.value === true){
+                        callSFDX();
+                    }else{
+                        $mapSpinner.main = false;
+                        $mapInformation.main = false;
+                    }
+
+                    break;
                 case "folderUri":
                     $mapInputVariables[$pickFolderType] = message.value[0].path;
                     break;
@@ -116,12 +125,12 @@
             }
         });
     });
+    
+    let message = {
+        type: "onTerminalSFDX"
+    };
 
     function class_create() {
-        let message = {
-            type: "onTerminalSFDX"
-        };
-
         message.sfdx = "force:apex:class:create";
 
         // JSON
@@ -190,7 +199,6 @@
 
         // TEMPLATE
         if($mapShowSections.template){
-            console.log(`mapInputVariables: ${JSON.stringify($mapInputVariables)}`);
             if($mapInputVariables.template){
                 $mapErrors.template = "";
                 message.sfdx += ` -t ${$mapInputVariables.template}`;
@@ -284,20 +292,29 @@
                 });
 
                 return;
-        }else{
+        }else{            
             $mapErrors.classname = "";
             $mapErrors.outputdir = "";
-
-            tsvscode.postMessage({
-                type: "onInfo",
-                value: "Starting the Terminal + Script: Class:Create" 
-            });
 
             $mapSpinner.main = true;
             $mapInformation.main = true;
     
-            tsvscode.postMessage(message);
+            tsvscode.postMessage({
+                type: "onConfirm",
+                title: "This action will start the terminal with the selected options, Continue?",
+                confirmLabel: "Continue",
+                declineLabel: "Cancel" 
+            });
         }
+    }
+
+    function callSFDX(){
+        tsvscode.postMessage({
+            type: "onInfo",
+            value: "Starting the Terminal + Script: Class:Create" 
+        });
+
+        tsvscode.postMessage(message);
     }
 </script>
 
