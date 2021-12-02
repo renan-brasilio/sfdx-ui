@@ -1,7 +1,16 @@
+<svelte:options accessors/>
+
 <script>
     // Helper Pages
     import Title from "../-commonPages/Title.svelte";
     import Documentation from "../-commonPages/Documentation.svelte";
+
+    // Store
+    import { 
+        mapInputVariables, 
+        mapShowSections, 
+        objSFDX, 
+    } from "../-helperFiles/GlobalStore";
 
     // Default
     let fileName = "checkonly";
@@ -11,6 +20,7 @@
     export let mapDoc;
     export let required = false;
     export let onlyOneError = "";
+    export let pSFDXParameter = "--checkonly";
 
     // Documentation
     let type = `<b><i>Optional</i></b>`;
@@ -45,9 +55,21 @@
             mapDoc.body = body;
         }
     }
+
+    export async function validate(){
+        let valid = true;
+
+        return await new Promise(function(resolve, reject) {
+            if($mapShowSections.checkonly){
+                $objSFDX.terminal += ` ${pSFDXParameter} ${$mapInputVariables.checkonly}`;
+            }
+
+            resolve(valid);
+        });
+    }
 </script>
 
 <div class="col align-self-center sfdxet-br">
-    <Title pRequired={required} pSFDXParameter="--checkonly" elementName={fileName} fileName={fileName} onlyOneError={onlyOneError}/>
+    <Title pRequired={required} pSFDXParameter={pSFDXParameter} elementName={fileName} fileName={fileName} onlyOneError={onlyOneError}/>
     <Documentation headerD={sectionUCase} typeD={mapDoc.type} bodyD={mapDoc.body} sectionName={fileName}/>
 </div>

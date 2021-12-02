@@ -1,17 +1,33 @@
+<svelte:options accessors/>
+
 <script>
+    // Helper Files
     import * as js from "../-helperFiles/GlobalJS";
     import { tooltip as tooltipv1 } from "../--tooltip/tooltip.v1";
-    import { mapInputVariables, mapShowSections, mapSectionValidation, showDebug, pickFolderType, mapErrors } from "../-helperFiles/GlobalStore";
     import Title from "../-commonPages/Title.svelte";
     import Documentation from "../-commonPages/Documentation.svelte";
+    
+    // Store
+    import { 
+        mapErrors, 
+        mapInputVariables, 
+        mapSectionValidation, 
+        mapShowSections, 
+        objSFDX, 
+        pickFolderType
+    } from "../-helperFiles/GlobalStore";
 
+    // Default
     let fileName = "sourcepath";
     let sectionUCase = fileName.toUpperCase();
 
+    // Parameters
     export let mapDoc;
     export let required = false;
     export let onlyOneError = "";
+    export let pSFDXParameter = "-p";
 
+    // Documentation
     let type = `<b><i>Optional</i></b>`;
     let body = `
         <br/><br/>
@@ -81,10 +97,34 @@
             type: "onShowFolderPick"
         });
     }
+
+    export async function validate(){
+        let valid = true;
+
+        return await new Promise(function(resolve, reject) {
+            if($mapShowSections.sourcepath){
+                if($mapInputVariables.sourcepath){
+                    $mapErrors.sourcepath = '';
+                    $objSFDX.terminal += ` ${pSFDXParameter} ${$mapInputVariables.sourcepath}`;
+                }else{
+                    $mapErrors.sourcepath = 'sfdxet-error-button';
+
+                    tsvscode.postMessage({
+                        type: 'onError',
+                        value: `ERROR: Please select a Folder or uncheck the [${pSFDXParameter} SOURCEPATH] checkbox.` 
+                    });
+
+                    valid = false;
+                }
+            }
+
+            resolve(valid);
+        });
+    }
 </script>
 
 <div class="col align-self-center sfdxet-br">
-    <Title pRequired={required} pSFDXParameter="-p" sectionName={sectionUCase} elementName={fileName} fileName={fileName} onlyOneError={onlyOneError}/>
+    <Title pRequired={required} pSFDXParameter={pSFDXParameter} sectionName={sectionUCase} elementName={fileName} fileName={fileName} onlyOneError={onlyOneError}/>
     <Documentation headerD={sectionUCase} typeD={mapDoc.type} bodyD={mapDoc.body} sectionName={fileName}/>
 
     {#if $mapShowSections.sourcepath}

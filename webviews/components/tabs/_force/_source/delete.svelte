@@ -28,6 +28,15 @@
     import TESTLEVELs from '../../-commonSections/TESTLEVELSection.svelte';
     import NOPROMPTs from '../../-commonSections/NOPROMPTSection.svelte';
 
+    // Component Validations
+    let 
+        ADVANCEDValidation,
+        APIVERSIONValidation,
+        JSONValidation,
+        LOGLEVELValidation, 
+        OUTPUTDIRValidation, 
+        TARGETUSERNAMEValidation;
+
     $mapSpinner.force = {
         delete: true
     };
@@ -331,16 +340,16 @@
         <br/>
 
         <!-- JSON -->
-        <JSONs />
+        <svelte:component this="{JSONs}" bind:this="{JSONValidation}" />
         
         <!-- LOGLEVEL -->
-        <LOGLEVELs />
+        <svelte:component this="{LOGLEVELs}" bind:this="{LOGLEVELValidation}" />
         
         <!-- TARGETUSERNAME -->
-        <TARGETUSERNAMEs />
+        <svelte:component this="{TARGETUSERNAMEs}" bind:this="{TARGETUSERNAMEValidation}" />
 
         <!-- APIVERSION -->
-        <APIVERSIONs />
+        <svelte:component this="{APIVERSIONs}" bind:this="{APIVERSIONValidation}" />
 
         <!-- CHECKONLY -->
         <CHECKONLYs />
@@ -364,7 +373,7 @@
         <VERBOSEs />
 
         <!-- ADVANCED -->
-        <ADVANCEDs />
+        <svelte:component this="{ADVANCEDs}" bind:this="{ADVANCEDValidation}" />
     </div>
 {/if}
 

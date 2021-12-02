@@ -24,6 +24,15 @@
     import OUTPUTDIRs from '../../-commonSections/OUTPUTDIRSection.svelte';
     import PACKAGENAMEs from '../../-commonSections/PACKAGENAMESection.svelte';
 
+    // Component Validations
+    let 
+        ADVANCEDValidation,
+        APIVERSIONValidation,
+        JSONValidation,
+        LOGLEVELValidation, 
+        OUTPUTDIRValidation, 
+        TARGETUSERNAMEValidation;
+
     $mapSpinner.force = {
         convert: true
     };
@@ -306,16 +315,16 @@
         <br/>
 
         <!-- JSON -->
-        <JSONs />
+        <svelte:component this="{JSONs}" bind:this="{JSONValidation}" />
         
         <!-- LOGLEVEL -->
-        <LOGLEVELs />
+        <svelte:component this="{LOGLEVELs}" bind:this="{LOGLEVELValidation}" />
 
         <!-- ROOTDIR -->
         <ROOTDIRs />
         
         <!-- OUTPUTDIR -->
-        <OUTPUTDIRs />
+        <svelte:component this="{OUTPUTDIRs}" bind:this="{OUTPUTDIRValidation}" defaultFolder="." />
 
         <!-- PACKAGENAME -->
         <PACKAGENAMEs />
@@ -330,7 +339,7 @@
         <METADATAs mapDoc={mapDocRequired} required={true}/>
 
         <!-- ADVANCED -->
-        <ADVANCEDs />
+        <svelte:component this="{ADVANCEDs}" bind:this="{ADVANCEDValidation}" />
     </div>
 {/if}
 

@@ -22,6 +22,15 @@
     import APIVERSIONs from "../../-commonSections/APIVERSIONSection.svelte";
     import ADVANCEDs from "../../-commonSections/ADVANCEDSection.svelte";
 
+    // Component Validations
+    let 
+        ADVANCEDValidation,
+        APIVERSIONValidation,
+        JSONValidation,
+        LOGLEVELValidation, 
+        OUTPUTDIRValidation, 
+        TARGETUSERNAMEValidation;
+
     $mapSpinner.force = {
         analytics: true
     };
@@ -262,21 +271,21 @@
             <div class="row">
 
                 <!-- [--json] -->
-                <JSONs />
+                <svelte:component this="{JSONs}" bind:this="{JSONValidation}" />
 
                 <!-- [--loglevel LOGLEVEL]    -->
-                <LOGLEVELs />
+                <svelte:component this="{LOGLEVELs}" bind:this="{LOGLEVELValidation}" />
 
                 <!-- [-d OUTPUTDIR] -->
-                <OUTPUTDIRs />
+                <svelte:component this="{OUTPUTDIRs}" bind:this="{OUTPUTDIRValidation}" defaultFolder="." />
 
                 <!-- [--apiversion APIVERSION] -->
-                <APIVERSIONs />
+                <svelte:component this="{APIVERSIONs}" bind:this="{APIVERSIONValidation}" />
 
                 <!-- -n TEMPLATENAME -->
         
                 <!-- ADVANCED -->
-                <ADVANCEDs />
+                <svelte:component this="{ADVANCEDs}" bind:this="{ADVANCEDValidation}" />
             </div>
         </div>
     </div>

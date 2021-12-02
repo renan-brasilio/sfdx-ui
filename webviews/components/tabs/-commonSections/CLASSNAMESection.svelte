@@ -1,16 +1,20 @@
+<svelte:options accessors/>
+
 <script>
-    // Store
-    import { 
-        mapInputVariables, 
-        mapShowSections, 
-        mapErrors 
-    } from "../-helperFiles/GlobalStore";
-    
     // Helper Pages
     import { tooltip as tooltipv1 } from "../--tooltip/tooltip.v1";
     import Title from "../-commonPages/Title.svelte";
     import Documentation from "../-commonPages/Documentation.svelte";
 
+    // Store
+    import { 
+        mapErrors,
+        mapInputVariables, 
+        mapSectionValidation, 
+        mapShowSections, 
+        objSFDX, 
+    } from "../-helperFiles/GlobalStore";
+    
     // Default
     let fileName = "classname";
     let sectionUCase = fileName.toUpperCase();
@@ -19,6 +23,7 @@
     export let mapDoc;
     export let required = false;
     export let onlyOneError = "";
+    export let pSFDXParameter = "-n";
 
     // Documentation
     let type = `<b>Required</b>`;
@@ -59,10 +64,44 @@
             $mapErrors.classname2 = "";
         }
     }
+
+    export async function validate(){
+        let valid = true;
+
+        return await new Promise(function(resolve, reject) {
+            if($mapShowSections.classname){
+                if($mapErrors.classname2){
+                    $mapErrors.classname2 = "sfdxet-error-span";
+
+                    tsvscode.postMessage({
+                        type: "onError",
+                        value: `ERROR: Name must contain only alphanumeric characters.` 
+                    });
+
+                    valid = false;
+                }else if($mapInputVariables.classname){
+                    $objSFDX.terminal += ` ${pSFDXParameter} ${$mapInputVariables.classname}`;
+                    $mapSectionValidation[classname] = 1;
+                }else{
+                    $mapSectionValidation[classname] = 0;
+                    tsvscode.postMessage({
+                        type: "onError",
+                        value: `ERROR: Please insert your new Apex Class Name.` 
+                    });
+
+                    valid = false;
+                }
+            }
+
+            console.log(`objSFDX.terminal: ${JSON.stringify($objSFDX.terminal)}`);
+
+            resolve(valid);
+        });
+    }
 </script>
 
 <div class="col align-self-center sfdxet-br">
-    <Title pRequired={required} pSFDXParameter="--classname" elementName={fileName} fileName={fileName} onlyOneError={onlyOneError}/>
+    <Title pRequired={required} pSFDXParameter={pSFDXParameter} sectionName={sectionUCase} elementName={fileName} fileName={fileName} onlyOneError={onlyOneError}/>
     <Documentation headerD={sectionUCase} typeD={mapDoc.type} bodyD={mapDoc.body} sectionName={fileName}/>
     
     {#if $mapShowSections.classname}

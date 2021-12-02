@@ -1,15 +1,18 @@
+<svelte:options accessors/>
+
 <script>
-    // Store
-    import { 
-        mapShowSections, 
-        mapInputVariables, 
-        mapErrors 
-    } from "../-helperFiles/GlobalStore";
-    
     // Helper Pages
     import Title from "../-commonPages/Title.svelte";
     import Documentation from "../-commonPages/Documentation.svelte";
     import SelectCommon from "../-commonPages/SelectCommon.svelte";
+
+    // Store
+    import { 
+        mapErrors,
+        mapInputVariables, 
+        mapShowSections, 
+        objSFDX, 
+    } from "../-helperFiles/GlobalStore";
     
     // Default
     let fileName = "apiversion";
@@ -19,6 +22,7 @@
     export let mapDoc;
     export let required = false;
     export let onlyOneError = "";
+    export let pSFDXParameter = "-a";
 
     // Documentation
     let type = `<b><i>Optional</i></b>`;
@@ -63,10 +67,36 @@
     lAPIVERSION.reverse();
 
     $mapInputVariables[fileName] = dAPIVERSION;
+
+    export async function validate(){
+        let valid = true;
+
+        return await new Promise(function(resolve, reject) {
+            if($mapShowSections.apiversion){
+                if($mapInputVariables.apiversion){
+                    $mapErrors.apiversion = "";
+                    $objSFDX.terminal += ` ${pSFDXParameter} ${$mapInputVariables.apiversion}`;
+                }else{
+                    $mapErrors.apiversion = "sfdxet-error-select";
+
+                    tsvscode.postMessage({
+                        type: "onError",
+                        value: `ERROR: Please select a Apiversion or uncheck the [${pSFDXParameter} APIVERSION] checkbox.` 
+                    });
+
+                    valid = false;
+                }
+            }else{
+                $mapErrors.apiversion = "";
+            }
+
+            resolve(valid);
+        });
+    }
 </script>
 
 <div class="col align-self-center sfdxet-br">
-    <Title pRequired={required} pSFDXParameter="-a" sectionName={sectionUCase} elementName={fileName} fileName={fileName} onlyOneError={onlyOneError}/>
+    <Title pRequired={required} pSFDXParameter={pSFDXParameter} sectionName={sectionUCase} elementName={fileName} fileName={fileName} onlyOneError={onlyOneError}/>
     <Documentation headerD={sectionUCase} typeD={mapDoc.type} bodyD={mapDoc.body} sectionName={fileName}/>
 
     {#if $mapShowSections.apiversion}

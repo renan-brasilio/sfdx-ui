@@ -9,25 +9,27 @@
     // Store
     import { 
         mapErrors,
-        mapInputVariables, 
-        mapShowSections,
+        mapInputVariables,  
+        mapShowSections, 
         objSFDX, 
     } from "../-helperFiles/GlobalStore";
 
     // Default
-    let fileName = "advanced";
+    let fileName = "logid";
     let sectionUCase = fileName.toUpperCase();
 
     // Parameters
     export let mapDoc;
     export let required = false;
     export let onlyOneError = "";
+    export let pSFDXParameter = "-i";
 
     // Documentation
-    let type = `<b><i>Optional</i></b>`;
+    let type = `<b>Optional</b>`;
     let body = `
         <br/><br/>
-        Here you can insert any extra or manual tags.
+        Id of the log to display.<br/><br/>
+        Type: id
     `;
 
     if(!mapDoc){ // Default
@@ -49,14 +51,13 @@
         let valid = true;
 
         return await new Promise(function(resolve, reject) {
-            if($mapShowSections.advanced){
-                if($mapInputVariables.advanced){
-                    $mapErrors.advanced = "";
-                    $objSFDX.terminal += ` ${$mapInputVariables.advanced}`;
+            if($mapShowSections.logid){
+                if($mapInputVariables.logid){
+                    $objSFDX.terminal += ` ${pSFDXParameter} ${$mapInputVariables.logid}`;
                 }else{
                     tsvscode.postMessage({
                         type: "onError",
-                        value: `ERROR: Please insert your advanced input or uncheck the Advanced checkbox.` 
+                        value: `ERROR: Please insert a LogId or uncheck the [${pSFDXParameter} LOGID] checkbox.` 
                     });
 
                     valid = false;
@@ -69,14 +70,26 @@
 </script>
 
 <div class="col align-self-center sfdxet-br">
-    <Title pRequired={required} pSFDXParameter={sectionUCase} elementName={fileName} fileName={fileName} onlyOneError={onlyOneError} pStyle="color: green;"/>
+    <Title pRequired={required} pSFDXParameter={pSFDXParameter} elementName={fileName} fileName={fileName} onlyOneError={onlyOneError}/>
     <Documentation headerD={sectionUCase} typeD={mapDoc.type} bodyD={mapDoc.body} sectionName={fileName}/>
     
-    {#if $mapShowSections.advanced}
-        <section class="sfdxet-section sfdxet-br">
-            <label for="advancedinput">
-                Advanced Entry
-                <input type="text" id="advancedinput" name="advancedinput" class="sfdxet-absolute-center sfdxet-error-button" title="Add any extra advanced statement. *USE THIS CAREFULLY." use:tooltipv1 placeholder="Be carefull..." bind:value={$mapInputVariables.advanced}/>
+    {#if $mapShowSections.logid}
+        <h4 class="sfdxet-br"><b>CLASSNAME Options:</b></h4>
+        <section class="sfdxet-section">
+            <label for="jsoninput">
+                Apex Class Name
+                <input 
+                    type="text" 
+                    id="jsoninput" 
+                    name="jsoninput" 
+                    class="sfdxet-absolute-center" 
+                    title="Insert the name of the new Apex Class." 
+                    use:tooltipv1 
+                    placeholder="Insert..."
+                    maxlength="18" 
+                    class:sfdxet-error-span={$mapErrors.logid} 
+                    bind:value={$mapInputVariables.logid}
+                />
             </label>
         </section>
     {/if}

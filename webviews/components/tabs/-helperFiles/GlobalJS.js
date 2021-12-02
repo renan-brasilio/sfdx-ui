@@ -100,3 +100,12 @@ export function onShowFilePick(type) {
 		type: 'onShowFilePick'
 	});
 }
+
+export function globalContinue(){
+	tsvscode.postMessage({
+		type: "onConfirm",
+		title: "This action will start the terminal with the selected options, Continue?",
+		confirmLabel: "Continue",
+		declineLabel: "Cancel" 
+	});
+}

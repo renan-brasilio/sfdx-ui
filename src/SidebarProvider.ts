@@ -101,7 +101,7 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
           
           console.log(JSON.stringify(data));
 
-          let sfdx = 'sfdx ' + data.sfdx;
+          let sfdx = 'sfdx ' + data.terminal;
 
           // JSON
           if(data.vJSONPath){

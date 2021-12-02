@@ -1,3 +1,5 @@
+<svelte:options accessors/>
+
 <script>
     // Helper Files
     import { tooltip as tooltipv1 } from "../--tooltip/tooltip.v1";
@@ -6,10 +8,12 @@
 
     // Store
     import { 
+        mapDocument, 
+        mapErrors,
         mapInputVariables, 
         mapShowSections, 
-        mapDocument, 
-        pickFileType 
+        objSFDX, 
+        pickFileType, 
     } from "../-helperFiles/GlobalStore";
 
     let fileName = "manifest";
@@ -18,7 +22,7 @@
     export let mapDoc;
     export let required = false;
     export let onlyOneError = "";
-    $mapDocument[fileName] = false;
+    export let pSFDXParameter = "-x";
 
     let type = `<b><i>Optional</i></b>`;
     let body = `
@@ -52,10 +56,36 @@
             type: 'onShowFilePick'
         });
     }
+
+    $mapDocument[fileName] = false;
+
+    export async function validate(){
+        let valid = true;
+
+        return await new Promise(function(resolve, reject) {
+            if($mapShowSections.manifest){
+                if($mapInputVariables.manifest){
+                    $mapErrors.sourcepath = "";
+                    $mapErrors.metadata = "";
+
+                    $objSFDX.terminal += ` ${pSFDXParameter} ${$mapInputVariables.manifest}`;
+                }else{
+                    tsvscode.postMessage({
+                        type: "onError",
+                        value: `ERROR: Please select the Manifest file or uncheck the [${pSFDXParameter} MANIFEST] checkbox.` 
+                    });
+
+                    valid = false;
+                }
+            }
+
+            resolve(valid);
+        });
+    }
 </script>
 
 <div class="col align-self-center sfdxet-br">
-    <Title pRequired={required} pSFDXParameter="-x" sectionName={sectionUCase} elementName={fileName} fileName={fileName} onlyOneError={onlyOneError}/>
+    <Title pRequired={required} pSFDXParameter={pSFDXParameter} sectionName={sectionUCase} elementName={fileName} fileName={fileName} onlyOneError={onlyOneError}/>
     <Documentation headerD={sectionUCase} typeD={mapDoc.type} bodyD={mapDoc.body} sectionName={fileName}/>
 
     {#if $mapShowSections.manifest}

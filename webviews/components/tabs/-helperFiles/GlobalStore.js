@@ -22,6 +22,10 @@ export const mapShowSections = writable({
 	information: false
 });
 
+export let objSFDX = writable({
+	type: "onTerminalSFDX"
+});
+
 export const showDebug = writable(false);
 export const pickFolderType = writable(0);
 export const pickFileType = writable(0);

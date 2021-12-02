@@ -1,3 +1,5 @@
+<svelte:options accessors/>
+
 <script>
     // Helper Files
     import * as js from "../-helperFiles/GlobalJS";
@@ -7,11 +9,12 @@
 
     // Store
     import { 
+        mapErrors,
         mapInputVariables, 
-        mapShowSections, 
         mapSectionValidation, 
-        pickFileType, 
-        mapErrors 
+        mapShowSections, 
+        objSFDX, 
+        pickFileType,
     } from "../-helperFiles/GlobalStore";
     
     // Default
@@ -23,6 +26,7 @@
     export let required = false;
     export let onlyOneError = "";
     export let defaultFolder = "";
+    export let pSFDXParameter = "-f";
 
     // Documentation
     let type = `<b><i>Optional</i></b>`;
@@ -92,10 +96,39 @@
             type: 'onShowFilePick'
         });
     }
+
+    export async function validate(){
+        let valid = true;
+
+        return await new Promise(function(resolve, reject) {
+            if($mapShowSections.apexcodefile){
+                $objSFDX.terminal += ` ${pSFDXParameter} `;
+
+                if($mapShowSections.apexcodefile2 && $mapInputVariables.apexcodefile2){
+                    $mapErrors.apexcodefile2 = "";
+                    $objSFDX.terminal += $mapInputVariables.apexcodefile2;
+                }else if($mapInputVariables.apexcodefile){
+                    $mapErrors.apexcodefile = "";
+                    $objSFDX.terminal += $mapInputVariables.apexcodefile;
+                }else{
+                    $mapErrors.apexcodefile = "sfdxet-error-span";
+
+                    tsvscode.postMessage({
+                        type: "onError",
+                        value: `ERROR: Please select/insert a Folder or uncheck the [${pSFDXParameter} APEXCODEFILE] checkbox.` 
+                    });
+
+                    valid = false;
+                }
+            }
+
+            resolve(valid);
+        });
+    }
 </script>
 
 <div class="col align-self-center sfdxet-br">
-    <Title pRequired={required} pSFDXParameter="-f" sectionName={sectionUCase} elementName={fileName} fileName={fileName} onlyOneError={onlyOneError}/>
+    <Title pRequired={required} pSFDXParameter={pSFDXParameter} sectionName={sectionUCase} elementName={fileName} fileName={fileName} onlyOneError={onlyOneError}/>
     <Documentation headerD={sectionUCase} typeD={mapDoc.type} bodyD={mapDoc.body} sectionName={fileName}/>
 
     {#if $mapShowSections.apexcodefile}

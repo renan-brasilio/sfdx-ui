@@ -4,6 +4,7 @@
     import CSS from "../../-helperFiles/GlobalCSS.svelte";
     import { Circle2 } from "svelte-loading-spinners";
     import { onMount } from "svelte";
+    import * as js from "../../-helperFiles/GlobalJS";
 
     // Store
     import { 
@@ -17,17 +18,28 @@
         mapShowSections,
         mapSpinner,
         mapTargetUsername,
-        pickFolderType
+        objSFDX,
+        pickFolderType,
     } from "../../-helperFiles/GlobalStore";
 
     // Sections
+    import ADVANCEDs from "../../-commonSections/ADVANCEDSection.svelte";
+    import APIVERSIONs from "../../-commonSections/APIVERSIONSection.svelte";
+    import CLASSNAMEs from "../../-commonSections/CLASSNAMESection.svelte";
     import JSONs from "../../-commonSections/JSONSection.svelte";
     import LOGLEVELs from "../../-commonSections/LOGLEVELSection.svelte";
-    import CLASSNAMEs from "../../-commonSections/CLASSNAMESection.svelte";
-    import TEMPLATEs from "../../-commonSections/TEMPLATESection.svelte";
-    import APIVERSIONs from "../../-commonSections/APIVERSIONSection.svelte";
-    import ADVANCEDs from "../../-commonSections/ADVANCEDSection.svelte";
     import OUTPUTDIRs from "../../-commonSections/OUTPUTDIRSection.svelte";
+    import TEMPLATEs from "../../-commonSections/TEMPLATESection.svelte";
+
+    // Component Validations
+    let 
+        ADVANCEDValidation,
+        APIVERSIONValidation,
+        CLASSNAMEValidation,
+        JSONValidation, 
+        LOGLEVELValidation, 
+        OUTPUTDIRValidation,
+        TEMPLATEValidation;
 
     // Initial loading
     $mapSpinner.force = {
@@ -64,10 +76,10 @@
     // Webview Listener
     onMount(() => {
         window.addEventListener("message", event => {
-            const message = event.data; // The json data that the extension sent
-            switch (message.type) {
+            const backReturn = event.data; // The json data that the extension sent
+            switch (backReturn.type) {
                 case "onConfirmRet":
-                    if(message.value === true){
+                    if(backReturn.value === true){
                         callSFDX();
                     }else{
                         $mapSpinner.main = false;
@@ -76,17 +88,17 @@
 
                     break;
                 case "folderUri":
-                    $mapInputVariables[$pickFolderType] = message.value[0].path;
+                    $mapInputVariables[$pickFolderType] = backReturn.value[0].path;
                     break;
                 case "fileUri":
-                    $mapInputVariables[$pickFolderType] = message.value[0].path;
+                    $mapInputVariables[$pickFolderType] = backReturn.value[0].path;
                     $mapShowSections[$pickFolderType] = true;
                     break;
                 case "aliasJSON":
-                    for(const key in message.value){
+                    for(const key in backReturn.value){
                         let option = {value: key, label: key};
 
-                        $mapTargetUsername[key] = message.value[key];
+                        $mapTargetUsername[key] = backReturn.value[key];
                         $lTARGETUSERNAME.push(option);
 
                         $mapShowSections.targetusernamespinner = false;
@@ -121,154 +133,66 @@
             }
         });
     });
-    
-    let message = {
-        type: "onTerminalSFDX"
-    };
 
     function class_create() {
-        message.sfdx = "force:apex:class:create";
+        $objSFDX.terminal = "";
+        $objSFDX.terminal = "force:apex:class:create";
 
         // JSON
-        if($mapShowSections.json){
-            message.sfdx += " --json > ";
-            
-            if($mapInputVariables.json){
-                message.sfdx += $mapInputVariables.json;
-            }else{
-                message.sfdx += "output.json";
+        JSONValidation.validate()
+        .then(function(valid) {
+            if(!valid){
+                return;
             }
-        }
-
-        if($mapInputVariables.json2){
-            message.pJSON = " --json";
-            message.vJSONPath = $mapInputVariables.json2;
-
-            if($mapInputVariables.json){
-                message.vJSON += $mapInputVariables.json;
-            }
-        }
+        });
 
         // LOGLEVEL
-        if($mapShowSections.loglevel){
-            if($mapInputVariables.loglevel){
-                $mapErrors.loglevel = "";
-                message.sfdx += ` --loglevel ${$mapInputVariables.loglevel}`;
-            }else{
-                $mapErrors.loglevel = "sfdxet-error-select";
-
-                tsvscode.postMessage({
-                    type: "onError",
-                    value: `ERROR: Please select a Loglevel or uncheck the [--loglevel LOGLEVEL] checkbox.` 
-                });
-
+        LOGLEVELValidation.validate()
+        .then(function(valid) {
+            if(!valid){
                 return;
             }
-        }else{
-            $mapErrors.loglevel = "";
-        }
+        });
 
         // CLASSNAME
-        if($mapShowSections.classname){
-            if($mapErrors.classname2){
-                $mapErrors.classname2 = "sfdxet-error-span";
-
-                tsvscode.postMessage({
-                    type: "onError",
-                    value: `ERROR: Name must contain only alphanumeric characters.` 
-                });
-
-                return;
-            }else if($mapInputVariables.classname){
-                message.sfdx += " -n " + $mapInputVariables.classname;
-                $mapSectionValidation[classname] = 1;
-            }else{
-                $mapSectionValidation[classname] = 0;
-                tsvscode.postMessage({
-                    type: "onError",
-                    value: `ERROR: Please insert your new Apex Class Name.` 
-                });
-
+        CLASSNAMEValidation.validate()
+        .then(function(valid) {
+            if(!valid){
                 return;
             }
-        }
+        });
 
         // TEMPLATE
-        if($mapShowSections.template){
-            if($mapInputVariables.template){
-                $mapErrors.template = "";
-                message.sfdx += ` -t ${$mapInputVariables.template}`;
-            }else{
-                $mapErrors.template = "sfdxet-error-select";
-
-                tsvscode.postMessage({
-                    type: "onError",
-                    value: `ERROR: Please select a Template or uncheck the [-t TEMPLATE] checkbox.` 
-                });
-
+        TEMPLATEValidation.validate()
+        .then(function(valid) {
+            if(!valid){
                 return;
             }
-        }else{
-            $mapErrors.template = "";
-        }
-
+        });
+        
         // OUTPUTDIR
-        if($mapShowSections.outputdir){
-            message.sfdx += ` -d `;
-
-            if($mapShowSections.outputdir2){
-                if($mapInputVariables.outputdir2){
-                    $mapErrors.outputdir2 = "";
-                    message.sfdx += $mapInputVariables.outputdir2;
-                }
-            }else if($mapInputVariables.outputdir){
-                $mapErrors.outputdir = "";
-                message.sfdx += $mapInputVariables.outputdir;
-            }else{
-                $mapErrors.outputdir = "sfdxet-error-span";
-
-                tsvscode.postMessage({
-                    type: "onError",
-                    value: `ERROR: Please select/insert a Folder or uncheck the [-d OUTPUTDIR] checkbox.` 
-                });
-
+        OUTPUTDIRValidation.validate()
+        .then(function(valid) {
+            if(!valid){
                 return;
             }
-        }
+        });
 
         // APIVERSION
-        if($mapShowSections.apiversion){
-            if($mapInputVariables.apiversion){
-                $mapErrors.apiversion = "";
-                message.sfdx += ` --apiversion ${$mapInputVariables.apiversion}`;
-            }else{
-                $mapErrors.apiversion = "sfdxet-error-select";
-
-                tsvscode.postMessage({
-                    type: "onError",
-                    value: `ERROR: Please select a Apiversion or uncheck the [-a APIVERSION] checkbox.` 
-                });
-
+        APIVERSIONValidation.validate()
+        .then(function(valid) {
+            if(!valid){
                 return;
             }
-        }else{
-            $mapErrors.apiversion = "";
-        }
+        });
 
         // ADVANCED
-        if($mapShowSections.advanced){
-            if($mapInputVariables.advanced){
-                $mapErrors.advanced = "";
-                message.sfdx += ` ${$mapInputVariables.advanced}`;
-            }else{
-                tsvscode.postMessage({
-                    type: "onError",
-                    value: `ERROR: Please insert your advanced input or uncheck the Advanced checkbox.` 
-                });
-
+        ADVANCEDValidation.validate()
+        .then(function(valid) {
+            if(!valid){
                 return;
             }
-        }
+        });
 
         let validation = 0;
 
@@ -295,12 +219,7 @@
             $mapSpinner.main = true;
             $mapInformation.main = true;
     
-            tsvscode.postMessage({
-                type: "onConfirm",
-                title: "This action will start the terminal with the selected options, Continue?",
-                confirmLabel: "Continue",
-                declineLabel: "Cancel" 
-            });
+            js.globalContinue();
         }
     }
 
@@ -310,7 +229,7 @@
             value: "Starting the Terminal + Script: Class:Create" 
         });
 
-        tsvscode.postMessage(message);
+        tsvscode.postMessage($objSFDX);
     }
 </script>
 
@@ -331,25 +250,25 @@
         <br/>
 
         <!-- [--json] -->
-        <JSONs />
-
+        <svelte:component this="{JSONs}" bind:this="{JSONValidation}" />
+        
         <!-- [--loglevel LOGLEVEL] -->
-        <LOGLEVELs />
+        <svelte:component this="{LOGLEVELs}" bind:this="{LOGLEVELValidation}" />
 
-        <!-- -n CLASSNAME -->
-        <CLASSNAMEs required={true}/>
+        <!-- [-n CLASSNAME] -->
+        <svelte:component this="{CLASSNAMEs}" bind:this="{CLASSNAMEValidation}" required={true}/>
         
         <!-- [-t TEMPLATE] -->
-        <TEMPLATEs />
+        <svelte:component this="{TEMPLATEs}" bind:this="{TEMPLATEValidation}" />
         
         <!-- [-d OUTPUTDIR] -->
-        <OUTPUTDIRs defaultFolder="."/>
+        <svelte:component this="{OUTPUTDIRs}" bind:this="{OUTPUTDIRValidation}" defaultFolder="." />
 
         <!-- [--apiversion APIVERSION] -->
-        <APIVERSIONs />
+        <svelte:component this="{APIVERSIONs}" bind:this="{APIVERSIONValidation}" pSFDXParameter="--apiversion" />
 
-        <!-- ADVANCED -->
-        <ADVANCEDs />
+        <!-- [ADVANCED] -->
+        <svelte:component this="{ADVANCEDs}" bind:this="{ADVANCEDValidation}" />
     </div>
 {/if}
 

@@ -17,15 +17,29 @@
         mapShowSections,
         mapSpinner,
         mapTargetUsername,
-        pickFolderType
+        objSFDX,
+        pickFolderType,
     } from "../../-helperFiles/GlobalStore";
 
     // Sections
-    import JSONs from "../../-commonSections/JSONSection.svelte";
-    import LOGLEVELs from "../../-commonSections/LOGLEVELSection.svelte";
-    import TARGETUSERNAMEs from "../../-commonSections/TARGETUSERNAMESection.svelte";
-    import APIVERSIONs from "../../-commonSections/APIVERSIONSection.svelte";
     import ADVANCEDs from "../../-commonSections/ADVANCEDSection.svelte";
+    import APIVERSIONs from "../../-commonSections/APIVERSIONSection.svelte";
+    import JSONs from "../../-commonSections/JSONSection.svelte";
+    import LOGIDs from "../../-commonSections/LOGIDSection.svelte";
+    import LOGLEVELs from "../../-commonSections/LOGLEVELSection.svelte";
+    import OUTPUTDIRs from "../../-commonSections/OUTPUTDIRSection.svelte";
+    import TARGETUSERNAMEs from "../../-commonSections/TARGETUSERNAMESection.svelte";
+
+    // Component Validations
+    let 
+        ADVANCEDValidation,
+        APIVERSIONValidation,
+        JSONValidation, 
+        LOGIDValidation,
+        LOGLEVELValidation, 
+        NUMBERValidation,
+        OUTPUTDIRValidation,
+        TARGETUSERNAMEValidation;
 
     // Initial loading
     $mapSpinner.force = {
@@ -51,33 +65,38 @@
     }
 
     $mapSectionValidation = {
-        classname: 0
+        logid: 0
     };
 
     $mapErrors = {};
     $mapInputVariables = {};
 
-    let mapDocRequired = {
-        type: `<b>Required</b>`,
-    };
-
     // Webview Listener
     onMount(() => {
         window.addEventListener("message", event => {
-            const message = event.data; // The json data that the extension sent
-            switch (message.type) {
+            const backReturn = event.data; // The json data that the extension sent
+            switch (backReturn.type) {
+                case "onConfirmRet":
+                    if(backReturn.value === true){
+                        callSFDX();
+                    }else{
+                        $mapSpinner.main = false;
+                        $mapInformation.main = false;
+                    }
+
+                    break;
                 case "folderUri":
-                    $mapInputVariables[$pickFolderType] = message.value[0].path;
+                    $mapInputVariables[$pickFolderType] = backReturn.value[0].path;
                     break;
                 case "fileUri":
-                    $mapInputVariables[$pickFolderType] = message.value[0].path;
+                    $mapInputVariables[$pickFolderType] = backReturn.value[0].path;
                     $mapShowSections[$pickFolderType] = true;
                     break;
                 case "aliasJSON":
-                    for(const key in message.value){
+                    for(const key in backReturn.value){
                         let option = {value: key, label: key};
 
-                        $mapTargetUsername[key] = message.value[key];
+                        $mapTargetUsername[key] = backReturn.value[key];
                         $lTARGETUSERNAME.push(option);
 
                         $mapShowSections.targetusernamespinner = false;
@@ -98,7 +117,7 @@
 
                     if($mapApex){
                         for(const key in $mapApex){
-                            if(key !== "log_get"){
+                            if(key !== "class_create"){
                                 $mapApex[key] = false;
                             }
                         }
@@ -107,119 +126,93 @@
                     $mapSpinner.main = false;
                     $mapInformation.main = false;
                     $mapForceShowSections.apex = true;
-                    $mapApex.log_get = true;
+                    $mapApex.class_create = true;
                     break;
             }
         });
     });
 
     function log_get() {
+        $objSFDX.terminal = "";
+        $objSFDX.terminal = "force:apex:log:get";
+
+        // JSON
+        JSONValidation.validate()
+        .then(function(valid) {
+            if(!valid){
+                return;
+            }
+        });
+
+        // LOGLEVEL
+        LOGLEVELValidation.validate()
+        .then(function(valid) {
+            if(!valid){
+                return;
+            }
+        });
+
+        // TARGETUSERNAME
+        TARGETUSERNAMEValidation.validate()
+        .then(function(valid) {
+            if(!valid){
+                return;
+            }
+        });
+
+        // APIVERSION
+        APIVERSIONValidation.validate()
+        .then(function(valid) {
+            if(!valid){
+                return;
+            }
+        });
+
+        // LOGID
+        LOGIDValidation.validate()
+        .then(function(valid) {
+            if(!valid){
+                return;
+            }
+        });
+
+        // NUMBER
+        // NUMBERValidation.validate()
+        // .then(function(valid) {
+        //     if(!valid){
+        //         return;
+        //     }
+        // });
+
+        // OUTPUTDIR
+        OUTPUTDIRValidation.validate()
+        .then(function(valid) {
+            if(!valid){
+                return;
+            }
+        });
+
+        // ADVANCED
+        ADVANCEDValidation.validate()
+        .then(function(valid) {
+            if(!valid){
+                return;
+            }
+        });
+
+        $mapSpinner.main = true;
+        $mapInformation.main = true;
+
+        js.globalContinue();
+    }
+
+    function callSFDX(){
         tsvscode.postMessage({
             type: "onInfo",
             value: "Starting the Terminal + Script: Log:Get" 
         });
 
-        let message = {
-            type: "onTerminalSFDX"
-        };
-
-        message.sfdx = "force:apex:log:get";
-
-        // JSON
-        if($mapShowSections.json){
-            message.sfdx += " --json > ";
-            
-            if($mapInputVariables.json){
-                message.sfdx += $mapInputVariables.json;
-            }else{
-                message.sfdx += "output.json";
-            }
-        }
-
-        if($mapInputVariables.json2){
-            message.pJSON = " --json";
-            message.vJSONPath = $mapInputVariables.json2;
-
-            if($mapInputVariables.json){
-                message.vJSON += $mapInputVariables.json;
-            }
-        }
-
-        // LOGLEVEL
-        if($mapShowSections.loglevel){
-            if($mapInputVariables.loglevel){
-                $mapErrors.loglevel = "";
-                message.sfdx += ` --loglevel ${$mapInputVariables.loglevel}`;
-            }else{
-                $mapErrors.loglevel = "sfdxet-error-select";
-
-                tsvscode.postMessage({
-                    type: "onError",
-                    value: `ERROR: Please select a Loglevel or uncheck the [--loglevel LOGLEVEL] checkbox.` 
-                });
-
-                return;
-            }
-        }else{
-            $mapErrors.loglevel = "";
-        }
-
-        // TARGETUSERNAME
-
-        // APIVERSION
-
-        // LOGID
-
-        // NUMBER
-
-        // OUTPUTDIR
-
-        // ADVANCED
-        if($mapShowSections.advanced){
-            if($mapInputVariables.advanced){
-                $mapErrors.advanced = "";
-                message.sfdx += ` ${$mapInputVariables.advanced}`;
-            }else{
-                tsvscode.postMessage({
-                    type: "onError",
-                    value: `ERROR: Please insert your advanced input or uncheck the Advanced checkbox.` 
-                });
-
-                return;
-            }
-        }
-
-        let validation = 0;
-
-        for(let i in $mapSectionValidation){
-            if($mapSectionValidation[i] === 1){
-                validation++;
-                break;
-            }
-        }
-
-        if(validation === 0){
-            $mapErrors.classname = "sfdxet-error-span";
-
-            tsvscode.postMessage({
-                    type: "onError",
-                    value: `ERROR: CLASSNAME is required.` 
-                });
-
-                return;
-        }else{
-            $mapErrors.classname = "";
-
-            tsvscode.postMessage({
-                type: "onInfo",
-                value: "Starting the Terminal + Script: Log:Get" 
-            });
-
-            $mapSpinner.main = true;
-            $mapInformation.main = true;
-    
-            tsvscode.postMessage(message);
-        }
+        tsvscode.postMessage($objSFDX);
     }
 </script>
 
@@ -240,23 +233,27 @@
         <br/>
 
         <!-- [--json] -->
-        <JSONs />
+        <svelte:component this="{JSONs}" bind:this="{JSONValidation}" />
 
         <!-- [--loglevel LOGLEVEL] -->
-        <LOGLEVELs />
+        <svelte:component this="{LOGLEVELs}" bind:this="{LOGLEVELValidation}" />
 
         <!-- [-u TARGETUSERNAME] -->
-        <TARGETUSERNAMEs />
+        <svelte:component this="{TARGETUSERNAMEs}" bind:this="{TARGETUSERNAMEValidation}" />
 
         <!-- [--apiversion APIVERSION] -->
-        <APIVERSIONs />
-
+        <svelte:component this="{APIVERSIONs}" bind:this="{APIVERSIONValidation}" />
+        
         <!-- [-i LOGID] -->
+        <svelte:component this="{LOGIDs}" bind:this="{LOGIDValidation}" />
+
         <!-- [-n NUMBER] -->
+
         <!-- [-d OUTPUTDIR] -->
+        <svelte:component this="{OUTPUTDIRs}" bind:this="{OUTPUTDIRValidation}" defaultFolder="." />
 
         <!-- ADVANCED -->
-        <ADVANCEDs />
+        <svelte:component this="{ADVANCEDs}" bind:this="{ADVANCEDValidation}" />
     </div>
 {/if}
 
