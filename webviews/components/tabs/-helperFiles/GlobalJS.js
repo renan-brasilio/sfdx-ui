@@ -21,28 +21,6 @@ export let mapTooltips = {
 	'manuallyDefine': 'Define manually the path/file.'
 };
 
-// Selects lists
-export const lLOGLEVEL = [
-	{value: 'trace', label: 'trace'},
-	{value: 'debug', label: 'debug'},
-	{value: 'info', label: 'info'},
-	{value: 'warn', label: 'warn'},
-	{value: 'error', label: 'error'},
-	{value: 'fatal', label: 'fatal'},
-	{value: 'TRACE', label: 'TRACE'},
-	{value: 'DEBUG', label: 'DEBUG'},
-	{value: 'INFO', label: 'INFO'},
-	{value: 'WARN', label: 'WARN'},
-	{value: 'ERROR', label: 'ERROR'},
-	{value: 'FATAL', label: 'FATAL'},
-];
-
-export const lTESTLEVEL = [
-	{value: 'NoTestRun', label: 'NoTestRun'},
-	{value: 'RunLocalTests', label: 'RunLocalTests'},
-	{value: 'RunAllTestsInOrg', label: 'RunAllTestsInOrg'},
-];
-
 export function handleSelect(event, inputName, isMulti) {
 	if(event.type === "select" && event.detail){
 		if(isMulti && event.detail){
@@ -109,3 +87,26 @@ export function globalContinue(){
 		declineLabel: "Cancel" 
 	});
 }
+
+export let dAPIVERSION = "";
+
+export const lTESTLEVEL = [
+	{value: 'NoTestRun', label: 'NoTestRun'},
+	{value: 'RunLocalTests', label: 'RunLocalTests'},
+	{value: 'RunAllTestsInOrg', label: 'RunAllTestsInOrg'},
+];
+
+export const lLOGLEVEL = [
+	{value: 'trace', label: 'trace'},
+	{value: 'debug', label: 'debug'},
+	{value: 'info', label: 'info'},
+	{value: 'warn', label: 'warn'},
+	{value: 'error', label: 'error'},
+	{value: 'fatal', label: 'fatal'},
+	{value: 'TRACE', label: 'TRACE'},
+	{value: 'DEBUG', label: 'DEBUG'},
+	{value: 'INFO', label: 'INFO'},
+	{value: 'WARN', label: 'WARN'},
+	{value: 'ERROR', label: 'ERROR'},
+	{value: 'FATAL', label: 'FATAL'},
+];

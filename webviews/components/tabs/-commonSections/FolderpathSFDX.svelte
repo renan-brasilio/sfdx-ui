@@ -9,48 +9,24 @@
 
     // Store
     import { 
-        mapErrors,
+        mapErrors, 
         mapInputVariables, 
         mapSectionValidation, 
         mapShowSections, 
         objSFDX, 
-        pickFileType,
+        pickFolderType
     } from "../-helperFiles/GlobalStore";
-    
-    // Default
-    let fileName = "apexcodefile";
-    let sectionUCase = fileName.toUpperCase();
-    
+
     // Parameters
-    export let mapDoc;
-    export let required = false;
-    export let onlyOneError = "";
-    export let defaultFolder = "";
-    export let pSFDXParameter = "-f";
+    export let pSectionName = "";
+    export let pMapDoc;
+    export let pRequired = false;
+    export let pOnlyOneError = "";
+    export let pDefaultFolder = "";
+    export let pSFDXParameter = "";
 
-    // Documentation
-    let type = `<b><i>Optional</i></b>`;
-    let body = `
-        <br/><br/>
-        Path to a local file that contains Apex code.
-        <br/><br/>
-        Type: filepath
-    `;
-
-    if(!mapDoc){ // Default
-        mapDoc = {
-            type: type,
-            body: body
-        };
-    }else{
-        if(!mapDoc.type){
-            mapDoc.type = type;
-        }
-
-        if(!mapDoc.body){
-            mapDoc.body = body;
-        }
-    }
+    // Default
+    let sectionUCase = pSectionName.toUpperCase();
     
     function handleShowSections(event, pSectionName, pOnlyOneError){
         if(event.target.checked === true){
@@ -89,11 +65,11 @@
         }
     }
 
-    function onShowFilePick(type) {
-        $pickFileType = type;
+    function showFolderPick(type) {
+        $pickFolderType = type;
 
         tsvscode.postMessage({
-            type: 'onShowFilePick'
+            type: "onShowFolderPick"
         });
     }
 
@@ -101,23 +77,23 @@
         let valid = true;
 
         return await new Promise(function(resolve, reject) {
-            if($mapShowSections.apexcodefile){
-                if($mapShowSections.apexcodefile2 && $mapInputVariables.apexcodefile2){
-                    $objSFDX.terminal += ` ${pSFDXParameter} `;
-
-                    $mapErrors.apexcodefile2 = "";
-                    $objSFDX.terminal += $mapInputVariables.apexcodefile2;
-                }else if($mapInputVariables.apexcodefile){
-                    $objSFDX.terminal += ` ${pSFDXParameter} `;
-                    
-                    $mapErrors.apexcodefile = "";
-                    $objSFDX.terminal += $mapInputVariables.apexcodefile;
+            if($mapShowSections[pSectionName]){
+                $objSFDX.terminal += ` ${pSFDXParameter} `;
+        
+                if($mapShowSections[`${pSectionName}2`]){
+                    if($mapInputVariables[`${pSectionName}2`]){
+                        $mapErrors[`${pSectionName}2`] = "";
+                        $objSFDX.terminal += $mapInputVariables[`${pSectionName}2`];
+                    }
+                }else if($mapInputVariables[pSectionName]){
+                    $mapErrors[pSectionName] = "";
+                    $objSFDX.terminal += $mapInputVariables[pSectionName];
                 }else{
-                    $mapErrors.apexcodefile = "sfdxet-error-span";
-
+                    $mapErrors[pSectionName] = "sfdxet-error-span";
+        
                     tsvscode.postMessage({
                         type: "onError",
-                        value: `ERROR: Please select/insert a Folder or uncheck the [${pSFDXParameter} APEXCODEFILE] checkbox.` 
+                        value: `ERROR: Please select/insert a Folder or uncheck the [${pSFDXParameter} OUTPUTDIR] checkbox.` 
                     });
 
                     valid = false;
@@ -130,26 +106,26 @@
 </script>
 
 <div class="col align-self-center sfdxet-br">
-    <Title pRequired={required} pSFDXParameter={pSFDXParameter} sectionName={sectionUCase} elementName={fileName} fileName={fileName} onlyOneError={onlyOneError}/>
-    <Documentation headerD={sectionUCase} typeD={mapDoc.type} bodyD={mapDoc.body} sectionName={fileName}/>
+    <Title pRequired={pRequired} pSFDXParameter={pSFDXParameter} sectionName={sectionUCase} elementName={pSectionName} fileName={pSectionName} onlyOneError={pOnlyOneError}/>
+    <Documentation headerD={sectionUCase} typeD={pMapDoc.type} bodyD={pMapDoc.body} sectionName={pSectionName}/>
 
-    {#if $mapShowSections.apexcodefile}
+    {#if $mapShowSections[pSectionName]}
         <section class="sfdxet-section sfdxet-br">
-            <button class="sfdxet-buttons {$mapErrors.apexcodefile}" on:click={() => {onShowFilePick(`${fileName}`)}}>Set the Apex File</button>
+            <button class="sfdxet-buttons {$mapErrors[pSectionName]}" on:click={() => {showFolderPick(`${pSectionName}`)}}>Set Folder Path</button>
             <br/>
             <br/>
-            <label for={fileName}>
+            <label for={pSectionName}>
                 <span title={js.mapTooltips["manuallyDefine"]} use:tooltipv1>Manually define</span> 
-                <input type="checkbox" id={fileName} name={fileName} on:change={e => { handleShowSections(e, "apexcodefile2", null) }}> 
+                <input type="checkbox" id={pSectionName} name={pSectionName} on:change={e => { handleShowSections(e, `${pSectionName}2`, null) }}> 
             </label>
-            {#if $mapShowSections.apexcodefile2}
+            {#if $mapShowSections[`${pSectionName}2`]}
                 <input 
                     type="text" 
                     class="sfdxet-absolute-center" 
-                    title={$mapInputVariables.apexcodefile} 
+                    title={$mapInputVariables[pSectionName]} 
                     use:tooltipv1 
-                    placeholder={defaultFolder} 
-                    bind:value={$mapInputVariables.apexcodefile2}
+                    placeholder={pDefaultFolder} 
+                    bind:value={$mapInputVariables[`${pSectionName}2`]}
                 />
             {/if}
         </section>

@@ -1,27 +1,37 @@
 <script>
+    // Helper Files
     import * as js from "../-helperFiles/GlobalJS";
-    import { mapErrors, mapSectionValidation, mapShowSections, mapDocument } from "../-helperFiles/GlobalStore";
 
+    // Store
+    import { 
+        mapDocument, 
+        mapErrors, 
+        mapSectionValidation, 
+        mapShowSections, 
+    } from "../-helperFiles/GlobalStore";
+
+    // Parameters
     export let pRequired = false;
-    export let pSFDXParameter = '';
-    export let sectionName = '';
-    export let elementName = '';
-    export let fileName = '';
-    export let onlyOneError = '';
-    export let pStyle = '';
-    export let pClass = '';
+    export let pPartialRequired = true;
+    export let pSFDXParameter = "";
+    export let sectionName = "";
+    export let elementName = "";
+    export let fileName = "";
+    export let onlyOneError = "";
+    export let pStyle = "";
+    export let pClass = "";
 
     function handleShowSections(event, pSectionName, pOnlyOneError){
         if(event.target.checked === true){
             if($mapSectionValidation[pSectionName] != null && js.listValidation.includes(pSectionName)){
                 for(let key in $mapSectionValidation){
                     if($mapSectionValidation[key] === 1){
-                        let errorMsg = `ERROR: You already selected: ${key.toUpperCase()}, Select only one between: ${pOnlyOneError ? pOnlyOneError : 'SOURCEPATH, MANIFEST or METADATA'}`;
+                        let errorMsg = `ERROR: You already selected: ${key.toUpperCase()}, Select only one between: ${pOnlyOneError ? pOnlyOneError : "SOURCEPATH, MANIFEST or METADATA"}`;
         
                         event.target.checked = false;
         
                         tsvscode.postMessage({
-                            type: 'onError',
+                            type: "onError",
                             value: errorMsg
                         });
         
@@ -58,19 +68,31 @@
 </script>
 
 <span 
-    title={js.mapTooltips['collapseDoc']}
+    title={js.mapTooltips["collapseDoc"]}
     class:sfdxet-required={pRequired} 
     class:sfdxet-error-span={$mapErrors[fileName]} 
     on:click={openDoc}
     style={pStyle}
     class={pClass}
->{pRequired ? '*' : ''}[{pSFDXParameter ? pSFDXParameter : ''}{sectionName ? ' ' + sectionName : ''}]</span> 
+>{pRequired ? "*" : "["}{pSFDXParameter ? pSFDXParameter : ""}{sectionName ? " " + sectionName : ""}{pRequired ? "" : "]"}</span> 
 
-<input 
-    type="checkbox" 
-    id={elementName} 
-    name={elementName} 
-    on:change={e => { handleShowSections(e, `${fileName}`, `${onlyOneError}`) }} 
-    title={js.mapTooltips['checkbox']}
-    checked={$mapShowSections[fileName]}
-/> 
+{#if pPartialRequired}
+    <input 
+        type="checkbox" 
+        id={elementName} 
+        name={elementName} 
+        on:change={e => { handleShowSections(e, `${fileName}`, `${onlyOneError}`) }} 
+        title={js.mapTooltips["checkbox"]}
+        checked={$mapShowSections[fileName]}
+    />
+    {:else}
+        <input 
+            type="checkbox" 
+            id={elementName} 
+            name={elementName} 
+            on:change={e => { handleShowSections(e, `${fileName}`, `${onlyOneError}`) }} 
+            title={js.mapTooltips["checkbox"]}
+            checked={true}
+            disabled
+        />
+{/if}

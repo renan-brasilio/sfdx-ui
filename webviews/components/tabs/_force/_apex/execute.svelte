@@ -1,25 +1,19 @@
 <script>
     // Helper Files
-    import { } from "os";
-    import { Circle2 } from "svelte-loading-spinners";
+    import * as js from "../../-helperFiles/GlobalJS";
     import CSS from "../../-helperFiles/GlobalCSS.svelte";
-    import { onMount } from "svelte";
+    import { Circle2 } from "svelte-loading-spinners";
+    import { } from "os";
+    import WebviewListener from "../../-commonPages/WebviewListener.svelte";
+    import RefreshIcon from "svelte-bootstrap-icons/lib/ArrowClockwise";
 
     // Store
     import { 
-        lTARGETUSERNAME,
-        mapApex,
-        mapErrors,
-        mapForceShowSections,
         mapInformation,
         mapInputVariables,
-        mapSectionValidation,
         mapShowSections,
         mapSpinner,
-        mapTargetUsername,
         objSFDX,
-        pickFileType, 
-        pickFolderType,
     } from "../../-helperFiles/GlobalStore";
 
     // Sections
@@ -30,203 +24,102 @@
     import APEXCODEFILEs from "../../-commonSections/APEXCODEFILESection.svelte";
     import ADVANCEDs from "../../-commonSections/ADVANCEDSection.svelte";
 
-     // Component Validations
-     let 
-        ADVANCEDValidation,
-        APEXCODEFILEValidation,
-        APIVERSIONValidation,
-        JSONValidation, 
-        LOGLEVELValidation, 
-        TARGETUSERNAMEValidation;
+    // Component Validations
+    let 
+    JSONv, 
+    LOGLEVELv, 
+    TARGETUSERNAMEv,
+    APIVERSIONv,
+    APEXCODEFILEv,
+    ADVANCEDv;
+
+    // Documentation
+    let fileName = "execute";
+    let showFileName = fileName.replace("_", ":");
+    let showFileNameUpper = "Execute";
+    let linkDocumentation = `https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference_force_apex.htm#cli_reference_force_apex_${fileName}`;
 
     // Initial loading
-    $mapSpinner.force = {
-        execute: true
-    };
-
-    if($mapApex){
-        for(const key in $mapApex){
-            if(key !== "execute"){
-                $mapApex[key] = false;
-            }
-        }
+    if(!$mapSpinner.force){
+        $mapSpinner.force = {};
     }
+
+    $mapSpinner.force[fileName] = true;
 
     setTimeout(() => {
-        $mapSpinner.force.execute = false;
+        $mapSpinner.force[fileName] = false;
     }, 1000);
 
-    if($mapShowSections){
-        for(const key in $mapShowSections){
+    function startSFDX() {
+        $objSFDX.terminal = "";
+        $objSFDX.terminal = `force:apex:${showFileName}`;
+
+        Promise.all([
+            JSONv.validate(), 
+            LOGLEVELv.validate(), 
+            TARGETUSERNAMEv.validate(), 
+            APIVERSIONv.validate(), 
+            APEXCODEFILEv.validate(), 
+            ADVANCEDv.validate(), 
+        ]).then((values) => {
+            if(values){
+                if(!values.includes(false)){
+                    $mapSpinner.main = true;
+                    $mapInformation.main = true;
+            
+                    js.globalContinue();
+                }
+            }
+        });
+    }
+
+    function reset(){
+        $mapInputVariables = {};
+        
+        for(let key in $mapShowSections){
             $mapShowSections[key] = false;
         }
-    }
-
-    $mapErrors = {};
-    $mapInputVariables = {};
-
-    // Webview Listener
-    onMount(() => {
-        window.addEventListener("message", event => {
-            const backReturn = event.data; // The json data that the extension sent
-            switch (backReturn.type) {
-                case "onConfirmRet":
-                    if(backReturn.value === true){
-                        callSFDX();
-                    }else{
-                        $mapSpinner.main = false;
-                        $mapInformation.main = false;
-                    }
-
-                    break;
-                case "folderUri":
-                    $mapInputVariables[$pickFolderType] = backReturn.value[0].path;
-                    break;
-                case "fileUri":
-                    $mapInputVariables[$pickFolderType] = backReturn.value[0].path;
-                    $mapShowSections[$pickFolderType] = true;
-                    break;
-                case "aliasJSON":
-                    for(const key in backReturn.value){
-                        let option = {value: key, label: key};
-
-                        $mapTargetUsername[key] = backReturn.value[key];
-                        $lTARGETUSERNAME.push(option);
-
-                        $mapShowSections.targetusernamespinner = false;
-                    }
-                    break;
-                case "sfdxClosed":
-                    if($mapShowSections){
-                        for(const key in $mapShowSections){
-                            $mapShowSections[key] = false;
-                        }
-                    }
-
-                    if($mapSectionValidation){
-                        for(const key in $mapSectionValidation){
-                            $mapSectionValidation[key] = 0;
-                        }
-                    }
-
-                    if($mapApex){
-                        for(const key in $mapApex){
-                            if(key !== "class_create"){
-                                $mapApex[key] = false;
-                            }
-                        }
-                    }
-
-                    $mapSpinner.main = false;
-                    $mapInformation.main = false;
-                    $mapForceShowSections.apex = true;
-                    $mapApex.class_create = true;
-                    break;
-            }
-        });
-    });
-
-    function execute() {
-        $objSFDX.terminal = "";
-        $objSFDX.terminal = "force:apex:execute";
-
-        // JSON
-        JSONValidation.validate()
-        .then(function(valid) {
-            if(!valid){
-                return;
-            }
-        });
-
-        // LOGLEVEL
-        LOGLEVELValidation.validate()
-        .then(function(valid) {
-            if(!valid){
-                return;
-            }
-        });
-
-        // TARGETUSERNAME
-        TARGETUSERNAMEValidation.validate()
-        .then(function(valid) {
-            if(!valid){
-                return;
-            }
-        });
-
-        // APIVERSION
-        APIVERSIONValidation.validate()
-        .then(function(valid) {
-            if(!valid){
-                return;
-            }
-        });
-
-        // APEXCODEFILE
-        APEXCODEFILEValidation.validate()
-        .then(function(valid) {
-            if(!valid){
-                return;
-            }
-        });
-
-        // ADVANCED
-        ADVANCEDValidation.validate()
-        .then(function(valid) {
-            if(!valid){
-                return;
-            }
-        });
-
-        $mapSpinner.main = true;
-        $mapInformation.main = true;
-
-        js.globalContinue();
-    }
-
-    function callSFDX(){
-        tsvscode.postMessage({
-            type: "onInfo",
-            value: "Starting the Terminal + Script: Execute" 
-        });
-
-        tsvscode.postMessage($objSFDX);
-    }
+    } 
 </script>
 
-{#if $mapSpinner.force.execute}
+<WebviewListener fileName={fileName} commandType="apex" showCommand={showFileNameUpper}/>
+
+{#if $mapSpinner.force[fileName]}
     <div class="sfdxet-spinner">
         <Circle2 size="60" colorOuter="#034efc" unit="px"></Circle2>
     </div>
 {:else}
     <div class="sfdxet-absolute-center">
-        <h3>sfdx force:apex:execute</h3>
+        <h3>sfdx force:apex:{showFileName}</h3>
         <br/>
         <br/>
-        <button class="sfdxet-buttons" on:click={execute}>Execute</button>
+        <button class="sfdxet-buttons" on:click={startSFDX}>{showFileNameUpper}</button>
         <br/>
         <br/>
         <h3>Options:</h3>
-        <h4><a target="_blank" href="https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference_force_apex.htm#cli_reference_force_apex_execute">Official Documentation</a></h4>
+        <h4><a target="_blank" href={linkDocumentation}>Official Documentation</a></h4>
         <br/>
 
         <!-- [--json] -->
-        <svelte:component this="{JSONs}" bind:this="{JSONValidation}" />
+        <svelte:component this="{JSONs}" bind:this="{JSONv}" />
 
         <!-- [--loglevel LOGLEVEL] -->
-        <svelte:component this="{LOGLEVELs}" bind:this="{LOGLEVELValidation}" />
+        <svelte:component this="{LOGLEVELs}" bind:this="{LOGLEVELv}" />
         
         <!-- [-u TARGETUSERNAME] -->
-        <svelte:component this="{TARGETUSERNAMEs}" bind:this="{TARGETUSERNAMEValidation}" />
+        <svelte:component this="{TARGETUSERNAMEs}" bind:this="{TARGETUSERNAMEv}" />
         
         <!-- [--apiversion APIVERSION] -->
-        <svelte:component this="{APIVERSIONs}" bind:this="{APIVERSIONValidation}" />
+        <svelte:component this="{APIVERSIONs}" bind:this="{APIVERSIONv}" />
         
         <!-- [-f APEXCODEFILE] -->
-        <svelte:component this="{APEXCODEFILEs}" bind:this="{APEXCODEFILEValidation}" />
+        <svelte:component this="{APEXCODEFILEs}" bind:this="{APEXCODEFILEv}" />
 
         <!-- [ADVANCED] -->
-        <svelte:component this="{ADVANCEDs}" bind:this="{ADVANCEDValidation}" />
+        <svelte:component this="{ADVANCEDs}" bind:this="{ADVANCEDv}" />
+        <br/>
+        <br/>
+        <button class="sfdxet-buttons-icon" on:click={reset} title="Reset Options"><RefreshIcon /></button>
     </div>
 {/if}
 

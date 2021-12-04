@@ -70,20 +70,20 @@
 </script>
 
 <div class="col align-self-center sfdxet-br">
-    <Title pRequired={required} pSFDXParameter={pSFDXParameter} elementName={fileName} fileName={fileName} onlyOneError={onlyOneError}/>
+    <Title pRequired={required} pSFDXParameter={pSFDXParameter} sectionName={sectionUCase} elementName={fileName} fileName={fileName} onlyOneError={onlyOneError}/>
     <Documentation headerD={sectionUCase} typeD={mapDoc.type} bodyD={mapDoc.body} sectionName={fileName}/>
     
     {#if $mapShowSections.logid}
-        <h4 class="sfdxet-br"><b>CLASSNAME Options:</b></h4>
+        <h4 class="sfdxet-br"><b>{sectionUCase} Options:</b></h4>
         <section class="sfdxet-section">
-            <label for="jsoninput">
-                Apex Class Name
+            <label for="logidinput">
+                Log ID
                 <input 
                     type="text" 
-                    id="jsoninput" 
-                    name="jsoninput" 
+                    id="logidinput" 
+                    name="logidinput" 
                     class="sfdxet-absolute-center" 
-                    title="Insert the name of the new Apex Class." 
+                    title="Insert the Id of the Log." 
                     use:tooltipv1 
                     placeholder="Insert..."
                     maxlength="18" 

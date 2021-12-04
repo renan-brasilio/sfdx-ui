@@ -1,253 +1,198 @@
 <script>
     // Helper Files
-    import { } from "os";
-    import { Circle2 } from "svelte-loading-spinners";
+    import * as js from "../../-helperFiles/GlobalJS";
     import CSS from "../../-helperFiles/GlobalCSS.svelte";
-    import { onMount } from "svelte";
+    import { Circle2 } from "svelte-loading-spinners";
+    import { } from "os";
+    import WebviewListener from "../../-commonPages/WebviewListener.svelte";
+    import RefreshIcon from "svelte-bootstrap-icons/lib/ArrowClockwise";
 
     // Store
     import { 
-        lTARGETUSERNAME,
-        mapApex, 
         mapErrors,
-        mapForceShowSections,
         mapInformation,
         mapInputVariables,
         mapSectionValidation,
         mapShowSections,
         mapSpinner,
-        mapTargetUsername,
-        pickFolderType,
         objSFDX,
     } from "../../-helperFiles/GlobalStore";
 
     // Sections
     import JSONs from "../../-commonSections/JSONSection.svelte";
     import LOGLEVELs from "../../-commonSections/LOGLEVELSection.svelte";
-    import APIVERSIONs from "../../-commonSections/APIVERSIONSection.svelte";
-    import ADVANCEDs from "../../-commonSections/ADVANCEDSection.svelte";
+    // import TRIGGERNAMes from "../../-commonSections/TRIGGERNAMESection.svelte";
+    import TEMPLATEs from "../../-commonSections/TEMPLATESection.svelte";
     import OUTPUTDIRs from "../../-commonSections/OUTPUTDIRSection.svelte";
+    import APIVERSIONs from "../../-commonSections/APIVERSIONSection.svelte";
+    // import SOBJECTs from "../../-commonSections/SOBJECTSection.svelte";
+    // import TRIGGEREVENTSs from "../../-commonSections/TRIGGEREVENTSSection.svelte";
+    import ADVANCEDs from "../../-commonSections/ADVANCEDSection.svelte";
 
     // Component Validations
     let 
-        ADVANCEDValidation,
-        APIVERSIONValidation,
-        JSONValidation,
-        LOGLEVELValidation, 
-        OUTPUTDIRValidation, 
-        TARGETUSERNAMEValidation;
+    JSONv, 
+    LOGLEVELv, 
+    // TRIGGERNAMEv,
+    TEMPLATEv,
+    OUTPUTDIRv,
+    APIVERSIONv,
+    // SOBJECTv,
+    // TRIGGEREVENTSv,
+    ADVANCEDv;
+
+    // Documentation
+    let fileName = "trigger_create";
+    let showFileName = fileName.replace("_", ":");
+    let showFileNameUpper = "Trigger:Create";
+    let linkDocumentation = `https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference_force_apex.htm#cli_reference_force_apex_${fileName}`;
 
     // Initial loading
-    $mapSpinner.force = {
-        trigger_create: true
-    };
-
-    if($mapApex){
-        for(const key in $mapApex){
-            if(key !== "trigger_create"){
-                $mapApex[key] = false;
-            }
-        }
+    if(!$mapSpinner.force){
+        $mapSpinner.force = {};
     }
+
+    $mapSpinner.force[fileName] = true;
 
     setTimeout(() => {
-        $mapSpinner.force.trigger_create= false;
+        $mapSpinner.force[fileName] = false;
     }, 1000);
 
-    if($mapShowSections){
-        for(const key in $mapShowSections){
-            $mapShowSections[key] = false;
-        }
+    // Mandatory Field(s)
+    let mandatorySections = [
+        "triggername",
+    ];
+
+    if(!$mapShowSections){
+        $mapShowSections = {};
     }
 
-    $mapSectionValidation = {
-        classname: 0
-    };
+    if(!$mapSectionValidation){
+        $mapSectionValidation = {};
+    }
 
-    $mapErrors = {};
-    $mapInputVariables = {};
+    for(let i = 0; i < mandatorySections.length; i++){
+        $mapShowSections[mandatorySections[i]] = true;
+        $mapSectionValidation[mandatorySections[i]] = 0;
+    }
 
-    let mapDocRequired = {
-        type: `<b>Required</b>`,
-    };
-
-    // Webview Listener
-    onMount(() => {
-        window.addEventListener("message", event => {
-            const backReturn = event.data; // The json data that the extension sent
-            switch (backReturn.type) {
-                case "onConfirmRet":
-                    if(backReturn.value === true){
-                        callSFDX();
-                    }else{
-                        $mapSpinner.main = false;
-                        $mapInformation.main = false;
-                    }
-
-                    break;
-                case "folderUri":
-                    $mapInputVariables[$pickFolderType] = backReturn.value[0].path;
-                    break;
-                case "fileUri":
-                    $mapInputVariables[$pickFolderType] = backReturn.value[0].path;
-                    $mapShowSections[$pickFolderType] = true;
-                    break;
-                case "aliasJSON":
-                    for(const key in backReturn.value){
-                        let option = {value: key, label: key};
-
-                        $mapTargetUsername[key] = backReturn.value[key];
-                        $lTARGETUSERNAME.push(option);
-
-                        $mapShowSections.targetusernamespinner = false;
-                    }
-                    break;
-                case "sfdxClosed":
-                    if($mapShowSections){
-                        for(const key in $mapShowSections){
-                            $mapShowSections[key] = false;
-                        }
-                    }
-
-                    if($mapSectionValidation){
-                        for(const key in $mapSectionValidation){
-                            $mapSectionValidation[key] = 0;
-                        }
-                    }
-
-                    if($mapApex){
-                        for(const key in $mapApex){
-                            if(key !== "class_create"){
-                                $mapApex[key] = false;
-                            }
-                        }
-                    }
-
-                    $mapSpinner.main = false;
-                    $mapInformation.main = false;
-                    $mapForceShowSections.apex = true;
-                    $mapApex.class_create = true;
-                    break;
-            }
-        });
-    });
-
-    function trigger_create() {
-        $objSFDX.terminal = "";
-        $objSFDX.terminal = "force:apex:trigger:create";
-
-        // JSON
-        JSONValidation.validate()
-        .then(function(valid) {
-            if(!valid){
-                return;
-            }
-        });
-
-        // LOGLEVEL
-        LOGLEVELValidation.validate()
-        .then(function(valid) {
-            if(!valid){
-                return;
-            }
-        });
-
-        // TARGETUSERNAME
-        TARGETUSERNAMEValidation.validate()
-        .then(function(valid) {
-            if(!valid){
-                return;
-            }
-        });
-        
-        // APIVERSION
-        APIVERSIONValidation.validate()
-        .then(function(valid) {
-            if(!valid){
-                return;
-            }
-        });
-
-        // ADVANCED
-        ADVANCEDValidation.validate()
-        .then(function(valid) {
-            if(!valid){
-                return;
-            }
-        });
-
+    function startSFDX() {
         let validation = 0;
+        let sectionError;
 
-        for(let i in $mapSectionValidation){
-            if($mapSectionValidation[i] === 1){
-                validation++;
-                break;
+        $objSFDX.terminal = "";
+        $objSFDX.terminal = `force:apex:${showFileName}`;
+
+        Promise.all([
+            JSONv.validate(), 
+            LOGLEVELv.validate(), 
+            // TRIGGERNAMEv.validate(), 
+            TEMPLATEv.validate(), 
+            OUTPUTDIRv.validate(), 
+            APIVERSIONv.validate(), 
+            // SOBJECTv.validate(), 
+            // TRIGGEREVENTSv.validate(), 
+            ADVANCEDv.validate(),  
+        ]).then((values) => {
+            if(values){
+                for(let i in $mapSectionValidation){
+                    if($mapSectionValidation[i] === 1){
+                        validation++;
+                        break;
+                    }else if($mapSectionValidation[i] === 0){
+                        sectionError = i;
+                        break;
+                    }
+                }
+    
+                if(validation === 0){
+                    if(!$mapErrors){
+                        $mapErrors = {};
+                    }
+
+                    if(sectionError){
+                        $mapErrors[sectionError] = "sfdxet-error-span";
+                        sectionError = sectionError.toUpperCase();
+                        
+                        tsvscode.postMessage({
+                            type: "onError",
+                            value: `ERROR: ${sectionError} is required.` 
+                        });
+        
+                        return;
+                    }
+                }else if(!values.includes(false)){
+                    for(let key in $mapErrors){
+                        $mapErrors[key] = "";
+                    }     
+    
+                    $mapSpinner.main = true;
+                    $mapInformation.main = true;
+            
+                    js.globalContinue();
+                }
+            }
+        });
+    }
+
+    function reset(){
+        $mapInputVariables = {};
+        
+        for(let key in $mapShowSections){
+            if(key !== "triggername"){
+                $mapShowSections[key] = false;
             }
         }
-
-        if(validation === 0){
-            $mapErrors.classname = "sfdxet-error-span";
-
-            tsvscode.postMessage({
-                    type: "onError",
-                    value: `ERROR: CLASSNAME is required.` 
-                });
-
-                return;
-        }else{
-            $mapErrors.classname = "";
-
-            tsvscode.postMessage({
-                type: "onInfo",
-                value: "Starting the Terminal + Script: Trigger:Create" 
-            });
-
-            $mapSpinner.main = true;
-            $mapInformation.main = true;
-    
-            tsvscode.postMessage($objSFDX);
-        }
-    }
+    } 
 </script>
 
-{#if $mapSpinner.force.trigger_create}
+<WebviewListener fileName={fileName} commandType="apex" showCommand={showFileNameUpper}/>
+
+{#if $mapSpinner.force[fileName]}
     <div class="sfdxet-spinner">
         <Circle2 size="60" colorOuter="#034efc" unit="px"></Circle2>
     </div>
 {:else}
     <div class="sfdxet-absolute-center">
-        <h3>sfdx force:apex:trigger:create</h3>
+        <h3>sfdx force:apex:{showFileName} </h3>
         <br/>
         <br/>
-        <button class="sfdxet-buttons" on:click={trigger_create}>Trigger:Create</button>
+        <button class="sfdxet-buttons" on:click={startSFDX}>{showFileNameUpper}</button>
         <br/>
         <br/>
         <h3>Options:</h3>
-        <h4><a target="_blank" href="https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference_force_apex.htm#cli_reference_force_apex_trigger_create">Official Documentation</a></h4>
+        <h4><a target="_blank" href={linkDocumentation}>Official Documentation</a></h4>
         <br/>
 
         <!-- [--json] -->
-        <svelte:component this="{JSONs}" bind:this="{JSONValidation}" />
-
+        <svelte:component this="{JSONs}" bind:this="{JSONv}" />
+        
         <!-- [--loglevel LOGLEVEL] -->
-        <svelte:component this="{LOGLEVELs}" bind:this="{LOGLEVELValidation}" />
+        <svelte:component this="{LOGLEVELs}" bind:this="{LOGLEVELv}" />
 
         <!-- -n TRIGGERNAME -->
-
+        <!-- <svelte:component this="{TRIGGERNAMEs}" bind:this="{TRIGGERNAMEv}" required={true}/> -->
+        
         <!-- [-t TEMPLATE] -->
+        <svelte:component this="{TEMPLATEs}" bind:this="{TEMPLATEv}" />
         
         <!-- [-d OUTPUTDIR] -->
-        <svelte:component this="{OUTPUTDIRs}" bind:this="{OUTPUTDIRValidation}" defaultFolder="." />
+        <svelte:component this="{OUTPUTDIRs}" bind:this="{OUTPUTDIRv}" defaultFolder="." />
 
         <!-- [--apiversion APIVERSION] -->
-        <svelte:component this="{APIVERSIONs}" bind:this="{APIVERSIONValidation}" />
-
+        <svelte:component this="{APIVERSIONs}" bind:this="{APIVERSIONv}" pSFDXParameter="--apiversion" />
+        
         <!-- [-s SOBJECT] -->
+        <!-- <svelte:component this="{SOBJECTs}" bind:this="{SOBJECTv}" /> -->
         
         <!-- [-e TRIGGEREVENTS] -->
+        <!-- <svelte:component this="{TRIGGEREVENTSs}" bind:this="{TRIGGEREVENTSv}" /> -->
 
-        <!-- ADVANCED -->
-        <svelte:component this="{ADVANCEDs}" bind:this="{ADVANCEDValidation}" />
+        <!-- [ADVANCED] -->
+        <svelte:component this="{ADVANCEDs}" bind:this="{ADVANCEDv}" />
+        <br/>
+        <br/>
+        <button class="sfdxet-buttons-icon" on:click={reset} title="Reset Options"><RefreshIcon /></button>
     </div>
 {/if}
 

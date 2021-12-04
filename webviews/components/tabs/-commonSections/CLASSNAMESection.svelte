@@ -78,22 +78,14 @@
                         value: `ERROR: Name must contain only alphanumeric characters.` 
                     });
 
+                    $mapSectionValidation.classname = 0;
+
                     valid = false;
                 }else if($mapInputVariables.classname){
                     $objSFDX.terminal += ` ${pSFDXParameter} ${$mapInputVariables.classname}`;
-                    $mapSectionValidation[classname] = 1;
-                }else{
-                    $mapSectionValidation[classname] = 0;
-                    tsvscode.postMessage({
-                        type: "onError",
-                        value: `ERROR: Please insert your new Apex Class Name.` 
-                    });
-
-                    valid = false;
+                    $mapSectionValidation.classname = 1;
                 }
             }
-
-            console.log(`objSFDX.terminal: ${JSON.stringify($objSFDX.terminal)}`);
 
             resolve(valid);
         });
@@ -101,11 +93,11 @@
 </script>
 
 <div class="col align-self-center sfdxet-br">
-    <Title pRequired={required} pSFDXParameter={pSFDXParameter} sectionName={sectionUCase} elementName={fileName} fileName={fileName} onlyOneError={onlyOneError}/>
+    <Title pRequired={required} pSFDXParameter={pSFDXParameter} sectionName={sectionUCase} elementName={fileName} fileName={fileName} onlyOneError={onlyOneError} pPartialRequired={false}/>
     <Documentation headerD={sectionUCase} typeD={mapDoc.type} bodyD={mapDoc.body} sectionName={fileName}/>
     
     {#if $mapShowSections.classname}
-        <h4 class="sfdxet-br"><b>CLASSNAME Options:</b></h4>
+        <h4 class="sfdxet-br"><b>{sectionUCase} Options:</b></h4>
         <section class="sfdxet-section">
             <label for="jsoninput">
                 Apex Class Name
@@ -118,7 +110,7 @@
                     use:tooltipv1 
                     placeholder="Insert..."
                     maxlength="40" 
-                    on:change={validatePattern}
+                    on:input={validatePattern}
                     class:sfdxet-error-span={$mapErrors.classname2} 
                     bind:value={$mapInputVariables.classname}
                 />

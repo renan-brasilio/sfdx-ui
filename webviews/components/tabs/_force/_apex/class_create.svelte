@@ -1,274 +1,252 @@
 <script>
     // Helper Files
-    import { } from "os";
+    import * as js from "../../-helperFiles/GlobalJS";
     import CSS from "../../-helperFiles/GlobalCSS.svelte";
     import { Circle2 } from "svelte-loading-spinners";
-    import { onMount } from "svelte";
-    import * as js from "../../-helperFiles/GlobalJS";
+    import { } from "os";
+    import WebviewListener from "../../-commonPages/WebviewListener.svelte";
+    import RefreshIcon from "svelte-bootstrap-icons/lib/ArrowClockwise";
+    import { mapDoc } from "../../-helperFiles/MapDocumentation";
+    import * as gLists from "../../-helperFiles/Lists";
 
     // Store
     import { 
-        lTARGETUSERNAME,
-        mapApex, 
         mapErrors,
-        mapForceShowSections,
         mapInformation,
         mapInputVariables,
         mapSectionValidation,
         mapShowSections,
         mapSpinner,
-        mapTargetUsername,
         objSFDX,
-        pickFolderType,
     } from "../../-helperFiles/GlobalStore";
 
     // Sections
-    import ADVANCEDs from "../../-commonSections/ADVANCEDSection.svelte";
-    import APIVERSIONs from "../../-commonSections/APIVERSIONSection.svelte";
-    import CLASSNAMEs from "../../-commonSections/CLASSNAMESection.svelte";
     import JSONs from "../../-commonSections/JSONSection.svelte";
-    import LOGLEVELs from "../../-commonSections/LOGLEVELSection.svelte";
-    import OUTPUTDIRs from "../../-commonSections/OUTPUTDIRSection.svelte";
-    import TEMPLATEs from "../../-commonSections/TEMPLATESection.svelte";
+    import LOGLEVELs from "../../-commonSections/SelectSFDX.svelte";
+    import CLASSNAMEs from "../../-commonSections/StringSFDX.svelte";
+    import TEMPLATEs from "../../-commonSections/SelectSFDX.svelte";
+    import OUTPUTDIRs from "../../-commonSections/FolderpathSFDX.svelte";
+    import APIVERSIONs from "../../-commonSections/SelectSFDX.svelte";
+    import ADVANCEDs from "../../-commonSections/ADVANCEDSection.svelte";
 
     // Component Validations
     let 
-        ADVANCEDValidation,
-        APIVERSIONValidation,
-        CLASSNAMEValidation,
-        JSONValidation, 
-        LOGLEVELValidation, 
-        OUTPUTDIRValidation,
-        TEMPLATEValidation;
+    JSONv, 
+    LOGLEVELv, 
+    CLASSNAMEv,
+    TEMPLATEv,
+    OUTPUTDIRv,
+    APIVERSIONv,
+    ADVANCEDv;
+
+    // Documentation
+    let fileName = "class_create";
+    let showFileName = fileName.replace("_", ":");
+    let showFileNameUpper = "Class:Create";
+    let linkDocumentation = `https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference_force_apex.htm#cli_reference_force_apex_${fileName}`;
 
     // Initial loading
-    $mapSpinner.force = {
-        class_create: true
-    };
-
-    if($mapApex){
-        for(const key in $mapApex){
-            if(key !== "class_create"){
-                $mapApex[key] = false;
-            }
-        }
+    if(!$mapSpinner.force){
+        $mapSpinner.force = {};
     }
+
+    $mapSpinner.force[fileName] = true;
 
     setTimeout(() => {
-        $mapSpinner.force.class_create= false;
+        $mapSpinner.force[fileName] = false;
     }, 1000);
 
-    if($mapShowSections){
-        for(const key in $mapShowSections){
-            $mapShowSections[key] = false;
-        }
+    // Mandatory Field(s)
+    let mandatorySections = [
+        "classname",
+    ];
+
+    if(!$mapShowSections){
+        $mapShowSections = {};
     }
 
-    $mapShowSections["classname"] = true;
+    if(!$mapSectionValidation){
+        $mapSectionValidation = {};
+    }
 
-    $mapSectionValidation = {
-        classname: 0
-    };
+    for(let i = 0; i < mandatorySections.length; i++){
+        $mapShowSections[mandatorySections[i]] = true;
+        $mapSectionValidation[mandatorySections[i]] = 0;
+    }
 
-    $mapErrors = {};
-    $mapInputVariables = {};
-
-    // Webview Listener
-    onMount(() => {
-        window.addEventListener("message", event => {
-            const backReturn = event.data; // The json data that the extension sent
-            switch (backReturn.type) {
-                case "onConfirmRet":
-                    if(backReturn.value === true){
-                        callSFDX();
-                    }else{
-                        $mapSpinner.main = false;
-                        $mapInformation.main = false;
-                    }
-
-                    break;
-                case "folderUri":
-                    $mapInputVariables[$pickFolderType] = backReturn.value[0].path;
-                    break;
-                case "fileUri":
-                    $mapInputVariables[$pickFolderType] = backReturn.value[0].path;
-                    $mapShowSections[$pickFolderType] = true;
-                    break;
-                case "aliasJSON":
-                    for(const key in backReturn.value){
-                        let option = {value: key, label: key};
-
-                        $mapTargetUsername[key] = backReturn.value[key];
-                        $lTARGETUSERNAME.push(option);
-
-                        $mapShowSections.targetusernamespinner = false;
-                    }
-                    break;
-                case "sfdxClosed":
-                    if($mapShowSections){
-                        for(const key in $mapShowSections){
-                            $mapShowSections[key] = false;
-                        }
-                    }
-
-                    if($mapSectionValidation){
-                        for(const key in $mapSectionValidation){
-                            $mapSectionValidation[key] = 0;
-                        }
-                    }
-
-                    if($mapApex){
-                        for(const key in $mapApex){
-                            if(key !== "class_create"){
-                                $mapApex[key] = false;
-                            }
-                        }
-                    }
-
-                    $mapSpinner.main = false;
-                    $mapInformation.main = false;
-                    $mapForceShowSections.apex = true;
-                    $mapApex.class_create = true;
-                    break;
-            }
-        });
-    });
-
-    function class_create() {
-        $objSFDX.terminal = "";
-        $objSFDX.terminal = "force:apex:class:create";
-
-        // JSON
-        JSONValidation.validate()
-        .then(function(valid) {
-            if(!valid){
-                return;
-            }
-        });
-
-        // LOGLEVEL
-        LOGLEVELValidation.validate()
-        .then(function(valid) {
-            if(!valid){
-                return;
-            }
-        });
-
-        // CLASSNAME
-        CLASSNAMEValidation.validate()
-        .then(function(valid) {
-            if(!valid){
-                return;
-            }
-        });
-
-        // TEMPLATE
-        TEMPLATEValidation.validate()
-        .then(function(valid) {
-            if(!valid){
-                return;
-            }
-        });
-        
-        // OUTPUTDIR
-        OUTPUTDIRValidation.validate()
-        .then(function(valid) {
-            if(!valid){
-                return;
-            }
-        });
-
-        // APIVERSION
-        APIVERSIONValidation.validate()
-        .then(function(valid) {
-            if(!valid){
-                return;
-            }
-        });
-
-        // ADVANCED
-        ADVANCEDValidation.validate()
-        .then(function(valid) {
-            if(!valid){
-                return;
-            }
-        });
-
+    function startSFDX() {
         let validation = 0;
+        let sectionError;
 
-        for(let i in $mapSectionValidation){
-            if($mapSectionValidation[i] === 1){
-                validation++;
-                break;
+        $objSFDX.terminal = "";
+        $objSFDX.terminal = `force:apex:${showFileName}`;
+
+        Promise.all([
+            JSONv.validate(), 
+            LOGLEVELv.validate(), 
+            CLASSNAMEv.validate(), 
+            TEMPLATEv.validate(), 
+            OUTPUTDIRv.validate(), 
+            APIVERSIONv.validate(), 
+            ADVANCEDv.validate(),  
+        ]).then((values) => {
+            if(values){
+                for(let i in $mapSectionValidation){
+                    if($mapSectionValidation[i] === 1){
+                        validation++;
+                        break;
+                    }else if($mapSectionValidation[i] === 0){
+                        sectionError = i;
+                        break;
+                    }
+                }
+    
+                if(validation === 0){
+                    if(!$mapErrors){
+                        $mapErrors = {};
+                    }
+
+                    if(sectionError){
+                        $mapErrors[sectionError] = "sfdxet-error-span";
+                        sectionError = sectionError.toUpperCase();
+                        
+                        tsvscode.postMessage({
+                            type: "onError",
+                            value: `ERROR: ${sectionError} is required.` 
+                        });
+        
+                        return;
+                    }
+                }else if(!values.includes(false)){
+                    for(let key in $mapErrors){
+                        $mapErrors[key] = "";
+                    }     
+    
+                    $mapSpinner.main = true;
+                    $mapInformation.main = true;
+            
+                    js.globalContinue();
+                }
+            }
+        });
+    }
+
+    function reset(){
+        $mapInputVariables = {};
+        
+        for(let key in $mapShowSections){
+            if(key !== "classname"){
+                $mapShowSections[key] = false;
             }
         }
+    }
 
-        if(validation === 0){
-            $mapErrors.classname = "sfdxet-error-span";
+    // APIVERSION
+    let dAPIVERSION = "";
+    const lAPIVERSION = [];
 
-            tsvscode.postMessage({
-                    type: "onError",
-                    value: `ERROR: CLASSNAME is required.` 
-                });
+    for(let i=8; i < 54; i++){
+        if(i === 53){
+            dAPIVERSION = i.toFixed(1);
+        }
 
-                return;
-        }else{            
-            $mapErrors.classname = "";
-            $mapErrors.outputdir = "";
-
-            $mapSpinner.main = true;
-            $mapInformation.main = true;
-    
-            js.globalContinue();
+        lAPIVERSION.push({value: i.toFixed(1), label: i.toFixed(1)});
+        
+        if(i === 11){
+            let j = i + .1;
+            lAPIVERSION.push({value: j.toFixed(1), label: j.toFixed(1)});
         }
     }
 
-    function callSFDX(){
-        tsvscode.postMessage({
-            type: "onInfo",
-            value: "Starting the Terminal + Script: Class:Create" 
-        });
+    lAPIVERSION.reverse();
 
-        tsvscode.postMessage($objSFDX);
-    }
+    $mapInputVariables[fileName] = dAPIVERSION;
 </script>
 
-{#if $mapSpinner.force.class_create}
+<WebviewListener fileName={fileName} commandType="apex" showCommand={showFileNameUpper}/>
+
+{#if $mapSpinner.force[fileName]}
     <div class="sfdxet-spinner">
         <Circle2 size="60" colorOuter="#034efc" unit="px"></Circle2>
     </div>
 {:else}
     <div class="sfdxet-absolute-center">
-        <h3>sfdx force:apex:class:create</h3>
+        <h3>sfdx force:apex:{showFileName} </h3>
         <br/>
         <br/>
-        <button class="sfdxet-buttons" on:click={class_create}>Class:Create</button>
+        <button class="sfdxet-buttons" on:click={startSFDX}>{showFileNameUpper}</button>
         <br/>
         <br/>
         <h3>Options:</h3>
-        <h4><a target="_blank" href="https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference_force_apex.htm#cli_reference_force_apex_class_create">Official Documentation</a></h4>
+        <h4><a target="_blank" href={linkDocumentation}>Official Documentation</a></h4>
         <br/>
 
         <!-- [--json] -->
-        <svelte:component this="{JSONs}" bind:this="{JSONValidation}" />
+        <svelte:component this="{JSONs}" bind:this="{JSONv}" />
         
         <!-- [--loglevel LOGLEVEL] -->
-        <svelte:component this="{LOGLEVELs}" bind:this="{LOGLEVELValidation}" />
+        <svelte:component 
+            this="{LOGLEVELs}" 
+            bind:this="{LOGLEVELv}" 
+            pSectionName="loglevel"
+            pMapDoc={mapDoc.loglevel} 
+            pSFDXParameter="--loglevel"
+            pList={gLists.lLOGLEVEL}
+            pDefaultValue="warn"
+        />
 
-        <!-- [-n CLASSNAME] -->
-        <svelte:component this="{CLASSNAMEs}" bind:this="{CLASSNAMEValidation}" required={true}/>
+        <!-- -n CLASSNAME -->
+        <svelte:component 
+            this="{CLASSNAMEs}" 
+            bind:this="{CLASSNAMEv}" 
+            pSectionName="classname"
+            pRequired={true}
+            pMapDoc={mapDoc.classname}
+            pSFDXParameter="-n"
+            pSectionTitle="Apex Class Name"
+            pTitle="Insert the Name of the New Apex Class"
+            pPlaceholder="Insert..."
+            pMaxLength={40}
+        />
         
         <!-- [-t TEMPLATE] -->
-        <svelte:component this="{TEMPLATEs}" bind:this="{TEMPLATEValidation}" />
+        <svelte:component 
+            this="{TEMPLATEs}" 
+            bind:this="{TEMPLATEv}" 
+            pSectionName="template"
+            pMapDoc={mapDoc.template} 
+            pSFDXParameter="-t"
+            pList={gLists.lTEMPLATE}
+            pDefaultValue="DefaultApexClass"
+        />
         
         <!-- [-d OUTPUTDIR] -->
-        <svelte:component this="{OUTPUTDIRs}" bind:this="{OUTPUTDIRValidation}" defaultFolder="." />
+        <svelte:component 
+            this="{OUTPUTDIRs}" 
+            bind:this="{OUTPUTDIRv}" 
+            pSectionName="outputdir"
+            pMapDoc={mapDoc.outputdir} 
+            pSFDXParameter="-d"
+            pDefaultFolder="."
+        />
 
         <!-- [--apiversion APIVERSION] -->
-        <svelte:component this="{APIVERSIONs}" bind:this="{APIVERSIONValidation}" pSFDXParameter="--apiversion" />
+        <svelte:component 
+            this="{APIVERSIONs}" 
+            bind:this="{APIVERSIONv}" 
+            pSectionName="apiversion"
+            pMapDoc={mapDoc.template} 
+            pSFDXParameter="--apiversion"
+            pList={lAPIVERSION}
+            pDefaultValue={dAPIVERSION}
+        />
+        <!-- <svelte:component this="{APIVERSIONs}" bind:this="{APIVERSIONv}" pSFDXParameter="--apiversion" /> -->
 
         <!-- [ADVANCED] -->
-        <svelte:component this="{ADVANCEDs}" bind:this="{ADVANCEDValidation}" />
+        <svelte:component this="{ADVANCEDs}" bind:this="{ADVANCEDv}" />
+        <br/>
+        <br/>
+        <button class="sfdxet-buttons-icon" on:click={reset} title="Reset Options"><RefreshIcon /></button>
     </div>
 {/if}
 

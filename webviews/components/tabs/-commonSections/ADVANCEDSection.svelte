@@ -14,6 +14,9 @@
         objSFDX, 
     } from "../-helperFiles/GlobalStore";
 
+    console.log(`mapShowSections: ${JSON.stringify($mapShowSections)}`);
+    console.log(`mapInputVariables: ${JSON.stringify($mapInputVariables)}`);
+
     // Default
     let fileName = "advanced";
     let sectionUCase = fileName.toUpperCase();
@@ -66,6 +69,10 @@
             resolve(valid);
         });
     }
+
+    if(!$mapInputVariables.advanced){
+        $mapInputVariables.advanced = "";
+    }
 </script>
 
 <div class="col align-self-center sfdxet-br">
@@ -76,7 +83,17 @@
         <section class="sfdxet-section sfdxet-br">
             <label for="advancedinput">
                 Advanced Entry
-                <input type="text" id="advancedinput" name="advancedinput" class="sfdxet-absolute-center sfdxet-error-button" title="Add any extra advanced statement. *USE THIS CAREFULLY." use:tooltipv1 placeholder="Be carefull..." bind:value={$mapInputVariables.advanced}/>
+                <input 
+                    type="text" 
+                    id="advancedinput" 
+                    name="advancedinput" 
+                    class="sfdxet-absolute-center sfdxet-error-button" 
+                    title="Add any extra advanced statement. *USE THIS CAREFULLY." 
+                    use:tooltipv1 
+                    placeholder="Be carefull..."
+                    on:input={(e) => $mapInputVariables.advanced = e.target.value}
+                    value={$mapInputVariables.advanced}
+                />
             </label>
         </section>
     {/if}

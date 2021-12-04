@@ -82,8 +82,6 @@
                 }
             }else{
                 $mapErrors.template = "";
-
-                return true;
             }
 
             resolve(valid);

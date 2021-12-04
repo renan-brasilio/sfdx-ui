@@ -9,6 +9,7 @@ export const mapMainValues = writable({});
 export const mapForceShowSections = writable({});
 export const mapSource = writable({});
 export const mapApex = writable({});
+export const mapCommand = writable({});
 export const mapLastValue = writable({});
 export const mapRequired = writable({});
 export const mapSectionValidation = writable({});

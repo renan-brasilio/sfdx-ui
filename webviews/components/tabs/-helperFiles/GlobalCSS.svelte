@@ -3,6 +3,11 @@
         max-width: 120px;
         border-radius: 5px;
     }
+    
+    :global(.sfdxet-buttons-icon) {
+        max-width: 30px;
+        border-radius: 5px;
+    }
 
     :global(.sfdxet-absolute-center)  {
         margin-left: auto;

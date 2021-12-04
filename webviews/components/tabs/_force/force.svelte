@@ -1,16 +1,20 @@
 <script>
+    // Helper Pages
     import Select from "svelte-select";
     import CSS from "../-helperFiles/GlobalCSS.svelte";
-    import Retrieve from "./_source/retrieve.svelte";
-    import Convert from "./_source/convert.svelte";
-    import Delete from "./_source/delete.svelte";
-    import { mapForceShowSections, mapSource, mapLastValue, mapApex } from "../-helperFiles/GlobalStore";
-    import Deploy from "./_source/deploy.svelte";
+    import * as lists from "../-helperFiles/Lists";
+
+    // Store
+    import { 
+        mapForceShowSections, 
+        mapLastValue,  
+        mapCommand, 
+    } from "../-helperFiles/GlobalStore";
     
     // Analytics
     import Analytcs from "../_force/analytics/analytics_template_create.svelte";
 
-    // APEX
+    // Apex
     import Class_Create from "./_apex/class_create.svelte";
     import Execute from "./_apex/execute.svelte";
     import Log_Get from "./_apex/log_get.svelte";
@@ -20,106 +24,82 @@
     import Test_Run from "./_apex/test_run.svelte";
     import Trigger_Create from "./_apex/trigger_create.svelte";
 
-    const force = [
-        {value: "analytics", label: "analytics"},
-        {value: "apex", label: "apex"},
-        // {value: "cmdt", label: "cmdt", selectable: false},
-        // {value: "community", label: "community", selectable: false},
-        // {value: "data", label: "data", selectable: false},
-        // {value: "lightning", label: "lightning", selectable: false},
-        // {value: "limits", label: "limits", selectable: false},
-        // {value: "mdapi", label: "mdapi", selectable: false},
-        // {value: "org", label: "org", selectable: false},
-        // {value: "package", label: "package", selectable: false},
-        // {value: "package1", label: "package1", selectable: false},
-        // {value: "project", label: "project", selectable: false},
-        // {value: "schema", label: "schema", selectable: false},
-        {value: "source", label: "source"},
-        // {value: "staticresource", label: "staticresource", selectable: false},
-        // {value: "user", label: "user", selectable: false},
-        // {value: "visualforce", label: "visualforce", selectable: false}
-    ];
+    // Source
+    import Retrieve from "./_source/retrieve.svelte";
+    import Convert from "./_source/convert.svelte";
+    import Delete from "./_source/delete.svelte";
+    import Deploy from "./_source/deploy.svelte";
 
-    const analytics = [
-        {value: "template:create", label: "template:create"}
-    ];
+    // Fill the initial Maps
+    handleMapCommand(lists.analytics, "analytics");
+    handleMapCommand(lists.apex, "apex");
+    handleMapCommand(lists.source, "source");
 
-    const apex = [
-        {value: "class:create", label: "class:create"},
-        {value: "execute", label: "execute"},
-        {value: "log:get", label: "log:get"},
-        {value: "log:list", label: "log:list"},
-        {value: "log:tail", label: "log:tail"},
-        {value: "test:report", label: "test:report"},
-        {value: "test:run", label: "test:run"},
-        {value: "trigger:create", label: "trigger:create"}
-    ];
+    export let mainFileName = "force";
 
-    const source = [
-        {value: "retrieve", label: "force:source:retrieve"},
-        {value: "convert", label: "force:source:convert"},
-        {value: "delete", label: "force:source:delete"},
-        {value: "deploy", label: "force:source:deploy"}
-    ];
+    if($mapLastValue[mainFileName]){
+        $mapCommand[$mapLastValue[mainFileName]][$mapLastValue[$mapLastValue[mainFileName]]] = true;
+    }
+
+    function handleMapCommand(pList, pParent){
+        $mapCommand[pParent] = {};
+
+        for(let key in pList){
+            $mapCommand[pParent][pList[key].value.replace(":", "_")] = false;
+        }
+    }
 
     function handleSelect(event, type) {
         if(event.type === "select" && event.detail){
-            clearOtherSections(type);
+            let select = event.detail.value.replace(":", "_");
             
-            if(type === "force"){
-                $mapForceShowSections[event.detail.value] = true;
-            }else if(type === "analytics"){
-                $mapForceShowSections.analytics = true;
-            }else if(type === "apex"){
-                $mapForceShowSections.apex = true;
-                $mapApex[event.detail.value.replace(":", "_")] = true;
-                
-                if($mapApex && $mapLastValue){
-                    $mapApex[$mapLastValue[type]] = false;
-                }
-            }else if(type === "source"){
-                $mapForceShowSections.source = true;
-                $mapSource[event.detail.value] = true;
-                
-                if($mapSource && $mapLastValue){
-                    $mapSource[$mapLastValue[type]] = false;
-                }
+            if(type === mainFileName){
+                clearMapForceShowSections(type);
+                $mapForceShowSections[select] = true;
+            }else{
+                $mapCommand[type][select] = true;
+                clearMapCommand(type, select);
             }
-            
-            $mapLastValue[type] = event.detail.value;
+
+            $mapLastValue[type] = select;
         }
 	}
 	
 	function handleClear(event, type) {
         if(event.type === "clear"){
-            clearOtherSections(type);
-    
-            if(type === "force"){
+            if(type === mainFileName){
                 $mapForceShowSections[type] = false;
-            }else if(type === "analytics"){
-                $mapForceShowSections.analytics = false;
-                $mapLastValue["force"] = "";
-            }else if(type === "apex"){
-                $mapApex[type] = false;
-            }else if(type === "source"){
-                $mapSource[type] = false;
+                clearMapForceShowSections(type);
+            }else{
+                $mapCommand[type][$mapLastValue[type]] = false;
             }
-    
-            $mapLastValue[type] = "";
+
+            for(let key in $mapLastValue){
+                if(key === type){
+                    $mapLastValue[key] = ""; 
+                    break;
+                }
+            }
+
         }
 	}
 
-    function clearOtherSections(currentSection){
-        if($mapLastValue[currentSection]){
-            if(currentSection === "force" || currentSection === "analytics" || currentSection === "apex"){
-                $mapForceShowSections[$mapLastValue[currentSection]] = false;
-            }if(currentSection === "apex"){
-                $mapApex[$mapLastValue[currentSection]] = false;
-            }if(currentSection === "source"){
-                $mapSource[$mapLastValue[currentSection]] = false;
+    function clearMapCommand(type, select){
+        if(type && select){
+            for(let key in $mapCommand[type]){
+                if(key !== select){
+                    $mapCommand[type][key] = false;
+                }
             }
         }
+    }
 
+    function clearMapForceShowSections(type){
+        for(let key in $mapForceShowSections){
+            if(key !== type){
+                $mapForceShowSections[key] = false;
+            }
+        }
     }
 </script>
 
@@ -127,7 +107,7 @@
     <div class="sfdxet-select-theme sfdxet-absolute-center">
         <h4>force Namespace</h4>
         <br/>
-        <Select id="force" items={force} on:select={e => { handleSelect(e, "force") }} on:clear={e => { handleClear(e, "force") }} value={$mapLastValue["force"]}></Select>
+        <Select id={mainFileName} items={lists.force} on:select={e => { handleSelect(e, mainFileName) }} on:clear={e => { handleClear(e, mainFileName) }} value={$mapLastValue[mainFileName]}></Select>
     </div>
 <br/>
 
@@ -135,7 +115,7 @@
     <div class="sfdxet-select-theme sfdxet-absolute-center">
         <h4>analytics Commands</h4>
         <br/>
-        <Select id="analytics" items={analytics} on:select={e => { handleSelect(e, "analytics") }} on:clear={e => { handleClear(e, "analytics") }} value="force:analytics:template:create"></Select>
+        <Select id="analytics" items={lists.analytics} on:select={e => { handleSelect(e, "analytics") }} on:clear={e => { handleClear(e, "analytics") }} value="force:analytics:template:create"></Select>
         <br/>
         <br/>
         <Analytcs />
@@ -146,31 +126,31 @@
     <div class="sfdxet-select-theme sfdxet-absolute-center">
         <h4>apex Commands</h4>
         <br/>
-        <Select id="apex" items={apex} on:select={e => { handleSelect(e, "apex") }} on:clear={e => { handleClear(e, "apex") }} value={$mapLastValue["apex"]}></Select>
+        <Select id="apex" items={lists.apex} on:select={e => { handleSelect(e, "apex") }} on:clear={e => { handleClear(e, "apex") }} value={$mapLastValue["apex"]}></Select>
         <br/>
         <br/>
-        {#if $mapApex.class_create}
+        {#if $mapCommand["apex"].class_create}
             <Class_Create />
         {/if}
-        {#if $mapApex.execute}
+        {#if $mapCommand["apex"].execute}
             <Execute />
         {/if}
-        {#if $mapApex.log_get}
+        {#if $mapCommand["apex"].log_get}
             <Log_Get />
         {/if}
-        {#if $mapApex.log_list}
+        {#if $mapCommand["apex"].log_list}
             <Log_List />
         {/if}
-        {#if $mapApex.log_tail}
+        {#if $mapCommand["apex"].log_tail}
             <Log_Tail />
         {/if}
-        {#if $mapApex.test_report}
+        {#if $mapCommand["apex"].test_report}
             <Test_Report />
         {/if}
-        {#if $mapApex.test_run}
+        {#if $mapCommand["apex"].test_run}
             <Test_Run />
         {/if}
-        {#if $mapApex.trigger_create}
+        {#if $mapCommand["apex"].trigger_create}
             <Trigger_Create />
         {/if}
     </div>
@@ -180,19 +160,19 @@
     <div class="sfdxet-select-theme sfdxet-absolute-center">
         <h4>source Commands</h4>
         <br/>
-        <Select id="source" items={source} on:select={e => { handleSelect(e, "source") }} on:clear={e => { handleClear(e, "source") }} value={$mapLastValue["source"]}></Select>
+        <Select id="source" items={lists.source} on:select={e => { handleSelect(e, "source") }} on:clear={e => { handleClear(e, "source") }} value={$mapLastValue["source"]}></Select>
         <br/>
         <br/>
-        {#if $mapSource.retrieve}
+        {#if $mapCommand["source"].retrieve}
             <Retrieve />
         {/if}
-        {#if $mapSource.convert}
+        {#if $mapCommand["source"].convert}
             <Convert />
         {/if}
-        {#if $mapSource.delete}
+        {#if $mapCommand["source"].delete}
             <Delete />
         {/if}
-        {#if $mapSource.deploy}
+        {#if $mapCommand["source"].deploy}
             <Deploy />
         {/if}
     </div>

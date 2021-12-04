@@ -102,27 +102,27 @@
 
         return await new Promise(function(resolve, reject) {
             if($mapShowSections.outputdir){
-            $objSFDX.terminal += ` ${pSFDXParameter} `;
-    
-            if($mapShowSections.outputdir2){
-                if($mapInputVariables.outputdir2){
-                    $mapErrors.outputdir2 = "";
-                    $objSFDX.terminal += $mapInputVariables.outputdir2;
-                }
-            }else if($mapInputVariables.outputdir){
-                $mapErrors.outputdir = "";
-                $objSFDX.terminal += $mapInputVariables.outputdir;
-            }else{
-                $mapErrors.outputdir = "sfdxet-error-span";
-    
-                tsvscode.postMessage({
-                    type: "onError",
-                    value: `ERROR: Please select/insert a Folder or uncheck the [${pSFDXParameter} OUTPUTDIR] checkbox.` 
-                });
+                $objSFDX.terminal += ` ${pSFDXParameter} `;
+        
+                if($mapShowSections.outputdir2){
+                    if($mapInputVariables.outputdir2){
+                        $mapErrors.outputdir2 = "";
+                        $objSFDX.terminal += $mapInputVariables.outputdir2;
+                    }
+                }else if($mapInputVariables.outputdir){
+                    $mapErrors.outputdir = "";
+                    $objSFDX.terminal += $mapInputVariables.outputdir;
+                }else{
+                    $mapErrors.outputdir = "sfdxet-error-span";
+        
+                    tsvscode.postMessage({
+                        type: "onError",
+                        value: `ERROR: Please select/insert a Folder or uncheck the [${pSFDXParameter} OUTPUTDIR] checkbox.` 
+                    });
 
-                valid = false;
+                    valid = false;
+                }
             }
-        }
 
             resolve(valid);
         });

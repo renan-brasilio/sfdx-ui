@@ -118,7 +118,7 @@
     <Documentation headerD={sectionUCase} typeD={mapDoc.type} bodyD={mapDoc.body} sectionName={fileName}/>
     
     {#if $mapShowSections.json}
-        <h4 class="sfdxet-br"><b>JSON Options:</b></h4>
+        <h4 class="sfdxet-br"><b>{sectionUCase} Options:</b></h4>
         <section class="sfdxet-section">
             <label for="jsoninput">
                 JSON File Name
