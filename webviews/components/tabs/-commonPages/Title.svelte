@@ -14,12 +14,13 @@
     export let pRequired = false;
     export let pPartialRequired = true;
     export let pSFDXParameter = "";
-    export let sectionName = "";
-    export let elementName = "";
-    export let fileName = "";
-    export let onlyOneError = "";
+    export let pSectionName = "";
+    export let pElementName = "";
+    export let pFileName = "";
+    export let pOnlyOneError = "";
     export let pStyle = "";
     export let pClass = "";
+    export let pShowSectionName = true;
 
     function handleShowSections(event, pSectionName, pOnlyOneError){
         if(event.target.checked === true){
@@ -59,10 +60,10 @@
     }
 
     function openDoc(){
-        if(!$mapDocument[fileName]){
-            $mapDocument[fileName] = true;
+        if(!$mapDocument[pFileName]){
+            $mapDocument[pFileName] = true;
         }else{
-            $mapDocument[fileName] = !$mapDocument[fileName] ? true : false;
+            $mapDocument[pFileName] = !$mapDocument[pFileName] ? true : false;
         }
     }
 </script>
@@ -70,27 +71,27 @@
 <span 
     title={js.mapTooltips["collapseDoc"]}
     class:sfdxet-required={pRequired} 
-    class:sfdxet-error-span={$mapErrors[fileName]} 
+    class:sfdxet-error-span={$mapErrors[pFileName]} 
     on:click={openDoc}
     style={pStyle}
     class={pClass}
->{pRequired ? "*" : "["}{pSFDXParameter ? pSFDXParameter : ""}{sectionName ? " " + sectionName : ""}{pRequired ? "" : "]"}</span> 
+>{pRequired ? "*" : "["}{pSFDXParameter ? pSFDXParameter : ""}{pSectionName && pShowSectionName ? " " + pSectionName.toUpperCase() : ""}{pRequired ? "" : "]"}</span> 
 
 {#if pPartialRequired}
     <input 
         type="checkbox" 
-        id={elementName} 
-        name={elementName} 
-        on:change={e => { handleShowSections(e, `${fileName}`, `${onlyOneError}`) }} 
+        id={pElementName} 
+        name={pElementName} 
+        on:change={e => { handleShowSections(e, `${pFileName}`, `${pOnlyOneError}`) }} 
         title={js.mapTooltips["checkbox"]}
-        checked={$mapShowSections[fileName]}
+        checked={$mapShowSections[pFileName]}
     />
     {:else}
         <input 
             type="checkbox" 
-            id={elementName} 
-            name={elementName} 
-            on:change={e => { handleShowSections(e, `${fileName}`, `${onlyOneError}`) }} 
+            id={pElementName} 
+            name={pElementName} 
+            on:change={e => { handleShowSections(e, `${pFileName}`, `${pOnlyOneError}`) }} 
             title={js.mapTooltips["checkbox"]}
             checked={true}
             disabled

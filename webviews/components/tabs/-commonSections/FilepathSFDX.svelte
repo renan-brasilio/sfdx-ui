@@ -9,24 +9,28 @@
 
     // Store
     import { 
+        mapErrors,
         mapInputVariables, 
         mapSectionValidation, 
         mapShowSections, 
         objSFDX, 
+        pickFileType,
     } from "../-helperFiles/GlobalStore";
-
+    
     // Parameters
-    export let pSectionName = "json";
+    export let pSectionName = "";
     export let pMapDoc;
     export let pRequired = false;
     export let pOnlyOneError = "";
-    export let pSFDXParameter = "--json";
+    export let pPlaceholder = "";
+    export let pSFDXParameter = "";
+    export let pButtonText = "";
     export let pShowSectionName = true;
     export let pPartialRequired = true;
 
     // Default
     let sectionUCase = pSectionName.toUpperCase();
-
+    
     function handleShowSections(event, pSectionName, pOnlyOneError){
         if(event.target.checked === true){
             if($mapSectionValidation[pSectionName] != null && js.listValidation.includes(pSectionName)){
@@ -64,26 +68,38 @@
         }
     }
 
+    function onShowFilePick(type) {
+        $pickFileType = type;
+
+        tsvscode.postMessage({
+            type: 'onShowFilePick'
+        });
+    }
+
     export async function validate(){
         let valid = true;
 
         return await new Promise(function(resolve, reject) {
             if($mapShowSections[pSectionName]){
-                $objSFDX.terminal += ` ${pSFDXParameter} > `;
-                
-                if($mapInputVariables[pSectionName]){
+                if($mapShowSections[`${pSectionName}2`] && $mapInputVariables[`${pSectionName}2`]){
+                    $objSFDX.terminal += ` ${pSFDXParameter} `;
+
+                    $mapErrors[`${pSectionName}2`] = "";
+                    $objSFDX.terminal += $mapInputVariables[`${pSectionName}2`];
+                }else if($mapInputVariables[pSectionName]){
+                    $objSFDX.terminal += ` ${pSFDXParameter} `;
+                    
+                    $mapErrors[pSectionName] = "";
                     $objSFDX.terminal += $mapInputVariables[pSectionName];
                 }else{
-                    $objSFDX.terminal += "output[pSectionName]";
-                }
-            }
-    
-            if($mapInputVariables[`${pSectionName}2`]){
-                $objSFDX.pJSON = ` ${pSFDXParameter}`;
-                $objSFDX.vJSONPath = $mapInputVariables[`${pSectionName}2`];
-    
-                if($mapInputVariables[pSectionName]){
-                    $objSFDX.vJSON += $mapInputVariables[pSectionName];
+                    $mapErrors[pSectionName] = "sfdxet-error-span";
+
+                    tsvscode.postMessage({
+                        type: "onError",
+                        value: `ERROR: Please select/insert a File or uncheck the [${pSFDXParameter} ${sectionUCase}] checkbox.` 
+                    });
+
+                    valid = false;
                 }
             }
 
@@ -109,71 +125,25 @@
         pBody={pMapDoc.body} 
         pSectionName={pSectionName}
     />
-    
+
     {#if $mapShowSections[pSectionName]}
-        <h4 class="sfdxet-br"><b>{sectionUCase} Options:</b></h4>
-        <section class="sfdxet-section">
-            <label for={`${pSectionName}input`}>
-                JSON File Name
+        <section class="sfdxet-section sfdxet-br">
+            <button class="sfdxet-buttons {$mapErrors[pSectionName]}" on:click={() => {onShowFilePick(`${pSectionName}`)}}>{pButtonText}</button>
+            <br/>
+            <br/>
+            <label for={pSectionName}>
+                <span title={js.mapTooltips["manuallyDefine"]} use:tooltipv1>Manually define</span> 
+                <input type="checkbox" id={pSectionName} name={pSectionName} on:change={e => { handleShowSections(e, `${pSectionName}2`, null) }}> 
+            </label>
+            {#if $mapShowSections[`${pSectionName}2`]}
                 <input 
                     type="text" 
-                    id={`${pSectionName}input`}
-                    name={`${pSectionName}input`} 
                     class="sfdxet-absolute-center" 
-                    title="Insert the JSON filename (don't include [pSectionName]), or leave blank for the default: output" 
+                    title={$mapInputVariables[pSectionName]} 
                     use:tooltipv1 
-                    placeholder="output" 
-                    bind:value={$mapInputVariables[pSectionName]}
+                    placeholder={pPlaceholder} 
+                    bind:value={$mapInputVariables[`${pSectionName}2`]}
                 />
-            </label>
-            <br/>
-    
-            <label for={`${pSectionName}2`}>
-                <span 
-                    title={js.mapTooltips["tJSON2"]} 
-                    use:tooltipv1 
-                    class="sfdxet-inner-span"
-                >Define output folder?</span> 
-                <input 
-                    type="checkbox" 
-                    id={`${pSectionName}2`} 
-                    name={`${pSectionName}2`} 
-                    on:change={e => { handleShowSections(e, `${pSectionName}2`, null) }}
-                > 
-            </label>
-            <br/>
-            <br/>
-    
-            {#if $mapShowSections[`${pSectionName}2`]}
-                <button class="sfdxet-buttons" on:click={() => {js.showFolderPick(`${pSectionName}2`)}} title={js.mapTooltips["tJSON2"]} use:tooltipv1>Set Folder Path</button>
-                <br/>
-                <br/>
-                <label for={`${pSectionName}3`}>
-                    <span 
-                        title={js.mapTooltips["tJSON3"]} 
-                        use:tooltipv1 
-                        class="sfdxet-inner-span"
-                    >Manually define</span> <input type="checkbox" id={`${pSectionName}3`} name={`${pSectionName}3`} on:change={e => { handleShowSections(e, `${pSectionName}3`, null) }}> 
-                </label>
-                {#if $mapShowSections[`${pSectionName}3`]}
-                    <br/>
-                    <br/>
-                    <label for={`${pSectionName}path`}>
-                        JSON Folder Path
-                        <input 
-                            type="text" 
-                            id={`${pSectionName}path`} 
-                            name={`${pSectionName}path`} 
-                            class="sfdxet-absolute-center" 
-                            disabled={!$mapShowSections[`${pSectionName}3`]} 
-                            title={$mapInputVariables[`${pSectionName}2`]} 
-                            use:tooltipv1 
-                            placeholder="Insert..." 
-                            bind:value={$mapInputVariables[`${pSectionName}2`]}
-                        />
-                    </label>
-                {/if}
-                <br/>
             {/if}
         </section>
     {/if}

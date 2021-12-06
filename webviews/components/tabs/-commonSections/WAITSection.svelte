@@ -27,11 +27,8 @@
     let type = `<b><i>Optional</i></b>`;
     let body = `
         <br/><br/>
-        A comma-separated list of names of metadata components to retrieve from the org.
-        <br/><br/>
-        If you specify this parameter, don’t specify --manifest or --sourcepath.
-        <br/><br/>
-        Type: array
+        Sets the streaming client socket timeout in minutes; specify a longer wait time if timeouts occur frequently.<br/><br/>
+        Type: string
     `;
 
     if(!mapDoc){ // Default
@@ -64,7 +61,7 @@
 
 <div class="col align-self-center sfdxet-br">
     <Title pRequired={required} pSFDXParameter={pSFDXParameter} sectionName={sectionUCase} elementName={fileName} fileName={fileName} onlyOneError={onlyOneError}/>
-    <Documentation headerD={sectionUCase} typeD={mapDoc.type} bodyD={mapDoc.body} sectionName={fileName}/>
+    <Documentation pHeader={sectionUCase} typeD={mapDoc.type} bodyD={mapDoc.body} sectionName={fileName}/>
     
     {#if $mapShowSections.wait}
         <section class="sfdxet-section sfdxet-br">

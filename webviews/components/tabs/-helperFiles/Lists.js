@@ -15,11 +15,11 @@ export const force = [
     {value: "source", label: "source"},
     // {value: "staticresource", label: "staticresource", selectable: false},
     // {value: "user", label: "user", selectable: false},
-    // {value: "visualforce", label: "visualforce", selectable: false}
+    // {value: "visualforce", label: "visualforce", selectable: false},
 ];
 
 export const analytics = [
-    {value: "template:create", label: "template:create"}
+    {value: "template:create", label: "template:create"},
 ];
 
 export const apex = [
@@ -30,14 +30,14 @@ export const apex = [
     {value: "log:tail", label: "log:tail"},
     {value: "test:report", label: "test:report"},
     {value: "test:run", label: "test:run"},
-    {value: "trigger:create", label: "trigger:create"}
+    {value: "trigger:create", label: "trigger:create"},
 ];
 
 export const source = [
     {value: "retrieve", label: "force:source:retrieve"},
     {value: "convert", label: "force:source:convert"},
     {value: "delete", label: "force:source:delete"},
-    {value: "deploy", label: "force:source:deploy"}
+    {value: "deploy", label: "force:source:deploy"},
 ];
 
 export const lLOGLEVEL = [
@@ -65,5 +65,21 @@ export const lTEMPLATE = [
     {value: "ApexException", label: "ApexException"},
     {value: "ApexUnitTest", label: "ApexUnitTest"},
     {value: "DefaultApexClass", label: "DefaultApexClass"},
-    {value: "InboundEmailService", label: "InboundEmailService"}
+    {value: "InboundEmailService", label: "InboundEmailService"},
+];
+
+export const lDEBUGLEVEL = [
+    {value: "error", label: "error"},
+    {value: "warn", label: "warn"},
+    {value: "info", label: "info"},
+    {value: "debug", label: "debug"},
+    {value: "trace", label: "trace"},
+    {value: "fatal", label: "fatal"},
+];
+
+export const lRESULTFORMAT = [
+    {value: "human", label: "human"},
+    {value: "tap", label: "tap"},
+    {value: "junit", label: "junit"},
+    {value: "json", label: "json"},
 ];

@@ -27,6 +27,8 @@
     export let pTitle = "";
     export let pPlaceholder = "";
     export let pMaxLength = 255;
+    export let pShowSectionName = true;
+    export let pPartialRequired = true;
     
     // Default
     let sectionUCase = pSectionName.toUpperCase();
@@ -78,8 +80,22 @@
 </script>
 
 <div class="col align-self-center sfdxet-br">
-    <Title pRequired={pRequired} pSFDXParameter={pSFDXParameter} sectionName={sectionUCase} elementName={pSectionName} fileName={pSectionName} onlyOneError={pOnlyOneError} pPartialRequired={false}/>
-    <Documentation headerD={sectionUCase} typeD={pMapDoc.type} bodyD={pMapDoc.body} sectionName={pSectionName}/>
+    <Title 
+        pRequired={pRequired} 
+        pSFDXParameter={pSFDXParameter} 
+        pSectionName={pSectionName} 
+        pElementName={pSectionName} 
+        pFileName={pSectionName} 
+        pOnlyOneError={pOnlyOneError}
+        pShowSectionName={pShowSectionName}
+        pPartialRequired={pPartialRequired}
+    />
+    <Documentation 
+        pHeader={sectionUCase} 
+        pType={pMapDoc.type} 
+        pBody={pMapDoc.body} 
+        pSectionName={pSectionName}
+    />
     
     {#if $mapShowSections[pSectionName]}
         <h4 class="sfdxet-br"><b>{sectionUCase} Options:</b></h4>

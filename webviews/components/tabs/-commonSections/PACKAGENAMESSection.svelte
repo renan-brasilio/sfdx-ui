@@ -38,7 +38,7 @@
 
 <div class="col align-self-center sfdxet-br">
     <Title pRequired={required} pSFDXParameter="-x" sectionName={sectionUCase} elementName={fileName} fileName={fileName} onlyOneError={onlyOneError}/>
-    <Documentation headerD={sectionUCase} typeD={mapDoc.type} bodyD={mapDoc.body} sectionName={fileName}/>
+    <Documentation pHeader={sectionUCase} typeD={mapDoc.type} bodyD={mapDoc.body} sectionName={fileName}/>
     
     {#if $mapShowSections.packagenames}
         <section class="sfdxet-section sfdxet-br">

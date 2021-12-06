@@ -9,19 +9,19 @@
     } from "../-helperFiles/GlobalStore";
 
     // Parameters
-    export let sectionName = '';
-    export let headerD = '';
-    export let typeD = '';
-    export let bodyD = '';
+    export let pSectionName = '';
+    export let pHeader = '';
+    export let pType = '';
+    export let pBody = '';
 </script>
 
-{#if $mapDocument[sectionName]}
-    <h4 class="sfdxet-br"><b>{headerD} Documentation:</b></h4>
+{#if $mapDocument[pSectionName]}
+    <h4 class="sfdxet-br"><b>{pHeader} Documentation:</b></h4>
     <section class="sfdxet-section">
-        <CollapsibleCard open={$mapDocument[sectionName]}>
+        <CollapsibleCard open={$mapDocument[pSectionName]}>
             <div slot='body' title={js.mapTooltips['documentation']}>
-                {@html typeD}
-                {@html bodyD}
+                {@html pType}
+                {@html pBody}
             </div>
         </CollapsibleCard>
     </section>

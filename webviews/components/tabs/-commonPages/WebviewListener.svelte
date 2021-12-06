@@ -47,7 +47,7 @@
 
                         $mapTargetUsername[key] = backReturn.value[key];
                         $lTARGETUSERNAME.push(option);
-
+                        
                         $mapShowSections.targetusernamespinner = false;
                     }
                     break;

@@ -51,7 +51,7 @@
 
     function handleSelect(event, type) {
         if(event.type === "select" && event.detail){
-            let select = event.detail.value.replace(":", "_");
+            let select = event.detail.value.replace("_", ":");
             
             if(type === mainFileName){
                 clearMapForceShowSections(type);
@@ -129,28 +129,28 @@
         <Select id="apex" items={lists.apex} on:select={e => { handleSelect(e, "apex") }} on:clear={e => { handleClear(e, "apex") }} value={$mapLastValue["apex"]}></Select>
         <br/>
         <br/>
-        {#if $mapCommand["apex"].class_create}
+        {#if $mapCommand["apex"]["class:create"]}
             <Class_Create />
         {/if}
         {#if $mapCommand["apex"].execute}
             <Execute />
         {/if}
-        {#if $mapCommand["apex"].log_get}
+        {#if $mapCommand["apex"]["log:get"]}
             <Log_Get />
         {/if}
-        {#if $mapCommand["apex"].log_list}
+        {#if $mapCommand["apex"]["log:list"]}
             <Log_List />
         {/if}
-        {#if $mapCommand["apex"].log_tail}
+        {#if $mapCommand["apex"]["log:tail"]}
             <Log_Tail />
         {/if}
-        {#if $mapCommand["apex"].test_report}
+        {#if $mapCommand["apex"]["test:report"]}
             <Test_Report />
         {/if}
-        {#if $mapCommand["apex"].test_run}
+        {#if $mapCommand["apex"]["test:run"]}
             <Test_Run />
         {/if}
-        {#if $mapCommand["apex"].trigger_create}
+        {#if $mapCommand["apex"]["trigger:create"]}
             <Trigger_Create />
         {/if}
     </div>

@@ -6,9 +6,12 @@
     import { } from "os";
     import WebviewListener from "../../-commonPages/WebviewListener.svelte";
     import RefreshIcon from "svelte-bootstrap-icons/lib/ArrowClockwise";
+    import { mapDoc } from "../../-helperFiles/MapDocumentation";
+    import * as gLists from "../../-helperFiles/Lists";
 
     // Store
     import { 
+        lTARGETUSERNAME,
         mapErrors,
         mapInformation,
         mapInputVariables,
@@ -20,15 +23,15 @@
 
     // Sections
     import JSONs from "../../-commonSections/JSONSection.svelte";
-    import LOGLEVELs from "../../-commonSections/LOGLEVELSection.svelte";
-    import TARGETUSERNAMEs from "../../-commonSections/TARGETUSERNAMESection.svelte";
-    import APIVERSIONs from "../../-commonSections/APIVERSIONSection.svelte";
-    // import TESTRUNIDs from "../../-commonSections/TESTRUNIDSection.svelte";
-    // import CODECOVERAGEs from "../../-commonSections/CODECOVERAGESection.svelte";
-    import OUTPUTDIRs from "../../-commonSections/OUTPUTDIRSection.svelte";
-    // import RESULTFORMATs from "../../-commonSections/RESULTFORMATSection.svelte";
-    import WAITs from "../../-commonSections/WAITSection.svelte";
-    import VERBOSEs from "../../-commonSections/VERBOSESection.svelte";
+    import LOGLEVELs from "../../-commonSections/SelectSFDX.svelte";
+    import TARGETUSERNAMEs from "../../-commonSections/SelectSFDX.svelte";
+    import APIVERSIONs from "../../-commonSections/SelectSFDX.svelte";
+    import TESTRUNIDs from "../../-commonSections/StringSFDX.svelte";
+    import CODECOVERAGEs from "../../-commonSections/BooleanSFDX.svelte";
+    import OUTPUTDIRs from "../../-commonSections/FolderpathSFDX.svelte";
+    import RESULTFORMATs from "../../-commonSections/SelectSFDX.svelte";
+    import WAITs from "../../-commonSections/MinuteSFDX.svelte";
+    import VERBOSEs from "../../-commonSections/BooleanSFDX.svelte";
     import ADVANCEDs from "../../-commonSections/ADVANCEDSection.svelte";
 
     // Component Validations
@@ -37,10 +40,10 @@
     LOGLEVELv, 
     TARGETUSERNAMEv,
     APIVERSIONv,
-    // TESTRUNIDv,
-    // CODECOVERAGEv,
+    TESTRUNIDv,
+    CODECOVERAGEv,
     OUTPUTDIRv,
-    // RESULTFORMATv,
+    RESULTFORMATv,
     WAITv,
     VERBOSEv,
     ADVANCEDv;
@@ -92,10 +95,10 @@
             LOGLEVELv.validate(), 
             TARGETUSERNAMEv.validate(), 
             APIVERSIONv.validate(), 
-            // TESTRUNIDv.validate(), 
-            // CODECOVERAGEv.validate(), 
+            TESTRUNIDv.validate(), 
+            CODECOVERAGEv.validate(), 
             OUTPUTDIRv.validate(), 
-            // RESULTFORMATv.validate(), 
+            RESULTFORMATv.validate(), 
             WAITv.validate(), 
             VERBOSEv.validate(), 
             ADVANCEDv.validate(), 
@@ -148,6 +151,32 @@
             $mapShowSections[key] = false;
         }
     } 
+
+    // TARGETUSERNAME
+    tsvscode.postMessage({
+        type: "onGetAliasUsers"
+    });
+
+    // APIVERSION
+    let dAPIVERSION = "";
+    const lAPIVERSION = [];
+
+    for(let i=8; i < 54; i++){
+        if(i === 53){
+            dAPIVERSION = i.toFixed(1);
+        }
+
+        lAPIVERSION.push({value: i.toFixed(1), label: i.toFixed(1)});
+        
+        if(i === 11){
+            let j = i + .1;
+            lAPIVERSION.push({value: j.toFixed(1), label: j.toFixed(1)});
+        }
+    }
+
+    lAPIVERSION.reverse();
+
+    $mapInputVariables[fileName] = dAPIVERSION;
 </script>
 
 <WebviewListener fileName={fileName} commandType="apex" showCommand={showFileNameUpper}/>
@@ -169,37 +198,110 @@
         <br/>
 
         <!-- [--json] -->
-        <svelte:component this="{JSONs}" bind:this="{JSONv}" />
-
+        <svelte:component 
+            this="{JSONs}" 
+            bind:this="{JSONv}" 
+            pMapDoc={mapDoc.json}
+            pShowSectionName={false}
+        />
+        
         <!-- [--loglevel LOGLEVEL] -->
-        <svelte:component this="{LOGLEVELs}" bind:this="{LOGLEVELv}" />
+        <svelte:component 
+            this="{LOGLEVELs}" 
+            bind:this="{LOGLEVELv}" 
+            pSectionName="loglevel"
+            pMapDoc={mapDoc.loglevel} 
+            pSFDXParameter="--loglevel"
+            pList={gLists.lLOGLEVEL}
+            pDefaultValue="warn"
+        />
         
         <!-- [-u TARGETUSERNAME] -->
-        <svelte:component this="{TARGETUSERNAMEs}" bind:this="{TARGETUSERNAMEv}" />
+        <svelte:component 
+            this="{TARGETUSERNAMEs}" 
+            bind:this="{TARGETUSERNAMEv}" 
+            pSectionName="targetusername"
+            pMapDoc={mapDoc.targetusername} 
+            pSFDXParameter="-u"
+            pList={$lTARGETUSERNAME}
+        />
         
         <!-- [--apiversion APIVERSION] -->
-        <svelte:component this="{APIVERSIONs}" bind:this="{APIVERSIONv}" />
+        <svelte:component 
+            this="{APIVERSIONs}" 
+            bind:this="{APIVERSIONv}" 
+            pSectionName="apiversion"
+            pMapDoc={mapDoc.apiversion} 
+            pSFDXParameter="--apiversion"
+            pList={lAPIVERSION}
+            pDefaultValue={dAPIVERSION}
+        />
         
         <!-- -i TESTRUNID -->
-        <!-- <svelte:component this="{TESTRUNIDs}" bind:this="{TESTRUNIDv}" required={true} /> -->
+        <svelte:component 
+            this="{TESTRUNIDs}" 
+            bind:this="{TESTRUNIDv}" 
+            pSectionName="testrunid"
+            pRequired={true}
+            pMapDoc={mapDoc.testrunid}
+            pSFDXParameter="-n"
+            pSectionTitle="Test Run Id"
+            pTitle="Insert the Id of the Test to Run"
+            pPlaceholder="Insert..."
+            pMaxLength={18}
+            pPartialRequired={false}
+        />
         
         <!-- [-c] -->
-        <!-- <svelte:component this="{CODECOVERAGEs}" bind:this="{CODECOVERAGEv}" /> -->
+        <svelte:component 
+            this="{CODECOVERAGEs}" 
+            bind:this="{CODECOVERAGEv}"
+            pSectionName="codecoverage"
+            pMapDoc={mapDoc.codecoverage} 
+            pSFDXParameter="-c"
+            pShowSectionName={false} 
+        />
         
         <!-- [-d OUTPUTDIR] -->
-        <svelte:component this="{OUTPUTDIRs}" bind:this="{OUTPUTDIRv}" />
+        <svelte:component 
+            this="{OUTPUTDIRs}" 
+            bind:this="{OUTPUTDIRv}" 
+            pSectionName="outputdir"
+            pMapDoc={mapDoc.outputdir} 
+            pSFDXParameter="-d"
+        />
         
         <!-- [-r RESULTFORMAT] -->
-        <!-- <svelte:component this="{RESULTFORMATs}" bind:this="{RESULTFORMATv}" /> -->
+        <svelte:component 
+            this="{RESULTFORMATs}" 
+            bind:this="{RESULTFORMATv}" 
+            pSectionName="resultformat"
+            pMapDoc={mapDoc.resultformat} 
+            pSFDXParameter="-r"
+            pList={gLists.lRESULTFORMAT}
+        />
         
         <!-- [-w WAIT] -->
-        <svelte:component this="{WAITs}" bind:this="{WAITv}" />
+        <svelte:component 
+            this="{WAITs}" 
+            bind:this="{WAITv}" 
+            pSectionName="wait"
+            pMapDoc={mapDoc.wait} 
+            pSFDXParameter="-w"
+        />
         
         <!-- [--verbose] -->
-        <svelte:component this="{VERBOSEs}" bind:this="{VERBOSEv}" />
+        <svelte:component 
+            this="{VERBOSEs}" 
+            bind:this="{VERBOSEv}"
+            pSectionName="verbose"
+            pMapDoc={mapDoc.verbose} 
+            pSFDXParameter="--verbose"
+            pShowSectionName={false} 
+        />
 
         <!-- [ADVANCED] -->
-        <svelte:component this="{ADVANCEDs}" bind:this="{ADVANCEDv}" />
+        <svelte:component this="{ADVANCEDs}" bind:this="{ADVANCEDv}" pMapDoc={mapDoc.advanced}/>
         <br/>
         <br/>
         <button class="sfdxet-buttons-icon" on:click={reset} title="Reset Options"><RefreshIcon /></button>

@@ -2,13 +2,12 @@
 
 <script>
     // Helper Files
+    import { tooltip as tooltipv1 } from "../--tooltip/tooltip.v1";
     import Title from "../-commonPages/Title.svelte";
     import Documentation from "../-commonPages/Documentation.svelte";
-    import SelectCommon from "../-commonPages/SelectCommon.svelte";
 
     // Store
     import { 
-        mapErrors,
         mapInputVariables, 
         mapShowSections, 
         objSFDX, 
@@ -20,36 +19,20 @@
     export let pRequired = false;
     export let pOnlyOneError = "";
     export let pSFDXParameter = "";
-    export let pList = [];
-    export let pDefaultValue = "";
+    export let pTitle = "";
+    export let pPlaceholder = "";
     export let pShowSectionName = true;
     export let pPartialRequired = true;
-    
+
     // Default
     let sectionUCase = pSectionName.toUpperCase();
-
-    $mapInputVariables[pSectionName] = pDefaultValue;
 
     export async function validate(){
         let valid = true;
 
         return await new Promise(function(resolve, reject) {
-            if($mapShowSections[pSectionName]){
-                if($mapInputVariables[pSectionName]){
-                    $mapErrors[pSectionName] = "";
-                    $objSFDX.terminal += ` ${pSFDXParameter} ${$mapInputVariables[pSectionName]}`;
-                }else{
-                    $mapErrors[pSectionName] = "sfdxet-error-select";
-
-                    tsvscode.postMessage({
-                        type: "onError",
-                        value: `ERROR: Please select a ${sectionUCase} or uncheck the [${pSFDXParameter} ${sectionUCase}] checkbox.` 
-                    });
-
-                    valid = false;
-                }
-            }else{
-                $mapErrors[pSectionName] = "";
+            if($mapShowSections[pSectionName] && $mapInputVariables[pSectionName]){
+                $objSFDX.terminal += ` ${pSFDXParameter} ${$mapInputVariables[pSectionName]}`;
             }
 
             resolve(valid);
@@ -76,9 +59,16 @@
     />
     
     {#if $mapShowSections[pSectionName]}
-        <h4 class="sfdxet-br"><b>{sectionUCase} Options:</b></h4>
-        <section class="sfdxet-section">
-            <SelectCommon error={$mapErrors[pSectionName]} pList={pList} sectionName={pSectionName} defaultVal={pDefaultValue}/>
+        <section class="sfdxet-section sfdxet-br">
+            <input 
+                type="number" 
+                on:keypress={e => {if(e.key==="."){e.preventDefault();}}} 
+                on:input={e => {e.target.value = e.target.value.replace(/[^0-9]*/g,"");}} 
+                class="sfdxet-absolute-center" 
+                title={pTitle} 
+                use:tooltipv1 
+                placeholder={pPlaceholder} 
+                bind:value={$mapInputVariables[pSectionName]}/>
         </section>
     {/if}
 </div>

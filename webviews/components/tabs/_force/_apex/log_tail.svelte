@@ -6,9 +6,12 @@
     import { } from "os";
     import WebviewListener from "../../-commonPages/WebviewListener.svelte";
     import RefreshIcon from "svelte-bootstrap-icons/lib/ArrowClockwise";
+    import { mapDoc } from "../../-helperFiles/MapDocumentation";
+    import * as gLists from "../../-helperFiles/Lists";
 
     // Store
     import { 
+        lTARGETUSERNAME,
         mapInformation,
         mapInputVariables,
         mapShowSections,
@@ -18,12 +21,12 @@
 
     // Sections
     import JSONs from "../../-commonSections/JSONSection.svelte";
-    import LOGLEVELs from "../../-commonSections/LOGLEVELSection.svelte";
-    import TARGETUSERNAMEs from "../../-commonSections/TARGETUSERNAMESection.svelte";
-    import APIVERSIONs from "../../-commonSections/APIVERSIONSection.svelte";
-    // import COLORs from "../../-commonSections/COLORSection.svelte";
-    // import DEBUGLEVELs from "../../-commonSections/DEBUGLEVELSection.svelte";
-    // import SKIPTRACEFLAGs from "../../-commonSections/SKIPTRACEFLAGSection.svelte";
+    import LOGLEVELs from "../../-commonSections/SelectSFDX.svelte";
+    import TARGETUSERNAMEs from "../../-commonSections/SelectSFDX.svelte";
+    import APIVERSIONs from "../../-commonSections/SelectSFDX.svelte";
+    import COLORs from "../../-commonSections/BooleanSFDX.svelte";
+    import DEBUGLEVELs from "../../-commonSections/SelectSFDX.svelte";
+    import SKIPTRACEFLAGs from "../../-commonSections/BooleanSFDX.svelte";
     import ADVANCEDs from "../../-commonSections/ADVANCEDSection.svelte";
 
     // Component Validations
@@ -32,9 +35,9 @@
     LOGLEVELv, 
     TARGETUSERNAMEv,
     APIVERSIONv,
-    // COLORv,
-    // DEBUGLEVELv,
-    // SKIPTRACEFLAGv,
+    COLORv,
+    DEBUGLEVELv,
+    SKIPTRACEFLAGv,
     ADVANCEDv;
 
     // Documentation
@@ -63,9 +66,9 @@
             LOGLEVELv.validate(), 
             TARGETUSERNAMEv.validate(), 
             APIVERSIONv.validate(), 
-            // COLORv.validate(), 
-            // DEBUGLEVELv.validate(), 
-            // SKIPTRACEFLAGv.validate(), 
+            COLORv.validate(), 
+            DEBUGLEVELv.validate(), 
+            SKIPTRACEFLAGv.validate(), 
             ADVANCEDv.validate(), 
         ]).then((values) => {
             if(values){
@@ -85,7 +88,33 @@
         for(let key in $mapShowSections){
             $mapShowSections[key] = false;
         }
-    } 
+    }
+
+    // TARGETUSERNAME
+    tsvscode.postMessage({
+        type: "onGetAliasUsers"
+    });
+
+    // APIVERSION
+    let dAPIVERSION = "";
+    const lAPIVERSION = [];
+
+    for(let i=8; i < 54; i++){
+        if(i === 53){
+            dAPIVERSION = i.toFixed(1);
+        }
+
+        lAPIVERSION.push({value: i.toFixed(1), label: i.toFixed(1)});
+        
+        if(i === 11){
+            let j = i + .1;
+            lAPIVERSION.push({value: j.toFixed(1), label: j.toFixed(1)});
+        }
+    }
+
+    lAPIVERSION.reverse();
+
+    $mapInputVariables[fileName] = dAPIVERSION;
 </script>
 
 <WebviewListener fileName={fileName} commandType="apex" showCommand={showFileNameUpper}/>
@@ -107,28 +136,77 @@
         <br/>
 
         <!-- [--json] -->
-        <svelte:component this="{JSONs}" bind:this="{JSONv}" />
+        <svelte:component 
+            this="{JSONs}" 
+            bind:this="{JSONv}" 
+            pMapDoc={mapDoc.json}
+            pShowSectionName={false}
+        />
 
         <!-- [--loglevel LOGLEVEL] -->
-        <svelte:component this="{LOGLEVELs}" bind:this="{LOGLEVELv}" />
+        <svelte:component 
+            this="{LOGLEVELs}" 
+            bind:this="{LOGLEVELv}" 
+            pSectionName="loglevel"
+            pMapDoc={mapDoc.loglevel} 
+            pSFDXParameter="--loglevel"
+            pList={gLists.lLOGLEVEL}
+            pDefaultValue="warn"
+        />
         
         <!-- [-u TARGETUSERNAME] -->
-        <svelte:component this="{TARGETUSERNAMEs}" bind:this="{TARGETUSERNAMEv}" />
+        <svelte:component 
+            this="{TARGETUSERNAMEs}" 
+            bind:this="{TARGETUSERNAMEv}" 
+            pSectionName="targetusername"
+            pMapDoc={mapDoc.targetusername} 
+            pSFDXParameter="-u"
+            pList={$lTARGETUSERNAME}
+        />
         
         <!-- [--apiversion APIVERSION] -->
-        <svelte:component this="{APIVERSIONs}" bind:this="{APIVERSIONv}" />
+        <svelte:component 
+            this="{APIVERSIONs}" 
+            bind:this="{APIVERSIONv}" 
+            pSectionName="apiversion"
+            pMapDoc={mapDoc.apiversion} 
+            pSFDXParameter="--apiversion"
+            pList={lAPIVERSION}
+            pDefaultValue={dAPIVERSION}
+        />
         
         <!-- [-c] -->
-        <!-- <svelte:component this="{COLORs}" bind:this="{COLORv}" /> -->
+        <svelte:component 
+            this="{COLORs}" 
+            bind:this="{COLORv}"
+            pSectionName="color"
+            pMapDoc={mapDoc.color} 
+            pSFDXParameter="-c"
+            pShowSectionName={false} 
+        />
 
         <!-- [-d DEBUGLEVEL] -->
-        <!-- <svelte:component this="{DEBUGLEVELs}" bind:this="{DEBUGLEVELv}" /> -->
+        <svelte:component 
+            this="{DEBUGLEVELs}" 
+            bind:this="{DEBUGLEVELv}" 
+            pSectionName="debuglevel"
+            pMapDoc={mapDoc.debuglevel} 
+            pSFDXParameter="-d"
+            pList={gLists.lDEBUGLEVEL}
+        />
 
         <!-- [-s] -->
-        <!-- <svelte:component this="{SKIPTRACEFLAGs}" bind:this="{SKIPTRACEFLAGv}" /> -->
+        <svelte:component 
+            this="{SKIPTRACEFLAGs}" 
+            bind:this="{SKIPTRACEFLAGv}"
+            pSectionName="skiptraceflag"
+            pMapDoc={mapDoc.skiptraceflag} 
+            pSFDXParameter="-s"
+            pShowSectionName={false} 
+        />
 
         <!-- [ADVANCED] -->
-        <svelte:component this="{ADVANCEDs}" bind:this="{ADVANCEDv}" />
+        <svelte:component this="{ADVANCEDs}" bind:this="{ADVANCEDv}" pMapDoc={mapDoc.advanced}/>
         <br/>
         <br/>
         <button class="sfdxet-buttons-icon" on:click={reset} title="Reset Options"><RefreshIcon /></button>

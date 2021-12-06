@@ -182,7 +182,12 @@
         <br/>
 
         <!-- [--json] -->
-        <svelte:component this="{JSONs}" bind:this="{JSONv}" />
+        <svelte:component 
+            this="{JSONs}" 
+            bind:this="{JSONv}" 
+            pMapDoc={mapDoc.json}
+            pShowSectionName={false}
+        />
         
         <!-- [--loglevel LOGLEVEL] -->
         <svelte:component 
@@ -207,6 +212,7 @@
             pTitle="Insert the Name of the New Apex Class"
             pPlaceholder="Insert..."
             pMaxLength={40}
+            pPartialRequired={false}
         />
         
         <!-- [-t TEMPLATE] -->
@@ -235,15 +241,14 @@
             this="{APIVERSIONs}" 
             bind:this="{APIVERSIONv}" 
             pSectionName="apiversion"
-            pMapDoc={mapDoc.template} 
+            pMapDoc={mapDoc.apiversion} 
             pSFDXParameter="--apiversion"
             pList={lAPIVERSION}
             pDefaultValue={dAPIVERSION}
         />
-        <!-- <svelte:component this="{APIVERSIONs}" bind:this="{APIVERSIONv}" pSFDXParameter="--apiversion" /> -->
 
         <!-- [ADVANCED] -->
-        <svelte:component this="{ADVANCEDs}" bind:this="{ADVANCEDv}" />
+        <svelte:component this="{ADVANCEDs}" bind:this="{ADVANCEDv}" pMapDoc={mapDoc.advanced}/>
         <br/>
         <br/>
         <button class="sfdxet-buttons-icon" on:click={reset} title="Reset Options"><RefreshIcon /></button>
