@@ -220,7 +220,7 @@
             this="{TEMPLATEs}" 
             bind:this="{TEMPLATEv}" 
             pSectionName="template"
-            pMapDoc={mapDoc.template} 
+            pMapDoc={mapDoc.templateClass} 
             pSFDXParameter="-t"
             pList={gLists.lTEMPLATE}
             pDefaultValue="DefaultApexClass"

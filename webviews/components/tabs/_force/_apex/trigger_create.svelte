@@ -6,6 +6,8 @@
     import { } from "os";
     import WebviewListener from "../../-commonPages/WebviewListener.svelte";
     import RefreshIcon from "svelte-bootstrap-icons/lib/ArrowClockwise";
+    import { mapDoc } from "../../-helperFiles/MapDocumentation";
+    import * as gLists from "../../-helperFiles/Lists";
 
     // Store
     import { 
@@ -20,25 +22,25 @@
 
     // Sections
     import JSONs from "../../-commonSections/JSONSection.svelte";
-    import LOGLEVELs from "../../-commonSections/LOGLEVELSection.svelte";
-    // import TRIGGERNAMes from "../../-commonSections/TRIGGERNAMESection.svelte";
-    import TEMPLATEs from "../../-commonSections/TEMPLATESection.svelte";
-    import OUTPUTDIRs from "../../-commonSections/OUTPUTDIRSection.svelte";
-    import APIVERSIONs from "../../-commonSections/APIVERSIONSection.svelte";
-    // import SOBJECTs from "../../-commonSections/SOBJECTSection.svelte";
-    // import TRIGGEREVENTSs from "../../-commonSections/TRIGGEREVENTSSection.svelte";
+    import LOGLEVELs from "../../-commonSections/SelectSFDX.svelte";
+    import TRIGGERNAMEs from "../../-commonSections/StringSFDX.svelte";
+    import TEMPLATEs from "../../-commonSections/SelectSFDX.svelte";
+    import OUTPUTDIRs from "../../-commonSections/FolderpathSFDX.svelte";
+    import APIVERSIONs from "../../-commonSections/SelectSFDX.svelte";
+    import SOBJECTs from "../../-commonSections/StringSFDX.svelte";
+    import TRIGGEREVENTSs from "../../-commonSections/SelectSFDX.svelte";
     import ADVANCEDs from "../../-commonSections/ADVANCEDSection.svelte";
 
     // Component Validations
     let 
     JSONv, 
     LOGLEVELv, 
-    // TRIGGERNAMEv,
+    TRIGGERNAMEv,
     TEMPLATEv,
     OUTPUTDIRv,
     APIVERSIONv,
-    // SOBJECTv,
-    // TRIGGEREVENTSv,
+    SOBJECTv,
+    TRIGGEREVENTSv,
     ADVANCEDv;
 
     // Documentation
@@ -86,12 +88,12 @@
         Promise.all([
             JSONv.validate(), 
             LOGLEVELv.validate(), 
-            // TRIGGERNAMEv.validate(), 
+            TRIGGERNAMEv.validate(), 
             TEMPLATEv.validate(), 
             OUTPUTDIRv.validate(), 
             APIVERSIONv.validate(), 
-            // SOBJECTv.validate(), 
-            // TRIGGEREVENTSv.validate(), 
+            SOBJECTv.validate(), 
+            TRIGGEREVENTSv.validate(), 
             ADVANCEDv.validate(),  
         ]).then((values) => {
             if(values){
@@ -144,6 +146,31 @@
             }
         }
     } 
+
+    // APIVERSION
+    let dAPIVERSION = "";
+    const lAPIVERSION = [];
+
+    for(let i=8; i < 54; i++){
+        if(i === 53){
+            dAPIVERSION = i.toFixed(1);
+        }
+
+        lAPIVERSION.push({value: i.toFixed(1), label: i.toFixed(1)});
+        
+        if(i === 11){
+            let j = i + .1;
+            lAPIVERSION.push({value: j.toFixed(1), label: j.toFixed(1)});
+        }
+    }
+
+    lAPIVERSION.reverse();
+
+    $mapInputVariables[fileName] = dAPIVERSION;
+
+    const lTEMPLATE = [
+        {value: "ApexTrigger", label: "ApexTrigger"},
+    ];
 </script>
 
 <WebviewListener fileName={fileName} commandType="apex" showCommand={showFileNameUpper}/>
@@ -165,31 +192,99 @@
         <br/>
 
         <!-- [--json] -->
-        <svelte:component this="{JSONs}" bind:this="{JSONv}" />
+        <svelte:component 
+            this="{JSONs}" 
+            bind:this="{JSONv}" 
+            pMapDoc={mapDoc.json}
+            pShowSectionName={false}
+        />
         
         <!-- [--loglevel LOGLEVEL] -->
-        <svelte:component this="{LOGLEVELs}" bind:this="{LOGLEVELv}" />
+        <svelte:component 
+            this="{LOGLEVELs}" 
+            bind:this="{LOGLEVELv}" 
+            pSectionName="loglevel"
+            pMapDoc={mapDoc.loglevel} 
+            pSFDXParameter="--loglevel"
+            pList={gLists.lLOGLEVEL}
+            pDefaultValue="warn"
+        />
 
         <!-- -n TRIGGERNAME -->
-        <!-- <svelte:component this="{TRIGGERNAMEs}" bind:this="{TRIGGERNAMEv}" required={true}/> -->
+        <svelte:component 
+            this="{TRIGGERNAMEs}" 
+            bind:this="{TRIGGERNAMEv}" 
+            pSectionName="triggername"
+            pRequired={true}
+            pMapDoc={mapDoc.triggername}
+            pSFDXParameter="-n"
+            pSectionTitle="Apex Trigger Name"
+            pTitle="Insert the Name of the New Apex Trigger"
+            pPlaceholder="Insert..."
+            pMaxLength={40}
+            pPartialRequired={false}
+        />
         
         <!-- [-t TEMPLATE] -->
-        <svelte:component this="{TEMPLATEs}" bind:this="{TEMPLATEv}" />
+        <svelte:component 
+            this="{TEMPLATEs}" 
+            bind:this="{TEMPLATEv}" 
+            pSectionName="template"
+            pMapDoc={mapDoc.templateTrigger} 
+            pSFDXParameter="-t"
+            pList={lTEMPLATE}
+            pDefaultValue="ApexTrigger"
+        />
         
         <!-- [-d OUTPUTDIR] -->
-        <svelte:component this="{OUTPUTDIRs}" bind:this="{OUTPUTDIRv}" defaultFolder="." />
+        <svelte:component 
+            this="{OUTPUTDIRs}" 
+            bind:this="{OUTPUTDIRv}" 
+            pSectionName="outputdir"
+            pMapDoc={mapDoc.outputdir} 
+            pSFDXParameter="-d"
+            pDefaultFolder="."
+        />
 
         <!-- [--apiversion APIVERSION] -->
-        <svelte:component this="{APIVERSIONs}" bind:this="{APIVERSIONv}" pSFDXParameter="--apiversion" />
+        <svelte:component 
+            this="{APIVERSIONs}" 
+            bind:this="{APIVERSIONv}" 
+            pSectionName="apiversion"
+            pMapDoc={mapDoc.apiversion} 
+            pSFDXParameter="--apiversion"
+            pList={lAPIVERSION}
+            pDefaultValue={dAPIVERSION}
+        />
         
         <!-- [-s SOBJECT] -->
-        <!-- <svelte:component this="{SOBJECTs}" bind:this="{SOBJECTv}" /> -->
+        <svelte:component 
+            this="{SOBJECTs}" 
+            bind:this="{SOBJECTv}" 
+            pSectionName="sobject"
+            pMapDoc={mapDoc.sobject}
+            pSFDXParameter="-s"
+            pSectionTitle="SObject API Name"
+            pTitle="Insert the API of the target SObject"
+            pPlaceholder="SObject"
+            pMaxLength={40}
+            pDefaultValue="SObject"
+        />
         
         <!-- [-e TRIGGEREVENTS] -->
-        <!-- <svelte:component this="{TRIGGEREVENTSs}" bind:this="{TRIGGEREVENTSv}" /> -->
+        <svelte:component 
+            this="{TRIGGEREVENTSs}" 
+            bind:this="{TRIGGEREVENTSv}" 
+            pSectionName="triggerevents"
+            pMapDoc={mapDoc.triggerevents} 
+            pSFDXParameter="-e"
+            pList={gLists.lTRIGGEREVENTS}
+            pIsMulti={true}
+            pDefaultValue="before insert"
+        />
 
         <!-- [ADVANCED] -->
-        <svelte:component this="{ADVANCEDs}" bind:this="{ADVANCEDv}" />
+        <svelte:component this="{ADVANCEDs}" bind:this="{ADVANCEDv}" pMapDoc={mapDoc.advanced}/>
         <br/>
         <br/>
         <button class="sfdxet-buttons-icon" on:click={reset} title="Reset Options"><RefreshIcon /></button>

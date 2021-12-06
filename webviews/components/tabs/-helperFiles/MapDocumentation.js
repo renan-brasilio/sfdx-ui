@@ -18,7 +18,7 @@ export let mapDoc = {
             Type: string
         `
     },
-    template: {
+    templateClass: {
         type: `<b><i>Optional</i></b>`,
         body: `
             <br/><br/>
@@ -28,6 +28,18 @@ export let mapDoc = {
             <br/>
             Permissible values are: ApexException, ApexUnitTest, DefaultApexClass, InboundEmailService<br/>
             Default value: DefaultApexClass
+        `
+    },
+    templateTrigger: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+            <br/><br/>
+            The template to use to create the file. Supplied parameter values or default values are filled into a copy of the template.
+            <br/><br/>
+            Type: string
+            <br/>
+            Permissible values are: ApexTrigger<br/>
+            Default value: ApexTrigger
         `
     },
     outputdir: {
@@ -210,6 +222,31 @@ export let mapDoc = {
             <br/><br/>
             Display detailed code coverage per test.<br/><br/>
             Type: boolean
+        `
+    },
+    sobject: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+            <br/><br/>
+            The sObject to create an Apex trigger on.<br/><br/>
+            Type: string
+        `
+    },
+    triggerevents: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+            <br/><br/>
+            The events that cause the trigger to fire.<br/><br/>
+            Type: array<br/>
+            Default value: before insert
+        `
+    },
+    triggername: {
+        type: `<b>Required</b>`,
+        body: `
+            <br/><br/>
+            The name of the new Apex trigger. The name can be up to 40 characters and must start with a letter.<br/><br/>
+            Type: string
         `
     },
 };

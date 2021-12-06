@@ -83,3 +83,18 @@ export const lRESULTFORMAT = [
     {value: "junit", label: "junit"},
     {value: "json", label: "json"},
 ];
+
+export const lTRIGGEREVENTS = [
+    {value: "before insert", label: "before insert"},
+    {value: "before update", label: "before update"},
+    {value: "before delete", label: "before delete"},
+    {value: "before merge", label: "before merge"},
+    {value: "before upsert", label: "before upsert"},
+    {value: "before undelete", label: "before undelete"},
+    {value: "after insert", label: "after insert"},
+    {value: "after update", label: "after update"},
+    {value: "after delete", label: "after delete"},
+    {value: "after merge", label: "after merge"},
+    {value: "after upsert", label: "after upsert"},
+    {value: "after undelete", label: "after undelete"},
+];

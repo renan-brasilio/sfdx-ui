@@ -24,6 +24,7 @@
     export let pDefaultValue = "";
     export let pShowSectionName = true;
     export let pPartialRequired = true;
+    export let pIsMulti = false;
     
     // Default
     let sectionUCase = pSectionName.toUpperCase();
@@ -78,7 +79,7 @@
     {#if $mapShowSections[pSectionName]}
         <h4 class="sfdxet-br"><b>{sectionUCase} Options:</b></h4>
         <section class="sfdxet-section">
-            <SelectCommon error={$mapErrors[pSectionName]} pList={pList} sectionName={pSectionName} defaultVal={pDefaultValue}/>
+            <SelectCommon error={$mapErrors[pSectionName]} pList={pList} sectionName={pSectionName} defaultVal={pDefaultValue} pIsMulti={pIsMulti}/>
         </section>
     {/if}
 </div>
