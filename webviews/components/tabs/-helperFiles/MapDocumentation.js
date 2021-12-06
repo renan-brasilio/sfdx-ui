@@ -163,4 +163,53 @@ export let mapDoc = {
             Type: string
         `
     },
+    classnames: {
+        type: `<b>Required 1/3</b>`,
+        body: `
+            <br/><br/>
+            Comma-separated list of Apex test class names to run; if you select --classnames, you can't specify --suitenames or --tests.<br/><br/>
+            Type: string
+        `
+    },
+    testlevel: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+            <br/><br/>
+            Specifies which tests to run, using one of these TestLevel enum values:.<br/><br/>
+            Type: enum<br/>
+            Permissible values are: RunLocalTests, RunAllTestsInOrg, RunSpecifiedTests
+        `
+    },
+    suitenames: {
+        type: `<b>Required 1/3</b>`,
+        body: `
+            <br/><br/>
+            Comma-separated list of Apex test suite names to run; if you select --suitenames, you can't specify --classnames or --tests.<br/><br/>
+            Type: string
+        `
+    },
+    tests: {
+        type: `<b>Required 1/3</b>`,
+        body: `
+            <br/><br/>
+            Comma-separated list of Apex test class names or IDs and, if applicable, test methods to run; if you specify --tests, you can't specify --classnames or --suitenames.<br/><br/>
+            Type: string
+        `
+    },
+    synchronous: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+            <br/><br/>
+            Runs test methods from a single Apex class synchronously; if not specified, tests are run ansynchronously.<br/><br/>
+            Type: boolean
+        `
+    },
+    detailedcoverage: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+            <br/><br/>
+            Display detailed code coverage per test.<br/><br/>
+            Type: boolean
+        `
+    },
 };

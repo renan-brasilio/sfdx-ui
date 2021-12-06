@@ -29,6 +29,7 @@
     export let pMaxLength = 255;
     export let pShowSectionName = true;
     export let pPartialRequired = true;
+    export let pStyle = "";
     
     // Default
     let sectionUCase = pSectionName.toUpperCase();
@@ -89,6 +90,7 @@
         pOnlyOneError={pOnlyOneError}
         pShowSectionName={pShowSectionName}
         pPartialRequired={pPartialRequired}
+        pStyle={pStyle}
     />
     <Documentation 
         pHeader={sectionUCase} 

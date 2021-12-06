@@ -24,10 +24,10 @@
 
     function handleShowSections(event, pSectionName, pOnlyOneError){
         if(event.target.checked === true){
-            if($mapSectionValidation[pSectionName] != null && js.listValidation.includes(pSectionName)){
+            if($mapSectionValidation[pSectionName] != null && $mapSectionValidation.hasOwnProperty(pSectionName)){
                 for(let key in $mapSectionValidation){
                     if($mapSectionValidation[key] === 1){
-                        let errorMsg = `ERROR: You already selected: ${key.toUpperCase()}, Select only one between: ${pOnlyOneError ? pOnlyOneError : "SOURCEPATH, MANIFEST or METADATA"}`;
+                        let errorMsg = `ERROR: You already selected: ${key.toUpperCase()}, Select only one between: ${pOnlyOneError}`;
         
                         event.target.checked = false;
         
@@ -67,16 +67,15 @@
         }
     }
 </script>
-
 <span 
-    title={js.mapTooltips["collapseDoc"]}
-    class:sfdxet-required={pRequired} 
-    class:sfdxet-error-span={$mapErrors[pFileName]} 
-    on:click={openDoc}
-    style={pStyle}
-    class={pClass}
->{pRequired ? "*" : "["}{pSFDXParameter ? pSFDXParameter : ""}{pSectionName && pShowSectionName ? " " + pSectionName.toUpperCase() : ""}{pRequired ? "" : "]"}</span> 
-
+        title={js.mapTooltips["collapseDoc"]}
+        class:sfdxet-required={pRequired} 
+        class:sfdxet-error-span={$mapErrors[pFileName]} 
+        on:click={openDoc}
+        style={pStyle}
+        class={pClass}
+    >{pRequired ? "*" : "["}{pSFDXParameter ? pSFDXParameter : ""}{pSectionName && pShowSectionName ? " " + pSectionName.toUpperCase() : ""}{pRequired ? "" : "]"}</span>
+    
 {#if pPartialRequired}
     <input 
         type="checkbox" 
@@ -84,9 +83,8 @@
         name={pElementName} 
         on:change={e => { handleShowSections(e, `${pFileName}`, `${pOnlyOneError}`) }} 
         title={js.mapTooltips["checkbox"]}
-        checked={$mapShowSections[pFileName]}
     />
-    {:else}
+    {:else} 
         <input 
             type="checkbox" 
             id={pElementName} 

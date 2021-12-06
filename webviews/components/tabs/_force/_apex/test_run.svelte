@@ -6,11 +6,16 @@
     import { } from "os";
     import WebviewListener from "../../-commonPages/WebviewListener.svelte";
     import RefreshIcon from "svelte-bootstrap-icons/lib/ArrowClockwise";
+    import { mapDoc } from "../../-helperFiles/MapDocumentation";
+    import * as gLists from "../../-helperFiles/Lists";
 
     // Store
     import { 
+        lTARGETUSERNAME,
+        mapErrors,
         mapInformation,
         mapInputVariables,
+        mapSectionValidation,
         mapShowSections,
         mapSpinner,
         objSFDX,
@@ -19,19 +24,19 @@
     // Sections
     import JSONs from "../../-commonSections/JSONSection.svelte";
     import LOGLEVELs from "../../-commonSections/LOGLEVELSection.svelte";
-    import TARGETUSERNAMEs from "../../-commonSections/TARGETUSERNAMESection.svelte";
-    import APIVERSIONs from "../../-commonSections/APIVERSIONSection.svelte";
-    // import COLORs from "../../-commonSections/COLORSection.svelte";
-    import OUTPUTDIRs from "../../-commonSections/OUTPUTDIRSection.svelte";
-    // import TESTLEVELs from "../../-commonSections/TESTLEVELSection.svelte";
-    import CLASSNAMEs from "../../-commonSections/CLASSNAMESection.svelte";
-    // import RESULTFORMATs from "../../-commonSections/RESULTFORMATSection.svelte";
-    // import SUITENAMESs from "../../-commonSections/SUITENAMESSection.svelte";
-    // import TESTSs from "../../-commonSections/TESTSSection.svelte";
-    import WAITs from "../../-commonSections/WAITSection.svelte";
-    // import SYNCHRONOUSs from "../../-commonSections/SYNCHRONOUSSection.svelte";
-    import VERBOSEs from "../../-commonSections/VERBOSESection.svelte";
-    // import DETAILEDCOVERAGEs from "../../-commonSections/DETAILEDCOVERAGESection.svelte";
+    import TARGETUSERNAMEs from "../../-commonSections/SelectSFDX.svelte";
+    import APIVERSIONs from "../../-commonSections/SelectSFDX.svelte";
+    import CODECOVERAGEs from "../../-commonSections/BooleanSFDX.svelte";
+    import OUTPUTDIRs from "../../-commonSections/FolderpathSFDX.svelte";
+    import TESTLEVELs from "../../-commonSections/SelectSFDX.svelte";
+    import CLASSNAMEs from "../../-commonSections/StringSFDX.svelte";
+    import RESULTFORMATs from "../../-commonSections/SelectSFDX.svelte";
+    import SUITENAMESs from "../../-commonSections/StringSFDX.svelte";
+    import TESTSs from "../../-commonSections/StringSFDX.svelte";
+    import WAITs from "../../-commonSections/MinuteSFDX.svelte";
+    import SYNCHRONOUSs from "../../-commonSections/BooleanSFDX.svelte";
+    import VERBOSEs from "../../-commonSections/BooleanSFDX.svelte";
+    import DETAILEDCOVERAGEs from "../../-commonSections/BooleanSFDX.svelte";
     import ADVANCEDs from "../../-commonSections/ADVANCEDSection.svelte";
 
     // Component Validations
@@ -40,17 +45,17 @@
     LOGLEVELv, 
     TARGETUSERNAMEv,
     APIVERSIONv,
-    // COLORv,
+    CODECOVERAGEv,
     OUTPUTDIRv,
-    // TESTLEVELv,
+    TESTLEVELv,
     CLASSNAMEv,
-    // RESULTFORMATv,
-    // SUITENAMESv,
-    // TESTSv,
+    RESULTFORMATv,
+    SUITENAMESv,
+    TESTSv,
     WAITv,
-    // SYNCHRONOUSv,
+    SYNCHRONOUSv,
     VERBOSEv,
-    // DETAILEDCOVERAGEv,
+    DETAILEDCOVERAGEv,
     ADVANCEDv;
 
     // Documentation
@@ -70,7 +75,31 @@
         $mapSpinner.force[fileName] = false;
     }, 1000);
 
+    // Mandatory Field(s)
+    let mandatorySections = [
+        "suitenames",
+        "classnames",
+        "tests",
+    ];
+
+    let pOnlyOneError = "-n CLASSNAMES, -s SUITENAMES or -t TESTS"
+
+    if(!$mapShowSections){
+        $mapShowSections = {};
+    }
+
+    if(!$mapSectionValidation){
+        $mapSectionValidation = {};
+    }
+
+    for(let i = 0; i < mandatorySections.length; i++){
+        $mapSectionValidation[mandatorySections[i]] = 0;
+    }
+
     function startSFDX() {
+        let validation = 0;
+        let sectionError;
+
         $objSFDX.terminal = "";
         $objSFDX.terminal = `force:apex:${showFileName}`;
 
@@ -79,20 +108,47 @@
             LOGLEVELv.validate(), 
             TARGETUSERNAMEv.validate(), 
             APIVERSIONv.validate(), 
-            // COLORv.validate(), 
+            CODECOVERAGEv.validate(), 
             OUTPUTDIRv.validate(), 
+            TESTLEVELv.validate(),  
             CLASSNAMEv.validate(),  
-            // RESULTFORMATv.validate(),  
-            // SUITENAMESv.validate(),  
-            // TESTSv.validate(),  
+            RESULTFORMATv.validate(),  
+            SUITENAMESv.validate(),  
+            TESTSv.validate(),  
             WAITv.validate(),  
-            // SYNCHRONOUSv.validate(),  
+            SYNCHRONOUSv.validate(),  
             VERBOSEv.validate(),  
-            // DETAILEDCOVERAGEv.validate(),  
+            DETAILEDCOVERAGEv.validate(),  
             ADVANCEDv.validate(), 
         ]).then((values) => {
             if(values){
-                if(!values.includes(false)){
+                for(let i in $mapSectionValidation){
+                    if($mapSectionValidation[i] === 1){
+                        validation++;
+                        break;
+                    }
+                }
+    
+                if(validation === 0){
+                    if(!$mapErrors){
+                        $mapErrors = {};
+                    }
+
+                    for(let key in mandatorySections){
+                        $mapErrors[key] = "sfdxet-error-span";
+                    }
+                    
+                    tsvscode.postMessage({
+                        type: "onError",
+                        value: `ERROR: At least one between (${pOnlyOneError}) is required.` 
+                    });
+    
+                    return;
+                }else if(!values.includes(false)){
+                    for(let key in $mapErrors){
+                        $mapErrors[key] = "";
+                    }     
+    
                     $mapSpinner.main = true;
                     $mapInformation.main = true;
             
@@ -108,7 +164,33 @@
         for(let key in $mapShowSections){
             $mapShowSections[key] = false;
         }
-    } 
+    }
+
+    // TARGETUSERNAME
+    tsvscode.postMessage({
+        type: "onGetAliasUsers"
+    });
+
+    // APIVERSION
+    let dAPIVERSION = "";
+    const lAPIVERSION = [];
+
+    for(let i=8; i < 54; i++){
+        if(i === 53){
+            dAPIVERSION = i.toFixed(1);
+        }
+
+        lAPIVERSION.push({value: i.toFixed(1), label: i.toFixed(1)});
+        
+        if(i === 11){
+            let j = i + .1;
+            lAPIVERSION.push({value: j.toFixed(1), label: j.toFixed(1)});
+        }
+    }
+
+    lAPIVERSION.reverse();
+
+    $mapInputVariables[fileName] = dAPIVERSION;
 </script>
 
 <WebviewListener fileName={fileName} commandType="apex" showCommand={showFileNameUpper}/>
@@ -130,52 +212,171 @@
         <br/>
 
         <!-- [--json] -->
-        <svelte:component this="{JSONs}" bind:this="{JSONv}" />
+        <svelte:component 
+            this="{JSONs}" 
+            bind:this="{JSONv}" 
+            pMapDoc={mapDoc.json}
+            pShowSectionName={false}
+        />
 
         <!-- [--loglevel LOGLEVEL] -->
-        <svelte:component this="{LOGLEVELs}" bind:this="{LOGLEVELv}" />
+        <svelte:component 
+            this="{LOGLEVELs}" 
+            bind:this="{LOGLEVELv}" 
+            pSectionName="loglevel"
+            pMapDoc={mapDoc.loglevel} 
+            pSFDXParameter="--loglevel"
+            pList={gLists.lLOGLEVEL}
+            pDefaultValue="warn"
+        />
         
         <!-- [-u TARGETUSERNAME] -->
-        <svelte:component this="{TARGETUSERNAMEs}" bind:this="{TARGETUSERNAMEv}" />
+        <svelte:component 
+            this="{TARGETUSERNAMEs}" 
+            bind:this="{TARGETUSERNAMEv}" 
+            pSectionName="targetusername"
+            pMapDoc={mapDoc.targetusername} 
+            pSFDXParameter="-u"
+            pList={$lTARGETUSERNAME}
+        />
         
         <!-- [--apiversion APIVERSION] -->
-        <svelte:component this="{APIVERSIONs}" bind:this="{APIVERSIONv}" />
+        <svelte:component 
+            this="{APIVERSIONs}" 
+            bind:this="{APIVERSIONv}" 
+            pSectionName="apiversion"
+            pMapDoc={mapDoc.apiversion} 
+            pSFDXParameter="--apiversion"
+            pList={lAPIVERSION}
+            pDefaultValue={dAPIVERSION}
+        />
         
         <!-- [-c] -->
-        <!-- <svelte:component this="{COLORs}" bind:this="{COLORv}" /> -->
+        <svelte:component 
+            this="{CODECOVERAGEs}" 
+            bind:this="{CODECOVERAGEv}"
+            pSectionName="codecoverage"
+            pMapDoc={mapDoc.codecoverage} 
+            pSFDXParameter="-c"
+            pShowSectionName={false} 
+        />
 
         <!-- [-d OUTPUTDIR] -->
-        <svelte:component this="{OUTPUTDIRs}" bind:this="{OUTPUTDIRv}" />
+        <svelte:component 
+            this="{OUTPUTDIRs}" 
+            bind:this="{OUTPUTDIRv}" 
+            pSectionName="outputdir"
+            pMapDoc={mapDoc.outputdir} 
+            pSFDXParameter="-d"
+            pDefaultFolder="."
+        />
 
         <!-- [-l TESTLEVEL] -->
-        <!-- <svelte:component this="{TESTLEVELs}" bind:this="{TESTLEVELv}" /> -->
+        <svelte:component 
+            this="{TESTLEVELs}" 
+            bind:this="{TESTLEVELv}" 
+            pSectionName="testlevel"
+            pMapDoc={mapDoc.testlevel} 
+            pSFDXParameter="-l"
+            pList={js.lTESTLEVEL}
+        />
         
         <!-- [-n CLASSNAMES] -->
-        <svelte:component this="{CLASSNAMEs}" bind:this="{CLASSNAMEv}" />
+        <svelte:component 
+            this="{CLASSNAMEs}" 
+            bind:this="{CLASSNAMEv}" 
+            pSectionName="classnames"
+            pMapDoc={mapDoc.classnames}
+            pSFDXParameter="-n"
+            pSectionTitle="Apex Class Names"
+            pTitle="Comma-separated list of Apex test class names to run."
+            pPlaceholder="Insert..."
+            pPartialRequired={true}
+            pStyle="color: orange;"
+            pOnlyOneError={pOnlyOneError}
+        />
 
         <!-- [-r RESULTFORMAT] -->
-        <!-- <svelte:component this="{RESULTFORMATs}" bind:this="{RESULTFORMATv}" /> -->
+        <svelte:component 
+            this="{RESULTFORMATs}" 
+            bind:this="{RESULTFORMATv}" 
+            pSectionName="resultformat"
+            pMapDoc={mapDoc.resultformat} 
+            pSFDXParameter="-r"
+            pList={gLists.lRESULTFORMAT}
+        />
 
         <!-- [-s SUITENAMES] -->
-        <!-- <svelte:component this="{SUITENAMESs}" bind:this="{SUITENAMESv}" /> -->
+        <svelte:component 
+            this="{SUITENAMESs}" 
+            bind:this="{SUITENAMESv}" 
+            pSectionName="suitenames"
+            pMapDoc={mapDoc.suitenames}
+            pSFDXParameter="-s"
+            pSectionTitle="Suite Names"
+            pTitle="Comma-separated list of Apex test suite names to run."
+            pPlaceholder="Insert..."
+            pPartialRequired={true}
+            pStyle="color: orange;"
+            pOnlyOneError={pOnlyOneError}
+        />
 
         <!-- [-t TESTS] -->
-        <!-- <svelte:component this="{TESTSs}" bind:this="{TESTSv}" /> -->
+        <svelte:component 
+            this="{TESTSs}" 
+            bind:this="{TESTSv}" 
+            pSectionName="tests"
+            pMapDoc={mapDoc.tests}
+            pSFDXParameter="-t"
+            pSectionTitle="Test Names"
+            pTitle="Comma-separated list of Apex test class names or IDs and, if applicable, test methods to run."
+            pPlaceholder="Insert..."
+            pPartialRequired={true}
+            pStyle="color: orange;"
+            pOnlyOneError={pOnlyOneError}
+        />
 
         <!-- [-w WAIT] -->
-        <svelte:component this="{WAITs}" bind:this="{WAITv}" />
+        <svelte:component 
+            this="{WAITs}" 
+            bind:this="{WAITv}" 
+            pSectionName="wait"
+            pMapDoc={mapDoc.wait} 
+            pSFDXParameter="-w"
+        />
         
         <!-- [-y] -->
-        <!-- <svelte:component this="{SYNCHRONOUSs}" bind:this="{SYNCHRONOUSv}" /> -->
+        <svelte:component 
+            this="{SYNCHRONOUSs}" 
+            bind:this="{SYNCHRONOUSv}"
+            pSectionName="synchronous"
+            pMapDoc={mapDoc.synchronous} 
+            pSFDXParameter="-y"
+            pShowSectionName={false} 
+        />
         
         <!-- [--verbose] -->
-        <svelte:component this="{VERBOSEs}" bind:this="{VERBOSEv}" />
+        <svelte:component 
+            this="{VERBOSEs}" 
+            bind:this="{VERBOSEv}"
+            pSectionName="verbose"
+            pMapDoc={mapDoc.verbose} 
+            pSFDXParameter="--verbose"
+            pShowSectionName={false} 
+        />
         
         <!-- [-v] -->
-        <!-- <svelte:component this="{DETAILEDCOVERAGEs}" bind:this="{DETAILEDCOVERAGEv}" /> -->
+        <svelte:component 
+            this="{DETAILEDCOVERAGEs}" 
+            bind:this="{DETAILEDCOVERAGEv}"
+            pSectionName="detailedcoverage"
+            pMapDoc={mapDoc.detailedcoverage} 
+            pSFDXParameter="-v"
+            pShowSectionName={false} 
+        />
 
         <!-- [ADVANCED] -->
-        <svelte:component this="{ADVANCEDs}" bind:this="{ADVANCEDv}" />
+        <svelte:component this="{ADVANCEDs}" bind:this="{ADVANCEDv}" pMapDoc={mapDoc.advanced}/>
         <br/>
         <br/>
         <button class="sfdxet-buttons-icon" on:click={reset} title="Reset Options"><RefreshIcon /></button>
