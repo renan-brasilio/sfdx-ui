@@ -271,7 +271,8 @@ export let mapDoc = {
             <br/><br/>
             A label for the custom metadata type.<br/><br/>
             Type: string
-        `
+        `,
+        title: `A label for the custom metadata type.`
     },
     plurallabel: {
         type: `<b><i>Optional</i></b>`,
@@ -365,5 +366,76 @@ export let mapDoc = {
             Type: directory<br/>
             Default value: force-app/main/default/customMetadata/
         `
+    },
+    typename: {
+        type: `<b>Required</b>`,
+        body: `
+            <br/><br/>
+            The API name of the custom metadata type to create a record for.<br/><br/>
+            Type: string
+        `,
+        title: `The API name of the custom metadata type to create a record for.`
+    },
+    recordname: {
+        type: `<b>Required</b>`,
+        body: `
+            <br/><br/>
+            The name for the new record.<br/><br/>
+            Type: string
+        `,
+        title: `The name for the new record.`
+    },
+    protected: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+            <br/><br/>
+            Protect the record when it is in a managed package. Protected records can only be accessed by code in the same managed package namespace.<br/><br/>
+            Type: string<br/>
+            Permissible values are: true, false<br/>
+            Default value: false
+        `
+    },
+    inputdir: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+            <br/><br/>
+            The directory to pull the custom metadata type definition from.<br/><br/>
+            Type: directory<br/>
+            Default value: force-app/main/default/objects
+        `
+    },
+    outputdirMetadata: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+            <br/><br/>
+            The directory to store newly-created custom metadata record files.<br/><br/>
+            Type: directory<br/>
+            Default value: force-app/main/default/customMetadata
+        `
+    },
+    filepath: {
+        type: `<b>Required</b>`,
+        body: `
+            <br/><br/>
+            The path to the CSV file.<br/><br/>
+            Type: string
+        `
+    },
+    typenameRecIns: {
+        type: `<b>Required</b>`,
+        body: `
+            <br/><br/>
+            The API Name of the custom metadata type. The '__mdt' suffix will be appended to the end of the name if it is omitted.<br/><br/>
+            Type: string
+        `
+    },
+    namecolumn: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+            <br/><br/>
+            The column that is used to determine the name of the record.<br/><br/>
+            Type: string
+        `,
+        title:`The column that is used to determine the name of the record.`
     },
 };

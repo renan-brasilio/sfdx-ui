@@ -28,6 +28,8 @@
     import Create from "./_cmdt/create.svelte";
     import Field_Create from "./_cmdt/field_create.svelte";
     import Generate from "./_cmdt/generate.svelte";
+    import Record_Create from "./_cmdt/record_create.svelte";
+    import Record_Insert from "./_cmdt/record_insert.svelte";
 
     // Source
     import Retrieve from "./_source/retrieve.svelte";
@@ -168,6 +170,10 @@
             <Field_Create />
         {:else if $mapCommand["cmdt"]["generate"]}
             <Generate />
+        {:else if $mapCommand["cmdt"]["record:create"]}
+            <Record_Create />
+        {:else if $mapCommand["cmdt"]["record:insert"]}
+            <Record_Insert />
         {/if}
     </div>
 {/if}

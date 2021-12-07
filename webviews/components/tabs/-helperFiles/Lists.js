@@ -37,8 +37,8 @@ export const cmdt = [
     {value: "create", label: "create"},
     {value: "field:create", label: "field:create"},
     {value: "generate", label: "generate"},
-    // {value: "record:create", label: "record:create"},
-    // {value: "record:insert", label: "record:insert"},
+    {value: "record:create", label: "record:create"},
+    {value: "record:insert", label: "record:insert"},
 ];
 
 export const source = [
@@ -126,4 +126,9 @@ export const lFIELDTYPE = [
     {value: "TextArea", label: "TextArea"},
     {value: "LongTextArea", label: "LongTextArea"},
     {value: "Url", label: "Url"},
+];
+
+export const lBoolean = [
+    {value: "true", label: "true"},
+    {value: "false", label: "false"},
 ];
