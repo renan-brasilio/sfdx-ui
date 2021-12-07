@@ -11,9 +11,10 @@
 
     // Store
     import { 
-        lTARGETUSERNAME,
+        mapErrors,
         mapInformation,
         mapInputVariables,
+        mapSectionValidation,
         mapShowSections,
         mapSpinner,
         objSFDX,
@@ -22,29 +23,25 @@
     // Sections
     import JSONs from "../../-commonSections/JSONSection.svelte";
     import LOGLEVELs from "../../-commonSections/SelectSFDX.svelte";
-    import TARGETUSERNAMEs from "../../-commonSections/SelectSFDX.svelte";
+    import OUTPUTDIRs from "../../-commonSections/FolderpathSFDX.svelte";
     import APIVERSIONs from "../../-commonSections/SelectSFDX.svelte";
-    import COLORs from "../../-commonSections/BooleanSFDX.svelte";
-    import DEBUGLEVELs from "../../-commonSections/SelectSFDX.svelte";
-    import SKIPTRACEFLAGs from "../../-commonSections/BooleanSFDX.svelte";
+    import TEMPLATENAMEs from "../../-commonSections/StringSFDX.svelte";
     import ADVANCEDs from "../../-commonSections/ADVANCEDSection.svelte";
 
     // Component Validations
     let 
     JSONv, 
     LOGLEVELv, 
-    TARGETUSERNAMEv,
+    OUTPUTDIRv,
     APIVERSIONv,
-    COLORv,
-    DEBUGLEVELv,
-    SKIPTRACEFLAGv,
+    TEMPLATENAMEv,
     ADVANCEDv;
 
     // Documentation
-    let fileName = "log_tail";
+    let fileName = "template_create";
     let showFileName = fileName.replace("_", ":");
-    let showFileNameUpper = "Log:Tail";
-    let commandType = "apex";
+    let showFileNameUpper = "Template:Create";
+    let commandType = "analytics";
     let linkDocumentation = `https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference_force_${commandType}.htm#cli_reference_force_${commandType}_${fileName}`;
 
     // Initial loading
@@ -58,22 +55,71 @@
         $mapSpinner.force[fileName] = false;
     }, 1000);
 
+    // Mandatory Field(s)
+    let mandatorySections = [
+        "templatename",
+    ];
+
+    if(!$mapShowSections){
+        $mapShowSections = {};
+    }
+
+    if(!$mapSectionValidation){
+        $mapSectionValidation = {};
+    }
+
+    for(let i = 0; i < mandatorySections.length; i++){
+        $mapShowSections[mandatorySections[i]] = true;
+        $mapSectionValidation[mandatorySections[i]] = 0;
+    }
+
     function startSFDX() {
+        let validation = 0;
+        let sectionError;
+
         $objSFDX.terminal = "";
         $objSFDX.terminal = `force:${commandType}:${showFileName}`;
 
         Promise.all([
             JSONv.validate(), 
             LOGLEVELv.validate(), 
-            TARGETUSERNAMEv.validate(), 
+            OUTPUTDIRv.validate(), 
             APIVERSIONv.validate(), 
-            COLORv.validate(), 
-            DEBUGLEVELv.validate(), 
-            SKIPTRACEFLAGv.validate(), 
-            ADVANCEDv.validate(), 
+            TEMPLATENAMEv.validate(), 
+            ADVANCEDv.validate(),  
         ]).then((values) => {
             if(values){
-                if(!values.includes(false)){
+                for(let i in $mapSectionValidation){
+                    if($mapSectionValidation[i] === 1){
+                        validation++;
+                        break;
+                    }else if($mapSectionValidation[i] === 0){
+                        sectionError = i;
+                        break;
+                    }
+                }
+    
+                if(validation === 0){
+                    if(!$mapErrors){
+                        $mapErrors = {};
+                    }
+
+                    if(sectionError){
+                        $mapErrors[sectionError] = "sfdxet-error-span";
+                        sectionError = sectionError.toUpperCase();
+                        
+                        tsvscode.postMessage({
+                            type: "onError",
+                            value: `ERROR: ${sectionError} is required.` 
+                        });
+        
+                        return;
+                    }
+                }else if(!values.includes(false)){
+                    for(let key in $mapErrors){
+                        $mapErrors[key] = "";
+                    }     
+    
                     $mapSpinner.main = true;
                     $mapInformation.main = true;
             
@@ -87,14 +133,11 @@
         $mapInputVariables = {};
         
         for(let key in $mapShowSections){
-            $mapShowSections[key] = false;
+            if(key !== "classname"){
+                $mapShowSections[key] = false;
+            }
         }
     }
-
-    // TARGETUSERNAME
-    tsvscode.postMessage({
-        type: "onGetAliasUsers"
-    });
 
     // APIVERSION
     let dAPIVERSION = "";
@@ -126,7 +169,7 @@
     </div>
 {:else}
     <div class="sfdxet-absolute-center">
-        <h3>sfdx force:{commandType}:{showFileName}</h3>
+        <h3>sfdx force:{commandType}:{showFileName} </h3>
         <br/>
         <br/>
         <button class="sfdxet-buttons" on:click={startSFDX}>{showFileNameUpper}</button>
@@ -143,7 +186,7 @@
             pMapDoc={mapDoc.json}
             pShowSectionName={false}
         />
-
+        
         <!-- [--loglevel LOGLEVEL] -->
         <svelte:component 
             this="{LOGLEVELs}" 
@@ -155,16 +198,16 @@
             pDefaultValue="warn"
         />
         
-        <!-- [-u TARGETUSERNAME] -->
+        <!-- [-d OUTPUTDIR] -->
         <svelte:component 
-            this="{TARGETUSERNAMEs}" 
-            bind:this="{TARGETUSERNAMEv}" 
-            pSectionName="targetusername"
-            pMapDoc={mapDoc.targetusername} 
-            pSFDXParameter="-u"
-            pList={$lTARGETUSERNAME}
+            this="{OUTPUTDIRs}" 
+            bind:this="{OUTPUTDIRv}" 
+            pSectionName="outputdir"
+            pMapDoc={mapDoc.outputdir} 
+            pSFDXParameter="-d"
+            pDefaultFolder="."
         />
-        
+
         <!-- [--apiversion APIVERSION] -->
         <svelte:component 
             this="{APIVERSIONs}" 
@@ -175,35 +218,19 @@
             pList={lAPIVERSION}
             pDefaultValue={dAPIVERSION}
         />
-        
-        <!-- [-c] -->
-        <svelte:component 
-            this="{COLORs}" 
-            bind:this="{COLORv}"
-            pSectionName="color"
-            pMapDoc={mapDoc.color} 
-            pSFDXParameter="-c"
-            pShowSectionName={false} 
-        />
 
-        <!-- [-d DEBUGLEVEL] -->
+        <!-- -n TEMPLATENAME -->
         <svelte:component 
-            this="{DEBUGLEVELs}" 
-            bind:this="{DEBUGLEVELv}" 
-            pSectionName="debuglevel"
-            pMapDoc={mapDoc.debuglevel} 
-            pSFDXParameter="-d"
-            pList={gLists.lDEBUGLEVEL}
-        />
-
-        <!-- [-s] -->
-        <svelte:component 
-            this="{SKIPTRACEFLAGs}" 
-            bind:this="{SKIPTRACEFLAGv}"
-            pSectionName="skiptraceflag"
-            pMapDoc={mapDoc.skiptraceflag} 
-            pSFDXParameter="-s"
-            pShowSectionName={false} 
+            this="{TEMPLATENAMEs}" 
+            bind:this="{TEMPLATENAMEv}" 
+            pSectionName="templatename"
+            pRequired={true}
+            pMapDoc={mapDoc.templatename}
+            pSFDXParameter="-n"
+            pSectionTitle="Template Name"
+            pTitle="Insert the Name of the Template"
+            pPlaceholder="Insert..."
+            pPartialRequired={false}
         />
 
         <!-- [ADVANCED] -->

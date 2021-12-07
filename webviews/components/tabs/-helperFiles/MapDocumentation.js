@@ -249,4 +249,46 @@ export let mapDoc = {
             Type: string
         `
     },
+    templatename: {
+        type: `<b>Required</b>`,
+        body: `
+            <br/><br/>
+            The name of the Analytics template.<br/><br/>
+            Type: string
+        `
+    },
+    typename: {
+        type: `<b>Required</b>`,
+        body: `
+            <br/><br/>
+            The unique name of the object in the API. This name can contain only underscores and alphanumeric characters, and must be unique in your org. It must begin with a letter, not include spaces, not end with an underscore, and not contain two consecutive underscores.<br/><br/>
+            Type: string
+        `
+    },
+    label: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+            <br/><br/>
+            A label for the custom metadata type.<br/><br/>
+            Type: string
+        `
+    },
+    plurallabel: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+            <br/><br/>
+            The plural version of the label value. If this flag is missing or blank, the singular label is used as the plural label.<br/><br/>
+            Type: string
+        `
+    },
+    visibility: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+            <br/><br/>
+            The visibility of the custom metadata type.<br/><br/>
+            Type: enum<br/>
+            Permissible values are: PackageProtected, Protected, Public<br/>
+            Default value: Public
+        `
+    },
 };

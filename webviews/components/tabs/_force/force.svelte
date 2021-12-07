@@ -12,7 +12,7 @@
     } from "../-helperFiles/GlobalStore";
     
     // Analytics
-    import Analytcs from "../_force/analytics/analytics_template_create.svelte";
+    import Analytcs from "./_analytics/template_create.svelte";
 
     // Apex
     import Class_Create from "./_apex/class_create.svelte";
@@ -24,6 +24,9 @@
     import Test_Run from "./_apex/test_run.svelte";
     import Trigger_Create from "./_apex/trigger_create.svelte";
 
+    // CMDT
+    import Create from "./_cmdt/create.svelte";
+
     // Source
     import Retrieve from "./_source/retrieve.svelte";
     import Convert from "./_source/convert.svelte";
@@ -33,6 +36,7 @@
     // Fill the initial Maps
     handleMapCommand(lists.analytics, "analytics");
     handleMapCommand(lists.apex, "apex");
+    handleMapCommand(lists.cmdt, "cmdt");
     handleMapCommand(lists.source, "source");
 
     export let mainFileName = "force";
@@ -115,7 +119,7 @@
     <div class="sfdxet-select-theme sfdxet-absolute-center">
         <h4>analytics Commands</h4>
         <br/>
-        <Select id="analytics" items={lists.analytics} on:select={e => { handleSelect(e, "analytics") }} on:clear={e => { handleClear(e, "analytics") }} value="force:analytics:template:create"></Select>
+        <Select id="analytics" items={lists.analytics} on:select={e => { handleSelect(e, "analytics") }} on:clear={e => { handleClear(e, "analytics") }} value="template:create"></Select>
         <br/>
         <br/>
         <Analytcs />
@@ -152,6 +156,19 @@
         {/if}
         {#if $mapCommand["apex"]["trigger:create"]}
             <Trigger_Create />
+        {/if}
+    </div>
+{/if}
+
+{#if $mapForceShowSections.cmdt}
+    <div class="sfdxet-select-theme sfdxet-absolute-center">
+        <h4>apex Commands</h4>
+        <br/>
+        <Select id="cmdt" items={lists.cmdt} on:select={e => { handleSelect(e, "cmdt") }} on:clear={e => { handleClear(e, "cmdt") }} value={$mapLastValue["cmdt"]}></Select>
+        <br/>
+        <br/>
+        {#if $mapCommand["cmdt"]["create"]}
+            <Create />
         {/if}
     </div>
 {/if}

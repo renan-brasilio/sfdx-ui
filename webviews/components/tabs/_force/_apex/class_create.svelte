@@ -43,7 +43,8 @@
     let fileName = "class_create";
     let showFileName = fileName.replace("_", ":");
     let showFileNameUpper = "Class:Create";
-    let linkDocumentation = `https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference_force_apex.htm#cli_reference_force_apex_${fileName}`;
+    let commandType = "apex";
+    let linkDocumentation = `https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference_force_${commandType}.htm#cli_reference_force_${commandType}_${fileName}`;
 
     // Initial loading
     if(!$mapSpinner.force){
@@ -79,7 +80,7 @@
         let sectionError;
 
         $objSFDX.terminal = "";
-        $objSFDX.terminal = `force:apex:${showFileName}`;
+        $objSFDX.terminal = `force:${commandType}:${showFileName}`;
 
         Promise.all([
             JSONv.validate(), 
@@ -163,7 +164,7 @@
     $mapInputVariables[fileName] = dAPIVERSION;
 </script>
 
-<WebviewListener fileName={fileName} commandType="apex" showCommand={showFileNameUpper}/>
+<WebviewListener fileName={fileName} commandType={commandType} showCommand={showFileNameUpper}/>
 
 {#if $mapSpinner.force[fileName]}
     <div class="sfdxet-spinner">
@@ -171,7 +172,7 @@
     </div>
 {:else}
     <div class="sfdxet-absolute-center">
-        <h3>sfdx force:apex:{showFileName} </h3>
+        <h3>sfdx force:{commandType}:{showFileName} </h3>
         <br/>
         <br/>
         <button class="sfdxet-buttons" on:click={startSFDX}>{showFileNameUpper}</button>

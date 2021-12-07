@@ -1,7 +1,7 @@
 export const force = [
     {value: "analytics", label: "analytics"},
     {value: "apex", label: "apex"},
-    // {value: "cmdt", label: "cmdt", selectable: false},
+    {value: "cmdt", label: "cmdt"},
     // {value: "community", label: "community", selectable: false},
     // {value: "data", label: "data", selectable: false},
     // {value: "lightning", label: "lightning", selectable: false},
@@ -12,7 +12,7 @@ export const force = [
     // {value: "package1", label: "package1", selectable: false},
     // {value: "project", label: "project", selectable: false},
     // {value: "schema", label: "schema", selectable: false},
-    {value: "source", label: "source"},
+    // {value: "source", label: "source"},
     // {value: "staticresource", label: "staticresource", selectable: false},
     // {value: "user", label: "user", selectable: false},
     // {value: "visualforce", label: "visualforce", selectable: false},
@@ -31,6 +31,10 @@ export const apex = [
     {value: "test:report", label: "test:report"},
     {value: "test:run", label: "test:run"},
     {value: "trigger:create", label: "trigger:create"},
+];
+
+export const cmdt = [
+    {value: "create", label: "create"},
 ];
 
 export const source = [
@@ -97,4 +101,10 @@ export const lTRIGGEREVENTS = [
     {value: "after merge", label: "after merge"},
     {value: "after upsert", label: "after upsert"},
     {value: "after undelete", label: "after undelete"},
+];
+
+export const lVISIBILITY = [
+    {value: "PackageProtected", label: "PackageProtected"},
+    {value: "Protected", label: "Protected"},
+    {value: "Public", label: "Public"},
 ];
