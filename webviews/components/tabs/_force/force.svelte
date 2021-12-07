@@ -26,6 +26,8 @@
 
     // CMDT
     import Create from "./_cmdt/create.svelte";
+    import Field_Create from "./_cmdt/field_create.svelte";
+    import Generate from "./_cmdt/generate.svelte";
 
     // Source
     import Retrieve from "./_source/retrieve.svelte";
@@ -135,26 +137,19 @@
         <br/>
         {#if $mapCommand["apex"]["class:create"]}
             <Class_Create />
-        {/if}
-        {#if $mapCommand["apex"].execute}
+        {:else if $mapCommand["apex"].execute}
             <Execute />
-        {/if}
-        {#if $mapCommand["apex"]["log:get"]}
+        {:else if $mapCommand["apex"]["log:get"]}
             <Log_Get />
-        {/if}
-        {#if $mapCommand["apex"]["log:list"]}
+        {:else if $mapCommand["apex"]["log:list"]}
             <Log_List />
-        {/if}
-        {#if $mapCommand["apex"]["log:tail"]}
+        {:else if $mapCommand["apex"]["log:tail"]}
             <Log_Tail />
-        {/if}
-        {#if $mapCommand["apex"]["test:report"]}
+        {:else if $mapCommand["apex"]["test:report"]}
             <Test_Report />
-        {/if}
-        {#if $mapCommand["apex"]["test:run"]}
+        {:else if $mapCommand["apex"]["test:run"]}
             <Test_Run />
-        {/if}
-        {#if $mapCommand["apex"]["trigger:create"]}
+        {:else if $mapCommand["apex"]["trigger:create"]}
             <Trigger_Create />
         {/if}
     </div>
@@ -169,6 +164,10 @@
         <br/>
         {#if $mapCommand["cmdt"]["create"]}
             <Create />
+        {:else if $mapCommand["cmdt"]["field:create"]}
+            <Field_Create />
+        {:else if $mapCommand["cmdt"]["generate"]}
+            <Generate />
         {/if}
     </div>
 {/if}
@@ -182,14 +181,11 @@
         <br/>
         {#if $mapCommand["source"].retrieve}
             <Retrieve />
-        {/if}
-        {#if $mapCommand["source"].convert}
+        {:else if $mapCommand["source"].convert}
             <Convert />
-        {/if}
-        {#if $mapCommand["source"].delete}
+        {:else if $mapCommand["source"].delete}
             <Delete />
-        {/if}
-        {#if $mapCommand["source"].deploy}
+        {:else if $mapCommand["source"].deploy}
             <Deploy />
         {/if}
     </div>

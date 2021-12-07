@@ -8,6 +8,7 @@
 
     // Store
     import { 
+        mapErrors, 
         mapInputVariables, 
         mapShowSections, 
         objSFDX, 
@@ -22,9 +23,13 @@
     export let pSectionTitle = "";
     export let pTitle = "";
     export let pPlaceholder = "";
+    export let pStyle = "";
     export let pMaxLength = 255;
     export let pShowSectionName = true;
-    export let pPartialRequired = true;
+    export let pChecked = false;
+    export let pDisabled = false;
+    export let pValidateLessThanZero = false;
+    export let pDefaultValue = 0;
     
     // Default
     let sectionUCase = pSectionName.toUpperCase();
@@ -33,8 +38,40 @@
         let valid = true;
 
         return await new Promise(function(resolve, reject) {
-            if($mapShowSections[pSectionName] && $mapInputVariables[pSectionName]){
-                $objSFDX.terminal += ` ${pSFDXParameter} ${$mapInputVariables[pSectionName]}`;
+            if($mapShowSections[pSectionName]){
+                if($mapInputVariables[pSectionName]){
+                    if(pValidateLessThanZero && $mapInputVariables[pSectionName] < 0){
+                        $mapErrors[pSectionName] = "sfdxet-error-select";
+
+                        tsvscode.postMessage({
+                            type: "onError",
+                            value: `ERROR: (${sectionUCase}) Please insert a number greater or equal 0.` 
+                        });
+
+                        valid = false;
+                    }else{
+                        $mapErrors[pSectionName] = "";
+                        $objSFDX.terminal += ` ${pSFDXParameter} ${$mapInputVariables[pSectionName]}`;
+                    }
+                }else{
+                    $mapErrors[pSectionName] = "sfdxet-error-select";
+
+                    if(pRequired){
+                        tsvscode.postMessage({
+                            type: "onError",
+                            value: `ERROR: ${sectionUCase} is required.` 
+                        });
+                    }else{
+                        tsvscode.postMessage({
+                            type: "onError",
+                            value: `ERROR: Please select a ${sectionUCase} or uncheck the [${pSFDXParameter} ${sectionUCase}] checkbox.` 
+                        });
+                    }
+
+                    valid = false;
+                }
+            }else{
+                $mapErrors[pSectionName] = "";
             }
 
             resolve(valid);
@@ -51,7 +88,9 @@
         pFileName={pSectionName} 
         pOnlyOneError={pOnlyOneError}
         pShowSectionName={pShowSectionName}
-        pPartialRequired={pPartialRequired}
+        pChecked={pChecked}
+        pDisabled={pDisabled}
+        pStyle={pStyle}
     />
     <Documentation 
         pHeader={sectionUCase} 
@@ -72,8 +111,9 @@
                     title={pTitle} 
                     use:tooltipv1 
                     placeholder={pPlaceholder} 
-                    maxlength={pMaxLength} 
-                    bind:value={$mapInputVariables[pSectionName]}
+                    maxlength={pMaxLength}
+                    on:input={(e) => $mapInputVariables[pSectionName] = e.target.value}
+                    value={pDefaultValue}
                 />
             </label>
         </section>

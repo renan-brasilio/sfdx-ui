@@ -28,7 +28,8 @@
     export let pPlaceholder = "";
     export let pMaxLength = 255;
     export let pShowSectionName = true;
-    export let pPartialRequired = true;
+    export let pChecked = false;
+    export let pDisabled = false;
     export let pStyle = "";
     
     // Default
@@ -69,7 +70,24 @@
                     $mapSectionValidation[pSectionName] = 0;
 
                     valid = false;
-                }else if($mapInputVariables[pSectionName]){
+                }else if(!$mapInputVariables[pSectionName]){
+                    $mapErrors[pSectionName] = "sfdxet-error-select";
+
+                    if(pRequired){
+                        tsvscode.postMessage({
+                            type: "onError",
+                            value: `ERROR: ${sectionUCase} is required.` 
+                        });
+                    }else{
+                        tsvscode.postMessage({
+                            type: "onError",
+                            value: `ERROR: Please select a ${sectionUCase} or uncheck the [${pSFDXParameter} ${sectionUCase}] checkbox.` 
+                        });
+                    }
+
+                    valid = false;
+                }else{
+                    $mapErrors[pSectionName] = "";
                     $objSFDX.terminal += ` ${pSFDXParameter} ${$mapInputVariables[pSectionName]}`;
                     $mapSectionValidation[pSectionName] = 1;
                 }
@@ -89,7 +107,8 @@
         pFileName={pSectionName} 
         pOnlyOneError={pOnlyOneError}
         pShowSectionName={pShowSectionName}
-        pPartialRequired={pPartialRequired}
+        pChecked={pChecked}
+        pDisabled={pDisabled}
         pStyle={pStyle}
     />
     <Documentation 

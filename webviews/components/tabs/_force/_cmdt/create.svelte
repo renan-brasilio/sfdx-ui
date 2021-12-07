@@ -106,21 +106,7 @@
                 }
     
                 if(validation === 0){
-                    if(!$mapErrors){
-                        $mapErrors = {};
-                    }
-
-                    if(sectionError){
-                        $mapErrors[sectionError] = "sfdxet-error-span";
-                        sectionError = sectionError.toUpperCase();
-                        
-                        tsvscode.postMessage({
-                            type: "onError",
-                            value: `ERROR: ${sectionError} is required.` 
-                        });
-        
-                        return;
-                    }
+                    return;
                 }else if(!values.includes(false)){
                     for(let key in $mapErrors){
                         $mapErrors[key] = "";
@@ -139,7 +125,7 @@
         $mapInputVariables = {};
         
         for(let key in $mapShowSections){
-            if(key !== "create"){
+            if(key !== fileName){
                 $mapShowSections[key] = false;
             }
         }
@@ -215,7 +201,8 @@
             pSectionTitle="Type Name"
             pTitle="Insert the Type Name"
             pPlaceholder="Insert..."
-            pPartialRequired={false}
+            pChecked={true}
+            pDisabled={true}
         />
         
         <!-- [-l LABEL] -->

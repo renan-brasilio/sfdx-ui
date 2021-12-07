@@ -291,7 +291,7 @@
             pSectionTitle="Apex Class Names"
             pTitle="Comma-separated list of Apex test class names to run."
             pPlaceholder="Insert..."
-            pPartialRequired={true}
+            pRequired={true}
             pStyle="color: orange;"
             pOnlyOneError={pOnlyOneError}
         />
@@ -316,7 +316,7 @@
             pSectionTitle="Suite Names"
             pTitle="Comma-separated list of Apex test suite names to run."
             pPlaceholder="Insert..."
-            pPartialRequired={true}
+            pRequired={true}
             pStyle="color: orange;"
             pOnlyOneError={pOnlyOneError}
         />
@@ -331,7 +331,7 @@
             pSectionTitle="Test Names"
             pTitle="Comma-separated list of Apex test class names or IDs and, if applicable, test methods to run."
             pPlaceholder="Insert..."
-            pPartialRequired={true}
+            pRequired={true}
             pStyle="color: orange;"
             pOnlyOneError={pOnlyOneError}
         />

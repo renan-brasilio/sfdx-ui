@@ -116,21 +116,7 @@
                 }
     
                 if(validation === 0){
-                    if(!$mapErrors){
-                        $mapErrors = {};
-                    }
-
-                    if(sectionError){
-                        $mapErrors[sectionError] = "sfdxet-error-span";
-                        sectionError = sectionError.toUpperCase();
-                        
-                        tsvscode.postMessage({
-                            type: "onError",
-                            value: `ERROR: ${sectionError} is required.` 
-                        });
-        
-                        return;
-                    }
+                    return;
                 }else if(!values.includes(false)){
                     for(let key in $mapErrors){
                         $mapErrors[key] = "";
@@ -250,7 +236,8 @@
             pTitle="Insert the Id of the Test to Run"
             pPlaceholder="Insert..."
             pMaxLength={18}
-            pPartialRequired={false}
+            pChecked={true}
+            pDisabled={true}
         />
         
         <!-- [-c] -->

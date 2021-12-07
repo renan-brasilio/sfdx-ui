@@ -24,8 +24,10 @@
     export let pOnlyOneError = "";
     export let pDefaultFolder = "";
     export let pSFDXParameter = "";
+    export let pStyle = "";
     export let pShowSectionName = true;
-    export let pPartialRequired = true;
+    export let pChecked = false;
+    export let pDisabled = false;
 
     // Default
     let sectionUCase = pSectionName.toUpperCase();
@@ -91,12 +93,19 @@
                     $mapErrors[pSectionName] = "";
                     $objSFDX.terminal += $mapInputVariables[pSectionName];
                 }else{
-                    $mapErrors[pSectionName] = "sfdxet-error-span";
-        
-                    tsvscode.postMessage({
-                        type: "onError",
-                        value: `ERROR: Please select/insert a Folder or uncheck the [${pSFDXParameter} OUTPUTDIR] checkbox.` 
-                    });
+                    $mapErrors[pSectionName] = "sfdxet-error-select";
+
+                    if(pRequired){
+                        tsvscode.postMessage({
+                            type: "onError",
+                            value: `ERROR: ${sectionUCase} is required.` 
+                        });
+                    }else{
+                        tsvscode.postMessage({
+                            type: "onError",
+                            value: `ERROR: Please select a ${sectionUCase} or uncheck the [${pSFDXParameter} ${sectionUCase}] checkbox.` 
+                        });
+                    }
 
                     valid = false;
                 }
@@ -116,7 +125,9 @@
         pFileName={pSectionName} 
         pOnlyOneError={pOnlyOneError}
         pShowSectionName={pShowSectionName}
-        pPartialRequired={pPartialRequired}
+        pChecked={pChecked}
+        pDisabled={pDisabled}
+        pStyle={pStyle}
     />
     <Documentation 
         pHeader={sectionUCase} 

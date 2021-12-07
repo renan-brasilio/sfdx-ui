@@ -8,6 +8,7 @@
 
     // Store
     import { 
+        mapErrors, 
         mapInputVariables, 
         mapShowSections, 
         objSFDX, 
@@ -21,8 +22,10 @@
     export let pSFDXParameter = "";
     export let pTitle = "";
     export let pPlaceholder = "";
+    export let pStyle = "";
     export let pShowSectionName = true;
-    export let pPartialRequired = true;
+    export let pChecked = false;
+    export let pDisabled = false;
 
     // Default
     let sectionUCase = pSectionName.toUpperCase();
@@ -32,7 +35,24 @@
 
         return await new Promise(function(resolve, reject) {
             if($mapShowSections[pSectionName] && $mapInputVariables[pSectionName]){
+                $mapErrors[pSectionName] = "";
                 $objSFDX.terminal += ` ${pSFDXParameter} ${$mapInputVariables[pSectionName]}`;
+            }else{
+                $mapErrors[pSectionName] = "sfdxet-error-select";
+
+                if(pRequired){
+                    tsvscode.postMessage({
+                        type: "onError",
+                        value: `ERROR: ${sectionUCase} is required.` 
+                    });
+                }else{
+                    tsvscode.postMessage({
+                        type: "onError",
+                        value: `ERROR: Please select a ${sectionUCase} or uncheck the [${pSFDXParameter} ${sectionUCase}] checkbox.` 
+                    });
+                }
+
+                valid = false;
             }
 
             resolve(valid);
@@ -49,7 +69,9 @@
         pFileName={pSectionName} 
         pOnlyOneError={pOnlyOneError}
         pShowSectionName={pShowSectionName}
-        pPartialRequired={pPartialRequired}
+        pChecked={pChecked}
+        pDisabled={pDisabled}
+        pStyle={pStyle}
     />
     <Documentation 
         pHeader={sectionUCase} 

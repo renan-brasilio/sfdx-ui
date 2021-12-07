@@ -20,9 +20,11 @@
     export let pMapDoc;
     export let pRequired = false;
     export let pOnlyOneError = "";
+    export let pStyle = "";
     export let pSFDXParameter = "--json";
     export let pShowSectionName = true;
-    export let pPartialRequired = true;
+    export let pChecked = false;
+    export let pDisabled = false;
 
     // Default
     let sectionUCase = pSectionName.toUpperCase();
@@ -101,7 +103,9 @@
         pFileName={pSectionName} 
         pOnlyOneError={pOnlyOneError}
         pShowSectionName={pShowSectionName}
-        pPartialRequired={pPartialRequired}
+        pChecked={pChecked}
+        pDisabled={pDisabled}
+        pStyle={pStyle}
     />
     <Documentation 
         pHeader={sectionUCase} 

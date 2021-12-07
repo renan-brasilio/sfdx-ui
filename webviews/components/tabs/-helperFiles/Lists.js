@@ -35,6 +35,10 @@ export const apex = [
 
 export const cmdt = [
     {value: "create", label: "create"},
+    {value: "field:create", label: "field:create"},
+    {value: "generate", label: "generate"},
+    // {value: "record:create", label: "record:create"},
+    // {value: "record:insert", label: "record:insert"},
 ];
 
 export const source = [
@@ -107,4 +111,19 @@ export const lVISIBILITY = [
     {value: "PackageProtected", label: "PackageProtected"},
     {value: "Protected", label: "Protected"},
     {value: "Public", label: "Public"},
+];
+
+export const lFIELDTYPE = [
+    {value: "Checkbox", label: "Checkbox"},
+    {value: "Date", label: "Date"},
+    {value: "DateTime", label: "DateTime"},
+    {value: "Email", label: "Email"},
+    {value: "Number", label: "Number"},
+    {value: "Percent", label: "Percent"},
+    {value: "Phone", label: "Phone"},
+    {value: "Picklist", label: "Picklist"},
+    {value: "Text", label: "Text"},
+    {value: "TextArea", label: "TextArea"},
+    {value: "LongTextArea", label: "LongTextArea"},
+    {value: "Url", label: "Url"},
 ];

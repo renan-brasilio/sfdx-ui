@@ -11,6 +11,7 @@
 
     // Store
     import { 
+        lTARGETUSERNAME,
         mapErrors,
         mapInformation,
         mapInputVariables,
@@ -23,27 +24,39 @@
     // Sections
     import JSONs from "../../-commonSections/JSONSection.svelte";
     import LOGLEVELs from "../../-commonSections/SelectSFDX.svelte";
-    import CLASSNAMEs from "../../-commonSections/StringSFDX.svelte";
-    import TEMPLATEs from "../../-commonSections/SelectSFDX.svelte";
-    import OUTPUTDIRs from "../../-commonSections/FolderpathSFDX.svelte";
+    import TARGETUSERNAMEs from "../../-commonSections/SelectSFDX.svelte";
     import APIVERSIONs from "../../-commonSections/SelectSFDX.svelte";
+    import DEVNAMEs from "../../-commonSections/StringSFDX.svelte";
+    import LABELs from "../../-commonSections/StringSFDX.svelte";
+    import PLURALLABELs from "../../-commonSections/StringSFDX.svelte";
+    import VISIBILITYs from "../../-commonSections/SelectSFDX.svelte";
+    import SOBJECTNAMEs from "../../-commonSections/StringSFDX.svelte";
+    import IGNOREUNSUPPORTEDs from "../../-commonSections/BooleanSFDX.svelte";
+    import TYPEOUTPUTDIRs from "../../-commonSections/FolderpathSFDX.svelte";
+    import RECORDSOUTPUTDIRs from "../../-commonSections/FolderpathSFDX.svelte";
     import ADVANCEDs from "../../-commonSections/ADVANCEDSection.svelte";
 
     // Component Validations
     let 
     JSONv, 
-    LOGLEVELv, 
-    CLASSNAMEv,
-    TEMPLATEv,
-    OUTPUTDIRv,
-    APIVERSIONv,
+    LOGLEVELv,
+    TARGETUSERNAMEv,
+    APIVERSIONv, 
+    DEVNAMEv,
+    LABELv,
+    PLURALLABELv,
+    VISIBILITYv,
+    SOBJECTNAMEv,
+    IGNOREUNSUPPORTEDv,
+    TYPEOUTPUTDIRv,
+    RECORDSOUTPUTDIRv,
     ADVANCEDv;
 
     // Documentation
-    let fileName = "class_create";
+    let fileName = "generate";
     let showFileName = fileName.replace("_", ":");
-    let showFileNameUpper = "Class:Create";
-    let commandType = "apex";
+    let showFileNameUpper = "Generate";
+    let commandType = "cmdt";
     let linkDocumentation = `https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference_force_${commandType}.htm#cli_reference_force_${commandType}_${fileName}`;
 
     // Initial loading
@@ -59,14 +72,17 @@
 
     // Mandatory Field(s)
     let mandatorySections = [
-        "classname",
+        "devname",
+        "sobjectname",
     ];
 
     if(!$mapShowSections){
         $mapShowSections = {};
     }
 
-    $mapSectionValidation = {};
+    if(!$mapSectionValidation){
+        $mapSectionValidation = {};
+    }
 
     for(let i = 0; i < mandatorySections.length; i++){
         $mapShowSections[mandatorySections[i]] = true;
@@ -83,10 +99,16 @@
         Promise.all([
             JSONv.validate(), 
             LOGLEVELv.validate(), 
-            CLASSNAMEv.validate(), 
-            TEMPLATEv.validate(), 
-            OUTPUTDIRv.validate(), 
+            TARGETUSERNAMEv.validate(), 
             APIVERSIONv.validate(), 
+            DEVNAMEv.validate(), 
+            LABELv.validate(), 
+            PLURALLABELv.validate(), 
+            VISIBILITYv.validate(), 
+            SOBJECTNAMEv.validate(),  
+            IGNOREUNSUPPORTEDv.validate(),  
+            TYPEOUTPUTDIRv.validate(),  
+            RECORDSOUTPUTDIRv.validate(),  
             ADVANCEDv.validate(),  
         ]).then((values) => {
             if(values){
@@ -101,21 +123,7 @@
                 }
     
                 if(validation === 0){
-                    if(!$mapErrors){
-                        $mapErrors = {};
-                    }
-
-                    if(sectionError){
-                        $mapErrors[sectionError] = "sfdxet-error-span";
-                        sectionError = sectionError.toUpperCase();
-                        
-                        tsvscode.postMessage({
-                            type: "onError",
-                            value: `ERROR: ${sectionError} is required.` 
-                        });
-        
-                        return;
-                    }
+                    return;
                 }else if(!values.includes(false)){
                     for(let key in $mapErrors){
                         $mapErrors[key] = "";
@@ -139,6 +147,11 @@
             }
         }
     }
+
+    // TARGETUSERNAME
+    tsvscode.postMessage({
+        type: "onGetAliasUsers"
+    });
 
     // APIVERSION
     let dAPIVERSION = "";
@@ -199,41 +212,14 @@
             pDefaultValue="warn"
         />
 
-        <!-- -n CLASSNAME -->
+        <!-- [-u TARGETUSERNAME] -->
         <svelte:component 
-            this="{CLASSNAMEs}" 
-            bind:this="{CLASSNAMEv}" 
-            pSectionName="classname"
-            pRequired={true}
-            pMapDoc={mapDoc.classname}
-            pSFDXParameter="-n"
-            pSectionTitle="Apex Class Name"
-            pTitle="Insert the Name of the New Apex Class"
-            pPlaceholder="Insert..."
-            pMaxLength={40}
-            pChecked={true}
-            pDisabled={true}
-        />
-        
-        <!-- [-t TEMPLATE] -->
-        <svelte:component 
-            this="{TEMPLATEs}" 
-            bind:this="{TEMPLATEv}" 
-            pSectionName="template"
-            pMapDoc={mapDoc.templateClass} 
-            pSFDXParameter="-t"
-            pList={gLists.lTEMPLATE}
-            pDefaultValue="DefaultApexClass"
-        />
-        
-        <!-- [-d OUTPUTDIR] -->
-        <svelte:component 
-            this="{OUTPUTDIRs}" 
-            bind:this="{OUTPUTDIRv}" 
-            pSectionName="outputdir"
-            pMapDoc={mapDoc.outputdir} 
-            pSFDXParameter="-d"
-            pDefaultFolder="."
+            this="{TARGETUSERNAMEs}" 
+            bind:this="{TARGETUSERNAMEv}" 
+            pSectionName="targetusername"
+            pMapDoc={mapDoc.targetusername} 
+            pSFDXParameter="-u"
+            pList={$lTARGETUSERNAME}
         />
 
         <!-- [--apiversion APIVERSION] -->
@@ -245,6 +231,101 @@
             pSFDXParameter="--apiversion"
             pList={lAPIVERSION}
             pDefaultValue={dAPIVERSION}
+        />
+
+        <!-- -n DEVNAME -->
+        <svelte:component 
+            this="{DEVNAMEs}" 
+            bind:this="{DEVNAMEv}" 
+            pSectionName="devname"
+            pRequired={true}
+            pMapDoc={mapDoc.devname}
+            pSFDXParameter="-n"
+            pSectionTitle="DEV Name"
+            pTitle="Insert the DEV Name"
+            pPlaceholder="Insert..."
+            pChecked={true}
+            pDisabled={true}
+        />
+        
+        <!-- [-l LABEL] -->
+        <svelte:component 
+            this="{LABELs}" 
+            bind:this="{LABELv}" 
+            pSectionName="label"
+            pMapDoc={mapDoc.label}
+            pSFDXParameter="-l"
+            pSectionTitle="Label"
+            pTitle="Insert the custom metadata Label"
+            pPlaceholder="Insert..."
+        />
+
+        <!-- [-p PLURALLABEL] -->
+        <svelte:component 
+            this="{PLURALLABELs}" 
+            bind:this="{PLURALLABELv}" 
+            pSectionName="plurallabel"
+            pMapDoc={mapDoc.plurallabel}
+            pSFDXParameter="-p"
+            pSectionTitle="Plural Label"
+            pTitle="Insert the custom metadata Plural Label"
+            pPlaceholder="Insert..."
+        />
+
+        <!-- [-v VISIBILITY] -->
+        <svelte:component 
+            this="{VISIBILITYs}" 
+            bind:this="{VISIBILITYv}" 
+            pSectionName="visibility"
+            pMapDoc={mapDoc.visibility} 
+            pSFDXParameter="-v"
+            pList={gLists.lVISIBILITY}
+            pDefaultValue="Public"
+        />
+
+        <!-- -s SOBJECTNAME -->
+        <svelte:component 
+            this="{SOBJECTNAMEs}" 
+            bind:this="{SOBJECTNAMEv}" 
+            pSectionName="sobjectname"
+            pRequired={true}
+            pMapDoc={mapDoc.sobjectname}
+            pSFDXParameter="-s"
+            pSectionTitle="sObject Name"
+            pTitle="Insert the sObject Name"
+            pPlaceholder="Insert..."
+            pChecked={true}
+            pDisabled={true}
+        />
+
+        <!-- [-i] -->
+        <svelte:component 
+            this="{IGNOREUNSUPPORTEDs}" 
+            bind:this="{IGNOREUNSUPPORTEDv}"
+            pSectionName="ignoreunsupported"
+            pMapDoc={mapDoc.ignoreunsupported} 
+            pSFDXParameter="-i"
+            pShowSectionName={false} 
+        />
+
+        <!-- [-d TYPEOUTPUTDIR] -->
+        <svelte:component 
+            this="{TYPEOUTPUTDIRs}" 
+            bind:this="{TYPEOUTPUTDIRv}" 
+            pSectionName="typeoutputdir"
+            pMapDoc={mapDoc.typeoutputdir} 
+            pSFDXParameter="-d"
+            pDefaultFolder="force-app/main/default/objects/"
+        />
+
+        <!-- [-r RECORDSOUTPUTDIR] -->
+        <svelte:component 
+            this="{RECORDSOUTPUTDIRs}" 
+            bind:this="{RECORDSOUTPUTDIRv}" 
+            pSectionName="recordsoutputdir"
+            pMapDoc={mapDoc.recordsoutputdir} 
+            pSFDXParameter="-r"
+            pDefaultFolder="force-app/main/default/customMetadata/"
         />
 
         <!-- [ADVANCED] -->

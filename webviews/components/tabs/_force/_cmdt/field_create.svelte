@@ -23,27 +23,31 @@
     // Sections
     import JSONs from "../../-commonSections/JSONSection.svelte";
     import LOGLEVELs from "../../-commonSections/SelectSFDX.svelte";
-    import CLASSNAMEs from "../../-commonSections/StringSFDX.svelte";
-    import TEMPLATEs from "../../-commonSections/SelectSFDX.svelte";
+    import FIELDNAMEs from "../../-commonSections/StringSFDX.svelte";
+    import FIELDTYPEs from "../../-commonSections/SelectSFDX.svelte";
+    import PICKLISTVALUESs from "../../-commonSections/StringSFDX.svelte";
+    import DECIMALPLACESs from "../../-commonSections/NumberSFDX.svelte";
+    import LABELs from "../../-commonSections/StringSFDX.svelte";
     import OUTPUTDIRs from "../../-commonSections/FolderpathSFDX.svelte";
-    import APIVERSIONs from "../../-commonSections/SelectSFDX.svelte";
     import ADVANCEDs from "../../-commonSections/ADVANCEDSection.svelte";
 
     // Component Validations
     let 
     JSONv, 
     LOGLEVELv, 
-    CLASSNAMEv,
-    TEMPLATEv,
+    FIELDNAMEv,
+    FIELDTYPEv,
+    PICKLISTVALUESv,
+    DECIMALPLACESv,
+    LABELv,
     OUTPUTDIRv,
-    APIVERSIONv,
     ADVANCEDv;
 
     // Documentation
-    let fileName = "class_create";
+    let fileName = "field_create";
     let showFileName = fileName.replace("_", ":");
-    let showFileNameUpper = "Class:Create";
-    let commandType = "apex";
+    let showFileNameUpper = "Field:Create";
+    let commandType = "cmdt";
     let linkDocumentation = `https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference_force_${commandType}.htm#cli_reference_force_${commandType}_${fileName}`;
 
     // Initial loading
@@ -59,14 +63,17 @@
 
     // Mandatory Field(s)
     let mandatorySections = [
-        "classname",
+        "fieldname",
+        "fieldtype",
     ];
 
     if(!$mapShowSections){
         $mapShowSections = {};
     }
 
-    $mapSectionValidation = {};
+    if(!$mapSectionValidation){
+        $mapSectionValidation = {};
+    }
 
     for(let i = 0; i < mandatorySections.length; i++){
         $mapShowSections[mandatorySections[i]] = true;
@@ -80,15 +87,24 @@
         $objSFDX.terminal = "";
         $objSFDX.terminal = `force:${commandType}:${showFileName}`;
 
-        Promise.all([
+        let listVal = [
             JSONv.validate(), 
             LOGLEVELv.validate(), 
-            CLASSNAMEv.validate(), 
-            TEMPLATEv.validate(), 
+            FIELDNAMEv.validate(), 
+            FIELDTYPEv.validate(),  
+            LABELv.validate(), 
             OUTPUTDIRv.validate(), 
-            APIVERSIONv.validate(), 
-            ADVANCEDv.validate(),  
-        ]).then((values) => {
+            ADVANCEDv.validate(),
+        ];
+
+        if(picklistValidation === true){
+            listVal.push(PICKLISTVALUESv.validate());
+        }else if(decimalplacesValidation === true){
+            listVal.push(DECIMALPLACESv.validate());
+        }
+
+        Promise.all(listVal)
+        .then((values) => {
             if(values){
                 for(let i in $mapSectionValidation){
                     if($mapSectionValidation[i] === 1){
@@ -101,30 +117,37 @@
                 }
     
                 if(validation === 0){
-                    if(!$mapErrors){
-                        $mapErrors = {};
-                    }
-
-                    if(sectionError){
-                        $mapErrors[sectionError] = "sfdxet-error-span";
-                        sectionError = sectionError.toUpperCase();
+                    return;
+                }else if(!values.includes(false)){
+                    // Aditional and custom validation
+                    if(!$mapInputVariables.picklistvalues && $mapInputVariables.fieldtype === "Picklist"){
+                        $mapErrors.picklistvalues = "sfdxet-error-span";
                         
                         tsvscode.postMessage({
                             type: "onError",
-                            value: `ERROR: ${sectionError} is required.` 
+                            value: `ERROR: PICKLISTVALUES is required for Picklist fields.` 
                         });
         
                         return;
+                    }else if(!$mapInputVariables.decimalplaces && ($mapInputVariables.fieldtype === "Number" || $mapInputVariables.fieldtype === "Percent")){
+                        $mapErrors.decimalplaces = "sfdxet-error-span";
+                        
+                        tsvscode.postMessage({
+                            type: "onError",
+                            value: `ERROR: DECIMALPLACES is required for Number or Percent fields.` 
+                        });
+        
+                        return;
+                    }else{
+                        for(let key in $mapErrors){
+                            $mapErrors[key] = "";
+                        }     
+        
+                        $mapSpinner.main = true;
+                        $mapInformation.main = true;
+                
+                        js.globalContinue();
                     }
-                }else if(!values.includes(false)){
-                    for(let key in $mapErrors){
-                        $mapErrors[key] = "";
-                    }     
-    
-                    $mapSpinner.main = true;
-                    $mapInformation.main = true;
-            
-                    js.globalContinue();
                 }
             }
         });
@@ -160,6 +183,20 @@
     lAPIVERSION.reverse();
 
     $mapInputVariables[fileName] = dAPIVERSION;
+
+    let picklistValidation;
+    let decimalplacesValidation;
+
+    $: if ($mapInputVariables) {
+        picklistValidation = $mapInputVariables.fieldtype === "Picklist";
+        decimalplacesValidation = $mapInputVariables.fieldtype === "Number" || $mapInputVariables.fieldtype === "Percent";
+        
+        if(picklistValidation === true){
+            $mapShowSections.picklistvalues = true;
+        }else if(decimalplacesValidation === true){
+            $mapShowSections.decimalplaces = true;
+        }
+    }
 </script>
 
 <WebviewListener fileName={fileName} commandType={commandType} showCommand={showFileNameUpper}/>
@@ -198,32 +235,79 @@
             pList={gLists.lLOGLEVEL}
             pDefaultValue="warn"
         />
-
-        <!-- -n CLASSNAME -->
-        <svelte:component 
-            this="{CLASSNAMEs}" 
-            bind:this="{CLASSNAMEv}" 
-            pSectionName="classname"
-            pRequired={true}
-            pMapDoc={mapDoc.classname}
-            pSFDXParameter="-n"
-            pSectionTitle="Apex Class Name"
-            pTitle="Insert the Name of the New Apex Class"
-            pPlaceholder="Insert..."
-            pMaxLength={40}
-            pChecked={true}
-            pDisabled={true}
-        />
         
-        <!-- [-t TEMPLATE] -->
+        <!-- -n FIELDNAME -->
         <svelte:component 
-            this="{TEMPLATEs}" 
-            bind:this="{TEMPLATEv}" 
-            pSectionName="template"
-            pMapDoc={mapDoc.templateClass} 
-            pSFDXParameter="-t"
-            pList={gLists.lTEMPLATE}
-            pDefaultValue="DefaultApexClass"
+            this="{FIELDNAMEs}" 
+            bind:this="{FIELDNAMEv}" 
+            pSectionName="fieldname"
+            pRequired={true}
+            pMapDoc={mapDoc.fieldname}
+            pSFDXParameter="-n"
+            pSectionTitle="Field Name"
+            pTitle="Insert the Field Name"
+            pPlaceholder="Insert..."
+            pDisabled={true}
+            pChecked={true}
+        />
+
+        <!-- -f FIELDTYPE -->
+        <svelte:component 
+            this="{FIELDTYPEs}" 
+            bind:this="{FIELDTYPEv}" 
+            pSectionName="fieldtype"
+            pMapDoc={mapDoc.fieldtype} 
+            pSFDXParameter="-f"
+            pList={gLists.lFIELDTYPE}
+            pRequired={true}
+            pDisabled={true}
+            pChecked={true}
+        />
+
+        <!-- [-p PICKLISTVALUES] -->
+        {#if picklistValidation === true}
+            <svelte:component 
+                this="{PICKLISTVALUESs}" 
+                bind:this="{PICKLISTVALUESv}" 
+                pSectionName="picklistvalues"
+                pMapDoc={mapDoc.picklistvalues}
+                pSFDXParameter="-p"
+                pSectionTitle="Picklist Values"
+                pTitle="Insert the Picklist values (comma-separated)"
+                pPlaceholder="Insert..."
+                pChecked={true}
+                pRequired={true}
+                pDisabled={true}
+            />
+        {/if}
+
+        <!-- [-s DECIMALPLACES] -->
+        {#if decimalplacesValidation === true}
+            <svelte:component 
+                this="{DECIMALPLACESs}" 
+                bind:this="{DECIMALPLACESv}" 
+                pSectionName="decimalplaces"
+                pMapDoc={mapDoc.decimalplaces} 
+                pSFDXParameter="-s"
+                pPlaceholder="0"
+                pValidateLessThanZero={true}
+                pTitle="The value must be greater than or equal to zero"
+                pChecked={true}
+                pRequired={true}
+                pDisabled={true}
+            />
+        {/if}
+        
+        <!-- [-l LABEL] -->
+        <svelte:component 
+            this="{LABELs}" 
+            bind:this="{LABELv}" 
+            pSectionName="label"
+            pMapDoc={mapDoc.label}
+            pSFDXParameter="-l"
+            pSectionTitle="Label"
+            pTitle="Insert the custom metadata Label"
+            pPlaceholder="Insert..."
         />
         
         <!-- [-d OUTPUTDIR] -->
@@ -234,17 +318,6 @@
             pMapDoc={mapDoc.outputdir} 
             pSFDXParameter="-d"
             pDefaultFolder="."
-        />
-
-        <!-- [--apiversion APIVERSION] -->
-        <svelte:component 
-            this="{APIVERSIONs}" 
-            bind:this="{APIVERSIONv}" 
-            pSectionName="apiversion"
-            pMapDoc={mapDoc.apiversion} 
-            pSFDXParameter="--apiversion"
-            pList={lAPIVERSION}
-            pDefaultValue={dAPIVERSION}
         />
 
         <!-- [ADVANCED] -->

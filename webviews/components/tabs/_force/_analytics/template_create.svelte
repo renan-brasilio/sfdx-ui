@@ -100,21 +100,7 @@
                 }
     
                 if(validation === 0){
-                    if(!$mapErrors){
-                        $mapErrors = {};
-                    }
-
-                    if(sectionError){
-                        $mapErrors[sectionError] = "sfdxet-error-span";
-                        sectionError = sectionError.toUpperCase();
-                        
-                        tsvscode.postMessage({
-                            type: "onError",
-                            value: `ERROR: ${sectionError} is required.` 
-                        });
-        
-                        return;
-                    }
+                    return;
                 }else if(!values.includes(false)){
                     for(let key in $mapErrors){
                         $mapErrors[key] = "";
@@ -230,7 +216,8 @@
             pSectionTitle="Template Name"
             pTitle="Insert the Name of the Template"
             pPlaceholder="Insert..."
-            pPartialRequired={false}
+            pChecked={true}
+            pDisabled={true}
         />
 
         <!-- [ADVANCED] -->

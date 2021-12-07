@@ -291,4 +291,79 @@ export let mapDoc = {
             Default value: Public
         `
     },
+    fieldname: {
+        type: `<b>Required</b>`,
+        body: `
+            <br/><br/>
+            The unique name for the field.<br/><br/>
+            Type: string
+        `
+    },
+    fieldtype: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+            <br/><br/>
+            The unique name for the field.<br/><br/>
+            Type: enum<br/>
+            Permissible values are: Checkbox, Date, DateTime, Email, Number, Percent, Phone, Picklist, Text, TextArea, LongTextArea, Url
+        `
+    },
+    picklistvalues: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+            <br/><br/>
+            A comma-separated list of picklist values. These values are required when creating a Picklist field.<br/><br/>
+            Type: array
+        `
+    },
+    decimalplaces: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+            <br/><br/>
+            The number of decimal places to use for Number or Percent fields. The value must be greater than or equal to zero.<br/><br/>
+            Type: number
+        `
+    },
+    devname: {
+        type: `<b>Required</b>`,
+        body: `
+            <br/><br/>
+            The name of the custom metadata type.<br/><br/>
+            Type: string
+        `
+    },
+    sobjectname: {
+        type: `<b>Required</b>`,
+        body: `
+            <br/><br/>
+            The API name of the sObject source for custom metadata generation.<br/><br/>
+            Type: string
+        `
+    },
+    ignoreunsupported: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+            <br/><br/>
+            Ignore unsupported field types (these fields will not be created). The default is to create Text fields and convert the source value to text.<br/><br/>
+            Type: boolean
+        `
+    },
+    typeoutputdir: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+            <br/><br/>
+            The directory to store newly-created custom metadata type files.<br/><br/>
+            Type: directory<br/>
+            Default value: force-app/main/default/objects/
+        `
+    },
+    recordsoutputdir: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+            <br/><br/>
+            The directory to store newly-created custom metadata record files.<br/><br/>
+            Type: directory<br/>
+            Default value: force-app/main/default/customMetadata/
+        `
+    },
 };
