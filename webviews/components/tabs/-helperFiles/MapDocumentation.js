@@ -438,4 +438,50 @@ export let mapDoc = {
         `,
         title:`The column that is used to determine the name of the record.`
     },
+    name: {
+        type: `<b>Required</b>`,
+        body: `
+            <br/><br/>
+            The name of the site to create.<br/><br/>
+            Type: string
+        `,
+        title: `The name of the site to create.`
+    },
+    templatenameCommunity: {
+        type: `<b>Required</b>`,
+        body: `
+            <br/><br/>
+            The template to use to create the site, such as the Customer Service template. Run force:community:template:list to see which templates are available in your org.<br/><br/>
+            Type: string
+        `,
+        title: `The template to use to create the site, such as the Customer Service template. Run force:community:template:list to see which templates are available in your org.`
+    },
+    urlpathprefix: {
+        type: `<b>Required</b>`,
+        body: `
+            <br/><br/>
+            The URL to append to the domain that you created when you enabled Digital Experiences for this org. For example, if your domain name is https://MyDomainName.my.site.com and you’re creating a customer site, enter "customers" to create the unique URL<br/><br/>
+            https://MyDomainName.my.site.com/customers.<br/><br/>
+            Type: string
+        `,
+        title: `The URL to append to the domain that you created when you enabled Digital Experiences for this org.`
+    },
+    description: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+            <br/><br/>
+            The description of the site. The description displays in Digital Experiences - All Sites in Setup and helps with site identification.<br/><br/>
+            Type: string
+        `,
+        title: `The description of the site.`
+    },
+    nameCommunityPublish: {
+        type: `<b>Required</b>`,
+        body: `
+            <br/><br/>
+            The name of the Experience Builder site that you want to publish.<br/><br/>
+            Type: string
+        `,
+        title: `The name of the Experience Builder site that you want to publish.`
+    },
 };

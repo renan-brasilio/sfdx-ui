@@ -15,32 +15,38 @@
     import Analytcs from "./_analytics/template_create.svelte";
 
     // Apex
-    import Class_Create from "./_apex/class_create.svelte";
-    import Execute from "./_apex/execute.svelte";
-    import Log_Get from "./_apex/log_get.svelte";
-    import Log_List from "./_apex/log_list.svelte";
-    import Log_Tail from "./_apex/log_tail.svelte";
-    import Test_Report from "./_apex/test_report.svelte";
-    import Test_Run from "./_apex/test_run.svelte";
-    import Trigger_Create from "./_apex/trigger_create.svelte";
+    import Apex_Class_Create from "./_apex/class_create.svelte";
+    import Apex_Execute from "./_apex/execute.svelte";
+    import Apex_Log_Get from "./_apex/log_get.svelte";
+    import Apex_Log_List from "./_apex/log_list.svelte";
+    import Apex_Log_Tail from "./_apex/log_tail.svelte";
+    import Apex_Test_Report from "./_apex/test_report.svelte";
+    import Apex_Test_Run from "./_apex/test_run.svelte";
+    import Apex_Trigger_Create from "./_apex/trigger_create.svelte";
 
     // CMDT
-    import Create from "./_cmdt/create.svelte";
-    import Field_Create from "./_cmdt/field_create.svelte";
-    import Generate from "./_cmdt/generate.svelte";
-    import Record_Create from "./_cmdt/record_create.svelte";
-    import Record_Insert from "./_cmdt/record_insert.svelte";
+    import CMDT_Create from "./_cmdt/create.svelte";
+    import CMDT_Field_Create from "./_cmdt/field_create.svelte";
+    import CMDT_Generate from "./_cmdt/generate.svelte";
+    import CMDT_Record_Create from "./_cmdt/record_create.svelte";
+    import CMDT_Record_Insert from "./_cmdt/record_insert.svelte";
+
+    // Community
+    import Community_Create from "./_community/create.svelte"
+    import Community_Publish from "./_community/publish.svelte"
+    import Community_Template_List from "./_community/template_list.svelte"
 
     // Source
-    import Retrieve from "./_source/retrieve.svelte";
-    import Convert from "./_source/convert.svelte";
-    import Delete from "./_source/delete.svelte";
-    import Deploy from "./_source/deploy.svelte";
+    import Source_Retrieve from "./_source/retrieve.svelte";
+    import Source_Convert from "./_source/convert.svelte";
+    import Source_Delete from "./_source/delete.svelte";
+    import Source_Deploy from "./_source/deploy.svelte";
 
     // Fill the initial Maps
     handleMapCommand(lists.analytics, "analytics");
     handleMapCommand(lists.apex, "apex");
     handleMapCommand(lists.cmdt, "cmdt");
+    handleMapCommand(lists.community, "community");
     handleMapCommand(lists.source, "source");
 
     export let mainFileName = "force";
@@ -138,21 +144,21 @@
         <br/>
         <br/>
         {#if $mapCommand["apex"]["class:create"]}
-            <Class_Create />
+            <Apex_Class_Create />
         {:else if $mapCommand["apex"].execute}
-            <Execute />
+            <Apex_Execute />
         {:else if $mapCommand["apex"]["log:get"]}
-            <Log_Get />
+            <Apex_Log_Get />
         {:else if $mapCommand["apex"]["log:list"]}
-            <Log_List />
+            <Apex_Log_List />
         {:else if $mapCommand["apex"]["log:tail"]}
-            <Log_Tail />
+            <Apex_Log_Tail />
         {:else if $mapCommand["apex"]["test:report"]}
-            <Test_Report />
+            <Apex_Test_Report />
         {:else if $mapCommand["apex"]["test:run"]}
-            <Test_Run />
+            <Apex_Test_Run />
         {:else if $mapCommand["apex"]["trigger:create"]}
-            <Trigger_Create />
+            <Apex_Trigger_Create />
         {/if}
     </div>
 {/if}
@@ -165,15 +171,32 @@
         <br/>
         <br/>
         {#if $mapCommand["cmdt"]["create"]}
-            <Create />
+            <CMDT_Create />
         {:else if $mapCommand["cmdt"]["field:create"]}
-            <Field_Create />
+            <CMDT_Field_Create />
         {:else if $mapCommand["cmdt"]["generate"]}
-            <Generate />
+            <CMDT_Generate />
         {:else if $mapCommand["cmdt"]["record:create"]}
-            <Record_Create />
+            <CMDT_Record_Create />
         {:else if $mapCommand["cmdt"]["record:insert"]}
-            <Record_Insert />
+            <CMDT_Record_Insert />
+        {/if}
+    </div>
+{/if}
+
+{#if $mapForceShowSections.community}
+    <div class="sfdxet-select-theme sfdxet-absolute-center">
+        <h4>community Commands</h4>
+        <br/>
+        <Select id="community" items={lists.community} on:select={e => { handleSelect(e, "community") }} on:clear={e => { handleClear(e, "community") }} value={$mapLastValue["community"]}></Select>
+        <br/>
+        <br/>
+        {#if $mapCommand["community"]["create"]}
+            <Community_Create />
+        {:else if $mapCommand["community"]["publish"]}
+            <Community_Publish />
+        {:else if $mapCommand["community"]["template:list"]}
+            <Community_Template_List />
         {/if}
     </div>
 {/if}
@@ -186,13 +209,13 @@
         <br/>
         <br/>
         {#if $mapCommand["source"].retrieve}
-            <Retrieve />
+            <Source_Retrieve />
         {:else if $mapCommand["source"].convert}
-            <Convert />
+            <Source_Convert />
         {:else if $mapCommand["source"].delete}
-            <Delete />
+            <Source_Delete />
         {:else if $mapCommand["source"].deploy}
-            <Deploy />
+            <Source_Deploy />
         {/if}
     </div>
 {/if}

@@ -2,20 +2,20 @@ export const force = [
     {value: "analytics", label: "analytics"},
     {value: "apex", label: "apex"},
     {value: "cmdt", label: "cmdt"},
-    // {value: "community", label: "community", selectable: false},
-    // {value: "data", label: "data", selectable: false},
-    // {value: "lightning", label: "lightning", selectable: false},
-    // {value: "limits", label: "limits", selectable: false},
-    // {value: "mdapi", label: "mdapi", selectable: false},
-    // {value: "org", label: "org", selectable: false},
-    // {value: "package", label: "package", selectable: false},
-    // {value: "package1", label: "package1", selectable: false},
-    // {value: "project", label: "project", selectable: false},
-    // {value: "schema", label: "schema", selectable: false},
+    {value: "community", label: "community"},
+    // {value: "data", label: "data"},
+    // {value: "lightning", label: "lightning"},
+    // {value: "limits", label: "limits"},
+    // {value: "mdapi", label: "mdapi"},
+    // {value: "org", label: "org"},
+    // {value: "package", label: "package"},
+    // {value: "package1", label: "package1"},
+    // {value: "project", label: "project"},
+    // {value: "schema", label: "schema"},
     // {value: "source", label: "source"},
-    // {value: "staticresource", label: "staticresource", selectable: false},
-    // {value: "user", label: "user", selectable: false},
-    // {value: "visualforce", label: "visualforce", selectable: false},
+    // {value: "staticresource", label: "staticresource"},
+    // {value: "user", label: "user"},
+    // {value: "visualforce", label: "visualforce"},
 ];
 
 export const analytics = [
@@ -39,6 +39,12 @@ export const cmdt = [
     {value: "generate", label: "generate"},
     {value: "record:create", label: "record:create"},
     {value: "record:insert", label: "record:insert"},
+];
+
+export const community = [
+    {value: "create", label: "create"},
+    {value: "publish", label: "publish"},
+    {value: "template:list", label: "template:list"},
 ];
 
 export const source = [

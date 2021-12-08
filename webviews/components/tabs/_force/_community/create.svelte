@@ -26,37 +26,29 @@
     import LOGLEVELs from "../../-commonSections/SelectSFDX.svelte";
     import TARGETUSERNAMEs from "../../-commonSections/SelectSFDX.svelte";
     import APIVERSIONs from "../../-commonSections/SelectSFDX.svelte";
-    import DEVNAMEs from "../../-commonSections/StringSFDX.svelte";
-    import LABELs from "../../-commonSections/StringSFDX.svelte";
-    import PLURALLABELs from "../../-commonSections/StringSFDX.svelte";
-    import VISIBILITYs from "../../-commonSections/SelectSFDX.svelte";
-    import SOBJECTNAMEs from "../../-commonSections/StringSFDX.svelte";
-    import IGNOREUNSUPPORTEDs from "../../-commonSections/BooleanSFDX.svelte";
-    import TYPEOUTPUTDIRs from "../../-commonSections/FolderpathSFDX.svelte";
-    import RECORDSOUTPUTDIRs from "../../-commonSections/FolderpathSFDX.svelte";
+    import NAMEs from "../../-commonSections/StringSFDX.svelte";
+    import TEMPLATENAMEs from "../../-commonSections/StringSFDX.svelte";
+    import URLPATHPREFIXs from "../../-commonSections/StringSFDX.svelte";
+    import DESCRIPTIONs from "../../-commonSections/StringSFDX.svelte";
     import ADVANCEDs from "../../-commonSections/ADVANCEDSection.svelte";
 
     // Component Validations
     let 
     JSONv, 
-    LOGLEVELv,
+    LOGLEVELv, 
     TARGETUSERNAMEv,
-    APIVERSIONv, 
-    DEVNAMEv,
-    LABELv,
-    PLURALLABELv,
-    VISIBILITYv,
-    SOBJECTNAMEv,
-    IGNOREUNSUPPORTEDv,
-    TYPEOUTPUTDIRv,
-    RECORDSOUTPUTDIRv,
+    APIVERSIONv,
+    NAMEv,
+    TEMPLATENAMEv,
+    URLPATHPREFIXv,
+    DESCRIPTIONv,
     ADVANCEDv;
 
     // Documentation
-    let fileName = "generate";
+    let fileName = "create";
     let showFileName = fileName.replace("_", ":");
-    let showFileNameUpper = "Generate";
-    let commandType = "cmdt";
+    let showFileNameUpper = "Create";
+    let commandType = "community";
     let linkDocumentation = `https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference_force_${commandType}.htm#cli_reference_force_${commandType}_${fileName}`;
 
     // Initial loading
@@ -72,8 +64,9 @@
 
     // Mandatory Field(s)
     let mandatorySections = [
-        "devname",
-        "sobjectname",
+        "name",
+        "templatename",
+        "urlpathprefix",
     ];
 
     if(!$mapShowSections){
@@ -100,14 +93,10 @@
             LOGLEVELv.validate(), 
             TARGETUSERNAMEv.validate(), 
             APIVERSIONv.validate(), 
-            DEVNAMEv.validate(), 
-            LABELv.validate(), 
-            PLURALLABELv.validate(), 
-            VISIBILITYv.validate(), 
-            SOBJECTNAMEv.validate(),  
-            IGNOREUNSUPPORTEDv.validate(),  
-            TYPEOUTPUTDIRv.validate(),  
-            RECORDSOUTPUTDIRv.validate(),  
+            NAMEv.validate(), 
+            TEMPLATENAMEv.validate(), 
+            URLPATHPREFIXv.validate(), 
+            DESCRIPTIONv.validate(), 
             ADVANCEDv.validate(),  
         ]).then((values) => {
             if(values){
@@ -232,99 +221,61 @@
             pDefaultValue={dAPIVERSION}
         />
 
-        <!-- -n DEVNAME -->
+        <!-- -n NAME -->
         <svelte:component 
-            this="{DEVNAMEs}" 
-            bind:this="{DEVNAMEv}" 
-            pSectionName="devname"
+            this="{NAMEs}" 
+            bind:this="{NAMEv}" 
+            pSectionName="name"
             pRequired={true}
-            pMapDoc={mapDoc.devname}
+            pMapDoc={mapDoc.name}
             pSFDXParameter="-n"
-            pSectionTitle="DEV Name"
-            pTitle="Insert the DEV Name"
+            pSectionTitle="Community Name"
+            pTitle={mapDoc.name.title}
             pPlaceholder="Insert..."
             pChecked={true}
             pDisabled={true}
         />
         
-        <!-- [-l LABEL] -->
+        <!-- -t TEMPLATENAME -->
         <svelte:component 
-            this="{LABELs}" 
-            bind:this="{LABELv}" 
-            pSectionName="label"
-            pMapDoc={mapDoc.label}
-            pSFDXParameter="-l"
-            pSectionTitle="Label"
-            pTitle="Insert the custom metadata Label"
+            this="{TEMPLATENAMEs}" 
+            bind:this="{TEMPLATENAMEv}" 
+            pSectionName="templatename"
+            pMapDoc={mapDoc.templatenameCommunity}
+            pSFDXParameter="-t"
+            pSectionTitle="Template Name"
+            pTitle={mapDoc.templatenameCommunity.title}
             pPlaceholder="Insert..."
-        />
-
-        <!-- [-p PLURALLABEL] -->
-        <svelte:component 
-            this="{PLURALLABELs}" 
-            bind:this="{PLURALLABELv}" 
-            pSectionName="plurallabel"
-            pMapDoc={mapDoc.plurallabel}
-            pSFDXParameter="-p"
-            pSectionTitle="Plural Label"
-            pTitle="Insert the custom metadata Plural Label"
-            pPlaceholder="Insert..."
-        />
-
-        <!-- [-v VISIBILITY] -->
-        <svelte:component 
-            this="{VISIBILITYs}" 
-            bind:this="{VISIBILITYv}" 
-            pSectionName="visibility"
-            pMapDoc={mapDoc.visibility} 
-            pSFDXParameter="-v"
-            pList={gLists.lVISIBILITY}
-            pDefaultValue="Public"
-        />
-
-        <!-- -s SOBJECTNAME -->
-        <svelte:component 
-            this="{SOBJECTNAMEs}" 
-            bind:this="{SOBJECTNAMEv}" 
-            pSectionName="sobjectname"
             pRequired={true}
-            pMapDoc={mapDoc.sobjectname}
-            pSFDXParameter="-s"
-            pSectionTitle="sObject Name"
-            pTitle="Insert the sObject Name"
-            pPlaceholder="Insert..."
             pChecked={true}
             pDisabled={true}
         />
 
-        <!-- [-i] -->
+        <!-- -p URLPATHPREFIX -->
         <svelte:component 
-            this="{IGNOREUNSUPPORTEDs}" 
-            bind:this="{IGNOREUNSUPPORTEDv}"
-            pSectionName="ignoreunsupported"
-            pMapDoc={mapDoc.ignoreunsupported} 
-            pSFDXParameter="-i"
-            pShowSectionName={false} 
+            this="{URLPATHPREFIXs}" 
+            bind:this="{URLPATHPREFIXv}" 
+            pSectionName="urlpathprefix"
+            pMapDoc={mapDoc.urlpathprefix}
+            pSFDXParameter="-p"
+            pSectionTitle="URL Path Prefix"
+            pTitle={mapDoc.urlpathprefix.title}
+            pPlaceholder="Insert..."
+            pRequired={true}
+            pChecked={true}
+            pDisabled={true}
         />
 
-        <!-- [-d TYPEOUTPUTDIR] -->
+        <!-- [-d DESCRIPTION] -->
         <svelte:component 
-            this="{TYPEOUTPUTDIRs}" 
-            bind:this="{TYPEOUTPUTDIRv}" 
-            pSectionName="typeoutputdir"
-            pMapDoc={mapDoc.typeoutputdir} 
+            this="{DESCRIPTIONs}" 
+            bind:this="{DESCRIPTIONv}" 
+            pSectionName="description"
+            pMapDoc={mapDoc.description}
             pSFDXParameter="-d"
-            pDefaultFolder="force-app/main/default/objects/"
-        />
-
-        <!-- [-r RECORDSOUTPUTDIR] -->
-        <svelte:component 
-            this="{RECORDSOUTPUTDIRs}" 
-            bind:this="{RECORDSOUTPUTDIRv}" 
-            pSectionName="recordsoutputdir"
-            pMapDoc={mapDoc.recordsoutputdir} 
-            pSFDXParameter="-r"
-            pDefaultFolder="force-app/main/default/customMetadata/"
+            pSectionTitle="Description"
+            pTitle={mapDoc.description.title}
+            pPlaceholder="Insert..."
         />
 
         <!-- [ADVANCED] -->
