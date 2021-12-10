@@ -75,7 +75,7 @@
     on:click={openDoc}
     style={pStyle}
     class={pClass}
->{pRequired ? "*" : "["}{pSFDXParameter ? pSFDXParameter : ""}{pSectionName && pShowSectionName ? " " + pSectionName.toUpperCase() : ""}{pRequired ? "" : "]"}</span>
+>{pRequired ? "*" : "["}{pSFDXParameter ? pSFDXParameter + " " : ""}{pSectionName && pShowSectionName ? pSectionName.toUpperCase() : ""}{pRequired ? "" : "]"}</span>
     
 <input 
     type="checkbox" 

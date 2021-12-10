@@ -43,15 +43,15 @@ export const cmdt = [
 
 export const data = [
     {value: "bulk:delete", label: "bulk:delete"},
-    // {value: "bulk:status", label: "bulk:status"},
-    // {value: "bulk:upsert", label: "bulk:upsert"},
-    // {value: "record:create", label: "record:create"},
-    // {value: "record:delete", label: "record:delete"},
-    // {value: "record:get", label: "record:get"},
-    // {value: "record:update", label: "record:update"},
-    // {value: "soql:query", label: "soql:query"},
-    // {value: "tree:export", label: "tree:export"},
-    // {value: "tree:import", label: "tree:import"},
+    {value: "bulk:status", label: "bulk:status"},
+    {value: "bulk:upsert", label: "bulk:upsert"},
+    {value: "record:create", label: "record:create"},
+    {value: "record:delete", label: "record:delete"},
+    {value: "record:get", label: "record:get"},
+    {value: "record:update", label: "record:update"},
+    {value: "soql:query", label: "soql:query"},
+    {value: "tree:export", label: "tree:export"},
+    {value: "tree:import", label: "tree:import"},
 ];
 
 export const community = [

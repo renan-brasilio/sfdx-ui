@@ -1320,6 +1320,719 @@ export let mapDoc = {
                 title: `The number of minutes to wait for the command to complete before displaying the results.`
             },
         },
+        bulk_status: {
+            json: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Format output as JSON.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Format output as JSON.`
+            },
+            loglevel: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>            
+                    The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.<br/><br/>
+                    Type: enum<br/>
+                    Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                    Default value: warn
+                `,
+                title: `The logging level for this command invocation.`
+            },
+            targetusername: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>            
+                    A username or alias for the target org. Overrides the default target org.<br/><br/>
+                    Type: string
+                `,
+                title: `A username or alias for the target org. Overrides the default target org.`
+            },
+            apiversion: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Override the API version used for API requests made by this command.
+                    <br/><br/>
+                    Type: string
+                `,
+                title: `Override the API version used for API requests made by this command.`
+            },
+            batchid: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    The ID of the batch whose status you want to view.<br/><br/>
+                    Type: string
+                `,
+                title: `The ID of the batch whose status you want to view.`
+            },
+            jobid: {
+                type: `<b>Required</b>`,
+                body: `
+                    <br/><br/>
+                    The ID of the job you want to view or of the job whose batch you want to view.<br/><br/>
+                    Type: string
+                `,
+                title: `The ID of the job you want to view or of the job whose batch you want to view.`
+            },
+        },
+        bulk_upsert: {
+            json: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Format output as JSON.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Format output as JSON.`
+            },
+            loglevel: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>            
+                    The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.<br/><br/>
+                    Type: enum<br/>
+                    Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                    Default value: warn
+                `,
+                title: `The logging level for this command invocation.`
+            },
+            targetusername: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>            
+                    A username or alias for the target org. Overrides the default target org.<br/><br/>
+                    Type: string
+                `,
+                title: `A username or alias for the target org. Overrides the default target org.`
+            },
+            apiversion: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Override the API version used for API requests made by this command.
+                    <br/><br/>
+                    Type: string
+                `,
+                title: `Override the API version used for API requests made by this command.`
+            },
+            externalid: {
+                type: `<b>Required</b>`,
+                body: `
+                    <br/><br/>
+                    The column name of the external ID.<br/><br/>
+                    Type: string
+                `,
+                title: `The column name of the external ID.`
+            },
+            csvfile: {
+                type: `<b>Required</b>`,
+                body: `
+                    <br/><br/>
+                    The path to the CSV file that defines the records to upsert.<br/><br/>
+                    Type: filepath
+                `,
+                title: `The path to the CSV file that defines the records to upsert.`
+            },
+            sobjecttype: {
+                type: `<b>Required</b>`,
+                body: `
+                    <br/><br/>
+                    The sObject type of the records you want to upsert.<br/><br/>
+                    Type: string
+                `,
+                title: `The sObject type of the records you want to upsert.`
+            },
+            wait: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    The number of minutes to wait for the command to complete before displaying the results.<br/><br/>
+                    Type: string
+                `,
+                title: `The number of minutes to wait for the command to complete before displaying the results.`
+            },
+            serial: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Run batches in serial mode.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Run batches in serial mode.`
+            },
+        },
+        record_create: {
+            json: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Format output as JSON.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Format output as JSON.`
+            },
+            loglevel: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>            
+                    The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.<br/><br/>
+                    Type: enum<br/>
+                    Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                    Default value: warn
+                `,
+                title: `The logging level for this command invocation.`
+            },
+            targetusername: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>            
+                    A username or alias for the target org. Overrides the default target org.<br/><br/>
+                    Type: string
+                `,
+                title: `A username or alias for the target org. Overrides the default target org.`
+            },
+            apiversion: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Override the API version used for API requests made by this command.
+                    <br/><br/>
+                    Type: string
+                `,
+                title: `Override the API version used for API requests made by this command.`
+            },
+            sobjecttype: {
+                type: `<b>Required</b>`,
+                body: `
+                    <br/><br/>
+                    The sObject type of the records you want to upsert.<br/><br/>
+                    Type: string
+                `,
+                title: `The sObject type of the records you want to upsert.`
+            },
+            values: {
+                type: `<b>Required</b>`,
+                body: `
+                    <br/><br/>
+                    The <fieldName>=<value> pairs you’re creating.<br/><br/>
+                    Type: string
+                `,
+                title: `The <fieldName>=<value> pairs you’re creating.`
+            },
+            usetoolingapi: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Create the record with tooling api.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Create the record with tooling api.`
+            },
+            perflog: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Get API performance data.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Get API performance data.`
+            },
+        },
+        record_delete: {
+            json: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Format output as JSON.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Format output as JSON.`
+            },
+            loglevel: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>            
+                    The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.<br/><br/>
+                    Type: enum<br/>
+                    Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                    Default value: warn
+                `,
+                title: `The logging level for this command invocation.`
+            },
+            targetusername: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>            
+                    A username or alias for the target org. Overrides the default target org.<br/><br/>
+                    Type: string
+                `,
+                title: `A username or alias for the target org. Overrides the default target org.`
+            },
+            apiversion: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Override the API version used for API requests made by this command.
+                    <br/><br/>
+                    Type: string
+                `,
+                title: `Override the API version used for API requests made by this command.`
+            },
+            sobjecttype: {
+                type: `<b>Required</b>`,
+                body: `
+                    <br/><br/>
+                    The sObject type of the records you want to upsert.<br/><br/>
+                    Type: string
+                `,
+                title: `The sObject type of the records you want to upsert.`
+            },
+            sobjectid: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    The ID of the record you’re deleting.<br/><br/>
+                    Type: id
+                `,
+                title: `The ID of the record you’re deleting.`
+            },
+            where: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    A list of <fieldName>=<value> pairs to search for.<br/><br/>
+                    Type: string
+                `,
+                title: `A list of <fieldName>=<value> pairs to search for.`
+            },
+            usetoolingapi: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Create the record with tooling api.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Create the record with tooling api.`
+            },
+            perflog: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Get API performance data.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Get API performance data.`
+            },
+        },
+        record_get: {
+            json: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Format output as JSON.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Format output as JSON.`
+            },
+            loglevel: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>            
+                    The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.<br/><br/>
+                    Type: enum<br/>
+                    Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                    Default value: warn
+                `,
+                title: `The logging level for this command invocation.`
+            },
+            targetusername: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>            
+                    A username or alias for the target org. Overrides the default target org.<br/><br/>
+                    Type: string
+                `,
+                title: `A username or alias for the target org. Overrides the default target org.`
+            },
+            apiversion: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Override the API version used for API requests made by this command.
+                    <br/><br/>
+                    Type: string
+                `,
+                title: `Override the API version used for API requests made by this command.`
+            },
+            sobjecttype: {
+                type: `<b>Required</b>`,
+                body: `
+                    <br/><br/>
+                    The sObject type of the records you want to upsert.<br/><br/>
+                    Type: string
+                `,
+                title: `The sObject type of the records you want to upsert.`
+            },
+            sobjectid: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    The ID of the record you’re deleting.<br/><br/>
+                    Type: id
+                `,
+                title: `The ID of the record you’re deleting.`
+            },
+            where: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    A list of <fieldName>=<value> pairs to search for.<br/><br/>
+                    Type: string
+                `,
+                title: `A list of <fieldName>=<value> pairs to search for.`
+            },
+            usetoolingapi: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Create the record with tooling api.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Create the record with tooling api.`
+            },
+            perflog: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Get API performance data.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Get API performance data.`
+            },
+        },
+        record_update: {
+            json: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Format output as JSON.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Format output as JSON.`
+            },
+            loglevel: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>            
+                    The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.<br/><br/>
+                    Type: enum<br/>
+                    Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                    Default value: warn
+                `,
+                title: `The logging level for this command invocation.`
+            },
+            targetusername: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>            
+                    A username or alias for the target org. Overrides the default target org.<br/><br/>
+                    Type: string
+                `,
+                title: `A username or alias for the target org. Overrides the default target org.`
+            },
+            apiversion: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Override the API version used for API requests made by this command.
+                    <br/><br/>
+                    Type: string
+                `,
+                title: `Override the API version used for API requests made by this command.`
+            },
+            sobjecttype: {
+                type: `<b>Required</b>`,
+                body: `
+                    <br/><br/>
+                    The sObject type of the records you want to upsert.<br/><br/>
+                    Type: string
+                `,
+                title: `The sObject type of the records you want to upsert.`
+            },
+            sobjectid: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    The ID of the record you’re deleting.<br/><br/>
+                    Type: id
+                `,
+                title: `The ID of the record you’re deleting.`
+            },
+            where: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    A list of <fieldName>=<value> pairs to search for.<br/><br/>
+                    Type: string
+                `,
+                title: `A list of <fieldName>=<value> pairs to search for.`
+            },
+            values: {
+                type: `<b>Required</b>`,
+                body: `
+                    <br/><br/>
+                    The <fieldName>=<value> pairs you’re updating.<br/><br/>
+                    Type: string
+                `,
+                title: `The <fieldName>=<value> pairs you’re updating.`
+            },
+            usetoolingapi: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Create the record with tooling api.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Create the record with tooling api.`
+            },
+            perflog: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Get API performance data.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Get API performance data.`
+            },
+        },
+        soql_query: {
+            json: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Format output as JSON.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Format output as JSON.`
+            },
+            loglevel: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>            
+                    The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.<br/><br/>
+                    Type: enum<br/>
+                    Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                    Default value: warn
+                `,
+                title: `The logging level for this command invocation.`
+            },
+            targetusername: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>            
+                    A username or alias for the target org. Overrides the default target org.<br/><br/>
+                    Type: string
+                `,
+                title: `A username or alias for the target org. Overrides the default target org.`
+            },
+            apiversion: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Override the API version used for API requests made by this command.
+                    <br/><br/>
+                    Type: string
+                `,
+                title: `Override the API version used for API requests made by this command.`
+            },
+            query: {
+                type: `<b>Required</b>`,
+                body: `
+                    <br/><br/>
+                    SOQL query to execute.<br/><br/>
+                    Type: string
+                `,
+                title: `SOQL query to execute.`
+            },
+            usetoolingapi: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Create the record with tooling api.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Create the record with tooling api.`
+            },
+            resultformat: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Result format emitted to stdout; --json flag overrides this parameter.<br/><br/>
+                    Type: enum<br/>
+                    Permissible values are: human, csv, json<br/>
+                    Default value: human
+                `,
+                title: `Result format emitted to stdout; --json flag overrides this parameter.`
+            },
+            perflog: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Get API performance data.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Get API performance data.`
+            },
+        },
+        tree_export: {
+            json: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Format output as JSON.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Format output as JSON.`
+            },
+            loglevel: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>            
+                    The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.<br/><br/>
+                    Type: enum<br/>
+                    Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                    Default value: warn
+                `,
+                title: `The logging level for this command invocation.`
+            },
+            targetusername: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>            
+                    A username or alias for the target org. Overrides the default target org.<br/><br/>
+                    Type: string
+                `,
+                title: `A username or alias for the target org. Overrides the default target org.`
+            },
+            apiversion: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Override the API version used for API requests made by this command.
+                    <br/><br/>
+                    Type: string
+                `,
+                title: `Override the API version used for API requests made by this command.`
+            },
+            query: {
+                type: `<b>Required</b>`,
+                body: `
+                    <br/><br/>
+                    Soql query, or filepath of file containing a soql query, to retrieve records.<br/><br/>
+                    Type: string
+                `,
+                title: `Soql query, or filepath of file containing a soql query, to retrieve records.`
+            },
+            plan: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Generate multitple sobject tree files and a plan definition file for aggregated import.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Generate mulitple sobject tree files and a plan definition file for aggregated import.`
+            },
+            prefix: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Prefix of generated files.<br/><br/>
+                    Type: string
+                `,
+                title: `Prefix of generated files.`
+            },
+            outputdir: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Directory to store files'.<br/><br/>
+                    Type: directory
+                `,
+                title: `Directory to store files'.`
+            },
+        },
+        tree_import: {
+            json: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Format output as JSON.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Format output as JSON.`
+            },
+            loglevel: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>            
+                    The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.<br/><br/>
+                    Type: enum<br/>
+                    Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                    Default value: warn
+                `,
+                title: `The logging level for this command invocation.`
+            },
+            targetusername: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>            
+                    A username or alias for the target org. Overrides the default target org.<br/><br/>
+                    Type: string
+                `,
+                title: `A username or alias for the target org. Overrides the default target org.`
+            },
+            apiversion: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Override the API version used for API requests made by this command.
+                    <br/><br/>
+                    Type: string
+                `,
+                title: `Override the API version used for API requests made by this command.`
+            },
+            sobjecttreefiles: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Comma-delimited, ordered paths of json files containing collection of record trees to insert.<br/><br/>
+                    Type: array
+                `,
+                title: `Comma-delimited, ordered paths of json files containing collection of record trees to insert.`
+            },
+            plan: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Path to plan to insert multiple data files that have master-detail relationships.<br/><br/>
+                    Type: filepath
+                `,
+                title: `Path to plan to insert multiple data files that have master-detail relationships.`
+            },
+            confighelp: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Display schema information for the --plan configuration file to stdout; if you use this option, all other options except --json are ignored.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Display schema information for the --plan configuration file to stdout`
+            },
+        }, 
     },
     advanced: {
         type: `<b><i>Optional</i></b>`,
