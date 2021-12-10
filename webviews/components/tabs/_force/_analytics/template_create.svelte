@@ -75,7 +75,6 @@
 
     function startSFDX() {
         let validation = 0;
-        let sectionError;
 
         $objSFDX.terminal = "";
         $objSFDX.terminal = `force:${commandType}:${showFileName}`;
@@ -169,7 +168,7 @@
         <svelte:component 
             this="{JSONs}" 
             bind:this="{JSONv}" 
-            pMapDoc={mapDoc.json}
+            pMapDoc={mapDoc[commandType][fileName].json}
             pShowSectionName={false}
         />
         
@@ -178,7 +177,7 @@
             this="{LOGLEVELs}" 
             bind:this="{LOGLEVELv}" 
             pSectionName="loglevel"
-            pMapDoc={mapDoc.loglevel} 
+            pMapDoc={mapDoc[commandType][fileName].loglevel} 
             pSFDXParameter="--loglevel"
             pList={gLists.lLOGLEVEL}
             pDefaultValue="warn"
@@ -189,7 +188,7 @@
             this="{OUTPUTDIRs}" 
             bind:this="{OUTPUTDIRv}" 
             pSectionName="outputdir"
-            pMapDoc={mapDoc.outputdir} 
+            pMapDoc={mapDoc[commandType][fileName].outputdir} 
             pSFDXParameter="-d"
             pDefaultFolder="."
         />
@@ -199,7 +198,7 @@
             this="{APIVERSIONs}" 
             bind:this="{APIVERSIONv}" 
             pSectionName="apiversion"
-            pMapDoc={mapDoc.apiversion} 
+            pMapDoc={mapDoc[commandType][fileName].apiversion} 
             pSFDXParameter="--apiversion"
             pList={lAPIVERSION}
             pDefaultValue={dAPIVERSION}
@@ -211,10 +210,10 @@
             bind:this="{TEMPLATENAMEv}" 
             pSectionName="templatename"
             pRequired={true}
-            pMapDoc={mapDoc.templatename}
+            pMapDoc={mapDoc[commandType][fileName].templatename}
             pSFDXParameter="-n"
             pSectionTitle="Template Name"
-            pTitle="Insert the Name of the Template"
+            pTitle={mapDoc[commandType][fileName].templatename.title}
             pPlaceholder="Insert..."
             pChecked={true}
             pDisabled={true}

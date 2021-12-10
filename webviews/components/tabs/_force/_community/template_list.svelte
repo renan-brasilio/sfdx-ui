@@ -135,7 +135,7 @@
         <svelte:component 
             this="{JSONs}" 
             bind:this="{JSONv}" 
-            pMapDoc={mapDoc.json}
+            pMapDoc={mapDoc[commandType][fileName].json}
             pShowSectionName={false}
         />
         
@@ -144,7 +144,7 @@
             this="{LOGLEVELs}" 
             bind:this="{LOGLEVELv}" 
             pSectionName="loglevel"
-            pMapDoc={mapDoc.loglevel} 
+            pMapDoc={mapDoc[commandType][fileName].loglevel} 
             pSFDXParameter="--loglevel"
             pList={gLists.lLOGLEVEL}
             pDefaultValue="warn"
@@ -155,7 +155,7 @@
             this="{TARGETUSERNAMEs}" 
             bind:this="{TARGETUSERNAMEv}" 
             pSectionName="targetusername"
-            pMapDoc={mapDoc.targetusername} 
+            pMapDoc={mapDoc[commandType][fileName].targetusername} 
             pSFDXParameter="-u"
             pList={$lTARGETUSERNAME}
         />
@@ -165,7 +165,7 @@
             this="{APIVERSIONs}" 
             bind:this="{APIVERSIONv}" 
             pSectionName="apiversion"
-            pMapDoc={mapDoc.apiversion} 
+            pMapDoc={mapDoc[commandType][fileName].apiversion} 
             pSFDXParameter="--apiversion"
             pList={lAPIVERSION}
             pDefaultValue={dAPIVERSION}

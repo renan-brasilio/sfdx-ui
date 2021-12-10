@@ -3,7 +3,7 @@ export const force = [
     {value: "apex", label: "apex"},
     {value: "cmdt", label: "cmdt"},
     {value: "community", label: "community"},
-    // {value: "data", label: "data"},
+    {value: "data", label: "data"},
     // {value: "lightning", label: "lightning"},
     // {value: "limits", label: "limits"},
     // {value: "mdapi", label: "mdapi"},
@@ -39,6 +39,19 @@ export const cmdt = [
     {value: "generate", label: "generate"},
     {value: "record:create", label: "record:create"},
     {value: "record:insert", label: "record:insert"},
+];
+
+export const data = [
+    {value: "bulk:delete", label: "bulk:delete"},
+    // {value: "bulk:status", label: "bulk:status"},
+    // {value: "bulk:upsert", label: "bulk:upsert"},
+    // {value: "record:create", label: "record:create"},
+    // {value: "record:delete", label: "record:delete"},
+    // {value: "record:get", label: "record:get"},
+    // {value: "record:update", label: "record:update"},
+    // {value: "soql:query", label: "soql:query"},
+    // {value: "tree:export", label: "tree:export"},
+    // {value: "tree:import", label: "tree:import"},
 ];
 
 export const community = [

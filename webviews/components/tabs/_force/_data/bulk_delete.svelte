@@ -26,12 +26,9 @@
     import LOGLEVELs from "../../-commonSections/SelectSFDX.svelte";
     import TARGETUSERNAMEs from "../../-commonSections/SelectSFDX.svelte";
     import APIVERSIONs from "../../-commonSections/SelectSFDX.svelte";
-    import TESTRUNIDs from "../../-commonSections/StringSFDX.svelte";
-    import CODECOVERAGEs from "../../-commonSections/BooleanSFDX.svelte";
-    import OUTPUTDIRs from "../../-commonSections/FolderpathSFDX.svelte";
-    import RESULTFORMATs from "../../-commonSections/SelectSFDX.svelte";
+    import CSVFILEs from "../../-commonSections/FilepathSFDX.svelte";
+    import SOBJECTTYPEs from "../../-commonSections/StringSFDX.svelte";
     import WAITs from "../../-commonSections/MinuteSFDX.svelte";
-    import VERBOSEs from "../../-commonSections/BooleanSFDX.svelte";
     import ADVANCEDs from "../../-commonSections/ADVANCEDSection.svelte";
 
     // Component Validations
@@ -40,19 +37,16 @@
     LOGLEVELv, 
     TARGETUSERNAMEv,
     APIVERSIONv,
-    TESTRUNIDv,
-    CODECOVERAGEv,
-    OUTPUTDIRv,
-    RESULTFORMATv,
+    CSVFILEv,
+    SOBJECTTYPEv,
     WAITv,
-    VERBOSEv,
     ADVANCEDv;
 
     // Documentation
-    let fileName = "test_report";
+    let fileName = "bulk_delete";
     let showFileName = fileName.replace("_", ":");
-    let showFileNameUpper = "Test:Report";
-    let commandType = "apex";
+    let showFileNameUpper = "Bulk:Delete";
+    let commandType = "data";
     let linkDocumentation = `https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference_force_${commandType}.htm#cli_reference_force_${commandType}_${fileName}`;
 
     // Initial loading
@@ -68,7 +62,8 @@
 
     // Mandatory Field(s)
     let mandatorySections = [
-        "testrunid",
+        "csvfile",
+        "sobjecttype",
     ];
 
     if(!$mapShowSections){
@@ -86,7 +81,6 @@
 
     function startSFDX() {
         let validation = 0;
-        let sectionError;
 
         $objSFDX.terminal = "";
         $objSFDX.terminal = `force:${commandType}:${showFileName}`;
@@ -96,13 +90,10 @@
             LOGLEVELv.validate(), 
             TARGETUSERNAMEv.validate(), 
             APIVERSIONv.validate(), 
-            TESTRUNIDv.validate(), 
-            CODECOVERAGEv.validate(), 
-            OUTPUTDIRv.validate(), 
-            RESULTFORMATv.validate(), 
+            CSVFILEv.validate(), 
+            SOBJECTTYPEv.validate(), 
             WAITv.validate(), 
-            VERBOSEv.validate(), 
-            ADVANCEDv.validate(), 
+            ADVANCEDv.validate(),  
         ]).then((values) => {
             if(values){
                 for(let i in $mapSectionValidation){
@@ -135,9 +126,11 @@
         $mapInputVariables = {};
         
         for(let key in $mapShowSections){
-            $mapShowSections[key] = false;
+            if(key !== fileName){
+                $mapShowSections[key] = false;
+            }
         }
-    } 
+    }
 
     // TARGETUSERNAME
     tsvscode.postMessage({
@@ -174,7 +167,7 @@
     </div>
 {:else}
     <div class="sfdxet-absolute-center">
-        <h3>sfdx force:{commandType}:{showFileName}</h3>
+        <h3>sfdx force:{commandType}:{showFileName} </h3>
         <br/>
         <br/>
         <button class="sfdxet-buttons" on:click={startSFDX}>{showFileNameUpper}</button>
@@ -202,7 +195,7 @@
             pList={gLists.lLOGLEVEL}
             pDefaultValue="warn"
         />
-        
+
         <!-- [-u TARGETUSERNAME] -->
         <svelte:component 
             this="{TARGETUSERNAMEs}" 
@@ -212,7 +205,7 @@
             pSFDXParameter="-u"
             pList={$lTARGETUSERNAME}
         />
-        
+
         <!-- [--apiversion APIVERSION] -->
         <svelte:component 
             this="{APIVERSIONs}" 
@@ -223,50 +216,34 @@
             pList={lAPIVERSION}
             pDefaultValue={dAPIVERSION}
         />
-        
-        <!-- -i TESTRUNID -->
+
+        <!-- -f CSVFILE -->
         <svelte:component 
-            this="{TESTRUNIDs}" 
-            bind:this="{TESTRUNIDv}" 
-            pSectionName="testrunid"
-            pRequired={true}
-            pMapDoc={mapDoc[commandType][fileName].testrunid}
-            pSFDXParameter="-n"
-            pSectionTitle="Test Run Id"
-            pTitle={mapDoc[commandType][fileName].testrunid.title}
+            this="{CSVFILEs}" 
+            bind:this="{CSVFILEv}" 
+            pSectionName="csvfile"
+            pMapDoc={mapDoc[commandType][fileName].csvfile} 
+            pSFDXParameter="-f"
             pPlaceholder="Insert..."
-            pMaxLength={18}
+            pButtonText="Select CSV File"
+            pRequired={true}
             pChecked={true}
             pDisabled={true}
         />
-        
-        <!-- [-c] -->
+
+        <!-- -s SOBJECTTYPE -->
         <svelte:component 
-            this="{CODECOVERAGEs}" 
-            bind:this="{CODECOVERAGEv}"
-            pSectionName="codecoverage"
-            pMapDoc={mapDoc[commandType][fileName].codecoverage} 
-            pSFDXParameter="-c"
-            pShowSectionName={false} 
-        />
-        
-        <!-- [-d OUTPUTDIR] -->
-        <svelte:component 
-            this="{OUTPUTDIRs}" 
-            bind:this="{OUTPUTDIRv}" 
-            pSectionName="outputdir"
-            pMapDoc={mapDoc[commandType][fileName].outputdir} 
-            pSFDXParameter="-d"
-        />
-        
-        <!-- [-r RESULTFORMAT] -->
-        <svelte:component 
-            this="{RESULTFORMATs}" 
-            bind:this="{RESULTFORMATv}" 
-            pSectionName="resultformat"
-            pMapDoc={mapDoc[commandType][fileName].resultformat} 
-            pSFDXParameter="-r"
-            pList={gLists.lRESULTFORMAT}
+            this="{SOBJECTTYPEs}" 
+            bind:this="{SOBJECTTYPEv}" 
+            pSectionName="sobjecttype"
+            pRequired={true}
+            pMapDoc={mapDoc[commandType][fileName].sobjecttype}
+            pSFDXParameter="-s"
+            pSectionTitle="sObject Type"
+            pTitle={mapDoc[commandType][fileName].sobjecttype.title}
+            pPlaceholder="Insert..."
+            pChecked={true}
+            pDisabled={true}
         />
         
         <!-- [-w WAIT] -->
@@ -276,16 +253,6 @@
             pSectionName="wait"
             pMapDoc={mapDoc[commandType][fileName].wait} 
             pSFDXParameter="-w"
-        />
-        
-        <!-- [--verbose] -->
-        <svelte:component 
-            this="{VERBOSEs}" 
-            bind:this="{VERBOSEv}"
-            pSectionName="verbose"
-            pMapDoc={mapDoc[commandType][fileName].verbose} 
-            pSFDXParameter="--verbose"
-            pShowSectionName={false} 
         />
 
         <!-- [ADVANCED] -->

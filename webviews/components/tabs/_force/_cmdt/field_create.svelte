@@ -221,7 +221,7 @@
         <svelte:component 
             this="{JSONs}" 
             bind:this="{JSONv}" 
-            pMapDoc={mapDoc.json}
+            pMapDoc={mapDoc[commandType][fileName].json}
             pShowSectionName={false}
         />
         
@@ -230,7 +230,7 @@
             this="{LOGLEVELs}" 
             bind:this="{LOGLEVELv}" 
             pSectionName="loglevel"
-            pMapDoc={mapDoc.loglevel} 
+            pMapDoc={mapDoc[commandType][fileName].loglevel} 
             pSFDXParameter="--loglevel"
             pList={gLists.lLOGLEVEL}
             pDefaultValue="warn"
@@ -242,10 +242,10 @@
             bind:this="{FIELDNAMEv}" 
             pSectionName="fieldname"
             pRequired={true}
-            pMapDoc={mapDoc.fieldname}
+            pMapDoc={mapDoc[commandType][fileName].fieldname}
             pSFDXParameter="-n"
             pSectionTitle="Field Name"
-            pTitle="Insert the Field Name"
+            pTitle={mapDoc[commandType][fileName].fieldname.title}
             pPlaceholder="Insert..."
             pDisabled={true}
             pChecked={true}
@@ -256,7 +256,7 @@
             this="{FIELDTYPEs}" 
             bind:this="{FIELDTYPEv}" 
             pSectionName="fieldtype"
-            pMapDoc={mapDoc.fieldtype} 
+            pMapDoc={mapDoc[commandType][fileName].fieldtype} 
             pSFDXParameter="-f"
             pList={gLists.lFIELDTYPE}
             pRequired={true}
@@ -270,10 +270,10 @@
                 this="{PICKLISTVALUESs}" 
                 bind:this="{PICKLISTVALUESv}" 
                 pSectionName="picklistvalues"
-                pMapDoc={mapDoc.picklistvalues}
+                pMapDoc={mapDoc[commandType][fileName].picklistvalues}
                 pSFDXParameter="-p"
                 pSectionTitle="Picklist Values"
-                pTitle="Insert the Picklist values (comma-separated)"
+                pTitle={mapDoc[commandType][fileName].picklistvalues.title}
                 pPlaceholder="Insert..."
                 pChecked={true}
                 pRequired={true}
@@ -287,11 +287,11 @@
                 this="{DECIMALPLACESs}" 
                 bind:this="{DECIMALPLACESv}" 
                 pSectionName="decimalplaces"
-                pMapDoc={mapDoc.decimalplaces} 
+                pMapDoc={mapDoc[commandType][fileName].decimalplaces} 
                 pSFDXParameter="-s"
                 pPlaceholder="0"
                 pValidateLessThanZero={true}
-                pTitle="The value must be greater than or equal to zero"
+                pTitle={mapDoc[commandType][fileName].decimalplaces.title}
                 pChecked={true}
                 pRequired={true}
                 pDisabled={true}
@@ -303,10 +303,10 @@
             this="{LABELs}" 
             bind:this="{LABELv}" 
             pSectionName="label"
-            pMapDoc={mapDoc.label}
+            pMapDoc={mapDoc[commandType][fileName].label}
             pSFDXParameter="-l"
             pSectionTitle="Label"
-            pTitle="Insert the custom metadata Label"
+            pTitle={mapDoc[commandType][fileName].label.title}
             pPlaceholder="Insert..."
         />
         
@@ -315,7 +315,7 @@
             this="{OUTPUTDIRs}" 
             bind:this="{OUTPUTDIRv}" 
             pSectionName="outputdir"
-            pMapDoc={mapDoc.outputdir} 
+            pMapDoc={mapDoc[commandType][fileName].outputdir} 
             pSFDXParameter="-d"
             pDefaultFolder="."
         />

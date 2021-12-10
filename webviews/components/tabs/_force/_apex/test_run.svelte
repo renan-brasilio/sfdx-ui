@@ -215,7 +215,7 @@
         <svelte:component 
             this="{JSONs}" 
             bind:this="{JSONv}" 
-            pMapDoc={mapDoc.json}
+            pMapDoc={mapDoc[commandType][fileName].json}
             pShowSectionName={false}
         />
 
@@ -224,7 +224,7 @@
             this="{LOGLEVELs}" 
             bind:this="{LOGLEVELv}" 
             pSectionName="loglevel"
-            pMapDoc={mapDoc.loglevel} 
+            pMapDoc={mapDoc[commandType][fileName].loglevel} 
             pSFDXParameter="--loglevel"
             pList={gLists.lLOGLEVEL}
             pDefaultValue="warn"
@@ -235,7 +235,7 @@
             this="{TARGETUSERNAMEs}" 
             bind:this="{TARGETUSERNAMEv}" 
             pSectionName="targetusername"
-            pMapDoc={mapDoc.targetusername} 
+            pMapDoc={mapDoc[commandType][fileName].targetusername} 
             pSFDXParameter="-u"
             pList={$lTARGETUSERNAME}
         />
@@ -245,7 +245,7 @@
             this="{APIVERSIONs}" 
             bind:this="{APIVERSIONv}" 
             pSectionName="apiversion"
-            pMapDoc={mapDoc.apiversion} 
+            pMapDoc={mapDoc[commandType][fileName].apiversion} 
             pSFDXParameter="--apiversion"
             pList={lAPIVERSION}
             pDefaultValue={dAPIVERSION}
@@ -256,7 +256,7 @@
             this="{CODECOVERAGEs}" 
             bind:this="{CODECOVERAGEv}"
             pSectionName="codecoverage"
-            pMapDoc={mapDoc.codecoverage} 
+            pMapDoc={mapDoc[commandType][fileName].codecoverage} 
             pSFDXParameter="-c"
             pShowSectionName={false} 
         />
@@ -266,7 +266,7 @@
             this="{OUTPUTDIRs}" 
             bind:this="{OUTPUTDIRv}" 
             pSectionName="outputdir"
-            pMapDoc={mapDoc.outputdir} 
+            pMapDoc={mapDoc[commandType][fileName].outputdir} 
             pSFDXParameter="-d"
             pDefaultFolder="."
         />
@@ -276,7 +276,7 @@
             this="{TESTLEVELs}" 
             bind:this="{TESTLEVELv}" 
             pSectionName="testlevel"
-            pMapDoc={mapDoc.testlevel} 
+            pMapDoc={mapDoc[commandType][fileName].testlevel} 
             pSFDXParameter="-l"
             pList={js.lTESTLEVEL}
         />
@@ -286,10 +286,10 @@
             this="{CLASSNAMEs}" 
             bind:this="{CLASSNAMEv}" 
             pSectionName="classnames"
-            pMapDoc={mapDoc.classnames}
+            pMapDoc={mapDoc[commandType][fileName].classnames}
             pSFDXParameter="-n"
             pSectionTitle="Apex Class Names"
-            pTitle="Comma-separated list of Apex test class names to run."
+            pTitle={mapDoc[commandType][fileName].classnames.title}
             pPlaceholder="Insert..."
             pRequired={true}
             pStyle="color: orange;"
@@ -301,7 +301,7 @@
             this="{RESULTFORMATs}" 
             bind:this="{RESULTFORMATv}" 
             pSectionName="resultformat"
-            pMapDoc={mapDoc.resultformat} 
+            pMapDoc={mapDoc[commandType][fileName].resultformat} 
             pSFDXParameter="-r"
             pList={gLists.lRESULTFORMAT}
         />
@@ -311,10 +311,10 @@
             this="{SUITENAMESs}" 
             bind:this="{SUITENAMESv}" 
             pSectionName="suitenames"
-            pMapDoc={mapDoc.suitenames}
+            pMapDoc={mapDoc[commandType][fileName].suitenames}
             pSFDXParameter="-s"
             pSectionTitle="Suite Names"
-            pTitle="Comma-separated list of Apex test suite names to run."
+            pTitle={mapDoc[commandType][fileName].suitenames.title}
             pPlaceholder="Insert..."
             pRequired={true}
             pStyle="color: orange;"
@@ -326,10 +326,10 @@
             this="{TESTSs}" 
             bind:this="{TESTSv}" 
             pSectionName="tests"
-            pMapDoc={mapDoc.tests}
+            pMapDoc={mapDoc[commandType][fileName].tests}
             pSFDXParameter="-t"
             pSectionTitle="Test Names"
-            pTitle="Comma-separated list of Apex test class names or IDs and, if applicable, test methods to run."
+            pTitle={mapDoc[commandType][fileName].tests.title}
             pPlaceholder="Insert..."
             pRequired={true}
             pStyle="color: orange;"
@@ -341,7 +341,7 @@
             this="{WAITs}" 
             bind:this="{WAITv}" 
             pSectionName="wait"
-            pMapDoc={mapDoc.wait} 
+            pMapDoc={mapDoc[commandType][fileName].wait} 
             pSFDXParameter="-w"
         />
         
@@ -350,7 +350,7 @@
             this="{SYNCHRONOUSs}" 
             bind:this="{SYNCHRONOUSv}"
             pSectionName="synchronous"
-            pMapDoc={mapDoc.synchronous} 
+            pMapDoc={mapDoc[commandType][fileName].synchronous} 
             pSFDXParameter="-y"
             pShowSectionName={false} 
         />
@@ -360,7 +360,7 @@
             this="{VERBOSEs}" 
             bind:this="{VERBOSEv}"
             pSectionName="verbose"
-            pMapDoc={mapDoc.verbose} 
+            pMapDoc={mapDoc[commandType][fileName].verbose} 
             pSFDXParameter="--verbose"
             pShowSectionName={false} 
         />
@@ -370,7 +370,7 @@
             this="{DETAILEDCOVERAGEs}" 
             bind:this="{DETAILEDCOVERAGEv}"
             pSectionName="detailedcoverage"
-            pMapDoc={mapDoc.detailedcoverage} 
+            pMapDoc={mapDoc[commandType][fileName].detailedcoverage} 
             pSFDXParameter="-v"
             pShowSectionName={false} 
         />

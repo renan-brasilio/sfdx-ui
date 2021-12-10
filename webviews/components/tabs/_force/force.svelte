@@ -35,6 +35,18 @@
     import Community_Create from "./_community/create.svelte"
     import Community_Publish from "./_community/publish.svelte"
     import Community_Template_List from "./_community/template_list.svelte"
+    
+    // Data
+    import Data_Bulk_Delete from "./_data/bulk_delete.svelte"
+    // import Data_Bulk_Status from "./_data/bulk_status.svelte"
+    // import Data_Bulk_Upsert from "./_data/bulk_upsert.svelte"
+    // import Data_Record_Create from "./_data/record_create.svelte"
+    // import Data_Record_Delete from "./_data/record_delete.svelte"
+    // import Data_Record_Get from "./_data/record_get.svelte"
+    // import Data_Record_Update from "./_data/record_update.svelte"
+    // import Data_SOQL_Query from "./_data/soql_query.svelte"
+    // import Data_Tree_Export from "./_data/tree_export.svelte"
+    // import Data_Tree_Import from "./_data/tree_import.svelte"
 
     // Source
     import Source_Retrieve from "./_source/retrieve.svelte";
@@ -47,6 +59,7 @@
     handleMapCommand(lists.apex, "apex");
     handleMapCommand(lists.cmdt, "cmdt");
     handleMapCommand(lists.community, "community");
+    handleMapCommand(lists.data, "data");
     handleMapCommand(lists.source, "source");
 
     export let mainFileName = "force";
@@ -197,6 +210,37 @@
             <Community_Publish />
         {:else if $mapCommand["community"]["template:list"]}
             <Community_Template_List />
+        {/if}
+    </div>
+{/if}
+
+{#if $mapForceShowSections.data}
+    <div class="sfdxet-select-theme sfdxet-absolute-center">
+        <h4>data Commands</h4>
+        <br/>
+        <Select id="data" items={lists.data} on:select={e => { handleSelect(e, "data") }} on:clear={e => { handleClear(e, "data") }} value={$mapLastValue["data"]}></Select>
+        <br/>
+        <br/>
+        {#if $mapCommand["data"]["bulk:delete"]}
+            <Data_Bulk_Delete />
+        {:else if $mapCommand["data"]["bulk:status"]}
+            <!-- <Data_Bulk_Status /> -->
+        {:else if $mapCommand["data"]["bulk:upsert"]}
+            <!-- <Data_Bulk_Upsert /> -->
+        {:else if $mapCommand["data"]["record:create"]}
+            <!-- <Data_Record_Create /> -->
+        {:else if $mapCommand["data"]["record:delete"]}
+            <!-- <Data_Record_Delete /> -->
+        {:else if $mapCommand["data"]["record:get"]}
+            <!-- <Data_Record_Get /> -->
+        {:else if $mapCommand["data"]["record:update"]}
+            <!-- <Data_Record_Update /> -->
+        {:else if $mapCommand["data"]["soql:query"]}
+            <!-- <Data_SOQL_Query /> -->
+        {:else if $mapCommand["data"]["tree:export"]}
+            <!-- <Data_Tree_Export /> -->
+        {:else if $mapCommand["data"]["tree:import"]}
+            <!-- <Data_Tree_Import /> -->
         {/if}
     </div>
 {/if}

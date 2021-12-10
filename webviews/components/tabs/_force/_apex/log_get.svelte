@@ -140,7 +140,7 @@
         <svelte:component 
             this="{JSONs}" 
             bind:this="{JSONv}" 
-            pMapDoc={mapDoc.json}
+            pMapDoc={mapDoc[commandType][fileName].json}
             pShowSectionName={false}
         />
 
@@ -149,7 +149,7 @@
             this="{LOGLEVELs}" 
             bind:this="{LOGLEVELv}" 
             pSectionName="loglevel"
-            pMapDoc={mapDoc.loglevel} 
+            pMapDoc={mapDoc[commandType][fileName].loglevel} 
             pSFDXParameter="--loglevel"
             pList={gLists.lLOGLEVEL}
             pDefaultValue="warn"
@@ -160,7 +160,7 @@
             this="{TARGETUSERNAMEs}" 
             bind:this="{TARGETUSERNAMEv}" 
             pSectionName="targetusername"
-            pMapDoc={mapDoc.targetusername} 
+            pMapDoc={mapDoc[commandType][fileName].targetusername} 
             pSFDXParameter="-u"
             pList={$lTARGETUSERNAME}
         />
@@ -170,7 +170,7 @@
             this="{APIVERSIONs}" 
             bind:this="{APIVERSIONv}" 
             pSectionName="apiversion"
-            pMapDoc={mapDoc.apiversion} 
+            pMapDoc={mapDoc[commandType][fileName].apiversion} 
             pSFDXParameter="--apiversion"
             pList={lAPIVERSION}
             pDefaultValue={dAPIVERSION}
@@ -181,10 +181,10 @@
             this="{LOGIDs}" 
             bind:this="{LOGIDv}" 
             pSectionName="logid"
-            pMapDoc={mapDoc.logid}
+            pMapDoc={mapDoc[commandType][fileName].logid}
             pSFDXParameter="-i"
             pSectionTitle="Log Id"
-            pTitle="Insert the Log Id"
+            pTitle={mapDoc[commandType][fileName].logid.title}
             pPlaceholder="Insert..."
             pMaxLength={18}
         />
@@ -194,7 +194,7 @@
             this="{NUMBERs}" 
             bind:this="{NUMBERv}" 
             pSectionName="number"
-            pMapDoc={mapDoc.number} 
+            pMapDoc={mapDoc[commandType][fileName].number} 
             pSFDXParameter="-n"
             pPlaceholder="Insert..."
         />
@@ -204,7 +204,7 @@
             this="{OUTPUTDIRs}" 
             bind:this="{OUTPUTDIRv}" 
             pSectionName="outputdir"
-            pMapDoc={mapDoc.outputdir} 
+            pMapDoc={mapDoc[commandType][fileName].outputdir} 
             pSFDXParameter="-d"
             pDefaultFolder="."
         />

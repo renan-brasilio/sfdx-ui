@@ -179,7 +179,7 @@
         <svelte:component 
             this="{JSONs}" 
             bind:this="{JSONv}" 
-            pMapDoc={mapDoc.json}
+            pMapDoc={mapDoc[commandType][fileName].json}
             pShowSectionName={false}
         />
         
@@ -188,7 +188,7 @@
             this="{LOGLEVELs}" 
             bind:this="{LOGLEVELv}" 
             pSectionName="loglevel"
-            pMapDoc={mapDoc.loglevel} 
+            pMapDoc={mapDoc[commandType][fileName].loglevel} 
             pSFDXParameter="--loglevel"
             pList={gLists.lLOGLEVEL}
             pDefaultValue="warn"
@@ -200,10 +200,10 @@
             bind:this="{TYPENAMEv}" 
             pSectionName="typename"
             pRequired={true}
-            pMapDoc={mapDoc.typename}
+            pMapDoc={mapDoc[commandType][fileName].typename}
             pSFDXParameter="-t"
             pSectionTitle="Type Name"
-            pTitle={mapDoc.typename.title}
+            pTitle={mapDoc[commandType][fileName].typename.title}
             pPlaceholder="Insert..."
             pChecked={true}
             pDisabled={true}
@@ -215,10 +215,10 @@
             bind:this="{RECORDNAMEv}" 
             pSectionName="recordname"
             pRequired={true}
-            pMapDoc={mapDoc.recordname}
+            pMapDoc={mapDoc[commandType][fileName].recordname}
             pSFDXParameter="-n"
             pSectionTitle="Record Name"
-            pTitle={mapDoc.recordname.title}
+            pTitle={mapDoc[commandType][fileName].recordname.title}
             pPlaceholder="Insert..."
             pChecked={true}
             pDisabled={true}
@@ -229,10 +229,10 @@
             this="{LABELs}" 
             bind:this="{LABELv}" 
             pSectionName="label"
-            pMapDoc={mapDoc.label}
+            pMapDoc={mapDoc[commandType][fileName].label}
             pSFDXParameter="-l"
             pSectionTitle="Label"
-            pTitle={mapDoc.label.title}
+            pTitle={mapDoc[commandType][fileName].label.title}
             pPlaceholder="Insert..."
         />
 
@@ -241,7 +241,7 @@
             this="{PROTECTEDs}" 
             bind:this="{PROTECTEDv}" 
             pSectionName="protected"
-            pMapDoc={mapDoc.protected} 
+            pMapDoc={mapDoc[commandType][fileName].protected} 
             pSFDXParameter="-p"
             pList={gLists.lBoolean}
             pDefaultValue="false"
@@ -252,7 +252,7 @@
             this="{INPUTDIRs}" 
             bind:this="{INPUTDIRv}" 
             pSectionName="inputdir"
-            pMapDoc={mapDoc.inputdir} 
+            pMapDoc={mapDoc[commandType][fileName].inputdir} 
             pSFDXParameter="-i"
             pDefaultFolder="force-app/main/default/objects"
         />
@@ -262,7 +262,7 @@
             this="{OUTPUTDIRs}" 
             bind:this="{OUTPUTDIRv}" 
             pSectionName="outputdir"
-            pMapDoc={mapDoc.outputdirMetadata} 
+            pMapDoc={mapDoc[commandType][fileName].outputdir} 
             pSFDXParameter="-d"
             pDefaultFolder="force-app/main/default/customMetadata"
         />

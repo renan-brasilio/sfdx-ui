@@ -185,7 +185,7 @@
         <svelte:component 
             this="{JSONs}" 
             bind:this="{JSONv}" 
-            pMapDoc={mapDoc.json}
+            pMapDoc={mapDoc[commandType][fileName].json}
             pShowSectionName={false}
         />
         
@@ -194,7 +194,7 @@
             this="{LOGLEVELs}" 
             bind:this="{LOGLEVELv}" 
             pSectionName="loglevel"
-            pMapDoc={mapDoc.loglevel} 
+            pMapDoc={mapDoc[commandType][fileName].loglevel} 
             pSFDXParameter="--loglevel"
             pList={gLists.lLOGLEVEL}
             pDefaultValue="warn"
@@ -205,7 +205,7 @@
             this="{TARGETUSERNAMEs}" 
             bind:this="{TARGETUSERNAMEv}" 
             pSectionName="targetusername"
-            pMapDoc={mapDoc.targetusername} 
+            pMapDoc={mapDoc[commandType][fileName].targetusername} 
             pSFDXParameter="-u"
             pList={$lTARGETUSERNAME}
         />
@@ -215,7 +215,7 @@
             this="{APIVERSIONs}" 
             bind:this="{APIVERSIONv}" 
             pSectionName="apiversion"
-            pMapDoc={mapDoc.apiversion} 
+            pMapDoc={mapDoc[commandType][fileName].apiversion} 
             pSFDXParameter="--apiversion"
             pList={lAPIVERSION}
             pDefaultValue={dAPIVERSION}
@@ -227,10 +227,10 @@
             bind:this="{NAMEv}" 
             pSectionName="name"
             pRequired={true}
-            pMapDoc={mapDoc.name}
+            pMapDoc={mapDoc[commandType][fileName].name}
             pSFDXParameter="-n"
             pSectionTitle="Community Name"
-            pTitle={mapDoc.name.title}
+            pTitle={mapDoc[commandType][fileName].name.title}
             pPlaceholder="Insert..."
             pChecked={true}
             pDisabled={true}
@@ -241,10 +241,10 @@
             this="{TEMPLATENAMEs}" 
             bind:this="{TEMPLATENAMEv}" 
             pSectionName="templatename"
-            pMapDoc={mapDoc.templatenameCommunity}
+            pMapDoc={mapDoc[commandType][fileName].templatename}
             pSFDXParameter="-t"
             pSectionTitle="Template Name"
-            pTitle={mapDoc.templatenameCommunity.title}
+            pTitle={mapDoc[commandType][fileName].templatename.title}
             pPlaceholder="Insert..."
             pRequired={true}
             pChecked={true}
@@ -256,10 +256,10 @@
             this="{URLPATHPREFIXs}" 
             bind:this="{URLPATHPREFIXv}" 
             pSectionName="urlpathprefix"
-            pMapDoc={mapDoc.urlpathprefix}
+            pMapDoc={mapDoc[commandType][fileName].urlpathprefix}
             pSFDXParameter="-p"
             pSectionTitle="URL Path Prefix"
-            pTitle={mapDoc.urlpathprefix.title}
+            pTitle={mapDoc[commandType][fileName].urlpathprefix.title}
             pPlaceholder="Insert..."
             pRequired={true}
             pChecked={true}
@@ -271,10 +271,10 @@
             this="{DESCRIPTIONs}" 
             bind:this="{DESCRIPTIONv}" 
             pSectionName="description"
-            pMapDoc={mapDoc.description}
+            pMapDoc={mapDoc[commandType][fileName].description}
             pSFDXParameter="-d"
             pSectionTitle="Description"
-            pTitle={mapDoc.description.title}
+            pTitle={mapDoc[commandType][fileName].description.title}
             pPlaceholder="Insert..."
         />
 

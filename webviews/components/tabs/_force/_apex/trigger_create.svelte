@@ -158,6 +158,10 @@
     const lTEMPLATE = [
         {value: "ApexTrigger", label: "ApexTrigger"},
     ];
+
+    console.log(`commandType: ${commandType}`);
+    console.log(`fileName: ${fileName}`);
+    console.log(`mapDoc[commandType][fileName]: ${JSON.stringify(mapDoc[commandType][fileName])}`);
 </script>
 
 <WebviewListener fileName={fileName} commandType={commandType} showCommand={showFileNameUpper}/>
@@ -182,7 +186,7 @@
         <svelte:component 
             this="{JSONs}" 
             bind:this="{JSONv}" 
-            pMapDoc={mapDoc.json}
+            pMapDoc={mapDoc[commandType][fileName].json}
             pShowSectionName={false}
         />
         
@@ -191,7 +195,7 @@
             this="{LOGLEVELs}" 
             bind:this="{LOGLEVELv}" 
             pSectionName="loglevel"
-            pMapDoc={mapDoc.loglevel} 
+            pMapDoc={mapDoc[commandType][fileName].loglevel} 
             pSFDXParameter="--loglevel"
             pList={gLists.lLOGLEVEL}
             pDefaultValue="warn"
@@ -203,10 +207,10 @@
             bind:this="{TRIGGERNAMEv}" 
             pSectionName="triggername"
             pRequired={true}
-            pMapDoc={mapDoc.triggername}
+            pMapDoc={mapDoc[commandType][fileName].triggername}
             pSFDXParameter="-n"
             pSectionTitle="Apex Trigger Name"
-            pTitle="Insert the Name of the New Apex Trigger"
+            pTitle={mapDoc[commandType][fileName].triggername.title}
             pPlaceholder="Insert..."
             pMaxLength={40}
             pChecked={true}
@@ -218,7 +222,7 @@
             this="{TEMPLATEs}" 
             bind:this="{TEMPLATEv}" 
             pSectionName="template"
-            pMapDoc={mapDoc.templateTrigger} 
+            pMapDoc={mapDoc[commandType][fileName].template} 
             pSFDXParameter="-t"
             pList={lTEMPLATE}
             pDefaultValue="ApexTrigger"
@@ -229,7 +233,7 @@
             this="{OUTPUTDIRs}" 
             bind:this="{OUTPUTDIRv}" 
             pSectionName="outputdir"
-            pMapDoc={mapDoc.outputdir} 
+            pMapDoc={mapDoc[commandType][fileName].outputdir} 
             pSFDXParameter="-d"
             pDefaultFolder="."
         />
@@ -239,7 +243,7 @@
             this="{APIVERSIONs}" 
             bind:this="{APIVERSIONv}" 
             pSectionName="apiversion"
-            pMapDoc={mapDoc.apiversion} 
+            pMapDoc={mapDoc[commandType][fileName].apiversion} 
             pSFDXParameter="--apiversion"
             pList={lAPIVERSION}
             pDefaultValue={dAPIVERSION}
@@ -250,10 +254,10 @@
             this="{SOBJECTs}" 
             bind:this="{SOBJECTv}" 
             pSectionName="sobject"
-            pMapDoc={mapDoc.sobject}
+            pMapDoc={mapDoc[commandType][fileName].sobject}
             pSFDXParameter="-s"
             pSectionTitle="SObject API Name"
-            pTitle="Insert the API of the target SObject"
+            pTitle={mapDoc[commandType][fileName].sobject.title}
             pPlaceholder="SObject"
             pMaxLength={40}
             pDefaultValue="SObject"
@@ -264,7 +268,7 @@
             this="{TRIGGEREVENTSs}" 
             bind:this="{TRIGGEREVENTSv}" 
             pSectionName="triggerevents"
-            pMapDoc={mapDoc.triggerevents} 
+            pMapDoc={mapDoc[commandType][fileName].triggerevents} 
             pSFDXParameter="-e"
             pList={gLists.lTRIGGEREVENTS}
             pIsMulti={true}

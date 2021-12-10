@@ -140,7 +140,7 @@
         <svelte:component 
             this="{JSONs}" 
             bind:this="{JSONv}" 
-            pMapDoc={mapDoc.json}
+            pMapDoc={mapDoc[commandType][fileName].json}
             pShowSectionName={false}
         />
 
@@ -149,7 +149,7 @@
             this="{LOGLEVELs}" 
             bind:this="{LOGLEVELv}" 
             pSectionName="loglevel"
-            pMapDoc={mapDoc.loglevel} 
+            pMapDoc={mapDoc[commandType][fileName].loglevel} 
             pSFDXParameter="--loglevel"
             pList={gLists.lLOGLEVEL}
             pDefaultValue="warn"
@@ -160,7 +160,7 @@
             this="{TARGETUSERNAMEs}" 
             bind:this="{TARGETUSERNAMEv}" 
             pSectionName="targetusername"
-            pMapDoc={mapDoc.targetusername} 
+            pMapDoc={mapDoc[commandType][fileName].targetusername} 
             pSFDXParameter="-u"
             pList={$lTARGETUSERNAME}
         />
@@ -170,7 +170,7 @@
             this="{APIVERSIONs}" 
             bind:this="{APIVERSIONv}" 
             pSectionName="apiversion"
-            pMapDoc={mapDoc.apiversion} 
+            pMapDoc={mapDoc[commandType][fileName].apiversion} 
             pSFDXParameter="--apiversion"
             pList={lAPIVERSION}
             pDefaultValue={dAPIVERSION}
@@ -181,7 +181,7 @@
             this="{COLORs}" 
             bind:this="{COLORv}"
             pSectionName="color"
-            pMapDoc={mapDoc.color} 
+            pMapDoc={mapDoc[commandType][fileName].color} 
             pSFDXParameter="-c"
             pShowSectionName={false} 
         />
@@ -191,7 +191,7 @@
             this="{DEBUGLEVELs}" 
             bind:this="{DEBUGLEVELv}" 
             pSectionName="debuglevel"
-            pMapDoc={mapDoc.debuglevel} 
+            pMapDoc={mapDoc[commandType][fileName].debuglevel} 
             pSFDXParameter="-d"
             pList={gLists.lDEBUGLEVEL}
         />
@@ -201,7 +201,7 @@
             this="{SKIPTRACEFLAGs}" 
             bind:this="{SKIPTRACEFLAGv}"
             pSectionName="skiptraceflag"
-            pMapDoc={mapDoc.skiptraceflag} 
+            pMapDoc={mapDoc[commandType][fileName].skiptraceflag} 
             pSFDXParameter="-s"
             pShowSectionName={false} 
         />

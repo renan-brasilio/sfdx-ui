@@ -175,7 +175,7 @@
         <svelte:component 
             this="{JSONs}" 
             bind:this="{JSONv}" 
-            pMapDoc={mapDoc.json}
+            pMapDoc={mapDoc[commandType][fileName].json}
             pShowSectionName={false}
         />
         
@@ -184,7 +184,7 @@
             this="{LOGLEVELs}" 
             bind:this="{LOGLEVELv}" 
             pSectionName="loglevel"
-            pMapDoc={mapDoc.loglevel} 
+            pMapDoc={mapDoc[commandType][fileName].loglevel} 
             pSFDXParameter="--loglevel"
             pList={gLists.lLOGLEVEL}
             pDefaultValue="warn"
@@ -195,7 +195,7 @@
             this="{FILEPATHs}" 
             bind:this="{FILEPATHv}" 
             pSectionName="filepath"
-            pMapDoc={mapDoc.filepath} 
+            pMapDoc={mapDoc[commandType][fileName].filepath} 
             pSFDXParameter="-f"
             pPlaceholder="Insert..."
             pButtonText="Select CSV File"
@@ -210,10 +210,10 @@
             bind:this="{TYPENAMEv}" 
             pSectionName="typename"
             pRequired={true}
-            pMapDoc={mapDoc.typenameRecIns}
+            pMapDoc={mapDoc[commandType][fileName].typename}
             pSFDXParameter="-t"
             pSectionTitle="Type Name"
-            pTitle={mapDoc.typename.title}
+            pTitle={mapDoc[commandType][fileName].typename.title}
             pPlaceholder="Insert..."
             pChecked={true}
             pDisabled={true}
@@ -224,7 +224,7 @@
             this="{INPUTDIRs}" 
             bind:this="{INPUTDIRv}" 
             pSectionName="inputdir"
-            pMapDoc={mapDoc.inputdir} 
+            pMapDoc={mapDoc[commandType][fileName].inputdir} 
             pSFDXParameter="-i"
             pDefaultFolder="force-app/main/default/objects"
         />
@@ -234,7 +234,7 @@
             this="{OUTPUTDIRs}" 
             bind:this="{OUTPUTDIRv}" 
             pSectionName="outputdir"
-            pMapDoc={mapDoc.outputdirMetadata} 
+            pMapDoc={mapDoc[commandType][fileName].outputdir} 
             pSFDXParameter="-d"
             pDefaultFolder="force-app/main/default/customMetadata"
         />
@@ -244,10 +244,10 @@
             this="{NAMECOLUMNs}" 
             bind:this="{NAMECOLUMNv}" 
             pSectionName="namecolumn"
-            pMapDoc={mapDoc.namecolumn}
+            pMapDoc={mapDoc[commandType][fileName].namecolumn}
             pSFDXParameter="-n"
             pSectionTitle="Name Column"
-            pTitle={mapDoc.namecolumn.title}
+            pTitle={mapDoc[commandType][fileName].namecolumn.title}
             pPlaceholder="Insert..."
         />
 

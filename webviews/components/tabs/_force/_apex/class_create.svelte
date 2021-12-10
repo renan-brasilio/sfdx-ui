@@ -184,7 +184,7 @@
         <svelte:component 
             this="{JSONs}" 
             bind:this="{JSONv}" 
-            pMapDoc={mapDoc.json}
+            pMapDoc={mapDoc[commandType][fileName].json}
             pShowSectionName={false}
         />
         
@@ -193,7 +193,7 @@
             this="{LOGLEVELs}" 
             bind:this="{LOGLEVELv}" 
             pSectionName="loglevel"
-            pMapDoc={mapDoc.loglevel} 
+            pMapDoc={mapDoc[commandType][fileName].loglevel} 
             pSFDXParameter="--loglevel"
             pList={gLists.lLOGLEVEL}
             pDefaultValue="warn"
@@ -205,10 +205,10 @@
             bind:this="{CLASSNAMEv}" 
             pSectionName="classname"
             pRequired={true}
-            pMapDoc={mapDoc.classname}
+            pMapDoc={mapDoc[commandType][fileName].classname}
             pSFDXParameter="-n"
             pSectionTitle="Apex Class Name"
-            pTitle="Insert the Name of the New Apex Class"
+            pTitle={mapDoc[commandType][fileName].classname}
             pPlaceholder="Insert..."
             pMaxLength={40}
             pChecked={true}
@@ -220,7 +220,7 @@
             this="{TEMPLATEs}" 
             bind:this="{TEMPLATEv}" 
             pSectionName="template"
-            pMapDoc={mapDoc.templateClass} 
+            pMapDoc={mapDoc[commandType][fileName].template} 
             pSFDXParameter="-t"
             pList={gLists.lTEMPLATE}
             pDefaultValue="DefaultApexClass"
@@ -231,7 +231,7 @@
             this="{OUTPUTDIRs}" 
             bind:this="{OUTPUTDIRv}" 
             pSectionName="outputdir"
-            pMapDoc={mapDoc.outputdir} 
+            pMapDoc={mapDoc[commandType][fileName].outputdir} 
             pSFDXParameter="-d"
             pDefaultFolder="."
         />
@@ -241,7 +241,7 @@
             this="{APIVERSIONs}" 
             bind:this="{APIVERSIONv}" 
             pSectionName="apiversion"
-            pMapDoc={mapDoc.apiversion} 
+            pMapDoc={mapDoc[commandType][fileName].apiversion} 
             pSFDXParameter="--apiversion"
             pList={lAPIVERSION}
             pDefaultValue={dAPIVERSION}
