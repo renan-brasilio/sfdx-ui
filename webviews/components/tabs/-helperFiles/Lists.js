@@ -4,7 +4,7 @@ export const force = [
     {value: "cmdt", label: "cmdt"},
     {value: "community", label: "community"},
     {value: "data", label: "data"},
-    // {value: "lightning", label: "lightning"},
+    {value: "lightning", label: "lightning"},
     // {value: "limits", label: "limits"},
     // {value: "mdapi", label: "mdapi"},
     // {value: "org", label: "org"},
@@ -58,6 +58,17 @@ export const community = [
     {value: "create", label: "create"},
     {value: "publish", label: "publish"},
     {value: "template:list", label: "template:list"},
+];
+
+export const lightning = [
+    {value: "app:create", label: "app:create"},
+    {value: "component:create", label: "component:create"},
+    {value: "event:create", label: "event:create"},
+    {value: "interface:create", label: "interface:create"},
+    {value: "lwc:test:create", label: "lwc:test:create"},
+    {value: "lwc:test:run", label: "lwc:test:run"},
+    {value: "lwc:test:setup", label: "lwc:test:setup"},
+    {value: "test:create", label: "test:create"},
 ];
 
 export const source = [
@@ -150,4 +161,31 @@ export const lFIELDTYPE = [
 export const lBoolean = [
     {value: "true", label: "true"},
     {value: "false", label: "false"},
+];
+
+export let lTemplate = {
+    lightning: {
+        app_create: [
+            {value: "DefaultLightningApp", label: "DefaultLightningApp"},
+        ],
+        component_create: [
+            {value: "default", label: "default"},
+            {value: "analyticsDashboard", label: "analyticsDashboard"},
+            {value: "analyticsDashboardWithStep", label: "analyticsDashboardWithStep"},
+        ],
+        event_create: [
+            {value: "DefaultLightningEvt", label: "DefaultLightningEvt"},
+        ],
+        interface_create: [
+            {value: "DefaultLightningIntf", label: "DefaultLightningIntf"},
+        ],
+        test_create: [
+            {value: "DefaultLightningTest", label: "DefaultLightningTest"},
+        ],
+    }
+};
+
+export const lTYPE = [
+    {value: "aura", label: "aura"},
+    {value: "lwc", label: "lwc"},
 ];

@@ -2034,6 +2034,414 @@ export let mapDoc = {
             },
         }, 
     },
+    lightning: {
+        app_create: {
+            json: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Format output as JSON.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Format output as JSON.`
+            },
+            loglevel: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>            
+                    The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.<br/><br/>
+                    Type: enum<br/>
+                    Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                    Default value: warn
+                `,
+                title: `The logging level for this command invocation.`
+            },
+            appname: {
+                type: `<b>Required</b>`,
+                body: `
+                    <br/><br/>
+                    The Lightning app name. The name can be up to 40 characters and must start with a letter.<br/><br/>
+                    Type: string
+                `,
+                title: `The Lightning app name. The name can be up to 40 characters and must start with a letter.`
+            },
+            template: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    The template to use to create the file. Supplied parameter values or default values are filled into a copy of the template.<br/><br/>
+                    Type: string<br/>
+                    Permissible values are: DefaultLightningApp<br/>
+                    Default value: DefaultLightningApp
+                `,
+                title: `The template to use to create the file.`
+            },
+            outputdir: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    The directory to store the newly created files. The location can be an absolute path or relative to the current working directory. The default is the current directory.<br/><br/>
+                    Type: string<br/>
+                    Default value: .
+                `,
+                title: `The directory to store the newly created files.`
+            },
+            apiversion: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Override the API version used for API requests made by this command.
+                    <br/><br/>
+                    Type: string
+                `,
+                title: `Override the API version used for API requests made by this command.`
+            },
+        },
+        component_create: {
+            json: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Format output as JSON.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Format output as JSON.`
+            },
+            loglevel: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>            
+                    The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.<br/><br/>
+                    Type: enum<br/>
+                    Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                    Default value: warn
+                `,
+                title: `The logging level for this command invocation.`
+            },
+            componentname: {
+                type: `<b>Required</b>`,
+                body: `
+                    <br/><br/>
+                    The Lightning component name. The name can be up to 40 characters and must start with a letter.<br/><br/>
+                    Type: string
+                `,
+                title: `The Lightning component name.`
+            },
+            template: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    The template to use to create the file. Supplied parameter values or default values are filled into a copy of the template.<br/><br/>
+                    Type: string<br/>
+                    Permissible values are: default, analyticsDashboard, analyticsDashboardWithStep<br/>
+                    Default value: default
+                `,
+                title: `The template to use to create the file.`
+            },
+            outputdir: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    The directory to store the newly created files. The location can be an absolute path or relative to the current working directory. The default is the current directory.<br/><br/>
+                    Type: string<br/>
+                    Default value: .
+                `,
+                title: `The directory to store the newly created files.`
+            },
+            apiversion: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Override the API version used for API requests made by this command.
+                    <br/><br/>
+                    Type: string
+                `,
+                title: `Override the API version used for API requests made by this command.`
+            },
+            type: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    The type of the new Lightning component.<br/><br/>
+                    Type: string<br/>
+                    Permissible values are: aura, lwc<br/>
+                    Default value: aura
+                `,
+                title: `The type of the new Lightning component.`
+            },
+        },
+        event_create: {
+            json: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Format output as JSON.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Format output as JSON.`
+            },
+            loglevel: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>            
+                    The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.<br/><br/>
+                    Type: enum<br/>
+                    Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                    Default value: warn
+                `,
+                title: `The logging level for this command invocation.`
+            },
+            eventname: {
+                type: `<b>Required</b>`,
+                body: `
+                    <br/><br/>
+                    The Lightning event name. The name can be up to 40 characters and must start with a letter.<br/><br/>
+                    Type: string
+                `,
+                title: `The Lightning event name.`
+            },
+            template: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    The template to use to create the file. Supplied parameter values or default values are filled into a copy of the template.<br/><br/>
+                    Type: string<br/>
+                    Permissible values are: DefaultLightningEvt<br/>
+                    Default value: DefaultLightningEvt
+                `,
+                title: `The template to use to create the file.`
+            },
+            outputdir: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    The directory to store the newly created files. The location can be an absolute path or relative to the current working directory. The default is the current directory.<br/><br/>
+                    Type: string<br/>
+                    Default value: .
+                `,
+                title: `The directory to store the newly created files.`
+            },
+            apiversion: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Override the API version used for API requests made by this command.
+                    <br/><br/>
+                    Type: string
+                `,
+                title: `Override the API version used for API requests made by this command.`
+            },
+        },
+        interface_create: {
+            json: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Format output as JSON.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Format output as JSON.`
+            },
+            loglevel: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>            
+                    The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.<br/><br/>
+                    Type: enum<br/>
+                    Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                    Default value: warn
+                `,
+                title: `The logging level for this command invocation.`
+            },
+            interfacename: {
+                type: `<b>Required</b>`,
+                body: `
+                    <br/><br/>
+                    The Lightning interface name. The name can be up to 40 characters and must start with a letter.<br/><br/>
+                    Type: string
+                `,
+                title: `The Lightning interface name.`
+            },
+            template: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    The template to use to create the file. Supplied parameter values or default values are filled into a copy of the template.<br/><br/>
+                    Type: string<br/>
+                    Permissible values are: DefaultLightningIntf<br/>
+                    Default value: DefaultLightningIntf
+                `,
+                title: `The template to use to create the file.`
+            },
+            outputdir: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    The directory to store the newly created files. The location can be an absolute path or relative to the current working directory. The default is the current directory.<br/><br/>
+                    Type: string<br/>
+                    Default value: .
+                `,
+                title: `The directory to store the newly created files.`
+            },
+            apiversion: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Override the API version used for API requests made by this command.
+                    <br/><br/>
+                    Type: string
+                `,
+                title: `Override the API version used for API requests made by this command.`
+            },
+        },
+        lwc_test_create: {
+            json: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Format output as JSON.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Format output as JSON.`
+            },
+            loglevel: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>            
+                    The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.<br/><br/>
+                    Type: enum<br/>
+                    Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                    Default value: warn
+                `,
+                title: `The logging level for this command invocation.`
+            },
+            filepath: {
+                type: `<b>Required</b>`,
+                body: `
+                    <br/><br/>
+                    Path to Lightning web component .js file to create a test for.<br/><br/>
+                    Type: string
+                `,
+                title: `Path to Lightning web component .js file to create a test for.`
+            },
+        },
+        lwc_test_run: {
+            json: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Format output as JSON.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Format output as JSON.`
+            },
+            loglevel: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>            
+                    The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.<br/><br/>
+                    Type: enum<br/>
+                    Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                    Default value: warn
+                `,
+                title: `The logging level for this command invocation.`
+            },
+            debug: {
+                type: `<b><i>Optional</i><</b>`,
+                body: `
+                    <br/><br/>
+                    Runs tests in a Node process that an external debugger can connect to. The run pauses until the debugger is connected. For more information, see: https://jestjs.io/docs/en/troubleshooting<br/><br/>
+                    Type: boolean
+                `,
+                title: `Runs tests in a Node process that an external debugger can connect to.`
+            },
+            watch: {
+                type: `<b><i>Optional</i><</b>`,
+                body: `
+                    <br/><br/>
+                    Runs tests when a watched file changes. Watched files include the component under test and any files it references.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Runs tests when a watched file changes.`
+            },
+        },
+        lwc_test_setup: {
+            json: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Format output as JSON.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Format output as JSON.`
+            },
+            loglevel: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>            
+                    The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.<br/><br/>
+                    Type: enum<br/>
+                    Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                    Default value: warn
+                `,
+                title: `The logging level for this command invocation.`
+            },
+        },
+        test_create: {
+            json: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Format output as JSON.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Format output as JSON.`
+            },
+            loglevel: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>            
+                    The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.<br/><br/>
+                    Type: enum<br/>
+                    Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                    Default value: warn
+                `,
+                title: `The logging level for this command invocation.`
+            },
+            testname: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>            
+                    The name of the new Lightning test. Logs are stored in $HOME/.sfdx/sfdx.log.<br/><br/>
+                    Type: enum<br/>
+                    Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                    Default value: warn
+                `,
+                title: `The name of the new Lightning test.`
+            },
+            template: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    The template to use to create the file. Supplied parameter values or default values are filled into a copy of the template.<br/><br/>
+                    Type: string<br/>
+                    Permissible values are: DefaultLightningTest<br/>
+                    Default value: DefaultLightningTest
+                `,
+                title: `The template to use to create the file.`
+            },
+            outputdir: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    The directory to store the newly created files. The location can be an absolute path or relative to the current working directory. The default is the current directory.<br/><br/>
+                    Type: string<br/>
+                    Default value: .
+                `,
+                title: `The directory to store the newly created files.`
+            },
+        },
+    },
     advanced: {
         type: `<b><i>Optional</i></b>`,
         body: `

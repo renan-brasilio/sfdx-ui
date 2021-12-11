@@ -47,6 +47,16 @@
     import Data_SOQL_Query from "./_data/soql_query.svelte"
     import Data_Tree_Export from "./_data/tree_export.svelte"
     import Data_Tree_Import from "./_data/tree_import.svelte"
+    
+    // Lightning
+    import Lightning_App_Create from "./_lightning/app_create.svelte"
+    import Lightning_Component_Create from "./_lightning/component_create.svelte"
+    import Lightning_Event_Create from "./_lightning/event_create.svelte"
+    import Lightning_Interface_Create from "./_lightning/interface_create.svelte"
+    import Lightning_LWC_Test_Create from "./_lightning/lwc_test_create.svelte"
+    import Lightning_LWC_Test_Run from "./_lightning/lwc_test_run.svelte"
+    import Lightning_LWC_Test_Setup from "./_lightning/lwc_test_setup.svelte"
+    import Lightning_Test_Create from "./_lightning/test_create.svelte"
 
     // Source
     import Source_Retrieve from "./_source/retrieve.svelte";
@@ -60,6 +70,7 @@
     handleMapCommand(lists.cmdt, "cmdt");
     handleMapCommand(lists.community, "community");
     handleMapCommand(lists.data, "data");
+    handleMapCommand(lists.lightning, "lightning");
     handleMapCommand(lists.source, "source");
 
     export let mainFileName = "force";
@@ -241,6 +252,33 @@
             <Data_Tree_Export />
         {:else if $mapCommand["data"]["tree:import"]}
             <Data_Tree_Import />
+        {/if}
+    </div>
+{/if}
+
+{#if $mapForceShowSections.lightning}
+    <div class="sfdxet-select-theme sfdxet-absolute-center">
+        <h4>lightning Commands</h4>
+        <br/>
+        <Select id="lightning" items={lists.lightning} on:select={e => { handleSelect(e, "lightning") }} on:clear={e => { handleClear(e, "lightning") }} value={$mapLastValue["lightning"]}></Select>
+        <br/>
+        <br/>
+        {#if $mapCommand["lightning"]["app:create"]}
+            <Lightning_App_Create />
+        {:else if $mapCommand["lightning"]["component:create"]}
+            <Lightning_Component_Create />
+        {:else if $mapCommand["lightning"]["event:create"]}
+            <Lightning_Event_Create />
+        {:else if $mapCommand["lightning"]["interface:create"]}
+            <Lightning_Interface_Create />
+        {:else if $mapCommand["lightning"]["lwc:test:create"]}
+            <Lightning_LWC_Test_Create />
+        {:else if $mapCommand["lightning"]["lwc:test:run"]}
+            <Lightning_LWC_Test_Run />
+        {:else if $mapCommand["lightning"]["lwc:test:setup"]}
+            <Lightning_LWC_Test_Setup />
+        {:else if $mapCommand["lightning"]["test:create"]}
+            <Lightning_Test_Create />
         {/if}
     </div>
 {/if}
