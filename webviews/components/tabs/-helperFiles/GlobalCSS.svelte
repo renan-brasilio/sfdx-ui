@@ -1,6 +1,6 @@
 <style>
     :global(.sfdxet-buttons) {
-        max-width: 120px;
+        max-width: 150px;
         border-radius: 5px;
     }
     

@@ -5,7 +5,7 @@ export const force = [
     {value: "community", label: "community"},
     {value: "data", label: "data"},
     {value: "lightning", label: "lightning"},
-    // {value: "limits", label: "limits"},
+    {value: "limits", label: "limits"},
     // {value: "mdapi", label: "mdapi"},
     // {value: "org", label: "org"},
     // {value: "package", label: "package"},
@@ -69,6 +69,11 @@ export const lightning = [
     {value: "lwc:test:run", label: "lwc:test:run"},
     {value: "lwc:test:setup", label: "lwc:test:setup"},
     {value: "test:create", label: "test:create"},
+];
+
+export const limits = [
+    {value: "api:display", label: "api:display"},
+    {value: "recordcounts:display", label: "recordcounts:display"},
 ];
 
 export const source = [

@@ -2442,6 +2442,101 @@ export let mapDoc = {
             },
         },
     },
+    limits: {
+        api_display: {
+            json: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Format output as JSON.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Format output as JSON.`
+            },
+            loglevel: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>            
+                    The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.
+                    <br/><br/>
+                    Type: enum<br/>
+                    Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                    Default value: warn
+                `,
+                title: `The logging level for this command invocation.`
+            },
+            targetusername: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>            
+                    A username or alias for the target org. Overrides the default target org.<br/><br/>
+                    Type: string
+                `,
+                title: `A username or alias for the target org. Overrides the default target org.`
+            },
+            apiversion: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Override the API version used for API requests made by this command.
+                    <br/><br/>
+                    Type: string
+                `,
+                title: `Override the API version used for API requests made by this command.`
+            },
+        },
+        recordcounts_display: {
+            json: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Format output as JSON.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Format output as JSON.`
+            },
+            loglevel: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>            
+                    The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.
+                    <br/><br/>
+                    Type: enum<br/>
+                    Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                    Default value: warn
+                `,
+                title: `The logging level for this command invocation.`
+            },
+            targetusername: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>            
+                    A username or alias for the target org. Overrides the default target org.<br/><br/>
+                    Type: string
+                `,
+                title: `A username or alias for the target org. Overrides the default target org.`
+            },
+            apiversion: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Override the API version used for API requests made by this command.
+                    <br/><br/>
+                    Type: string
+                `,
+                title: `Override the API version used for API requests made by this command.`
+            },
+            sobjecttype: {
+                type: `<b>Required</b>`,
+                body: `
+                    <br/><br/>
+                    Comma-separated list of API names of standard or custom objects for which to display record counts.<br/><br/>
+                    Type: string
+                `,
+                title: `Comma-separated list of API names of standard or custom objects for which to display record counts.`
+            },
+        }
+    },
     advanced: {
         type: `<b><i>Optional</i></b>`,
         body: `

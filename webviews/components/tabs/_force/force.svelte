@@ -58,6 +58,10 @@
     import Lightning_LWC_Test_Setup from "./_lightning/lwc_test_setup.svelte"
     import Lightning_Test_Create from "./_lightning/test_create.svelte"
 
+    // Limits
+    import Limits_API_Display from "./_limits/api_display.svelte"
+    import Limits_RecordCounts_Display from "./_limits/recordcounts_display.svelte"
+
     // Source
     import Source_Retrieve from "./_source/retrieve.svelte";
     import Source_Convert from "./_source/convert.svelte";
@@ -71,6 +75,7 @@
     handleMapCommand(lists.community, "community");
     handleMapCommand(lists.data, "data");
     handleMapCommand(lists.lightning, "lightning");
+    handleMapCommand(lists.limits, "limits");
     handleMapCommand(lists.source, "source");
 
     export let mainFileName = "force";
@@ -279,6 +284,21 @@
             <Lightning_LWC_Test_Setup />
         {:else if $mapCommand["lightning"]["test:create"]}
             <Lightning_Test_Create />
+        {/if}
+    </div>
+{/if}
+
+{#if $mapForceShowSections.limits}
+    <div class="sfdxet-select-theme sfdxet-absolute-center">
+        <h4>limits Commands</h4>
+        <br/>
+        <Select id="limits" items={lists.limits} on:select={e => { handleSelect(e, "limits") }} on:clear={e => { handleClear(e, "limits") }} value={$mapLastValue["limits"]}></Select>
+        <br/>
+        <br/>
+        {#if $mapCommand["limits"]["api:display"]}
+            <Limits_API_Display />
+        {:else if $mapCommand["limits"]["recordcounts:display"]}
+            <Limits_RecordCounts_Display />
         {/if}
     </div>
 {/if}
