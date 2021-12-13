@@ -1,8 +1,10 @@
 {
-  "name": "sfdx-easy-tools",
+  "name": "sfdx-ui",
   "displayName": "SFDX UI",
-  "description": "SFDX Made Easy",
-  "version": "0.0.1",
+  "description": "SFDX UI For Easy Commands",
+  "version": "0.2.4",
+  "repository": "https://github.com/renan-brasilio/sfdx-ui",
+  "publisher": "renan-brasilio",
   "engines": {
     "vscode": "^1.61.0"
   },
@@ -10,24 +12,24 @@
     "Other"
   ],
   "activationEvents": [
-    "onView:sfdx-easy-tools-sidebar"
+    "onView:sfdx-ui-sidebar"
   ],
   "main": "./dist/extension.js",
   "contributes": {
     "viewsContainers": {
       "activitybar": [
         {
-          "id": "sfdx-easy-tools-sidebar-view",
+          "id": "sfdx-ui-sidebar-view",
           "title": "SFDX UI",
           "icon": "media/SFDXEasy.svg"
         }
       ]
     },
     "views": {
-      "sfdx-easy-tools-sidebar-view": [
+      "sfdx-ui-sidebar-view": [
         {
           "type": "webview",
-          "id": "sfdx-easy-tools-sidebar",
+          "id": "sfdx-ui-sidebar",
           "name": "SFDX UI",
           "icon": "media/SFDXEasy.svg",
           "contextualTitle": "SFDX UI"

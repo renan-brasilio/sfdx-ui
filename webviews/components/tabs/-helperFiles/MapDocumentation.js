@@ -3271,6 +3271,206 @@ export let mapDoc = {
             },
         },
     },
+    source: {
+        convert: {
+            json: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Format output as JSON.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Format output as JSON.`
+            },
+            loglevel: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>            
+                    The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.
+                    <br/><br/>
+                    Type: enum<br/>
+                    Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                    Default value: warn
+                `,
+                title: `The logging level for this command invocation.`
+            },
+            rootdir: {
+                type: `<b>Required</b>`,
+                body: `
+                    <br/><br/>            
+                    A source directory other than the default package to convert.<br/><br/>
+                    Type: directory
+                `,
+                title: `A source directory other than the default package to convert.`
+            },
+            outputdir: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Output directory to store the Metadata API–formatted files in.<br/><br/>
+                    Type: directory<br/>
+                    Default value: metadataPackage_1638492694112
+                `,
+                title: `Output directory to store the Metadata API–formatted files in.`
+            },
+            packagename: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Name of the package to associate with the metadata-formatted files.<br/><br/>
+                    Type: string
+                `,
+                title: `Name of the package to associate with the metadata-formatted files.`
+            },
+            manifest: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    The complete path to the manifest (package.xml) file that specifies the metadata types to convert.<br/><br/>
+                    If you specify this parameter, don’t specify --metadata or --sourcepath.<br/><br/>
+                    Type: string
+                `,
+                title: `The complete path to the manifest (package.xml) file that specifies the metadata types to convert.`
+            },
+            sourcepath: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    A comma-separated list of paths to the local source files to convert. The supplied paths can be to a single file (in which case the operation is applied to only one file) or to a folder (in which case the operation is applied to all metadata types in the directory and its sub-directories).<br/><br/>
+                    If you specify this parameter, don’t specify --manifest or --metadata.<br/><br/>
+                    Type: array
+                `,
+                title: `A comma-separated list of paths to the local metadata files to convert.`
+            },
+            metadata: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Comma-separated list of metadata component names to convert.<br/><br/>
+                    Type: array
+                `,
+                title: `Comma-separated list of metadata component names to convert.`
+            },
+        },
+        delete: {
+            json: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Format output as JSON.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Format output as JSON.`
+            },
+            loglevel: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>            
+                    The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.
+                    <br/><br/>
+                    Type: enum<br/>
+                    Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                    Default value: warn
+                `,
+                title: `The logging level for this command invocation.`
+            },
+            targetusername: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>            
+                    A username or alias for the target org. Overrides the default target org.<br/><br/>
+                    Type: string
+                `,
+                title: `A username or alias for the target org. Overrides the default target org.`
+            },
+            apiversion: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Override the API version used for API requests made by this command.<br/><br/>
+                    Type: string
+                `,
+                title: `Override the API version used for API requests made by this command.`
+            },
+            checkonly: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Validates the deleted metadata and runs all Apex tests, but prevents the deletion from being saved to the org.<br/><br/>
+                    If you change a field type from Master-Detail to Lookup or vice versa, that change isn’t supported when using the --checkonly parameter to test a deletion (validation). This kind of change isn’t supported for test deletions to avoid the risk of data loss or corruption. If a change that isn’t supported for test deletions is included in a deletion package, the test deletion fails and issues an error.<br/><br/>
+                    If your deletion package changes a field type from Master-Detail to Lookup or vice versa, you can still validate the changes prior to deploying to Production by performing a full deletion to another test Sandbox. A full deletion includes a validation of the changes as part of the deletion process.<br/><br/>
+                    Note: A Metadata API deletion that includes Master-Detail relationships deletes all detail records in the Recycle Bin in the following cases.<br/><br/>
+                    1. For a deletion with a new Master-Detail field, soft delete (send to the Recycle Bin) all detail records before proceeding to delete the Master-Detail field, or the deletion fails. During the deletion, detail records are permanently deleted from the Recycle Bin and cannot be recovered.<br/><br/>
+                    2. For a deletion that converts a Lookup field relationship to a Master-Detail relationship, detail records must reference a master record or be soft-deleted (sent to the Recycle Bin) for the deletion to succeed. However, a successful deletion permanently deletes any detail records in the Recycle Bin.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Validates the deleted metadata and runs all Apex tests, but prevents the deletion from being saved to the org.`
+            },
+            wait: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Number of minutes to wait for the command to complete and display results to the terminal window. If the command continues to run after the wait period, the CLI returns control of the terminal window to you.<br/><br/>
+                    Type: minutes<br/>
+                    Default value: 33 minutes
+                `,
+                title: `Number of minutes to wait for the command to complete and display results to the terminal window.`
+            },
+            testlevel: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Specifies which level of deployment tests to run. Valid values are:<br/><br/>
+                    NoTestRun—No tests are run. This test level applies only to deployments to development environments, such as sandbox, Developer Edition, or trial orgs. This test level is the default for development environments.<br/><br/>
+                    RunLocalTests—All tests in your org are run, except the ones that originate from installed managed packages. This test level is the default for production deployments that include Apex classes or triggers.<br/><br/>
+                    RunAllTestsInOrg—All tests in your org are run, including tests of managed packages.<br/><br/>
+                    If you don’t specify a test level, the default behavior depends on the contents of your deployment package. For more information, see “Running Tests in a Deployment” in the Metadata API Developer Guide.<br/><br/>
+                    Type: enum<br/>
+                    Permissible values are: NoTestRun, RunLocalTests, RunAllTestsInOrg<br/>
+                    Default value: NoTestRun
+                `,
+                title: `Specifies which level of deployment tests to run.`
+            },
+            noprompt: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Do not prompt for delete confirmation.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Do not prompt for delete confirmation.`
+            },
+            metadata: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    A comma-separated list of names of metadata components to delete from your project and your org.<br/><br/>
+                    If you specify this parameter, don’t specify --sourcepath.<br/><br/>
+                    Type: array
+                `,
+                title: `A comma-separated list of names of metadata components to delete from your project and your org.`
+            },
+            sourcepath: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    A comma-separated list of paths to the local metadata to delete. The supplied paths can be a single file (in which case the operation is applied to only one file) or a folder (in which case the operation is applied to all metadata types in the directory and its sub-directories).<br/><br/>
+                    If you specify this parameter, don’t specify --metadata.<br/><br/>
+                    Type: array
+                `,
+                title: `A comma-separated list of paths to the local metadata to delete.`
+            },
+            verbose: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Emit additional command output to stdout.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Emit additional command output to stdout.`
+            },
+        },
+    },
     advanced: {
         type: `<b><i>Optional</i></b>`,
         body: `

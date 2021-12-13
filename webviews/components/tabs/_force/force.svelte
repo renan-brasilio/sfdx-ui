@@ -74,10 +74,24 @@
     import MDAPI_Retrieve_Report from "./_mdapi/retrieve_report.svelte"
 
     // Source
-    import Source_Retrieve from "./_source/retrieve.svelte";
+    // import Source_Beta_Pull from "./_source/beta_pull.svelte";
+    // import Source_Beta_Push from "./_source/beta_push.svelte";
+    // import Source_Beta_Status from "./_source/beta_status.svelte";
+    // import Source_Beta_Tracking_Clear from "./_source/beta_tracking_clear.svelte";
     import Source_Convert from "./_source/convert.svelte";
     import Source_Delete from "./_source/delete.svelte";
     import Source_Deploy from "./_source/deploy.svelte";
+    // import Source_Deploy_Cancel from "./_source/deploy_cancel.svelte";
+    // import Source_Deploy_Report from "./_source/deploy_report.svelte";
+    // import Source_Ignored_List from "./_source/irgnored_list.svelte";
+    // import Source_Manifest_Create from "./_source/manifest_create.svelte";
+    // import Source_Open from "./_source/open.svelte";
+    // import Source_Pull from "./_source/pull.svelte";
+    // import Source_Push from "./_source/push.svelte";
+    import Source_Retrieve from "./_source/retrieve.svelte";
+    // import Source_Status from "./_source/status.svelte";
+    // import Source_Tracking_Clear from "./_source/tracking_clear.svelte";
+    // import Source_Tracking_Reset from "./_source/tracking_reset.svelte";
 
     // Fill the initial Maps
     handleMapCommand(lists.analytics, "analytics");
@@ -351,14 +365,42 @@
         <Select id="source" items={lists.source} on:select={e => { handleSelect(e, "source") }} on:clear={e => { handleClear(e, "source") }} value={$mapLastValue["source"]}></Select>
         <br/>
         <br/>
-        {#if $mapCommand["source"].retrieve}
-            <Source_Retrieve />
-        {:else if $mapCommand["source"].convert}
+        {#if $mapCommand["source"]["beta:pull"]}
+            <!-- <Source_Beta_Pull /> -->
+        {:else if $mapCommand["source"]["beta:push"]}
+            <!-- <Source_Beta_Push /> -->
+        {:else if $mapCommand["source"]["beta:status"]}
+            <!-- <Source_Beta_Status /> -->
+        {:else if $mapCommand["source"]["beta:tracking:clear"]}
+            <!-- <Source_Beta_Tracking_Clear /> -->
+        {:else if $mapCommand["source"]["convert"]}
             <Source_Convert />
-        {:else if $mapCommand["source"].delete}
+        {:else if $mapCommand["source"]["delete"]}
             <Source_Delete />
-        {:else if $mapCommand["source"].deploy}
+        {:else if $mapCommand["source"]["deploy"]}
             <Source_Deploy />
+        {:else if $mapCommand["source"]["deploy:cancel"]}
+            <!-- <Source_Deploy_Cancel /> -->
+        {:else if $mapCommand["source"]["deploy:report"]}
+            <!-- <Source_Deploy_Report /> -->
+        {:else if $mapCommand["source"]["ignored:list"]}
+            <!-- <Source_Ignored_List /> -->
+        {:else if $mapCommand["source"]["manifest:create"]}
+            <!-- <Source_Manifest_Create /> -->
+        {:else if $mapCommand["source"]["open"]}
+            <!-- <Source_Open /> -->
+        {:else if $mapCommand["source"]["pull"]}
+            <!-- <Source_Pull /> -->
+        {:else if $mapCommand["source"]["push"]}
+            <!-- <Source_Push /> -->
+        {:else if $mapCommand["source"]["retrieve"]}
+            <Source_Retrieve />
+        {:else if $mapCommand["source"]["status"]}
+            <!-- <Source_Status /> -->
+        {:else if $mapCommand["source"]["tracking:clear"]}
+            <!-- <Source_Tracking_Clear /> -->
+        {:else if $mapCommand["source"]["tracking:reset"]}
+            <!-- <Source_Tracking_Reset /> -->
         {/if}
     </div>
 {/if}

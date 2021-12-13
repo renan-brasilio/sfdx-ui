@@ -12,7 +12,7 @@ export const force = [
     // {value: "package1", label: "package1"},
     // {value: "project", label: "project"},
     // {value: "schema", label: "schema"},
-    // {value: "source", label: "source"},
+    {value: "source", label: "source"},
     // {value: "staticresource", label: "staticresource"},
     // {value: "user", label: "user"},
     // {value: "visualforce", label: "visualforce"},
@@ -89,10 +89,25 @@ export const mdapi = [
 ];
 
 export const source = [
-    {value: "retrieve", label: "force:source:retrieve"},
-    {value: "convert", label: "force:source:convert"},
-    {value: "delete", label: "force:source:delete"},
-    {value: "deploy", label: "force:source:deploy"},
+    {value: "beta:pull", label: "beta:pull", selectable: false},
+    {value: "beta:push", label: "beta:push", selectable: false},
+    {value: "beta:status", label: "beta:status", selectable: false},
+    {value: "beta:tracking:clear", label: "beta:tracking:clear", selectable: false},
+    {value: "beta:tracking:reset", label: "beta:tracking:reset", selectable: false},
+    {value: "convert", label: "convert"},
+    {value: "delete", label: "delete"},
+    {value: "deploy", label: "deploy", selectable: false},
+    {value: "deploy:cancel", label: "deploy:cancel", selectable: false},
+    {value: "deploy:report", label: "deploy:report", selectable: false},
+    {value: "ignored:list", label: "ignored:list", selectable: false},
+    {value: "manifest:create", label: "manifest:create", selectable: false},
+    {value: "open", label: "open", selectable: false},
+    {value: "pull", label: "pull", selectable: false},
+    {value: "push", label: "push", selectable: false},
+    {value: "retrieve", label: "retrieve", selectable: false},
+    {value: "status", label: "status", selectable: false},
+    {value: "tracking:clear", label: "tracking:clear", selectable: false},
+    {value: "tracking:reset", label: "tracking:reset", selectable: false},
 ];
 
 export const lLOGLEVEL = [
@@ -213,6 +228,13 @@ export const lTESTLEVEL = {
         deploy: [
             {value: "NoTestRun", label: "NoTestRun"},
             {value: "RunSpecifiedTests", label: "RunSpecifiedTests"},
+            {value: "RunLocalTests", label: "RunLocalTests"},
+            {value: "RunAllTestsInOrg", label: "RunAllTestsInOrg"},
+        ],
+    },
+    source: {
+        delete: [
+            {value: "NoTestRun", label: "NoTestRun"},
             {value: "RunLocalTests", label: "RunLocalTests"},
             {value: "RunAllTestsInOrg", label: "RunAllTestsInOrg"},
         ],

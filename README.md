@@ -1,70 +1,207 @@
-# sfdx-easy-tools README
+<div id="top"></div>
+<!--
+*** Thanks for checking out the Best-README-Template. If you have a suggestion
+*** that would make this better, please fork the repo and create a pull request
+*** or simply open an issue with the tag "enhancement".
+*** Don't forget to give the project a star!
+*** Thanks again! Now go create something AMAZING! :D
+-->
 
-This is the README for your extension "sfdx-easy-tools". After writing up a brief description, we recommend including the following sections.
 
-## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+<!-- PROJECT SHIELDS -->
+<!--
+*** I'm using markdown "reference style" links for readability.
+*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
+*** See the bottom of this document for the declaration of the reference variables
+*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
+*** https://www.markdownguide.org/basic-syntax/#reference-style-links
+-->
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![MIT License][license-shield]][license-url]
+[![LinkedIn][linkedin-shield]][linkedin-url]
 
-For example if there is an image subfolder under your extension project workspace:
 
-\!\[feature X\]\(images/feature-x.png\)
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+<h3 align="center">WIP: SFDX - UI</h3>
 
-## Requirements
+  <p align="center">
+    We all know and love SFDX CLI, it makes our lifes so much easier and give as Salesforce Developers true Metadata control (well... most of it). So if you're a dev nutella like me, here's the sweaty and nice UI for SFDX that we were waiting for. :tw-1f601:
+    <br />
+    <a href="https://github.com/renan-brasilio/sfdx-ui/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/renan-brasilio/sfdx-ui/issues">Request Feature</a>
+  </p>
+</div>
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
 
-## Extension Settings
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#installation">Installation</a></li>
+      </ul>
+    </li>
+    <li><a href="#usage">Usage</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#license">License</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#acknowledgments">Acknowledgments</a></li>
+  </ol>
+</details>
 
-For example:
 
-This extension contributes the following settings:
 
-* `myExtension.enable`: enable/disable this extension
-* `myExtension.thing`: set to `blah` to do something
+<!-- ABOUT THE PROJECT -->
+## About The Project
 
-## Known Issues
+Remember, I'm a Salesforce Developer, I did the best to create a solution that would work even for the future, but I'm kind of a noob in Svelte, so if you find something that could have been done better, feel free to do a nice pull request.
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+**And remember, this is a VERY WIP, so be patient, I'll finish/update as soon as I can.**
 
-## Release Notes
+<p align="right">(<a href="#top">back to top</a>)</p>
 
-Users appreciate release notes as you update your extension.
 
-### 1.0.0
 
-Initial release of ...
+### Built With
 
-### 1.0.1
+* [Svelte](https://svelte.dev/)
+* [Node.js](https://nodejs.org/)
+* [TypeScript](https://www.typescriptlang.org/)
+* [Salesforce CLI](https://developer.salesforce.com/tools/sfdxcli)
+* [VS Code](https://code.visualstudio.com/)
 
-Fixed issue #.
+<p align="right">(<a href="#top">back to top</a>)</p>
 
-### 1.1.0
 
-Added features X, Y, and Z.
 
------------------------------------------------------------------------------------------------------------
-## Following extension guidelines
+<!-- GETTING STARTED -->
+## Getting Started
 
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
+So in order to use it, you gonna need:
 
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
+### Prerequisites
 
-## Working with Markdown
+1. SFDX CLI
+ 1.1 Install it from the official website: [here](https://developer.salesforce.com/tools/sfdxcli "here") ([Official Instructions](https://developer.salesforce.com/docs/atlas.en-us.sfdx_setup.meta/sfdx_setup/sfdx_setup_intro.htm "Official Instructions"))
+ 1.2 Make sure after the install that its working properly by typing in your terminal
+ ```sh
+ sfdx version
+ ```
+2. Node.js
+1.1 Install it from the official website: [here](https://nodejs.org/ "here") (always prefer the recommended version)
+2.1 Make sure after the install that its working properly by typing in your terminal
+ ```sh
+npm -v
+ ```
+3. VS Code
+ 3.1 Install it from the official website: [here](https://code.visualstudio.com/ "here")
+### Installation
 
-**Note:** You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
+4. Follow the pre-requisites listed above.
+5. Install the latest version: [here](https://marketplace.visualstudio.com/items?itemName=renan-brasilio.sfdx-ui)
+6. Enjoy!
 
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+CMD+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux) or `Cmd+Space` (macOS) to see a list of Markdown snippets
+<p align="right">(<a href="#top">back to top</a>)</p>
 
-### For more information
 
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
 
-**Enjoy!**
+<!-- USAGE EXAMPLES -->
+## Usage
+
+In progress...
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+
+
+<!-- ROADMAP -->
+## Roadmap
+
+- [14/10/2021] Creation
+- In progress...
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+
+
+<!-- CONTRIBUTING -->
+## Contributing
+
+Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+
+If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
+Don't forget to give the project a star! Thanks again!
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+
+
+<!-- LICENSE -->
+## License
+
+Distributed under the MIT License. See `LICENSE.txt` for more information.
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+
+
+<!-- CONTACT -->
+## Contact
+
+Renan Rocha - [@renanbrasilio](https://twitter.com/renanbrasilio) - renanfamous@gmail.com
+
+Project Link: [https://github.com/renan-brasilio/sfdx-ui](https://github.com/renan-brasilio/sfdx-ui)
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+
+
+<!-- ACKNOWLEDGMENTS -->
+## Acknowledgments
+
+* None (Yet?)
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[contributors-shield]: https://img.shields.io/github/contributors/renan-brasilio/sfdx-ui.svg?style=for-the-badge
+[contributors-url]: https://github.com/renan-brasilio/sfdx-ui/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/renan-brasilio/sfdx-ui.svg?style=for-the-badge
+[forks-url]: https://github.com/renan-brasilio/sfdx-ui/network/members
+[stars-shield]: https://img.shields.io/github/stars/renan-brasilio/sfdx-ui.svg?style=for-the-badge
+[stars-url]: https://github.com/renan-brasilio/sfdx-ui/stargazers
+[issues-shield]: https://img.shields.io/github/issues/renan-brasilio/sfdx-ui.svg?style=for-the-badge
+[issues-url]: https://github.com/renan-brasilio/sfdx-ui/issues
+[license-shield]: https://img.shields.io/github/license/renan-brasilio/sfdx-ui.svg?style=for-the-badge
+[license-url]: https://github.com/renan-brasilio/sfdx-ui/blob/master/LICENSE.txt
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[linkedin-url]: https://linkedin.com/in/renan-brasilio
+[product-screenshot]: images/screenshot.png
