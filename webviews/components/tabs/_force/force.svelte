@@ -62,6 +62,17 @@
     import Limits_API_Display from "./_limits/api_display.svelte"
     import Limits_RecordCounts_Display from "./_limits/recordcounts_display.svelte"
 
+    // MDAPI
+    import MDAPI_Beta_Convert from "./_mdapi/beta_convert.svelte"
+    import MDAPI_Convert from "./_mdapi/convert.svelte"
+    import MDAPI_Deploy from "./_mdapi/deploy.svelte"
+    import MDAPI_Deploy_Cancel from "./_mdapi/deploy_cancel.svelte"
+    import MDAPI_Deploy_Report from "./_mdapi/deploy_report.svelte"
+    import MDAPI_DescribeMetadata from "./_mdapi/describemetadata.svelte"
+    import MDAPI_ListMetadata from "./_mdapi/listmetadata.svelte"
+    import MDAPI_Retrieve from "./_mdapi/retrieve.svelte"
+    import MDAPI_Retrieve_Report from "./_mdapi/retrieve_report.svelte"
+
     // Source
     import Source_Retrieve from "./_source/retrieve.svelte";
     import Source_Convert from "./_source/convert.svelte";
@@ -76,6 +87,7 @@
     handleMapCommand(lists.data, "data");
     handleMapCommand(lists.lightning, "lightning");
     handleMapCommand(lists.limits, "limits");
+    handleMapCommand(lists.mdapi, "mdapi");
     handleMapCommand(lists.source, "source");
 
     export let mainFileName = "force";
@@ -299,6 +311,35 @@
             <Limits_API_Display />
         {:else if $mapCommand["limits"]["recordcounts:display"]}
             <Limits_RecordCounts_Display />
+        {/if}
+    </div>
+{/if}
+
+{#if $mapForceShowSections.mdapi}
+    <div class="sfdxet-select-theme sfdxet-absolute-center">
+        <h4>mdapi Commands</h4>
+        <br/>
+        <Select id="mdapi" items={lists.mdapi} on:select={e => { handleSelect(e, "mdapi") }} on:clear={e => { handleClear(e, "mdapi") }} value={$mapLastValue["mdapi"]}></Select>
+        <br/>
+        <br/>
+        {#if $mapCommand["mdapi"]["beta:convert"]}
+            <MDAPI_Beta_Convert />
+        {:else if $mapCommand["mdapi"]["convert"]}
+            <MDAPI_Convert />
+        {:else if $mapCommand["mdapi"]["deploy"]}
+            <MDAPI_Deploy />
+        {:else if $mapCommand["mdapi"]["deploy:cancel"]}
+            <MDAPI_Deploy_Cancel />
+        {:else if $mapCommand["mdapi"]["deploy:report"]}
+            <MDAPI_Deploy_Report />
+        {:else if $mapCommand["mdapi"]["describemetadata"]}
+            <MDAPI_DescribeMetadata />
+        {:else if $mapCommand["mdapi"]["listmetadata"]}
+            <MDAPI_ListMetadata />
+        {:else if $mapCommand["mdapi"]["retrieve"]}
+            <MDAPI_Retrieve />
+        {:else if $mapCommand["mdapi"]["retrieve:report"]}
+            <MDAPI_Retrieve_Report />
         {/if}
     </div>
 {/if}

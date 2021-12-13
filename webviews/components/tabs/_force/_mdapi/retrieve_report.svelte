@@ -26,17 +26,10 @@
     import LOGLEVELs from "../../-commonSections/SelectSFDX.svelte";
     import TARGETUSERNAMEs from "../../-commonSections/SelectSFDX.svelte";
     import APIVERSIONs from "../../-commonSections/SelectSFDX.svelte";
-    import CODECOVERAGEs from "../../-commonSections/BooleanSFDX.svelte";
-    import OUTPUTDIRs from "../../-commonSections/FolderpathSFDX.svelte";
-    import TESTLEVELs from "../../-commonSections/SelectSFDX.svelte";
-    import CLASSNAMEs from "../../-commonSections/StringSFDX.svelte";
-    import RESULTFORMATs from "../../-commonSections/SelectSFDX.svelte";
-    import SUITENAMESs from "../../-commonSections/StringSFDX.svelte";
-    import TESTSs from "../../-commonSections/StringSFDX.svelte";
     import WAITs from "../../-commonSections/MinuteSFDX.svelte";
-    import SYNCHRONOUSs from "../../-commonSections/BooleanSFDX.svelte";
+    import RETRIEVETARGETDIRs from "../../-commonSections/FolderpathSFDX.svelte";
     import VERBOSEs from "../../-commonSections/BooleanSFDX.svelte";
-    import DETAILEDCOVERAGEs from "../../-commonSections/BooleanSFDX.svelte";
+    import JOBIDs from "../../-commonSections/StringSFDX.svelte";
     import ADVANCEDs from "../../-commonSections/ADVANCEDSection.svelte";
 
     // Component Validations
@@ -45,24 +38,17 @@
     LOGLEVELv, 
     TARGETUSERNAMEv,
     APIVERSIONv,
-    CODECOVERAGEv,
-    OUTPUTDIRv,
-    TESTLEVELv,
-    CLASSNAMEv,
-    RESULTFORMATv,
-    SUITENAMESv,
-    TESTSv,
     WAITv,
-    SYNCHRONOUSv,
+    RETRIEVETARGETDIRv,
     VERBOSEv,
-    DETAILEDCOVERAGEv,
+    JOBIDv,
     ADVANCEDv;
 
     // Documentation
-    let fileName = "test_run";
+    let fileName = "retrieve_report";
     let showFileName = fileName.replace("_", ":");
-    let showFileNameUpper = "Test:Run";
-    let commandType = "apex";
+    let showFileNameUpper = "Retrieve:Report";
+    let commandType = "mdapi";
     let linkDocumentation = `https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference_force_${commandType}.htm#cli_reference_force_${commandType}_${fileName}`;
 
     // Initial loading
@@ -76,30 +62,7 @@
         $mapSpinner.force[fileName] = false;
     }, 1000);
 
-    // Mandatory Field(s)
-    let mandatorySections = [
-        "suitenames",
-        "classnames",
-        "tests",
-    ];
-
-    let pOnlyOneError = "-n CLASSNAMES, -s SUITENAMES or -t TESTS"
-
-    if(!$mapShowSections){
-        $mapShowSections = {};
-    }
-
-    if(!$mapSectionValidation){
-        $mapSectionValidation = {};
-    }
-
-    for(let i = 0; i < mandatorySections.length; i++){
-        $mapSectionValidation[mandatorySections[i]] = 0;
-    }
-
     function startSFDX() {
-        let validation = 0;
-
         $objSFDX.terminal = "";
         $objSFDX.terminal = `force:${commandType}:${showFileName}`;
 
@@ -108,43 +71,14 @@
             LOGLEVELv.validate(), 
             TARGETUSERNAMEv.validate(), 
             APIVERSIONv.validate(), 
-            CODECOVERAGEv.validate(), 
-            OUTPUTDIRv.validate(), 
-            TESTLEVELv.validate(),  
-            CLASSNAMEv.validate(),  
-            RESULTFORMATv.validate(),  
-            SUITENAMESv.validate(),  
-            TESTSv.validate(),  
-            WAITv.validate(),  
-            SYNCHRONOUSv.validate(),  
-            VERBOSEv.validate(),  
-            DETAILEDCOVERAGEv.validate(),  
+            WAITv.validate(), 
+            RETRIEVETARGETDIRv.validate(), 
+            VERBOSEv.validate(), 
+            JOBIDv.validate(), 
             ADVANCEDv.validate(), 
         ]).then((values) => {
             if(values){
-                for(let i in $mapSectionValidation){
-                    if($mapSectionValidation[i] === 1){
-                        validation++;
-                        break;
-                    }
-                }
-    
-                if(validation === 0){
-                    if(!$mapErrors){
-                        $mapErrors = {};
-                    }
-
-                    for(let key in mandatorySections){
-                        $mapErrors[key] = "sfdxet-error-span";
-                    }
-                    
-                    tsvscode.postMessage({
-                        type: "onError",
-                        value: `ERROR: At least one between (${pOnlyOneError}) is required.` 
-                    });
-    
-                    return;
-                }else if(!values.includes(false)){
+                if(!values.includes(false)){
                     for(let key in $mapErrors){
                         $mapErrors[key] = "";
                     }     
@@ -229,7 +163,7 @@
             pList={gLists.lLOGLEVEL}
             pDefaultValue="warn"
         />
-        
+
         <!-- [-u TARGETUSERNAME] -->
         <svelte:component 
             this="{TARGETUSERNAMEs}" 
@@ -239,7 +173,7 @@
             pSFDXParameter="-u"
             pList={$lTARGETUSERNAME}
         />
-        
+
         <!-- [--apiversion APIVERSION] -->
         <svelte:component 
             this="{APIVERSIONs}" 
@@ -250,91 +184,6 @@
             pList={lAPIVERSION}
             pDefaultValue={dAPIVERSION}
         />
-        
-        <!-- [-c] -->
-        <svelte:component 
-            this="{CODECOVERAGEs}" 
-            bind:this="{CODECOVERAGEv}"
-            pSectionName="codecoverage"
-            pMapDoc={mapDoc[commandType][fileName].codecoverage} 
-            pSFDXParameter="-c"
-            pShowSectionName={false} 
-        />
-
-        <!-- [-d OUTPUTDIR] -->
-        <svelte:component 
-            this="{OUTPUTDIRs}" 
-            bind:this="{OUTPUTDIRv}" 
-            pSectionName="outputdir"
-            pMapDoc={mapDoc[commandType][fileName].outputdir} 
-            pSFDXParameter="-d"
-            pDefaultFolder="."
-        />
-
-        <!-- [-l TESTLEVEL] -->
-        <svelte:component 
-            this="{TESTLEVELs}" 
-            bind:this="{TESTLEVELv}" 
-            pSectionName="testlevel"
-            pMapDoc={mapDoc[commandType][fileName].testlevel} 
-            pSFDXParameter="-l"
-            pList={gLists.lTESTLEVEL[commandType][fileName]}
-        />
-        
-        <!-- [-n CLASSNAMES] -->
-        <svelte:component 
-            this="{CLASSNAMEs}" 
-            bind:this="{CLASSNAMEv}" 
-            pSectionName="classnames"
-            pMapDoc={mapDoc[commandType][fileName].classnames}
-            pSFDXParameter="-n"
-            pSectionTitle="Apex Class Names"
-            pTitle={mapDoc[commandType][fileName].classnames.title}
-            pPlaceholder="Insert..."
-            pRequired={true}
-            pStyle="color: orange;"
-            pOnlyOneError={pOnlyOneError}
-        />
-
-        <!-- [-r RESULTFORMAT] -->
-        <svelte:component 
-            this="{RESULTFORMATs}" 
-            bind:this="{RESULTFORMATv}" 
-            pSectionName="resultformat"
-            pMapDoc={mapDoc[commandType][fileName].resultformat} 
-            pSFDXParameter="-r"
-            pList={gLists.lRESULTFORMAT}
-        />
-
-        <!-- [-s SUITENAMES] -->
-        <svelte:component 
-            this="{SUITENAMESs}" 
-            bind:this="{SUITENAMESv}" 
-            pSectionName="suitenames"
-            pMapDoc={mapDoc[commandType][fileName].suitenames}
-            pSFDXParameter="-s"
-            pSectionTitle="Suite Names"
-            pTitle={mapDoc[commandType][fileName].suitenames.title}
-            pPlaceholder="Insert..."
-            pRequired={true}
-            pStyle="color: orange;"
-            pOnlyOneError={pOnlyOneError}
-        />
-
-        <!-- [-t TESTS] -->
-        <svelte:component 
-            this="{TESTSs}" 
-            bind:this="{TESTSv}" 
-            pSectionName="tests"
-            pMapDoc={mapDoc[commandType][fileName].tests}
-            pSFDXParameter="-t"
-            pSectionTitle="Test Names"
-            pTitle={mapDoc[commandType][fileName].tests.title}
-            pPlaceholder="Insert..."
-            pRequired={true}
-            pStyle="color: orange;"
-            pOnlyOneError={pOnlyOneError}
-        />
 
         <!-- [-w WAIT] -->
         <svelte:component 
@@ -344,17 +193,16 @@
             pMapDoc={mapDoc[commandType][fileName].wait} 
             pSFDXParameter="-w"
         />
-        
-        <!-- [-y] -->
+
+        <!-- [-r RETRIEVETARGETDIR] -->
         <svelte:component 
-            this="{SYNCHRONOUSs}" 
-            bind:this="{SYNCHRONOUSv}"
-            pSectionName="synchronous"
-            pMapDoc={mapDoc[commandType][fileName].synchronous} 
-            pSFDXParameter="-y"
-            pShowSectionName={false} 
+            this="{RETRIEVETARGETDIRs}" 
+            bind:this="{RETRIEVETARGETDIRv}" 
+            pSectionName="retrievetargetdir"
+            pMapDoc={mapDoc[commandType][fileName].retrievetargetdir} 
+            pSFDXParameter="-r"
         />
-        
+
         <!-- [--verbose] -->
         <svelte:component 
             this="{VERBOSEs}" 
@@ -364,15 +212,17 @@
             pSFDXParameter="--verbose"
             pShowSectionName={false} 
         />
-        
-        <!-- [-v] -->
+
+        <!-- [-i JOBID] -->
         <svelte:component 
-            this="{DETAILEDCOVERAGEs}" 
-            bind:this="{DETAILEDCOVERAGEv}"
-            pSectionName="detailedcoverage"
-            pMapDoc={mapDoc[commandType][fileName].detailedcoverage} 
-            pSFDXParameter="-v"
-            pShowSectionName={false} 
+            this="{JOBIDs}" 
+            bind:this="{JOBIDv}" 
+            pSectionName="jobid"
+            pMapDoc={mapDoc[commandType][fileName].jobid}
+            pSFDXParameter="-i"
+            pSectionTitle="Job Id"
+            pTitle={mapDoc[commandType][fileName].jobid.title}
+            pPlaceholder="Insert..."
         />
 
         <!-- [ADVANCED] -->

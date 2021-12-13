@@ -75,7 +75,7 @@
     on:click={openDoc}
     style={pStyle}
     class={pClass}
->{pRequired ? "*" : "["}{pSFDXParameter ? pSFDXParameter + " " : ""}{pSectionName && pShowSectionName ? pSectionName.toUpperCase() : ""}{pRequired ? "" : "]"}</span>
+>{pRequired ? "*" : "["}{pSFDXParameter ? pSFDXParameter && pShowSectionName ? pSFDXParameter + " " : pSFDXParameter : ""}{pSectionName && pShowSectionName ? pSectionName.toUpperCase() : ""}{pRequired ? "" : "]"}</span>
     
 <input 
     type="checkbox" 
@@ -86,25 +86,3 @@
     checked={pChecked}
     disabled={pDisabled}
 />
-<!-- {#if pPartialRequired}
-    {:else if pRequiredByAnotherSection}
-        <input 
-            type="checkbox" 
-            id={pElementName} 
-            name={pElementName} 
-            on:change={e => { handleShowSections(e, `${pFileName}`, `${pOnlyOneError}`) }} 
-            title={js.mapTooltips["checkbox"]}
-            checked={$map}
-            disabled
-        />
-    {:else} 
-        <input 
-            type="checkbox" 
-            id={pElementName} 
-            name={pElementName} 
-            on:change={e => { handleShowSections(e, `${pFileName}`, `${pOnlyOneError}`) }} 
-            title={js.mapTooltips["checkbox"]}
-            checked={true}
-            disabled
-        />
-{/if} -->

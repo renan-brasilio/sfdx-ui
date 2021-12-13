@@ -26,6 +26,7 @@
     export let pShowSectionName = true;
     export let pChecked = false;
     export let pDisabled = false;
+    export let pDefaultValue = "";
 
     // Default
     let sectionUCase = pSectionName.toUpperCase();
@@ -83,14 +84,16 @@
     {#if $mapShowSections[pSectionName]}
         <section class="sfdxet-section sfdxet-br">
             <input 
-                type="number" 
-                on:keypress={e => {if(e.key==="."){e.preventDefault();}}} 
-                on:input={e => {e.target.value = e.target.value.replace(/[^0-9]*/g,"");}} 
-                class="sfdxet-absolute-center" 
-                title={pTitle} 
-                use:tooltipv1 
-                placeholder={pPlaceholder} 
-                bind:value={$mapInputVariables[pSectionName]}/>
+                type="number"
+                on:keypress={e => {if(e.key==="."){e.preventDefault();}}}
+                on:input={e => {e.target.value = e.target.value.replace(/[^0-9]*/g,"");}}
+                class="sfdxet-absolute-center"
+                title={pTitle}
+                use:tooltipv1
+                placeholder={pPlaceholder}
+                on:input={(e) => $mapInputVariables[pSectionName] = e.target.value}
+                value={pDefaultValue}
+            />
         </section>
     {/if}
 </div>

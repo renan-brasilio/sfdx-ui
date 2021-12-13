@@ -6,7 +6,7 @@ export const force = [
     {value: "data", label: "data"},
     {value: "lightning", label: "lightning"},
     {value: "limits", label: "limits"},
-    // {value: "mdapi", label: "mdapi"},
+    {value: "mdapi", label: "mdapi"},
     // {value: "org", label: "org"},
     // {value: "package", label: "package"},
     // {value: "package1", label: "package1"},
@@ -76,6 +76,18 @@ export const limits = [
     {value: "recordcounts:display", label: "recordcounts:display"},
 ];
 
+export const mdapi = [
+    {value: "beta:convert", label: "beta:convert"},
+    {value: "convert", label: "convert"},
+    {value: "deploy", label: "deploy"},
+    {value: "deploy:cancel", label: "deploy:cancel"},
+    {value: "deploy:report", label: "deploy:report"},
+    {value: "describemetadata", label: "describemetadata"},
+    {value: "listmetadata", label: "listmetadata"},
+    {value: "retrieve", label: "retrieve"},
+    {value: "retrieve:report", label: "retrieve:report"},
+];
+
 export const source = [
     {value: "retrieve", label: "force:source:retrieve"},
     {value: "convert", label: "force:source:convert"},
@@ -84,24 +96,18 @@ export const source = [
 ];
 
 export const lLOGLEVEL = [
-	{value: 'trace', label: 'trace'},
-	{value: 'debug', label: 'debug'},
-	{value: 'info', label: 'info'},
-	{value: 'warn', label: 'warn'},
-	{value: 'error', label: 'error'},
-	{value: 'fatal', label: 'fatal'},
-	{value: 'TRACE', label: 'TRACE'},
-	{value: 'DEBUG', label: 'DEBUG'},
-	{value: 'INFO', label: 'INFO'},
-	{value: 'WARN', label: 'WARN'},
-	{value: 'ERROR', label: 'ERROR'},
-	{value: 'FATAL', label: 'FATAL'},
-];
-
-export const lTESTLEVEL = [
-	{value: 'NoTestRun', label: 'NoTestRun'},
-	{value: 'RunLocalTests', label: 'RunLocalTests'},
-	{value: 'RunAllTestsInOrg', label: 'RunAllTestsInOrg'},
+	{value: "trace", label: "trace"},
+	{value: "debug", label: "debug"},
+	{value: "info", label: "info"},
+	{value: "warn", label: "warn"},
+	{value: "error", label: "error"},
+	{value: "fatal", label: "fatal"},
+	{value: "TRACE", label: "TRACE"},
+	{value: "DEBUG", label: "DEBUG"},
+	{value: "INFO", label: "INFO"},
+	{value: "WARN", label: "WARN"},
+	{value: "ERROR", label: "ERROR"},
+	{value: "FATAL", label: "FATAL"},
 ];
 
 export const lTEMPLATE = [
@@ -194,3 +200,21 @@ export const lTYPE = [
     {value: "aura", label: "aura"},
     {value: "lwc", label: "lwc"},
 ];
+
+export const lTESTLEVEL = {
+    apex: {
+        test_run: [
+            {value: "NoTestRun", label: "NoTestRun"},
+            {value: "RunLocalTests", label: "RunLocalTests"},
+            {value: "RunAllTestsInOrg", label: "RunAllTestsInOrg"},
+        ],
+    },
+    mdapi: {
+        deploy: [
+            {value: "NoTestRun", label: "NoTestRun"},
+            {value: "RunSpecifiedTests", label: "RunSpecifiedTests"},
+            {value: "RunLocalTests", label: "RunLocalTests"},
+            {value: "RunAllTestsInOrg", label: "RunAllTestsInOrg"},
+        ],
+    },
+};

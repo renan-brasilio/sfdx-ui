@@ -2537,6 +2537,740 @@ export let mapDoc = {
             },
         }
     },
+    mdapi: {
+        beta_convert: {
+            json: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Format output as JSON.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Format output as JSON.`
+            },
+            loglevel: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>            
+                    The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.
+                    <br/><br/>
+                    Type: enum<br/>
+                    Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                    Default value: warn
+                `,
+                title: `The logging level for this command invocation.`
+            },
+            rootdir: {
+                type: `<b>Required</b>`,
+                body: `
+                    <br/><br/>            
+                    The root directory that contains the metadata you retrieved using Metadata API.<br/><br/>
+                    Type: directory
+                `,
+                title: `The root directory that contains the metadata you retrieved using Metadata API.`
+            },
+            outputdir: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    The directory to store your files in after they’re converted to the source format. Can be an absolute or relative path.<br/><br/>
+                    Type: directory
+                `,
+                title: `The directory to store your files in after they’re converted to the source format.`
+            },
+            manifest: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    The complete path to the manifest (package.xml) file that specifies the metadata types to convert.<br/><br/>
+                    If you specify this parameter, don’t specify --metadata or --sourcepath.<br/><br/>
+                    Type: string
+                `,
+                title: `The complete path to the manifest (package.xml) file that specifies the metadata types to convert.`
+            },
+            metadatapath: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    A comma-separated list of paths to the local metadata files to convert. The supplied paths can be to a single file (in which case the operation is applied to only one file) or to a folder (in which case the operation is applied to all metadata types in the directory and its sub-directories).<br/><br/>
+                    If you specify this parameter, don’t specify --manifest or --metadata. If the comma-separated list you’re supplying contains spaces, enclose the entire comma-separated list in one set of double quotes.<br/><br/>
+                    Type: array
+                `,
+                title: `A comma-separated list of paths to the local metadata files to convert.`
+            },
+            metadata: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    A comma-separated list of metadata component names to convert.<br/><br/>
+                    Type: array
+                `,
+                title: `A comma-separated list of metadata component names to convert.`
+            },
+        },
+        convert: {
+            json: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Format output as JSON.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Format output as JSON.`
+            },
+            loglevel: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>            
+                    The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.
+                    <br/><br/>
+                    Type: enum<br/>
+                    Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                    Default value: warn
+                `,
+                title: `The logging level for this command invocation.`
+            },
+            rootdir: {
+                type: `<b>Required</b>`,
+                body: `
+                    <br/><br/>            
+                    The root directory that contains the metadata you retrieved using Metadata API.<br/><br/>
+                    Type: directory
+                `,
+                title: `The root directory that contains the metadata you retrieved using Metadata API.`
+            },
+            outputdir: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    The directory to store your files in after they’re converted to the source format. Can be an absolute or relative path.<br/><br/>
+                    Type: directory
+                `,
+                title: `The directory to store your files in after they’re converted to the source format.`
+            },
+            manifest: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    The complete path to the manifest (package.xml) file that specifies the metadata types to convert.<br/><br/>
+                    If you specify this parameter, don’t specify --metadata or --sourcepath.<br/><br/>
+                    Type: string
+                `,
+                title: `The complete path to the manifest (package.xml) file that specifies the metadata types to convert.`
+            },
+            metadatapath: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    A comma-separated list of paths to the local metadata files to convert. The supplied paths can be to a single file (in which case the operation is applied to only one file) or to a folder (in which case the operation is applied to all metadata types in the directory and its sub-directories).<br/><br/>
+                    If you specify this parameter, don’t specify --manifest or --metadata. If the comma-separated list you’re supplying contains spaces, enclose the entire comma-separated list in one set of double quotes.<br/><br/>
+                    Type: array
+                `,
+                title: `A comma-separated list of paths to the local metadata files to convert.`
+            },
+            metadata: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    A comma-separated list of metadata component names to convert.<br/><br/>
+                    Type: array
+                `,
+                title: `A comma-separated list of metadata component names to convert.`
+            },
+        },
+        deploy: {
+            json: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Format output as JSON.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Format output as JSON.`
+            },
+            loglevel: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>            
+                    The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.
+                    <br/><br/>
+                    Type: enum<br/>
+                    Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                    Default value: warn
+                `,
+                title: `The logging level for this command invocation.`
+            },
+            targetusername: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>            
+                    A username or alias for the target org. Overrides the default target org.<br/><br/>
+                    Type: string
+                `,
+                title: `A username or alias for the target org. Overrides the default target org.`
+            },
+            apiversion: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Override the API version used for API requests made by this command.<br/><br/>
+                    Type: string
+                `,
+                title: `Override the API version used for API requests made by this command.`
+            },
+            checkonly: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Validates the deployed metadata and runs all Apex tests, but prevents the deployment from being saved to the org.<br/><br/>
+                    If you change a field type from Master-Detail to Lookup or vice versa, that change isn’t supported when using the --checkonly parameter to test a deployment (validation). This kind of change isn’t supported for test deployments to avoid the risk of data loss or corruption. If a change that isn’t supported for test deployments is included in a deployment package, the test deployment fails and issues an error.<br/><br/>
+                    If your deployment package changes a field type from Master-Detail to Lookup or vice versa, you can still validate the changes prior to deploying to Production by performing a full deployment to another test Sandbox. A full deployment includes a validation of the changes as part of the deployment process.<br/><br/>
+                    Note: A Metadata API deployment that includes Master-Detail relationships deletes all detail records in the Recycle Bin in the following cases.<br/><br/>
+                    1. For a deployment with a new Master-Detail field, soft delete (send to the Recycle Bin) all detail records before proceeding to deploy the Master-Detail field, or the deployment fails. During the deployment, detail records are permanently deleted from the Recycle Bin and cannot be recovered.<br/><br/>
+                    2. For a deployment that converts a Lookup field relationship to a Master-Detail relationship, detail records must reference a master record or be soft-deleted (sent to the Recycle Bin) for the deployment to succeed. However, a successful deployment permanently deletes any detail records in the Recycle Bin.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Validates the deployed metadata and runs all Apex tests, but prevents the deployment from being saved to the org.`
+            },
+            deploydir: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    The root of the directory tree that contains the files to deploy. The root must contain a valid package.xml file describing the entities in the directory structure. Required to initiate a deployment if you don’t use --zipfile. If you specify both --zipfile and --deploydir, a zip file of the contents of the --deploydir directory is written to the location specified by --zipfile.<br/><br/>
+                    Type: directory
+                `,
+                title: `The root of the directory tree that contains the files to deploy.`
+            },
+            wait: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    The number of minutes to wait for the command to complete. The default is –1 (no limit). 0<br/><br/>
+                    Type: directory
+                `,
+                title: `The number of minutes to wait for the command to complete.`
+            },
+            testlevel: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Specifies which level of deployment tests to run. Valid values are:<br/><br/>
+                    NoTestRun—No tests are run. This test level applies only to deployments to development environments, such as sandbox, Developer Edition, or trial orgs. This test level is the default for development environments.<br/><br/>
+                    RunSpecifiedTests—Runs only the tests that you specify in the --runtests option. Code coverage requirements differ from the default coverage requirements when using this test level. Executed tests must comprise a minimum of 75% code coverage for each class and trigger in the deployment package. This coverage is computed for each class and trigger individually and is different than the overall coverage percentage.<br/><br/>
+                    RunLocalTests—All tests in your org are run, except the ones that originate from installed managed packages. This test level is the default for production deployments that include Apex classes or triggers.<br/><br/>
+                    RunAllTestsInOrg—All tests in your org are run, including tests of managed packages.<br/><br/>
+                    If you don’t specify a test level, the default behavior depends on the contents of your deployment package. For more information, see “Running Tests in a Deployment” in the Metadata API Developer Guide.<br/><br/>
+                    Type: enum<br/>
+                    Permissible values are: NoTestRun, RunSpecifiedTests, RunLocalTests, RunAllTestsInOrg
+                `,
+                title: `The number of minutes to wait for the command to complete.`
+            },
+            runtests: {
+                type: `<b>Required</b>`,
+                body: `
+                    <br/><br/>
+                    Lists the Apex classes containing the deployment tests to run. Use this parameter when you set --testlevel to RunSpecifiedTests.<br/><br/>
+                    Type: array
+                `,
+                title: `Lists the Apex classes containing the deployment tests to run.`
+            },
+            ignoreerrors: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Ignores the deploy errors, and continues with the deploy operation. The default is false. Keep this parameter set to false when deploying to a production org. If set to true, components without errors are deployed, and components with errors are skipped.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Ignores the deploy errors, and continues with the deploy operation.`
+            },
+            ignorewarnings: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    If a warning occurs and ignoreWarnings is set to true, the success field in DeployMessage is true. When ignoreWarnings is set to false, success is set to false, and the warning is treated like an error.<br/><br/>
+                    This field is available in API version 18.0 and later. Prior to version 18.0, there was no distinction between warnings and errors. All problems were treated as errors and prevented a successful deployment.<br/><br/>
+                    Type: boolean
+                `,
+                title: `If a warning occurs and ignoreWarnings is set to true, the success field in DeployMessage is true.`
+            },
+            validateddeployrequestid: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Specifies the ID of a package with recently validated components to run a Quick Deploy. Deploying a validation helps you shorten your deployment time because tests aren’t rerun. If you have a recent successful validation, you can deploy the validated components without running tests. A validation doesn’t save any components in the org. You use a validation only to check the success or failure messages that you would receive with an actual deployment. To validate your components, add the -c | --checkonly flag when you run "sfdx force:mdapi:deploy". This flag sets the checkOnly="true" parameter for your deployment. Before deploying a recent validation, ensure that the following requirements are met:<br/><br/>
+                    1. The components have been validated successfully for the target environment within the last 10 days.<br/><br/>
+                    2. As part of the validation, Apex tests in the target org have passed.<br/><br/>
+                    3. Code coverage requirements are met.<br/><br/>
+                    - If all tests in the org or all local tests are run, overall code coverage is at least 75%, and Apex triggers have some coverage.<br/><br/>
+                    - If specific tests are run with the RunSpecifiedTests test level, each class and trigger that was deployed is covered by at least 75% individually.<br/><br/>
+                    Type: Id
+                `,
+                title: `Specifies the ID of a package with recently validated components to run a Quick Deploy.`
+            },
+            verbose: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Indicates that you want verbose output from the deploy operation.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Indicates that you want verbose output from the deploy operation.`
+            },
+            zipfile: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    The path to the .zip file of metadata files to deploy. You must indicate this option or --deploydir.If you specify both --zipfile and --deploydir, a .zip file of the contents of the deploy directory is created at the path specified for the .zip file.<br/><br/>
+                    Type: filepath
+                `,
+                title: `The path to the .zip file of metadata files to deploy.`
+            },
+            singlepackage: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Indicates that the specified .zip file points to a directory structure for a single package. By default, the CLI assumes the directory is structured for a set of packages.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Indicates that the specified .zip file points to a directory structure for a single package.`
+            },
+            soapdeploy: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Deploy metadata with SOAP API instead of the default REST API. Because SOAP API has a lower .ZIP file size limit (400 MB uncompressed, 39 MB compressed), Salesforce recommends REST API deployment. This flag provides backwards compatibility with API version 50.0 and earlier when deploy used SOAP API by default.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Deploy metadata with SOAP API instead of the default REST API.`
+            },
+        },
+        deploy_cancel: {
+            json: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Format output as JSON.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Format output as JSON.`
+            },
+            loglevel: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>            
+                    The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.
+                    <br/><br/>
+                    Type: enum<br/>
+                    Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                    Default value: warn
+                `,
+                title: `The logging level for this command invocation.`
+            },
+            targetusername: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>            
+                    A username or alias for the target org. Overrides the default target org.<br/><br/>
+                    Type: string
+                `,
+                title: `A username or alias for the target org. Overrides the default target org.`
+            },
+            apiversion: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Override the API version used for API requests made by this command.<br/><br/>
+                    Type: string
+                `,
+                title: `Override the API version used for API requests made by this command.`
+            },
+            wait: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    The number of minutes to wait for the command to complete. The default is –1 (no limit). 0<br/><br/>
+                    Type: directory
+                `,
+                title: `The number of minutes to wait for the command to complete.`
+            },
+            jobid: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Job ID of the deployment you want to cancel; defaults to your most recent CLI deployment if not specified.<br/><br/>
+                    Type: id
+                `,
+                title: `Job ID of the deployment you want to cancel.`
+            },
+        },
+        deploy_report: {
+            json: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Format output as JSON.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Format output as JSON.`
+            },
+            loglevel: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>            
+                    The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.
+                    <br/><br/>
+                    Type: enum<br/>
+                    Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                    Default value: warn
+                `,
+                title: `The logging level for this command invocation.`
+            },
+            targetusername: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>            
+                    A username or alias for the target org. Overrides the default target org.<br/><br/>
+                    Type: string
+                `,
+                title: `A username or alias for the target org. Overrides the default target org.`
+            },
+            apiversion: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Override the API version used for API requests made by this command.<br/><br/>
+                    Type: string
+                `,
+                title: `Override the API version used for API requests made by this command.`
+            },
+            wait: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    The number of minutes to wait for the command to complete. The default is –1 (no limit). 0<br/><br/>
+                    Type: directory
+                `,
+                title: `The number of minutes to wait for the command to complete.`
+            },
+            jobid: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Job ID of the deployment you want to cancel; defaults to your most recent CLI deployment if not specified.<br/><br/>
+                    Type: id
+                `,
+                title: `Job ID of the deployment you want to cancel.`
+            },
+            verbose: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Indicates that you want verbose output for deploy results.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Indicates that you want verbose output for deploy results.`
+            },
+        },
+        describemetadata: {
+            json: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Format output as JSON.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Format output as JSON.`
+            },
+            loglevel: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>            
+                    The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.
+                    <br/><br/>
+                    Type: enum<br/>
+                    Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                    Default value: warn
+                `,
+                title: `The logging level for this command invocation.`
+            },
+            targetusername: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>            
+                    A username or alias for the target org. Overrides the default target org.<br/><br/>
+                    Type: string
+                `,
+                title: `A username or alias for the target org. Overrides the default target org.`
+            },
+            apiversion: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Override the API version used for API requests made by this command.<br/><br/>
+                    Type: string
+                `,
+                title: `Override the API version used for API requests made by this command.`
+            },
+            resultfile: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    The path to the file where the results of the command are stored. Directing the output to a file makes it easier to extract relevant information for your package.xml manifest file. The default output destination is the console.<br/><br/>
+                    Type: filepath
+                `,
+                title: `The path to the file where the results of the command are stored.`
+            },
+        },
+        listmetadata: {
+            json: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Format output as JSON.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Format output as JSON.`
+            },
+            loglevel: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>            
+                    The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.
+                    <br/><br/>
+                    Type: enum<br/>
+                    Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                    Default value: warn
+                `,
+                title: `The logging level for this command invocation.`
+            },
+            targetusername: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>            
+                    A username or alias for the target org. Overrides the default target org.<br/><br/>
+                    Type: string
+                `,
+                title: `A username or alias for the target org. Overrides the default target org.`
+            },
+            apiversion: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Override the API version used for API requests made by this command.<br/><br/>
+                    Type: string
+                `,
+                title: `Override the API version used for API requests made by this command.`
+            },
+            resultfile: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    The path to the file where the results of the command are stored. Directing the output to a file makes it easier to extract relevant information for your package.xml manifest file. The default output destination is the console.<br/><br/>
+                    Type: filepath
+                `,
+                title: `The path to the file where the results of the command are stored.`
+            },
+            metadatatype: {
+                type: `<b>Required</b>`,
+                body: `
+                    <br/><br/>
+                    The metadata type to be retrieved, such as CustomObject or Report. The metadata type value is case-sensitive.<br/><br/>
+                    Type: string
+                `,
+                title: `The metadata type to be retrieved, such as CustomObject or Report.`
+            },
+            folder: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    The folder associated with the component. This parameter is required for components that use folders, such as Dashboard, Document, EmailTemplate, or Report. The folder name value is case-sensitive.<br/><br/>
+                    Type: string
+                `,
+                title: `The folder associated with the component.`
+            },
+        },
+        retrieve: {
+            json: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Format output as JSON.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Format output as JSON.`
+            },
+            loglevel: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>            
+                    The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.
+                    <br/><br/>
+                    Type: enum<br/>
+                    Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                    Default value: warn
+                `,
+                title: `The logging level for this command invocation.`
+            },
+            targetusername: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>            
+                    A username or alias for the target org. Overrides the default target org.<br/><br/>
+                    Type: string
+                `,
+                title: `A username or alias for the target org. Overrides the default target org.`
+            },
+            apiversion: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Override the API version used for API requests made by this command.<br/><br/>
+                    Type: string
+                `,
+                title: `Override the API version used for API requests made by this command.`
+            },
+            wait: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    The number of minutes to wait for the command to complete.<br/><br/>
+                    Type: minutes
+                `,
+                title: `The number of minutes to wait for the command to complete.`
+            },
+            retrievetargetdir: {
+                type: `<b>Required</b>`,
+                body: `
+                    <br/><br/>
+                    The root of the directory structure where the retrieved .zip or metadata files are put.<br/><br/>
+                    Type: directory
+                `,
+                title: `The root of the directory structure where the retrieved .zip or metadata files are put.`
+            },
+            unpackaged: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    The complete path for the manifest file that specifies the components to retrieve.<br/><br/>
+                    Type: filepath
+                `,
+                title: `The complete path for the manifest file that specifies the components to retrieve.`
+            },
+            verbose: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Indicates that you want verbose output from the retrieve operation.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Indicates that you want verbose output from the retrieve operation.`
+            },
+            sourcedir: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    The source directory to use instead of the default package directory specified in sfdx-project.json.<br/><br/>
+                    Type: directory
+                `,
+                title: `The source directory to use instead of the default package directory specified in sfdx-project.json.`
+            },
+            packagenames: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    A comma-separated list of package names to retrieve.<br/><br/>
+                    Type: array
+                `,
+                title: `A comma-separated list of package names to retrieve.`
+            },
+            singlepackage: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Indicates that the specified .zip file points to a directory structure for a single package. By default, the CLI assumes the directory is structured for a set of packages.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Indicates that the specified .zip file points to a directory structure for a single package.`
+            },
+        },
+        retrieve_report: {
+            json: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Format output as JSON.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Format output as JSON.`
+            },
+            loglevel: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>            
+                    The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.
+                    <br/><br/>
+                    Type: enum<br/>
+                    Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                    Default value: warn
+                `,
+                title: `The logging level for this command invocation.`
+            },
+            targetusername: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>            
+                    A username or alias for the target org. Overrides the default target org.<br/><br/>
+                    Type: string
+                `,
+                title: `A username or alias for the target org. Overrides the default target org.`
+            },
+            apiversion: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Override the API version used for API requests made by this command.<br/><br/>
+                    Type: string
+                `,
+                title: `Override the API version used for API requests made by this command.`
+            },
+            wait: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    The number of minutes to wait for the command to complete.<br/><br/>
+                    Type: minutes
+                `,
+                title: `The number of minutes to wait for the command to complete.`
+            },
+            retrievetargetdir: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    The root of the directory structure where the retrieved .zip or metadata files are put.<br/><br/>
+                    Type: directory
+                `,
+                title: `The root of the directory structure where the retrieved .zip or metadata files are put.`
+            },
+            verbose: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Indicates that you want verbose output from the retrieve operation.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Indicates that you want verbose output from the retrieve operation.`
+            },
+            jobid: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    The job ID (asyncId) of the retrieve you want to check. If not specified, the default value is the ID of the most recent metadata retrieval you ran using Salesforce CLI. You must specify a --retrievetargetdir. Use with --wait to resume waiting.<br/><br/>
+                    Type: id
+                `,
+                title: `The job ID (asyncId) of the retrieve you want to check.`
+            },
+        },
+    },
     advanced: {
         type: `<b><i>Optional</i></b>`,
         body: `
