@@ -1,391 +1,419 @@
 <script>
-    import { } from 'os';
-    import { Circle2 } from 'svelte-loading-spinners'
-    import CSS from '../../-helperFiles/GlobalCSS.svelte'
-    import { onMount } from 'svelte'
-    import * as js from '../../-helperFiles/GlobalJS'
-    import { mapInputVariables } from '../../-helperFiles/GlobalStore'
-    import { mapShowSections } from '../../-helperFiles/GlobalStore'
-    import { lTARGETUSERNAME } from '../../-helperFiles/GlobalStore'
-    import { mapTargetUsername } from '../../-helperFiles/GlobalStore'
-    import { pickFolderType } from '../../-helperFiles/GlobalStore'
-    import { mapErrors } from '../../-helperFiles/GlobalStore'
-    import { mapSpinner } from '../../-helperFiles/GlobalStore'
-    import { mapInformation } from '../../-helperFiles/GlobalStore'
-    import { mapForceShowSections } from '../../-helperFiles/GlobalStore'
-    import { mapSource } from '../../-helperFiles/GlobalStore'
-    import { mapSectionValidation } from '../../-helperFiles/GlobalStore'
-    import JSONs from '../../-commonSections/JSONSection.svelte'
-    import LOGLEVELs from '../../-commonSections/LOGLEVELSection.svelte'
-    import TARGETUSERNAMEs from '../../-commonSections/TARGETUSERNAMESection.svelte'
-    import APIVERSIONs from '../../-commonSections/APIVERSIONSection.svelte'
-    import SOURCEPATHs from '../../-commonSections/SOURCEPATHSection.svelte'
-    import WAITs from '../../-commonSections/WAITSection.svelte'
-    import MANIFESTs from '../../-commonSections/MANIFESTSection.svelte';
-    import METADATAs from '../../-commonSections/METADATASection.svelte';
-    import VERBOSEs from '../../-commonSections/VERBOSESection.svelte';
-    import ADVANCEDs from '../../-commonSections/ADVANCEDSection.svelte';
-    import CHECKONLYs from '../../-commonSections/CHECKONLYSection.svelte';
-    import SOAPDEPLOYs from '../../-commonSections/SOAPDEPLOYSection.svelte';
+    // Helper Files
+    import * as js from "../../-helperFiles/GlobalJS";
+    import CSS from "../../-helperFiles/GlobalCSS.svelte";
+    import { Circle2 } from "svelte-loading-spinners";
+    import { } from "os";
+    import WebviewListener from "../../-commonPages/WebviewListener.svelte";
+    import RefreshIcon from "svelte-bootstrap-icons/lib/ArrowClockwise";
+    import { mapDoc } from "../../-helperFiles/MapDocumentation";
+    import * as gLists from "../../-helperFiles/Lists";
+
+    // Store
+    import { 
+        lTARGETUSERNAME,
+        mapErrors,
+        mapInformation,
+        mapInputVariables,
+        mapSectionValidation,
+        mapShowSections,
+        mapSpinner,
+        objSFDX,
+    } from "../../-helperFiles/GlobalStore";
+
+    // Sections
+    import JSONs from "../../-commonSections/JSONSection.svelte";
+    import LOGLEVELs from "../../-commonSections/SelectSFDX.svelte";
+    import TARGETUSERNAMEs from "../../-commonSections/SelectSFDX.svelte";
+    import APIVERSIONs from "../../-commonSections/SelectSFDX.svelte";
+    import CHECKONLYs from "../../-commonSections/BooleanSFDX.svelte";
+    import SOAPDEPLOYs from "../../-commonSections/BooleanSFDX.svelte";
+    import WAITs from "../../-commonSections/MinuteSFDX.svelte";
+    import TESTLEVELs from "../../-commonSections/SelectSFDX.svelte";
+    import RUNTESTSs from "../../-commonSections/StringSFDX.svelte";
+    import IGNOREERRORSs from "../../-commonSections/BooleanSFDX.svelte";
+    import IGNOREWARNINGSs from "../../-commonSections/BooleanSFDX.svelte";
+    import VALIDATEDDEPLOYREQUESTIDs from "../../-commonSections/StringSFDX.svelte";
+    import VERBOSEs from "../../-commonSections/BooleanSFDX.svelte";
+    import METADATAs from "../../-commonSections/StringSFDX.svelte";
+    import SOURCEPATHs from "../../-commonSections/StringSFDX.svelte";
+    import MANIFESTs from "../../-commonSections/FilepathSFDX.svelte";
+    import PREDESTRUCTIVECHANGESs from "../../-commonSections/FilepathSFDX.svelte";
+    import POSTDESTRUCTIVECHANGESs from "../../-commonSections/FilepathSFDX.svelte";
+    import ADVANCEDs from "../../-commonSections/ADVANCEDSection.svelte";
 
     // Component Validations
     let 
-        ADVANCEDValidation,
-        APIVERSIONValidation,
-        JSONValidation,
-        LOGLEVELValidation, 
-        OUTPUTDIRValidation, 
-        TARGETUSERNAMEValidation;
+    JSONv, 
+    LOGLEVELv, 
+    TARGETUSERNAMEv,
+    APIVERSIONv,
+    CHECKONLYv,
+    SOAPDEPLOYv,
+    WAITv,
+    TESTLEVELv,
+    RUNTESTSv,
+    IGNOREERRORSv,
+    IGNOREWARNINGSv,
+    VALIDATEDDEPLOYREQUESTIDv,
+    VERBOSEv,
+    METADATAv,
+    SOURCEPATHv,
+    MANIFESTv,
+    PREDESTRUCTIVECHANGESv,
+    POSTDESTRUCTIVECHANGESv,
+    ADVANCEDv;
 
-    $mapSpinner.force = {
-        deploy: true
-    };
+    // Documentation
+    let fileName = "deploy";
+    let showFileName = fileName.replace("_", ":");
+    let showFileNameUpper = "Deploy";
+    let commandType = "source";
+    let linkDocumentation = `https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference_force_${commandType}.htm#cli_reference_force_${commandType}_${fileName}`;
 
     // Initial loading
+    if(!$mapSpinner.force){
+        $mapSpinner.force = {};
+    }
+
+    $mapSpinner.force[fileName] = true;
+
     setTimeout(() => {
-        $mapSpinner.force.deploy = false;
+        $mapSpinner.force[fileName] = false;
     }, 1000);
 
-    if($mapShowSections){
-        for(const key in $mapShowSections){
+    // Mandatory Field(s)
+    let mandatorySections = [
+        "metadata",
+        "sourcepath",
+        "manifest",
+    ];
+
+    let pOnlyOneError = "-m METADATA, -p SOURCEPATH or -x MANIFEST"
+
+    if(!$mapShowSections){
+        $mapShowSections = {};
+    }
+
+    if(!$mapSectionValidation){
+        $mapSectionValidation = {};
+    }
+
+    for(let i = 0; i < mandatorySections.length; i++){
+        $mapSectionValidation[mandatorySections[i]] = 0;
+    }
+
+    function startSFDX() {
+        let validation = 0;
+
+        $objSFDX.terminal = "";
+        $objSFDX.terminal = `force:${commandType}:${showFileName}`;
+
+        Promise.all([
+            JSONv.validate(), 
+            LOGLEVELv.validate(), 
+            TARGETUSERNAMEv.validate(), 
+            APIVERSIONv.validate(), 
+            CHECKONLYv.validate(), 
+            SOAPDEPLOYv.validate(), 
+            WAITv.validate(), 
+            TESTLEVELv.validate(), 
+            RUNTESTSv.validate(), 
+            IGNOREERRORSv.validate(), 
+            IGNOREWARNINGSv.validate(), 
+            VALIDATEDDEPLOYREQUESTIDv.validate(), 
+            VERBOSEv.validate(), 
+            METADATAv.validate(), 
+            SOURCEPATHv.validate(), 
+            MANIFESTv.validate(), 
+            PREDESTRUCTIVECHANGESv.validate(), 
+            POSTDESTRUCTIVECHANGESv.validate(), 
+            ADVANCEDv.validate(), 
+        ]).then((values) => {
+            if(values){
+                if(!values.includes(false)){
+                    for(let key in $mapErrors){
+                        $mapErrors[key] = "";
+                    }     
+    
+                    $mapSpinner.main = true;
+                    $mapInformation.main = true;
+            
+                    js.globalContinue();
+                }
+            }
+        });
+    }
+
+    function reset(){
+        $mapInputVariables = {};
+        
+        for(let key in $mapShowSections){
             $mapShowSections[key] = false;
         }
     }
 
-    $mapSectionValidation = {
-        sourcepath: 0,
-        manifest: 0,
-        metadata: 0
-    };
-
-    $mapErrors = {};
-    $mapInputVariables = {};
-
-    let mapDocRequired = {
-        type: `<b>1/3 Required</b>`,
-    };
-
-    // Webview Listener
-    onMount(() => {
-        window.addEventListener('message', event => {
-            const message = event.data; // The json data that the extension sent
-            switch (message.type) {
-                case 'folderUri':
-                    $mapInputVariables[$pickFolderType] = message.value[0].path;
-                    break;
-                case 'fileUri':
-                    $mapInputVariables[$pickFolderType] = message.value[0].path;
-                    $mapShowSections[$pickFolderType] = true;
-                    break;
-                case "aliasJSON":
-                    for(const key in message.value){
-                        let option = {value: key, label: key};
-
-                        $mapTargetUsername[key] = message.value[key];
-                        $lTARGETUSERNAME.push(option);
-
-                        $mapShowSections.targetusernamespinner = false;
-                    }
-                    break;
-                case 'sfdxClosed':
-                    if($mapShowSections){
-                        for(const key in $mapShowSections){
-                            $mapShowSections[key] = false;
-                        }
-                    }
-
-                    if($mapSectionValidation){
-                        for(const key in $mapSectionValidation){
-                            $mapSectionValidation[key] = 0;
-                        }
-                    }
-
-                    if($mapSource){
-                        for(const key in $mapSource){
-                            if(key !== 'deploy'){
-                                $mapSource[key] = false;
-                            }
-                        }
-                    }
-
-                    $mapSpinner.main = false;
-                    $mapInformation.main = false;
-                    $mapForceShowSections.source = true;
-                    $mapSource.deploy = true;
-                    break;
-            }
-        });
+    // TARGETUSERNAME
+    tsvscode.postMessage({
+        type: "onGetAliasUsers"
     });
 
-    function deploy() {
-        let message = {
-            type: 'onTerminalSFDX'
-        };
+    // APIVERSION
+    let dAPIVERSION = "";
+    const lAPIVERSION = [];
 
-        message.sfdx = 'force:source:deploy';
-
-        // JSON
-        if($mapShowSections.json){
-            message.sfdx += ' --json > ';
-            
-            if($mapInputVariables.json){
-                message.sfdx += $mapInputVariables.json;
-            }else{
-                message.sfdx += 'output.json';
-            }
+    for(let i=8; i < 54; i++){
+        if(i === 53){
+            dAPIVERSION = i.toFixed(1);
         }
 
-        if($mapInputVariables.json2){
-            message.pJSON = ' --json';
-            message.vJSONPath = $mapInputVariables.json2;
-
-            if($mapInputVariables.json){
-                message.vJSON += $mapInputVariables.json;
-            }
-        }
-
-        // LOGLEVEL
-        if($mapShowSections.loglevel){
-            if($mapInputVariables.loglevel){
-                $mapErrors.loglevel = '';
-                message.sfdx += ` --loglevel ${$mapInputVariables.loglevel}`;
-            }else{
-                $mapErrors.loglevel = 'sfdxet-error-select';
-
-                tsvscode.postMessage({
-                    type: 'onError',
-                    value: `ERROR: Please select a Loglevel or uncheck the [--loglevel LOGLEVEL] checkbox.` 
-                });
-
-                return;
-            }
-        }else{
-            $mapErrors.loglevel = '';
-        }
+        lAPIVERSION.push({value: i.toFixed(1), label: i.toFixed(1)});
         
-        // TARGETUSERNAME
-        if($mapShowSections.targetusername){
-            if($mapInputVariables.targetusername){
-                $mapErrors.targetusername = '';
-                message.sfdx += ` -u ${$mapInputVariables.targetusername}`;
-            }else{
-                $mapErrors.targetusername = 'sfdxet-error-select';
-
-                tsvscode.postMessage({
-                    type: 'onError',
-                    value: `ERROR: Please select a Targetusername or uncheck the [-u TARGETUSERNAME] checkbox.` 
-                });
-
-                return;
-            }
-        }else{
-            $mapErrors.targetusername = '';
+        if(i === 11){
+            let j = i + .1;
+            lAPIVERSION.push({value: j.toFixed(1), label: j.toFixed(1)});
         }
+    }
 
-        // APIVERSION
-        if($mapShowSections.apiversion){
-            if($mapInputVariables.apiversion){
-                $mapErrors.apiversion = '';
-                message.sfdx += ` --apiversion ${$mapInputVariables.apiversion}`;
-            }else{
-                $mapErrors.apiversion = 'sfdxet-error-select';
+    lAPIVERSION.reverse();
 
-                tsvscode.postMessage({
-                    type: 'onError',
-                    value: `ERROR: Please select a Apiversion or uncheck the [-a APIVERSION] checkbox.` 
-                });
+    $mapInputVariables[fileName] = dAPIVERSION;
 
-                return;
-            }
-        }else{
-            $mapErrors.apiversion = '';
-        }
+    let testValidation;
 
-        // SOURCEPATH
-        if($mapShowSections.sourcepath){
-            if($mapInputVariables.sourcepath){
-                $mapErrors.sourcepath = '';
-                message.sfdx += ` -p ${$mapInputVariables.sourcepath}`;
-            }else{
-                $mapErrors.sourcepath = 'sfdxet-error-button';
-
-                tsvscode.postMessage({
-                    type: 'onError',
-                    value: `ERROR: Please select a Folder or uncheck the [-p SOURCEPATH] checkbox.` 
-                });
-
-                return;
-            }
-        }else if($mapShowSections.manifest && $mapInputVariables.manifest){ // MANIFEST
-            $mapErrors.sourcepath = '';
-            $mapErrors.metadata = '';
-
-            message.sfdx += ` -x ${$mapInputVariables.manifest}`;
-        }else if($mapShowSections.metadata){ // METADATA
-            $mapErrors.sourcepath = '';
-            
-            if($mapInputVariables.metadata && $mapInputVariables.metadata.length > 0){
-                $mapErrors.metadata = '';
-                message.sfdx += ` -m ${$mapInputVariables.metadata}`;
-            }else{
-                $mapErrors.metadata = 'sfdxet-error-select';
-
-                tsvscode.postMessage({
-                    type: 'onError',
-                    value: `ERROR: Please select a Metadata or uncheck the [-m METADATA] checkbox.` 
-                });
-
-                return;
-            }
-        }
-
-        // WAIT
-        if($mapShowSections.wait && $mapInputVariables.wait){
-            message.sfdx += ` -w ${$mapInputVariables.wait}`;
-        }
-
-        // PACKAGENAMES
-        if($mapShowSections.packagenames){
-            if($mapInputVariables.packagenames){
-                $mapErrors.packagenames = '';
-                message.sfdx += ` -n ${$mapInputVariables.packagenames}`;
-            }else{
-                $mapErrors.packagenames = 'sfdxet-error-button';
-
-                tsvscode.postMessage({
-                    type: 'onError',
-                    value: `ERROR: Please insert one or more Package Name or uncheck the [-n PACKAGENAMES] checkbox.` 
-                });
-
-                return;
-            }
-        }else{
-            $mapErrors.packagenames = '';
-        }
-
-        // VERBOSE
-        if($mapShowSections.verbose){
-            message.sfdx += ` --verbose`;
-        }
-
-        // ADVANCED
-        if($mapShowSections.advanced){
-            if($mapInputVariables.advanced){
-                $mapErrors.advanced = '';
-                message.sfdx += ` ${$mapInputVariables.advanced}`;
-            }else{
-                tsvscode.postMessage({
-                    type: 'onError',
-                    value: `ERROR: Please insert your advanced input or uncheck the Advanced checkbox.` 
-                });
-
-                return;
-            }
-        }
-
-        let validation = 0;
-
-        for(let i in $mapSectionValidation){
-            if($mapSectionValidation[i] === 1){
-                validation++;
-                break;
-            }
-        }
-
-        if(validation === 0){
-            $mapErrors.metadata = 'sfdxet-error-span';
-            $mapErrors.manifest = 'sfdxet-error-span';
-            $mapErrors.sourcepath = 'sfdxet-error-span';
-
-            tsvscode.postMessage({
-                    type: 'onError',
-                    value: `ERROR: Select one between: SOURCEPATH, MANIFEST or METADATA` 
-                });
-
-                return;
-        }else{
-            $mapErrors.metadata = '';
-            $mapErrors.manifest = '';
-            $mapErrors.sourcepath = '';
-
-            tsvscode.postMessage({
-                type: 'onInfo',
-                value: 'Starting the Terminal + Script: Retrieve' 
-            });
-
-            $mapSpinner.main = true;
-            $mapInformation.main = true;
-    
-            tsvscode.postMessage(message);
+    $: if ($mapInputVariables) {
+        testValidation = $mapInputVariables.testlevel === "RunSpecifiedTests";
+        
+        if(testValidation === true){
+            $mapShowSections.runtests = true;
         }
     }
 </script>
 
-{#if $mapSpinner.force.deploy}
+<WebviewListener fileName={fileName} commandType={commandType} showCommand={showFileNameUpper}/>
+
+{#if $mapSpinner.force[fileName]}
     <div class="sfdxet-spinner">
         <Circle2 size="60" colorOuter="#034efc" unit="px"></Circle2>
     </div>
 {:else}
     <div class="sfdxet-absolute-center">
-        <h3>sfdx force:source:deploy</h3>
+        <h3>sfdx force:{commandType}:{showFileName}</h3>
         <br/>
         <br/>
-        <button class="sfdxet-buttons" on:click={deploy}>Retrieve</button>
+        <button class="sfdxet-buttons" on:click={startSFDX}>{showFileNameUpper}</button>
         <br/>
         <br/>
         <h3>Options:</h3>
-        <h4><a target="_blank" href="https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference_force_source.htm#cli_reference_force_source_deploy">Official Documentation</a></h4>
+        <h4><a target="_blank" href={linkDocumentation}>Official Documentation</a></h4>
         <br/>
 
-        <!-- JSON -->
-        <svelte:component this="{JSONs}" bind:this="{JSONValidation}" />
-        
-        <!-- LOGLEVEL -->
-        <svelte:component this="{LOGLEVELs}" bind:this="{LOGLEVELValidation}" />
-        
-        <!-- TARGETUSERNAME -->
-        <svelte:component this="{TARGETUSERNAMEs}" bind:this="{TARGETUSERNAMEValidation}" />
+        <!-- [--json] -->
+        <svelte:component 
+            this="{JSONs}" 
+            bind:this="{JSONv}" 
+            pMapDoc={mapDoc[commandType][fileName].json}
+            pShowSectionName={false}
+        />
 
-        <!-- APIVERSION -->
-        <svelte:component this="{APIVERSIONs}" bind:this="{APIVERSIONValidation}" />
+        <!-- [--loglevel LOGLEVEL] -->
+        <svelte:component 
+            this="{LOGLEVELs}" 
+            bind:this="{LOGLEVELv}" 
+            pSectionName="loglevel"
+            pMapDoc={mapDoc[commandType][fileName].loglevel} 
+            pSFDXParameter="--loglevel"
+            pList={gLists.lLOGLEVEL}
+            pDefaultValue="warn"
+        />
 
-        <!-- CHECKONLY -->
-        <CHECKONLYs />
+        <!-- [-u TARGETUSERNAME] -->
+        <svelte:component 
+            this="{TARGETUSERNAMEs}" 
+            bind:this="{TARGETUSERNAMEv}" 
+            pSectionName="targetusername"
+            pMapDoc={mapDoc[commandType][fileName].targetusername} 
+            pSFDXParameter="-u"
+            pList={$lTARGETUSERNAME}
+        />
 
-        <!-- SOAPDEPLOY -->
-        <SOAPDEPLOYs />
+        <!-- [--apiversion APIVERSION] -->
+        <svelte:component 
+            this="{APIVERSIONs}" 
+            bind:this="{APIVERSIONv}" 
+            pSectionName="apiversion"
+            pMapDoc={mapDoc[commandType][fileName].apiversion} 
+            pSFDXParameter="--apiversion"
+            pList={lAPIVERSION}
+            pDefaultValue={dAPIVERSION}
+        />
 
-        <!-- WAIT -->
-        <WAITs />
+        <!-- [-c] -->
+        <svelte:component 
+            this="{CHECKONLYs}" 
+            bind:this="{CHECKONLYv}"
+            pSectionName="checkonly"
+            pMapDoc={mapDoc[commandType][fileName].checkonly} 
+            pSFDXParameter="-c"
+            pShowSectionName={false} 
+        />
 
-        <!-- TESTLEVEL -->
+        <!-- [--soapdeploy] -->
+        <svelte:component 
+            this="{SOAPDEPLOYs}" 
+            bind:this="{SOAPDEPLOYv}"
+            pSectionName="soapdeploy"
+            pMapDoc={mapDoc[commandType][fileName].soapdeploy} 
+            pSFDXParameter="--soapdeploy"
+            pShowSectionName={false} 
+        />
 
-        <!-- RUNTESTS -->
+        <!-- [-w WAIT] -->
+        <svelte:component 
+            this="{WAITs}" 
+            bind:this="{WAITv}" 
+            pSectionName="wait"
+            pMapDoc={mapDoc[commandType][fileName].wait} 
+            pSFDXParameter="-w"
+            pDefaultValue="-1"
+        />
 
-        <!-- IGNOREERRORS -->
+        <!-- [-l TESTLEVEL] -->
+        <svelte:component 
+            this="{TESTLEVELs}" 
+            bind:this="{TESTLEVELv}" 
+            pSectionName="testlevel"
+            pMapDoc={mapDoc[commandType][fileName].testlevel} 
+            pSFDXParameter="-l"
+            pList={gLists.lTESTLEVEL[commandType][fileName]}
+        />
 
-        <!-- IGNOREWARNINGS -->
+        <!-- [-r RUNTESTS] -->
+        {#if testValidation === true}
+            <svelte:component 
+                this="{RUNTESTSs}" 
+                bind:this="{RUNTESTSv}" 
+                pSectionName="runtests"
+                pMapDoc={mapDoc[commandType][fileName].runtests}
+                pSFDXParameter="-r"
+                pSectionTitle="Run Tests"
+                pTitle={mapDoc[commandType][fileName].runtests.title}
+                pPlaceholder="Insert..."
+                pChecked={true}
+                pRequired={true}
+                pDisabled={true}
+            />
+        {/if}
 
-        <!-- VALIDATEDDEPLOYREQUESTID -->
+        <!-- [-o] -->
+        <svelte:component 
+            this="{IGNOREERRORSs}" 
+            bind:this="{IGNOREERRORSv}"
+            pSectionName="ignoreerrors"
+            pMapDoc={mapDoc[commandType][fileName].ignoreerrors} 
+            pSFDXParameter="-o"
+            pShowSectionName={false} 
+        />
 
-        <!-- VERBOSE -->
-        <VERBOSEs />
+        <!-- [-g] -->
+        <svelte:component 
+            this="{IGNOREWARNINGSs}" 
+            bind:this="{IGNOREWARNINGSv}"
+            pSectionName="ignorewarnings"
+            pMapDoc={mapDoc[commandType][fileName].ignorewarnings} 
+            pSFDXParameter="-g"
+            pShowSectionName={false} 
+        />
 
-        <!-- METADATA -->
-        <METADATAs mapDoc={mapDocRequired} required={true}/>
+        <!-- [-q VALIDATEDDEPLOYREQUESTID] -->
+        <svelte:component 
+            this="{VALIDATEDDEPLOYREQUESTIDs}" 
+            bind:this="{VALIDATEDDEPLOYREQUESTIDv}" 
+            pSectionName="validateddeployrequestid"
+            pMapDoc={mapDoc[commandType][fileName].validateddeployrequestid}
+            pSFDXParameter="-q"
+            pSectionTitle="Validated Deploy Request Id"
+            pTitle={mapDoc[commandType][fileName].validateddeployrequestid.title}
+            pPlaceholder="Insert..."
+        />
 
-        <!-- SOURCEPATH -->
-        <SOURCEPATHs mapDoc={mapDocRequired} required={true}/>
+        <!-- [--verbose] -->
+        <svelte:component 
+            this="{VERBOSEs}" 
+            bind:this="{VERBOSEv}"
+            pSectionName="verbose"
+            pMapDoc={mapDoc[commandType][fileName].verbose} 
+            pSFDXParameter="--verbose"
+            pShowSectionName={false} 
+        />
 
-        <!-- MANIFEST -->
-        <MANIFESTs mapDoc={mapDocRequired} required={true}/>
+        <!-- [-m METADATA] -->
+        <svelte:component 
+            this="{METADATAs}" 
+            bind:this="{METADATAv}" 
+            pSectionName="metadata"
+            pMapDoc={mapDoc[commandType][fileName].metadata}
+            pSFDXParameter="-m"
+            pSectionTitle="Metadata List"
+            pTitle={mapDoc[commandType][fileName].metadata.title}
+            pPlaceholder="Insert..."
+            pOnlyOneError={pOnlyOneError}
+        />
 
-        <!-- PREDESTRUCTIVECHANGES -->
+        <!-- [-p SOURCEPATH] -->
+        <svelte:component 
+            this="{SOURCEPATHs}" 
+            bind:this="{SOURCEPATHv}" 
+            pSectionName="sourcepath"
+            pMapDoc={mapDoc[commandType][fileName].sourcepath}
+            pSFDXParameter="-p"
+            pSectionTitle="Source Path List"
+            pTitle={mapDoc[commandType][fileName].sourcepath.title}
+            pPlaceholder="Insert..."
+            pOnlyOneError={pOnlyOneError}
+        />
 
-        <!-- POSTDESTRUCTIVECHANGES -->
+        <!-- [-x MANIFEST] -->
+        <svelte:component 
+            this="{MANIFESTs}" 
+            bind:this="{MANIFESTv}" 
+            pSectionName="manifest"
+            pMapDoc={mapDoc[commandType][fileName].manifest} 
+            pSFDXParameter="-x"
+            pPlaceholder="Insert..."
+            pButtonText="Select Manifest File"
+            pOnlyOneError={pOnlyOneError}
+        />
 
-        <!-- ADVANCED -->
-        <svelte:component this="{ADVANCEDs}" bind:this="{ADVANCEDValidation}" />
+        <!-- [--predestructivechanges PREDESTRUCTIVECHANGES] -->
+        <svelte:component 
+            this="{PREDESTRUCTIVECHANGESs}" 
+            bind:this="{PREDESTRUCTIVECHANGESv}" 
+            pSectionName="predestructivechanges"
+            pMapDoc={mapDoc[commandType][fileName].predestructivechanges} 
+            pSFDXParameter="--predestructivechanges"
+            pPlaceholder="Insert..."
+            pButtonText="Select Pre-Destructive Changes File"
+            pOnlyOneError={pOnlyOneError}
+        />
+
+        <!-- [--postdestructivechanges POSTDESTRUCTIVECHANGES] -->
+        <svelte:component 
+            this="{POSTDESTRUCTIVECHANGESs}" 
+            bind:this="{POSTDESTRUCTIVECHANGESv}" 
+            pSectionName="postdestructivechanges"
+            pMapDoc={mapDoc[commandType][fileName].postdestructivechanges} 
+            pSFDXParameter="--postdestructivechanges"
+            pPlaceholder="Insert..."
+            pButtonText="Select Post-Destructive Changes File"
+            pOnlyOneError={pOnlyOneError}
+        />
+
+        <!-- [ADVANCED] -->
+        <svelte:component this="{ADVANCEDs}" bind:this="{ADVANCEDv}" pMapDoc={mapDoc.advanced}/>
+        <br/>
+        <br/>
+        <button class="sfdxet-buttons-icon" on:click={reset} title="Reset Options"><RefreshIcon /></button>
     </div>
 {/if}
 

@@ -3272,6 +3272,312 @@ export let mapDoc = {
         },
     },
     source: {
+        beta_pull: {
+            json: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Format output as JSON.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Format output as JSON.`
+            },
+            loglevel: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>            
+                    The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.
+                    <br/><br/>
+                    Type: enum<br/>
+                    Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                    Default value: warn
+                `,
+                title: `The logging level for this command invocation.`
+            },
+            targetusername: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>            
+                    A username or alias for the target org. Overrides the default target org.<br/><br/>
+                    Type: string
+                `,
+                title: `A username or alias for the target org. Overrides the default target org.`
+            },
+            apiversion: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Override the API version used for API requests made by this command.<br/><br/>
+                    Type: string
+                `,
+                title: `Override the API version used for API requests made by this command.`
+            },
+            forceoverwrite: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Ignore conflict warnings and overwrite changes to the project.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Ignore conflict warnings and overwrite changes to the project.`
+            },
+            wait: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    The number of minutes to wait for the command to complete and display results to the terminal window. If the command continues to run after the wait period, the CLI returns control of the terminal window to you. The default is 33 minutes.<br/><br/>
+                    Type: minutes<br/>
+                    Default value: 33 minutes
+                `,
+                title: `The number of minutes to wait for the command to complete and display results to the terminal window.`
+            },
+        },
+        beta_push: {
+            json: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Format output as JSON.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Format output as JSON.`
+            },
+            loglevel: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>            
+                    The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.
+                    <br/><br/>
+                    Type: enum<br/>
+                    Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                    Default value: warn
+                `,
+                title: `The logging level for this command invocation.`
+            },
+            targetusername: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>            
+                    A username or alias for the target org. Overrides the default target org.<br/><br/>
+                    Type: string
+                `,
+                title: `A username or alias for the target org. Overrides the default target org.`
+            },
+            apiversion: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Override the API version used for API requests made by this command.<br/><br/>
+                    Type: string
+                `,
+                title: `Override the API version used for API requests made by this command.`
+            },
+            forceoverwrite: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Ignore conflict warnings and overwrite changes to the project.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Ignore conflict warnings and overwrite changes to the project.`
+            },
+            wait: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    The number of minutes to wait for the command to complete and display results to the terminal window. If the command continues to run after the wait period, the CLI returns control of the terminal window to you. The default is 33 minutes.<br/><br/>
+                    Type: minutes<br/>
+                    Default value: 33 minutes
+                `,
+                title: `The number of minutes to wait for the command to complete and display results to the terminal window.`
+            },
+            ignorewarnings: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Completes the deployment even if warnings are generated.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Completes the deployment even if warnings are generated.`
+            },
+            quiet: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Command does not output to stdout.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Command does not output to stdout.`
+            },
+        },
+        beta_status: {
+            json: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Format output as JSON.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Format output as JSON.`
+            },
+            loglevel: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>            
+                    The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.
+                    <br/><br/>
+                    Type: enum<br/>
+                    Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                    Default value: warn
+                `,
+                title: `The logging level for this command invocation.`
+            },
+            targetusername: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>            
+                    A username or alias for the target org. Overrides the default target org.<br/><br/>
+                    Type: string
+                `,
+                title: `A username or alias for the target org. Overrides the default target org.`
+            },
+            apiversion: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Override the API version used for API requests made by this command.<br/><br/>
+                    Type: string
+                `,
+                title: `Override the API version used for API requests made by this command.`
+            },
+            local: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Lists the changes that have been made locally.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Lists the changes that have been made locally.`
+            },
+            remote: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Lists the changes that have been made in the scratch org.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Lists the changes that have been made in the scratch org.`
+            },
+        },
+        beta_tracking_clear: {
+            json: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Format output as JSON.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Format output as JSON.`
+            },
+            loglevel: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>            
+                    The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.
+                    <br/><br/>
+                    Type: enum<br/>
+                    Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                    Default value: warn
+                `,
+                title: `The logging level for this command invocation.`
+            },
+            targetusername: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>            
+                    A username or alias for the target org. Overrides the default target org.<br/><br/>
+                    Type: string
+                `,
+                title: `A username or alias for the target org. Overrides the default target org.`
+            },
+            apiversion: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Override the API version used for API requests made by this command.<br/><br/>
+                    Type: string
+                `,
+                title: `Override the API version used for API requests made by this command.`
+            },
+            noprompt: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Do not prompt for source tracking override confirmation.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Do not prompt for source tracking override confirmation.`
+            },
+        },
+        beta_tracking_reset: {
+            json: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Format output as JSON.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Format output as JSON.`
+            },
+            loglevel: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>            
+                    The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.
+                    <br/><br/>
+                    Type: enum<br/>
+                    Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                    Default value: warn
+                `,
+                title: `The logging level for this command invocation.`
+            },
+            targetusername: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>            
+                    A username or alias for the target org. Overrides the default target org.<br/><br/>
+                    Type: string
+                `,
+                title: `A username or alias for the target org. Overrides the default target org.`
+            },
+            apiversion: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Override the API version used for API requests made by this command.<br/><br/>
+                    Type: string
+                `,
+                title: `Override the API version used for API requests made by this command.`
+            },
+            revision: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Reset to a specific SourceMember revision counter number.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Reset to a specific SourceMember revision counter number.`
+            },
+            noprompt: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Do not prompt for source tracking override confirmation.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Do not prompt for source tracking override confirmation.`
+            },
+        },
         convert: {
             json: {
                 type: `<b><i>Optional</i></b>`,
@@ -3468,6 +3774,194 @@ export let mapDoc = {
                     Type: boolean
                 `,
                 title: `Emit additional command output to stdout.`
+            },
+        },
+        deploy: {
+            json: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Format output as JSON.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Format output as JSON.`
+            },
+            loglevel: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>            
+                    The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.
+                    <br/><br/>
+                    Type: enum<br/>
+                    Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                    Default value: warn
+                `,
+                title: `The logging level for this command invocation.`
+            },
+            targetusername: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>            
+                    A username or alias for the target org. Overrides the default target org.<br/><br/>
+                    Type: string
+                `,
+                title: `A username or alias for the target org. Overrides the default target org.`
+            },
+            apiversion: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Override the API version used for API requests made by this command.<br/><br/>
+                    Type: string
+                `,
+                title: `Override the API version used for API requests made by this command.`
+            },
+            checkonly: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Validates the deployed metadata and runs all Apex tests, but prevents the deployment from being saved to the org.<br/><br/>
+                    If you change a field type from Master-Detail to Lookup or vice versa, that change isn’t supported when using the --checkonly parameter to test a deployment (validation). This kind of change isn’t supported for test deployments to avoid the risk of data loss or corruption. If a change that isn’t supported for test deployments is included in a deployment package, the test deployment fails and issues an error.<br/><br/>
+                    If your deployment package changes a field type from Master-Detail to Lookup or vice versa, you can still validate the changes prior to deploying to Production by performing a full deployment to another test Sandbox. A full deployment includes a validation of the changes as part of the deployment process.<br/><br/>
+                    Note: A Metadata API deployment that includes Master-Detail relationships deletes all detail records in the Recycle Bin in the following cases.<br/><br/>
+                    1. For a deployment with a new Master-Detail field, soft delete (send to the Recycle Bin) all detail records before proceeding to deploy the Master-Detail field, or the deployment fails. During the deployment, detail records are permanently deleted from the Recycle Bin and cannot be recovered.<br/><br/>
+                    2. For a deployment that converts a Lookup field relationship to a Master-Detail relationship, detail records must reference a master record or be soft-deleted (sent to the Recycle Bin) for the deployment to succeed. However, a successful deployment permanently deletes any detail records in the Recycle Bin.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Validates the deleted metadata and runs all Apex tests, but prevents the deletion from being saved to the org.`
+            },
+            soapdeploy: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Deploy metadata with SOAP API instead of REST API.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Deploy metadata with SOAP API instead of REST API.`
+            },
+            wait: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Number of minutes to wait for the command to complete and display results to the terminal window. If the command continues to run after the wait period, the CLI returns control of the terminal window to you.<br/><br/>
+                    Type: minutes<br/>
+                    Default value: 33 minutes
+                `,
+                title: `Number of minutes to wait for the command to complete and display results to the terminal window.`
+            },
+            testlevel: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Specifies which level of deployment tests to run. Valid values are:<br/><br/>
+                    NoTestRun—No tests are run. This test level applies only to deployments to development environments, such as sandbox, Developer Edition, or trial orgs. This test level is the default for development environments.<br/><br/>
+                    RunSpecifiedTests—Runs only the tests that you specify in the --runtests option. Code coverage requirements differ from the default coverage requirements when using this test level. Executed tests must comprise a minimum of 75% code coverage for each class and trigger in the deployment package. This coverage is computed for each class and trigger individually and is different than the overall coverage percentage.<br/><br/>
+                    RunLocalTests—All tests in your org are run, except the ones that originate from installed managed packages. This test level is the default for production deployments that include Apex classes or triggers.<br/><br/>
+                    RunAllTestsInOrg—All tests in your org are run, including tests of managed packages.<br/><br/>
+                    If you don’t specify a test level, the default behavior depends on the contents of your deployment package. For more information, see “Running Tests in a Deployment” in the Metadata API Developer Guide.<br/><br/>
+                    Type: enum<br/>
+                    Permissible values are: NoTestRun, RunSpecifiedTests, RunLocalTests, RunAllTestsInOrg<br/>
+                    Default value: NoTestRun
+                `,
+                title: `Number of minutes to wait for the command to complete and display results to the terminal window.`
+            },
+            runtests: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Lists the Apex classes containing the deployment tests to run. Use this parameter when you set --testlevel to RunSpecifiedTests.<br/><br/>
+                    Type: array
+                `,
+                title: `Lists the Apex classes containing the deployment tests to run.`
+            },
+            ignoreerrors: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Ignores the deploy errors, and continues with the deploy operation. The default is false. Keep this parameter set to false when deploying to a production org. If set to true, components without errors are deployed, and components with errors are skipped.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Ignores the deploy errors, and continues with the deploy operation.`
+            },
+            ignorewarnings: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    If a warning occurs and ignoreWarnings is set to true, the success field in DeployMessage is true. When ignoreWarnings is set to false, success is set to false, and the warning is treated like an error.<br/><br/>
+                    Type: boolean
+                `,
+                title: `If a warning occurs and ignoreWarnings is set to true, the success field in DeployMessage is true.`
+            },
+            validateddeployrequestid: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Specifies the ID of a package with recently validated components to run a Quick Deploy. Deploying a validation helps you shorten your deployment time because tests aren’t rerun. If you have a recent successful validation, you can deploy the validated components without running tests. A validation doesn’t save any components in the org. You use a validation only to check the success or failure messages that you would receive with an actual deployment. To validate your components, add the -c | --checkonly flag when you run "sfdx force:mdapi:deploy". This flag sets the checkOnly="true" parameter for your deployment. Before deploying a recent validation, ensure that the following requirements are met:<br/><br/>
+                    1. The components have been validated successfully for the target environment within the last 10 days.<br/><br/>
+                    2. As part of the validation, Apex tests in the target org have passed.<br/><br/>
+                    3. Code coverage requirements are met.<br/><br/>
+                    - If all tests in the org or all local tests are run, overall code coverage is at least 75%, and Apex triggers have some coverage.<br/><br/>
+                    - If specific tests are run with the RunSpecifiedTests test level, each class and trigger that was deployed is covered by at least 75% individually.<br/><br/>
+                    Type: id
+                `,
+                title: `Specifies the ID of a package with recently validated components to run a Quick Deploy.`
+            },
+            verbose: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    Emit additional command output to stdout.<br/><br/>
+                    Type: boolean
+                `,
+                title: `Emit additional command output to stdout.`
+            },
+            metadata: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    A comma-separated list of names of metadata components to deploy to the org.<br/><br/>
+                    If you specify this parameter, don’t specify --manifest or --sourcepath.<br/><br/>
+                    Type: array
+                `,
+                title: `A comma-separated list of names of metadata components to deploy to the org.`
+            },
+            sourcepath: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    A comma-separated list of paths to the local source files to deploy. The supplied paths can be to a single file (in which case the operation is applied to only one file) or to a folder (in which case the operation is applied to all metadata types in the directory and its sub-directories).<br/><br/>
+                    If you specify this parameter, don’t specify --manifest or --metadata.<br/><br/>
+                    Type: array
+                `,
+                title: `A comma-separated list of paths to the local source files to deploy.`
+            },
+            manifest: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    The complete path for the manifest (package.xml) file that specifies the components to deploy. All child components are included.<br/><br/>
+                    If you specify this parameter, don’t specify --metadata or --sourcepath.<br/><br/>
+                    Type: filepath
+                `,
+                title: `The complete path for the manifest (package.xml) file that specifies the components to deploy.`
+            },
+            predestructivechanges: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    File path for a manifest (destructiveChangesPre.xml) of components to delete before the deploy.<br/><br/>
+                    Type: filepath
+                `,
+                title: `File path for a manifest (destructiveChangesPre.xml) of components to delete before the deploy.`
+            },
+            postdestructivechanges: {
+                type: `<b><i>Optional</i></b>`,
+                body: `
+                    <br/><br/>
+                    File path for a manifest (destructiveChangesPost.xml) of components to delete after the deploy.<br/><br/>
+                    Type: filepath
+                `,
+                title: `File path for a manifest (destructiveChangesPost.xml) of components to delete after the deploy.`
             },
         },
     },

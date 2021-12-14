@@ -89,25 +89,25 @@ export const mdapi = [
 ];
 
 export const source = [
-    {value: "beta:pull", label: "beta:pull", selectable: false},
-    {value: "beta:push", label: "beta:push", selectable: false},
-    {value: "beta:status", label: "beta:status", selectable: false},
-    {value: "beta:tracking:clear", label: "beta:tracking:clear", selectable: false},
-    {value: "beta:tracking:reset", label: "beta:tracking:reset", selectable: false},
+    {value: "beta:pull", label: "beta:pull"},
+    {value: "beta:push", label: "beta:push"},
+    {value: "beta:status", label: "beta:status"},
+    {value: "beta:tracking:clear", label: "beta:tracking:clear"},
+    {value: "beta:tracking:reset", label: "beta:tracking:reset"},
     {value: "convert", label: "convert"},
     {value: "delete", label: "delete"},
-    {value: "deploy", label: "deploy", selectable: false},
-    {value: "deploy:cancel", label: "deploy:cancel", selectable: false},
-    {value: "deploy:report", label: "deploy:report", selectable: false},
-    {value: "ignored:list", label: "ignored:list", selectable: false},
-    {value: "manifest:create", label: "manifest:create", selectable: false},
-    {value: "open", label: "open", selectable: false},
-    {value: "pull", label: "pull", selectable: false},
-    {value: "push", label: "push", selectable: false},
-    {value: "retrieve", label: "retrieve", selectable: false},
-    {value: "status", label: "status", selectable: false},
-    {value: "tracking:clear", label: "tracking:clear", selectable: false},
-    {value: "tracking:reset", label: "tracking:reset", selectable: false},
+    {value: "deploy", label: "deploy"},
+    {value: "deploy:cancel", label: "deploy:cancel"},
+    {value: "deploy:report", label: "deploy:report"},
+    {value: "ignored:list", label: "ignored:list"},
+    {value: "manifest:create", label: "manifest:create"},
+    {value: "open", label: "open"},
+    {value: "pull", label: "pull"},
+    {value: "push", label: "push"},
+    {value: "retrieve", label: "retrieve"},
+    {value: "status", label: "status"},
+    {value: "tracking:clear", label: "tracking:clear"},
+    {value: "tracking:reset", label: "tracking:reset"},
 ];
 
 export const lLOGLEVEL = [
@@ -235,6 +235,12 @@ export const lTESTLEVEL = {
     source: {
         delete: [
             {value: "NoTestRun", label: "NoTestRun"},
+            {value: "RunLocalTests", label: "RunLocalTests"},
+            {value: "RunAllTestsInOrg", label: "RunAllTestsInOrg"},
+        ],
+        deploy: [
+            {value: "NoTestRun", label: "NoTestRun"},
+            {value: "RunSpecifiedTests", label: "RunSpecifiedTests"},
             {value: "RunLocalTests", label: "RunLocalTests"},
             {value: "RunAllTestsInOrg", label: "RunAllTestsInOrg"},
         ],

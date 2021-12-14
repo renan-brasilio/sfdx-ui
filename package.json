@@ -2,7 +2,7 @@
   "name": "sfdx-ui",
   "displayName": "SFDX UI",
   "description": "SFDX UI For Easy Commands",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "repository": "https://github.com/renan-brasilio/sfdx-ui",
   "publisher": "renan-brasilio",
   "engines": {

@@ -25,6 +25,7 @@
     import LOGLEVELs from "../../-commonSections/SelectSFDX.svelte";
     import TARGETUSERNAMEs from "../../-commonSections/SelectSFDX.svelte";
     import APIVERSIONs from "../../-commonSections/SelectSFDX.svelte";
+    import REVISIONs from "../../-commonSections/IntegerSFDX.svelte";
     import NOPROMPTs from "../../-commonSections/BooleanSFDX.svelte";
     import ADVANCEDs from "../../-commonSections/ADVANCEDSection.svelte";
 
@@ -34,13 +35,14 @@
     LOGLEVELv, 
     TARGETUSERNAMEv,
     APIVERSIONv,
+    REVISIONv,
     NOPROMPTv,
     ADVANCEDv;
 
     // Documentation
-    let fileName = "beta_tracking_clear";
+    let fileName = "beta_tracking_reset";
     let showFileName = fileName.replaceAll("_", ":");
-    let showFileNameUpper = "Beta:Tracking:Clear";
+    let showFileNameUpper = "Beta:Tracking:Reset";
     let commandType = "source";
     let linkDocumentation = `https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference_force_${commandType}.htm#cli_reference_force_${commandType}_${fileName}`;
 
@@ -64,6 +66,7 @@
             LOGLEVELv.validate(), 
             TARGETUSERNAMEv.validate(), 
             APIVERSIONv.validate(), 
+            REVISIONv.validate(), 
             NOPROMPTv.validate(), 
             ADVANCEDv.validate(), 
         ]).then((values) => {
@@ -173,6 +176,18 @@
             pSFDXParameter="--apiversion"
             pList={lAPIVERSION}
             pDefaultValue={dAPIVERSION}
+        />
+
+        <!-- [-r REVISION] -->
+        <svelte:component 
+            this="{REVISIONs}" 
+            bind:this="{REVISIONv}" 
+            pSectionName="revision"
+            pMapDoc={mapDoc[commandType][fileName].revision}
+            pSFDXParameter="-r"
+            pSectionTitle="Revision"
+            pTitle={mapDoc[commandType][fileName].revision}
+            pPlaceholder="Insert..."
         />
 
         <!-- [-p] -->
