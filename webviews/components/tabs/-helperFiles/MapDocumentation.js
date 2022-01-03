@@ -4490,6 +4490,174 @@ export let mapDoc = {
         title: `Emit additional command output to stdout.`,
       },
     },
+    status: {
+      json: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    Format output as JSON.<br/><br/>
+                    Type: boolean
+                `,
+        title: `Format output as JSON.`,
+      },
+      loglevel: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>            
+                    The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.
+                    <br/><br/>
+                    Type: enum<br/>
+                    Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                    Default value: warn
+                `,
+        title: `The logging level for this command invocation.`,
+      },
+      targetusername: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>            
+                    A username or alias for the target org. Overrides the default target org.<br/><br/>
+                    Type: string
+                `,
+        title: `A username or alias for the target org. Overrides the default target org.`,
+      },
+      apiversion: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    Override the API version used for API requests made by this command.<br/><br/>
+                    Type: string
+                `,
+        title: `Override the API version used for API requests made by this command.`,
+      },
+      local: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                <br/><br/>
+                Lists the changes that have been made locally.<br/><br/>
+                Type: boolean
+            `,
+        title: `Lists the changes that have been made locally.`,
+      },
+      remote: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                <br/><br/>
+                Lists the changes that have been made in the scratch org.<br/><br/>
+                Type: boolean
+            `,
+        title: `Lists the changes that have been made in the scratch org.`,
+      },
+    },
+    tracking_clear: {
+      json: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                <br/><br/>
+                Format output as JSON.<br/><br/>
+                Type: boolean
+            `,
+        title: `Format output as JSON.`,
+      },
+      loglevel: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                <br/><br/>            
+                The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.
+                <br/><br/>
+                Type: enum<br/>
+                Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                Default value: warn
+            `,
+        title: `The logging level for this command invocation.`,
+      },
+      targetusername: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                <br/><br/>            
+                A username or alias for the target org. Overrides the default target org.<br/><br/>
+                Type: string
+            `,
+        title: `A username or alias for the target org. Overrides the default target org.`,
+      },
+      apiversion: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                <br/><br/>
+                Override the API version used for API requests made by this command.<br/><br/>
+                Type: string
+            `,
+        title: `Override the API version used for API requests made by this command.`,
+      },
+      noprompt: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                <br/><br/>
+                Do not prompt for source tracking override confirmation.<br/><br/>
+                Type: boolean
+            `,
+        title: `Do not prompt for source tracking override confirmation.`,
+      },
+    },
+    tracking_reset: {
+      json: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                <br/><br/>
+                Format output as JSON.<br/><br/>
+                Type: boolean
+            `,
+        title: `Format output as JSON.`,
+      },
+      loglevel: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                <br/><br/>            
+                The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.
+                <br/><br/>
+                Type: enum<br/>
+                Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                Default value: warn
+            `,
+        title: `The logging level for this command invocation.`,
+      },
+      targetusername: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                <br/><br/>            
+                A username or alias for the target org. Overrides the default target org.<br/><br/>
+                Type: string
+            `,
+        title: `A username or alias for the target org. Overrides the default target org.`,
+      },
+      apiversion: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                <br/><br/>
+                Override the API version used for API requests made by this command.<br/><br/>
+                Type: string
+            `,
+        title: `Override the API version used for API requests made by this command.`,
+      },
+      revision: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                <br/><br/>
+                Reset to a specific SourceMember revision counter number.<br/><br/>
+                Type: integer
+            `,
+        title: `Reset to a specific SourceMember revision counter number.`,
+      },
+      noprompt: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                <br/><br/>
+                Do not prompt for source tracking override confirmation.<br/><br/>
+                Type: boolean
+            `,
+        title: `Do not prompt for source tracking override confirmation.`,
+      },
+    },
   },
   advanced: {
     type: `<b><i>Optional</i></b>`,
