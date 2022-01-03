@@ -246,3 +246,10 @@ export const lTESTLEVEL = {
         ],
     },
 };
+
+export const lMANIFESTTYPE = [
+    {value: "pre", label: "pre"},
+    {value: "post", label: "post"},
+    {value: "destroy", label: "destroy"},
+    {value: "package", label: "package"},
+];
