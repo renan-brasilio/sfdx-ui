@@ -1,39 +1,38 @@
 <script>
-    // Helper Files
-    import * as js from "../../-helperFiles/GlobalJS";
-    import CSS from "../../-helperFiles/GlobalCSS.svelte";
-    import { Circle2 } from "svelte-loading-spinners";
-    import { } from "os";
-    import WebviewListener from "../../-commonPages/WebviewListener.svelte";
-    import RefreshIcon from "svelte-bootstrap-icons/lib/ArrowClockwise";
-    import { mapDoc } from "../../-helperFiles/MapDocumentation";
-    import * as gLists from "../../-helperFiles/Lists";
+  // Helper Files
+  import * as js from "../../-helperFiles/GlobalJS";
+  import CSS from "../../-helperFiles/GlobalCSS.svelte";
+  import { Circle2 } from "svelte-loading-spinners";
+  import {} from "os";
+  import WebviewListener from "../../-commonPages/WebviewListener.svelte";
+  import RefreshIcon from "svelte-bootstrap-icons/lib/ArrowClockwise";
+  import { mapDoc } from "../../-helperFiles/MapDocumentation";
+  import * as gLists from "../../-helperFiles/Lists";
 
-    // Store
-    import { 
-        lTARGETUSERNAME,
-        mapErrors,
-        mapInformation,
-        mapInputVariables,
-        mapShowSections,
-        mapSpinner,
-        objSFDX,
-    } from "../../-helperFiles/GlobalStore";
+  // Store
+  import {
+    lTARGETUSERNAME,
+    mapErrors,
+    mapInformation,
+    mapInputVariables,
+    mapShowSections,
+    mapSpinner,
+    objSFDX,
+  } from "../../-helperFiles/GlobalStore";
 
-    // Sections
-    import JSONs from "../../-commonSections/JSONSection.svelte";
-    import LOGLEVELs from "../../-commonSections/SelectSFDX.svelte";
-    import TARGETUSERNAMEs from "../../-commonSections/SelectSFDX.svelte";
-    import APIVERSIONs from "../../-commonSections/SelectSFDX.svelte";
-    import SOBJECTTREEFILESs from "../../-commonSections/StringSFDX.svelte";
-    import PLANs from "../../-commonSections/FilepathSFDX.svelte";
-    import CONFIGHELPs from "../../-commonSections/BooleanSFDX.svelte";
-    import ADVANCEDs from "../../-commonSections/ADVANCEDSection.svelte";
+  // Sections
+  import JSONs from "../../-commonSections/JSONSection.svelte";
+  import LOGLEVELs from "../../-commonSections/SelectSFDX.svelte";
+  import TARGETUSERNAMEs from "../../-commonSections/SelectSFDX.svelte";
+  import APIVERSIONs from "../../-commonSections/SelectSFDX.svelte";
+  import SOBJECTTREEFILESs from "../../-commonSections/StringSFDX.svelte";
+  import PLANs from "../../-commonSections/FilepathSFDX.svelte";
+  import CONFIGHELPs from "../../-commonSections/BooleanSFDX.svelte";
+  import ADVANCEDs from "../../-commonSections/ADVANCEDSection.svelte";
 
-    // Component Validations
-    let 
-    JSONv, 
-    LOGLEVELv, 
+  // Component Validations
+  let JSONv,
+    LOGLEVELv,
     TARGETUSERNAMEv,
     APIVERSIONv,
     SOBJECTTREEFILESv,
@@ -41,189 +40,199 @@
     CONFIGHELPv,
     ADVANCEDv;
 
-    // Documentation
-    let fileName = "tree_import";
-    let showFileName = fileName.replace("_", ":");
-    let showFileNameUpper = "Tree:Import";
-    let commandType = "data";
-    let linkDocumentation = `https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference_force_${commandType}.htm#cli_reference_force_${commandType}_${fileName}`;
+  // Documentation
+  let fileName = "tree_import";
+  let showFileName = fileName.replace("_", ":");
+  let showFileNameUpper = "Tree:Import";
+  let commandType = "data";
+  let linkDocumentation = `https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference_force_${commandType}.htm#cli_reference_force_${commandType}_${fileName}`;
 
-    // Initial loading
-    if(!$mapSpinner.force){
-        $mapSpinner.force = {};
-    }
+  // Initial loading
+  if (!$mapSpinner.force) {
+    $mapSpinner.force = {};
+  }
 
-    $mapSpinner.force[fileName] = true;
+  $mapSpinner.force[fileName] = true;
 
-    setTimeout(() => {
-        $mapSpinner.force[fileName] = false;
-    }, 1000);
+  setTimeout(() => {
+    $mapSpinner.force[fileName] = false;
+  }, 1000);
 
-    function startSFDX() {
-        let validation = 0;
+  function startSFDX() {
+    let validation = 0;
 
-        $objSFDX.terminal = "";
-        $objSFDX.terminal = `force:${commandType}:${showFileName}`;
+    $objSFDX.terminal = "";
+    $objSFDX.terminal = `force:${commandType}:${showFileName}`;
 
-        Promise.all([
-            JSONv.validate(), 
-            LOGLEVELv.validate(), 
-            TARGETUSERNAMEv.validate(), 
-            APIVERSIONv.validate(), 
-            SOBJECTTREEFILESv.validate(), 
-            PLANv.validate(), 
-            CONFIGHELPv.validate(), 
-            ADVANCEDv.validate(),  
-        ]).then((values) => {
-            if(values){
-                if(!values.includes(false)){
-                    for(let key in $mapErrors){
-                        $mapErrors[key] = "";
-                    }     
-    
-                    $mapSpinner.main = true;
-                    $mapInformation.main = true;
-            
-                    js.globalContinue();
-                }
-            }
-        });
-    }
+    Promise.all([
+      JSONv.validate(),
+      LOGLEVELv.validate(),
+      TARGETUSERNAMEv.validate(),
+      APIVERSIONv.validate(),
+      SOBJECTTREEFILESv.validate(),
+      PLANv.validate(),
+      CONFIGHELPv.validate(),
+      ADVANCEDv.validate(),
+    ]).then((values) => {
+      if (values) {
+        if (!values.includes(false)) {
+          for (let key in $mapErrors) {
+            $mapErrors[key] = "";
+          }
 
-    function reset(){
-        $mapInputVariables = {};
-        
-        for(let key in $mapShowSections){
-            if(key !== fileName){
-                $mapShowSections[key] = false;
-            }
+          $mapSpinner.main = true;
+          $mapInformation.main = true;
+
+          js.globalContinue();
         }
-    }
-
-    // TARGETUSERNAME
-    tsvscode.postMessage({
-        type: "onGetAliasUsers"
+      }
     });
+  }
 
-    // APIVERSION
-    let dAPIVERSION = "";
-    const lAPIVERSION = [];
+  function reset() {
+    $mapInputVariables = {};
 
-    for(let i=8; i < 54; i++){
-        if(i === 53){
-            dAPIVERSION = i.toFixed(1);
-        }
+    for (let key in $mapShowSections) {
+      if (key !== fileName) {
+        $mapShowSections[key] = false;
+      }
+    }
+  }
 
-        lAPIVERSION.push({value: i.toFixed(1), label: i.toFixed(1)});
-        
-        if(i === 11){
-            let j = i + .1;
-            lAPIVERSION.push({value: j.toFixed(1), label: j.toFixed(1)});
-        }
+  // TARGETUSERNAME
+  tsvscode.postMessage({
+    type: "onGetAliasUsers",
+  });
+
+  // APIVERSION
+  let dAPIVERSION = "";
+  const lAPIVERSION = [];
+
+  for (let i = 8; i < 54; i++) {
+    if (i === 53) {
+      dAPIVERSION = i.toFixed(1);
     }
 
-    lAPIVERSION.reverse();
+    lAPIVERSION.push({ value: i.toFixed(1), label: i.toFixed(1) });
 
-    $mapInputVariables[fileName] = dAPIVERSION;
+    if (i === 11) {
+      let j = i + 0.1;
+      lAPIVERSION.push({ value: j.toFixed(1), label: j.toFixed(1) });
+    }
+  }
+
+  lAPIVERSION.reverse();
+
+  $mapInputVariables[fileName] = dAPIVERSION;
 </script>
 
-<WebviewListener fileName={fileName} commandType={commandType} showCommand={showFileNameUpper}/>
+<WebviewListener {fileName} {commandType} showCommand={showFileNameUpper} />
 
 {#if $mapSpinner.force[fileName]}
-    <div class="sfdxet-spinner">
-        <Circle2 size="60" colorOuter="#034efc" unit="px"></Circle2>
-    </div>
+  <div class="sfdxet-spinner">
+    <Circle2 size="60" colorOuter="#034efc" unit="px" />
+  </div>
 {:else}
-    <div class="sfdxet-absolute-center">
-        <h3>sfdx force:{commandType}:{showFileName} </h3>
-        <br/>
-        <br/>
-        <button class="sfdxet-buttons" on:click={startSFDX}>{showFileNameUpper}</button>
-        <br/>
-        <br/>
-        <h3>Options:</h3>
-        <h4><a target="_blank" href={linkDocumentation}>Official Documentation</a></h4>
-        <br/>
+  <div class="sfdxet-absolute-center">
+    <h3>sfdx force:{commandType}:{showFileName}</h3>
+    <br />
+    <br />
+    <button class="sfdxet-buttons" on:click={startSFDX}
+      >{showFileNameUpper}</button
+    >
+    <br />
+    <br />
+    <h3>Options:</h3>
+    <h4>
+      <a target="_blank" href={linkDocumentation}>Official Documentation</a>
+    </h4>
+    <br />
 
-        <!-- [--json] -->
-        <svelte:component 
-            this="{JSONs}" 
-            bind:this="{JSONv}" 
-            pMapDoc={mapDoc[commandType][fileName].json}
-            pShowSectionName={false}
-        />
-        
-        <!-- [--loglevel LOGLEVEL] -->
-        <svelte:component 
-            this="{LOGLEVELs}" 
-            bind:this="{LOGLEVELv}" 
-            pSectionName="loglevel"
-            pMapDoc={mapDoc[commandType][fileName].loglevel} 
-            pSFDXParameter="--loglevel"
-            pList={gLists.lLOGLEVEL}
-            pDefaultValue="warn"
-        />
+    <!-- [--json] -->
+    <svelte:component
+      this={JSONs}
+      bind:this={JSONv}
+      pMapDoc={mapDoc[commandType][fileName].json}
+      pShowSectionName={false}
+    />
 
-        <!-- [-u TARGETUSERNAME] -->
-        <svelte:component 
-            this="{TARGETUSERNAMEs}" 
-            bind:this="{TARGETUSERNAMEv}" 
-            pSectionName="targetusername"
-            pMapDoc={mapDoc[commandType][fileName].targetusername} 
-            pSFDXParameter="-u"
-            pList={$lTARGETUSERNAME}
-        />
+    <!-- [--loglevel LOGLEVEL] -->
+    <svelte:component
+      this={LOGLEVELs}
+      bind:this={LOGLEVELv}
+      pSectionName="loglevel"
+      pMapDoc={mapDoc[commandType][fileName].loglevel}
+      pSFDXParameter="--loglevel"
+      pList={gLists.lLOGLEVEL}
+      pDefaultValue="warn"
+    />
 
-        <!-- [--apiversion APIVERSION] -->
-        <svelte:component 
-            this="{APIVERSIONs}" 
-            bind:this="{APIVERSIONv}" 
-            pSectionName="apiversion"
-            pMapDoc={mapDoc[commandType][fileName].apiversion} 
-            pSFDXParameter="--apiversion"
-            pList={lAPIVERSION}
-            pDefaultValue={dAPIVERSION}
-        />
+    <!-- [-u TARGETUSERNAME] -->
+    <svelte:component
+      this={TARGETUSERNAMEs}
+      bind:this={TARGETUSERNAMEv}
+      pSectionName="targetusername"
+      pMapDoc={mapDoc[commandType][fileName].targetusername}
+      pSFDXParameter="-u"
+      pList={$lTARGETUSERNAME}
+    />
 
-        <!-- [-f SOBJECTTREEFILES] -->
-        <svelte:component 
-            this="{SOBJECTTREEFILESs}" 
-            bind:this="{SOBJECTTREEFILESv}" 
-            pSectionName="sobjecttreefiles"
-            pMapDoc={mapDoc[commandType][fileName].sobjecttreefiles}
-            pSFDXParameter="-f"
-            pSectionTitle="sObject Tree Files"
-            pTitle={mapDoc[commandType][fileName].sobjecttreefiles.title}
-            pPlaceholder="Insert..."
-        />
+    <!-- [--apiversion APIVERSION] -->
+    <svelte:component
+      this={APIVERSIONs}
+      bind:this={APIVERSIONv}
+      pSectionName="apiversion"
+      pMapDoc={mapDoc[commandType][fileName].apiversion}
+      pSFDXParameter="--apiversion"
+      pList={lAPIVERSION}
+      pDefaultValue={dAPIVERSION}
+    />
 
-        <!-- [-p PLAN] -->
-        <svelte:component 
-            this="{PLANs}" 
-            bind:this="{PLANv}" 
-            pSectionName="plan"
-            pMapDoc={mapDoc[commandType][fileName].plan} 
-            pSFDXParameter="-p"
-            pPlaceholder="Insert..."
-            pButtonText="Select Plan File"
-        />
+    <!-- [-f SOBJECTTREEFILES] -->
+    <svelte:component
+      this={SOBJECTTREEFILESs}
+      bind:this={SOBJECTTREEFILESv}
+      pSectionName="sobjecttreefiles"
+      pMapDoc={mapDoc[commandType][fileName].sobjecttreefiles}
+      pSFDXParameter="-f"
+      pSectionTitle="sObject Tree Files"
+      pTitle={mapDoc[commandType][fileName].sobjecttreefiles.title}
+      pPlaceholder="Insert..."
+    />
 
-        <!-- [--confighelp] -->
-        <svelte:component 
-            this="{CONFIGHELPs}" 
-            bind:this="{CONFIGHELPv}"
-            pSectionName="confighelp"
-            pMapDoc={mapDoc[commandType][fileName].confighelp} 
-            pSFDXParameter="--confighelp"
-            pShowSectionName={false} 
-        />        
+    <!-- [-p PLAN] -->
+    <svelte:component
+      this={PLANs}
+      bind:this={PLANv}
+      pSectionName="plan"
+      pMapDoc={mapDoc[commandType][fileName].plan}
+      pSFDXParameter="-p"
+      pPlaceholder="Insert..."
+      pButtonText="Select Plan File"
+    />
 
-        <!-- [ADVANCED] -->
-        <svelte:component this="{ADVANCEDs}" bind:this="{ADVANCEDv}" pMapDoc={mapDoc.advanced}/>
-        <br/>
-        <br/>
-        <button class="sfdxet-buttons-icon" on:click={reset} title="Reset Options"><RefreshIcon /></button>
-    </div>
+    <!-- [--confighelp] -->
+    <svelte:component
+      this={CONFIGHELPs}
+      bind:this={CONFIGHELPv}
+      pSectionName="confighelp"
+      pMapDoc={mapDoc[commandType][fileName].confighelp}
+      pSFDXParameter="--confighelp"
+      pShowSectionName={false}
+    />
+
+    <!-- [ADVANCED] -->
+    <svelte:component
+      this={ADVANCEDs}
+      bind:this={ADVANCEDv}
+      pMapDoc={mapDoc.advanced}
+    />
+    <br />
+    <br />
+    <button class="sfdxet-buttons-icon" on:click={reset} title="Reset Options"
+      ><RefreshIcon /></button
+    >
+  </div>
 {/if}
 
 <CSS />

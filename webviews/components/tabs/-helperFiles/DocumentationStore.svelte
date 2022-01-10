@@ -1,11 +1,11 @@
 <script>
-    import mapDocumentation from "./GlobalStore";
+  import mapDocumentation from "./GlobalStore";
 
-    let required = `<b>Required</b>`;
-    let optional = `<b><i>Optional</i></b>`;
+  let required = `<b>Required</b>`;
+  let optional = `<b><i>Optional</i></b>`;
 
-    $mapDocumentation = {};
+  $mapDocumentation = {};
 
-    // Analytics
-    $mapDocumentation.analytics.template_create.json.type = optional;
+  // Analytics
+  $mapDocumentation.analytics.template_create.json.type = optional;
 </script>

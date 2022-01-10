@@ -3271,6 +3271,96 @@ export let mapDoc = {
       },
     },
   },
+  org: {
+    clone: {
+      json: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+              <br/><br/>
+              Format output as JSON.<br/><br/>
+              Type: boolean
+          `,
+        title: `Format output as JSON.`,
+      },
+      loglevel: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+              <br/><br/>            
+              The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.
+              <br/><br/>
+              Type: enum<br/>
+              Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+              Default value: warn
+          `,
+        title: `The logging level for this command invocation.`,
+      },
+      targetusername: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+              <br/><br/>            
+              A username or alias for the target org. Overrides the default target org.<br/><br/>
+              Type: string
+          `,
+        title: `A username or alias for the target org. Overrides the default target org.`,
+      },
+      apiversion: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+              <br/><br/>
+              Override the API version used for API requests made by this command.<br/><br/>
+              Type: string
+          `,
+        title: `Override the API version used for API requests made by this command.`,
+      },
+      type: {
+        type: `<b>Required</b>`,
+        body: `
+              <br/><br/>
+              The type of org to create. Only "sandbox" is supported.<br/><br/>
+              Type: enum<br/>
+              Permissible values are: sandbox
+          `,
+        title: `The type of org to create. Only "sandbox" is supported.`,
+      },
+      definitionfile: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+              <br/><br/>
+              The path to an org definition file. Either --definitionfile or a vararg value for edition (for example, edition=Developer) is required. Varargs override the values in the scratch org definition file.<br/><br/>
+              Type: filepath
+          `,
+        title: `The path to an org definition file.`,
+      },
+      setdefaultusername: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+              <br/><br/>
+              Sets the created org as the default username.<br/><br/>
+              Type: boolean
+          `,
+        title: `Sets the created org as the default username.`,
+      },
+      setalias: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+              <br/><br/>
+              An alias for the created org.<br/><br/>
+              Type: string
+          `,
+        title: `An alias for the created org.`,
+      },
+      wait: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+              <br/><br/>
+              Sets the streaming client socket timeout, in minutes. If the streaming client socket has no contact from the server for a number of minutes, the client exits. Specify a longer wait time if timeouts occur frequently.<br/><br/>
+              Type: minutes<br/>
+              Default value: 6 minutes
+          `,
+        title: `Sets the streaming client socket timeout, in minutes .`,
+      },
+    },
+  },
   source: {
     beta_pull: {
       json: {

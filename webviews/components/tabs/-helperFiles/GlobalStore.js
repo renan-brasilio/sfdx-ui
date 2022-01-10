@@ -1,4 +1,4 @@
-import { writable } from 'svelte/store';
+import { writable } from "svelte/store";
 
 export const mapInputVariables = writable({});
 export const mapTargetUsername = writable({});
@@ -19,13 +19,13 @@ export const mapDocumentation = writable({});
 export const lTARGETUSERNAME = writable([]);
 
 export const mapShowSections = writable({
-	spinner: true,
-	button: false,
-	information: false
+  spinner: true,
+  button: false,
+  information: false,
 });
 
 export let objSFDX = writable({
-	type: "onTerminalSFDX"
+  type: "onTerminalSFDX",
 });
 
 export const showDebug = writable(false);
