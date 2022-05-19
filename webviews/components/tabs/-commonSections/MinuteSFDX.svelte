@@ -27,6 +27,7 @@
   export let pChecked = false;
   export let pDisabled = false;
   export let pDefaultValue = "";
+  export let pValidateLessThanZero = false;
 
   // Default
   let sectionUCase = pSectionName.toUpperCase();
@@ -35,28 +36,40 @@
     let valid = true;
 
     return await new Promise(function (resolve, reject) {
-      console.log(`pSectionName: ${pSectionName}`);
-      console.log(`mapShowSections: ${JSON.stringify($mapShowSections)}`);
-      console.log(`mapInputVariables: ${JSON.stringify($mapInputVariables)}`);
-      if ($mapShowSections[pSectionName] && $mapInputVariables[pSectionName]) {
-        $mapErrors[pSectionName] = "";
-        $objSFDX.terminal += ` ${pSFDXParameter} ${$mapInputVariables[pSectionName]}`;
-      } else {
-        $mapErrors[pSectionName] = "sfdxet-error-select";
+      if ($mapShowSections[pSectionName]) {
+        if ($mapInputVariables[pSectionName]) {
+          if (pValidateLessThanZero && $mapInputVariables[pSectionName] < 0) {
+            $mapErrors[pSectionName] = "sfdxet-error-select";
 
-        if (pRequired) {
-          tsvscode.postMessage({
-            type: "onError",
-            value: `ERROR: ${sectionUCase} is required.`,
-          });
+            tsvscode.postMessage({
+              type: "onError",
+              value: `ERROR: (${sectionUCase}) Please insert a number greater or equal 0.`,
+            });
+
+            valid = false;
+          } else {
+            $mapErrors[pSectionName] = "";
+            $objSFDX.terminal += ` ${pSFDXParameter} ${$mapInputVariables[pSectionName]}`;
+          }
         } else {
-          tsvscode.postMessage({
-            type: "onError",
-            value: `ERROR: Please select a ${sectionUCase} or uncheck the [${pSFDXParameter} ${sectionUCase}] checkbox.`,
-          });
-        }
+          $mapErrors[pSectionName] = "sfdxet-error-select";
 
-        valid = false;
+          if (pRequired) {
+            tsvscode.postMessage({
+              type: "onError",
+              value: `ERROR: ${sectionUCase} is required.`,
+            });
+          } else {
+            tsvscode.postMessage({
+              type: "onError",
+              value: `ERROR: Please select a ${sectionUCase} or uncheck the [${pSFDXParameter} ${sectionUCase}] checkbox.`,
+            });
+          }
+
+          valid = false;
+        }
+      } else {
+        $mapErrors[pSectionName] = "";
       }
 
       resolve(valid);

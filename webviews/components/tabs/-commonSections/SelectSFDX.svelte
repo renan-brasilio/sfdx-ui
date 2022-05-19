@@ -67,7 +67,7 @@
   }
 </script>
 
-<div class="col align-self-center sfdxet-br">
+<li class="sfdxet-li">
   <Title
     {pRequired}
     {pSFDXParameter}
@@ -99,4 +99,4 @@
       />
     </section>
   {/if}
-</div>
+</li>

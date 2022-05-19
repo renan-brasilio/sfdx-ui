@@ -72,6 +72,18 @@
   }
 </script>
 
+<input
+  type="checkbox"
+  id={pElementName}
+  name={pElementName}
+  on:change={(e) => {
+    handleShowSections(e, `${pFileName}`, `${pOnlyOneError}`);
+  }}
+  title={js.mapTooltips["checkbox"]}
+  checked={pChecked}
+  disabled={pDisabled}
+/>
+
 <span
   title={js.mapTooltips["collapseDoc"]}
   class:sfdxet-required={pRequired}
@@ -87,15 +99,3 @@
     ? pSectionName.toUpperCase()
     : ""}{pRequired ? "" : "]"}</span
 >
-
-<input
-  type="checkbox"
-  id={pElementName}
-  name={pElementName}
-  on:change={(e) => {
-    handleShowSections(e, `${pFileName}`, `${pOnlyOneError}`);
-  }}
-  title={js.mapTooltips["checkbox"]}
-  checked={pChecked}
-  disabled={pDisabled}
-/>

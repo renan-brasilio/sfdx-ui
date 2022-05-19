@@ -30,6 +30,7 @@
   export let pChecked = false;
   export let pDisabled = false;
   export let pStyle = "";
+  export let pValidateLessThanZero = false;
 
   // Default
   let sectionUCase = pSectionName.toUpperCase();
@@ -39,7 +40,21 @@
 
     return await new Promise(function (resolve, reject) {
       if ($mapShowSections[pSectionName]) {
-        if (!$mapInputVariables[pSectionName]) {
+        if ($mapInputVariables[pSectionName]) {
+          if (pValidateLessThanZero && $mapInputVariables[pSectionName] < 0) {
+            $mapErrors[pSectionName] = "sfdxet-error-select";
+
+            tsvscode.postMessage({
+              type: "onError",
+              value: `ERROR: (${sectionUCase}) Please insert a number greater or equal 0.`,
+            });
+
+            valid = false;
+          } else {
+            $mapErrors[pSectionName] = "";
+            $objSFDX.terminal += ` ${pSFDXParameter} ${$mapInputVariables[pSectionName]}`;
+          }
+        } else {
           $mapErrors[pSectionName] = "sfdxet-error-select";
 
           if (pRequired) {
@@ -55,11 +70,9 @@
           }
 
           valid = false;
-        } else {
-          $mapErrors[pSectionName] = "";
-          $objSFDX.terminal += ` ${pSFDXParameter} ${$mapInputVariables[pSectionName]}`;
-          $mapSectionValidation[pSectionName] = 1;
         }
+      } else {
+        $mapErrors[pSectionName] = "";
       }
 
       resolve(valid);

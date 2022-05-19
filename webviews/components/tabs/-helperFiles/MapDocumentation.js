@@ -3360,6 +3360,249 @@ export let mapDoc = {
         title: `Sets the streaming client socket timeout, in minutes .`,
       },
     },
+    create: {
+      json: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+              <br/><br/>
+              Format output as JSON.<br/><br/>
+              Type: boolean
+          `,
+        title: `Format output as JSON.`,
+      },
+      loglevel: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+              <br/><br/>            
+              The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.
+              <br/><br/>
+              Type: enum<br/>
+              Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+              Default value: warn
+          `,
+        title: `The logging level for this command invocation.`,
+      },
+      targetdevhubusername: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+              <br/><br/>            
+              A username or alias for the target Dev Hub org. Overrides the default Dev Hub org.<br/><br/> 
+              Type: string
+          `,
+        title: `A username or alias for the target Dev Hub org.`,
+      },
+      targetusername: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+              <br/><br/>            
+              A username or alias for the target org. Overrides the default target org.<br/><br/>
+              Type: string
+          `,
+        title: `A username or alias for the target org. Overrides the default target org.`,
+      },
+      apiversion: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+              <br/><br/>
+              Override the API version used for API requests made by this command.<br/><br/>
+              Type: string
+          `,
+        title: `Override the API version used for API requests made by this command.`,
+      },
+      type: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+              <br/><br/>
+              Type of org to create.<br/><br/>
+              Type: enum<br/>
+              Permissible values are: scratch, sandbox<br/>
+              Default value: scratch
+          `,
+        title: `Type of org to create.`,
+      },
+      definitionfile: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+              <br/><br/>
+              Path to an org definition file.<br/><br/>
+              Type: filepath
+          `,
+        title: `Path to an org definition file.`,
+      },
+      nonamespace: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+              <br/><br/>
+              Create the scratch org with no namespace.<br/><br/>
+              Type: boolean
+          `,
+        title: `Create the scratch org with no namespace.`,
+      },
+      noancestors: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+              <br/><br/>
+              Do not include second-generation package ancestors in the scratch org.<br/><br/>
+              Type: boolean
+          `,
+        title: `Do not include second-generation package ancestors in the scratch org.`,
+      },
+      clientid: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+              <br/><br/>
+              Connected app consumer key; not supported for sandbox org creation.<br/><br/>
+              Type: string
+          `,
+        title: `Connected app consumer key.`,
+      },
+      setdefaultusername: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+              <br/><br/>
+              Set the created org as the default username.<br/><br/>
+              Type: boolean
+          `,
+        title: `Set the created org as the default username.`,
+      },
+      setalias: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+              <br/><br/>
+              Alias for the created org.<br/><br/>
+              Type: string
+          `,
+        title: `Alias for the created org.`,
+      },
+      wait: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+              <br/><br/>
+              The streaming client socket timeout (in minutes).<br/><br/>
+              Type: minutes<br/>
+              Default value: 6 minutes
+          `,
+        title: `The streaming client socket timeout (in minutes).`,
+      },
+      durationdays: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+              <br/><br/>
+              Duration of the scratch org (in days) (default:7, min:1, max:30).<br/><br/>
+              Type: integer
+          `,
+        title: `Duration of the scratch org (in days) (default:7, min:1, max:30).`,
+      },
+    },
+    delete: {
+      json: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+              <br/><br/>
+              Format output as JSON.<br/><br/>
+              Type: boolean
+          `,
+        title: `Format output as JSON.`,
+      },
+      loglevel: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+              <br/><br/>            
+              The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.
+              <br/><br/>
+              Type: enum<br/>
+              Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+              Default value: warn
+          `,
+        title: `The logging level for this command invocation.`,
+      },
+      targetdevhubusername: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+              <br/><br/>            
+              A username or alias for the target Dev Hub org. Overrides the default Dev Hub org.<br/><br/> 
+              Type: string
+          `,
+        title: `A username or alias for the target Dev Hub org.`,
+      },
+      targetusername: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+              <br/><br/>            
+              A username or alias for the target org. Overrides the default target org.<br/><br/>
+              Type: string
+          `,
+        title: `A username or alias for the target org. Overrides the default target org.`,
+      },
+      apiversion: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+              <br/><br/>
+              Override the API version used for API requests made by this command.<br/><br/>
+              Type: string
+          `,
+        title: `Override the API version used for API requests made by this command.`,
+      },
+      noprompt: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+              <br/><br/>
+              No prompt to confirm deletion.<br/><br/>
+              Type: boolean
+          `,
+        title: `No prompt to confirm deletion.`,
+      },
+    },
+    display: {
+      json: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+              <br/><br/>
+              Format output as JSON.<br/><br/>
+              Type: boolean
+          `,
+        title: `Format output as JSON.`,
+      },
+      loglevel: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+              <br/><br/>            
+              The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.
+              <br/><br/>
+              Type: enum<br/>
+              Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+              Default value: warn
+          `,
+        title: `The logging level for this command invocation.`,
+      },
+      targetusername: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+              <br/><br/>            
+              A username or alias for the target org. Overrides the default target org.<br/><br/>
+              Type: string
+          `,
+        title: `A username or alias for the target org. Overrides the default target org.`,
+      },
+      apiversion: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+              <br/><br/>
+              Override the API version used for API requests made by this command.<br/><br/>
+              Type: string
+          `,
+        title: `Override the API version used for API requests made by this command.`,
+      },
+      verbose: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+              <br/><br/>
+              Emit additional command output to stdout.<br/><br/>
+              Type: boolean
+          `,
+        title: `Emit additional command output to stdout.`,
+      },
+    },
   },
   source: {
     beta_pull: {

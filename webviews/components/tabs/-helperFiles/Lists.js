@@ -241,6 +241,10 @@ export const lTYPE = {
   },
   org: {
     clone: [{ value: "sandbox", label: "sandbox" }],
+    create: [
+      { value: "scratch", label: "scratch" },
+      { value: "sandbox", label: "sandbox" },
+    ],
   },
 };
 

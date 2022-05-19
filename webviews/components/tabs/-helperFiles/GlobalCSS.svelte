@@ -17,6 +17,17 @@
     text-align: center;
   }
 
+  :global(.sfdxet-li) {
+    display: inline-block;
+    text-align: left;
+  }
+
+  :global(.sfdxet-ul) {
+    width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
   :global(.sfdxet-spinner) {
     display: flex;
     justify-content: center;
