@@ -121,59 +121,61 @@
   }
 </script>
 
-<div class="col align-self-center sfdxet-br">
-  <Title
-    {pRequired}
-    {pSFDXParameter}
-    {pSectionName}
-    pElementName={pSectionName}
-    pFileName={pSectionName}
-    {pOnlyOneError}
-    {pShowSectionName}
-    {pChecked}
-    {pDisabled}
-    {pStyle}
-  />
-  <Documentation
-    pHeader={sectionUCase}
-    pType={pMapDoc.type}
-    pBody={pMapDoc.body}
-    {pSectionName}
-  />
-
-  {#if $mapShowSections[pSectionName]}
-    <section class="sfdxet-section sfdxet-br">
-      <button
-        class="sfdxet-buttons {$mapErrors[pSectionName]}"
-        on:click={() => {
-          showFolderPick(`${pSectionName}`);
-        }}>Set Folder Path</button
-      >
-      <br />
-      <br />
-      <label for={pSectionName}>
-        <span title={js.mapTooltips["manuallyDefine"]} use:tooltipv1
-          >Manually define</span
+<li class="sfdxet-li">
+  <div>
+    <Title
+      {pRequired}
+      {pSFDXParameter}
+      {pSectionName}
+      pElementName={pSectionName}
+      pFileName={pSectionName}
+      {pOnlyOneError}
+      {pShowSectionName}
+      {pChecked}
+      {pDisabled}
+      {pStyle}
+    />
+    <Documentation
+      pHeader={sectionUCase}
+      pType={pMapDoc.type}
+      pBody={pMapDoc.body}
+      {pSectionName}
+    />
+  
+    {#if $mapShowSections[pSectionName]}
+      <section class="sfdxet-section sfdxet-br">
+        <button
+          class="sfdxet-buttons {$mapErrors[pSectionName]}"
+          on:click={() => {
+            showFolderPick(`${pSectionName}`);
+          }}>Set Folder Path</button
         >
-        <input
-          type="checkbox"
-          id={pSectionName}
-          name={pSectionName}
-          on:change={(e) => {
-            handleShowSections(e, `${pSectionName}2`, null);
-          }}
-        />
-      </label>
-      {#if $mapShowSections[`${pSectionName}2`]}
-        <input
-          type="text"
-          class="sfdxet-absolute-center"
-          title={$mapInputVariables[pSectionName]}
-          use:tooltipv1
-          placeholder={pDefaultFolder}
-          bind:value={$mapInputVariables[`${pSectionName}2`]}
-        />
-      {/if}
-    </section>
-  {/if}
-</div>
+        <br />
+        <br />
+        <label for={pSectionName}>
+          <span title={js.mapTooltips["manuallyDefine"]} use:tooltipv1
+            >Manually define</span
+          >
+          <input
+            type="checkbox"
+            id={pSectionName}
+            name={pSectionName}
+            on:change={(e) => {
+              handleShowSections(e, `${pSectionName}2`, null);
+            }}
+          />
+        </label>
+        {#if $mapShowSections[`${pSectionName}2`]}
+          <input
+            type="text"
+            class="sfdxet-absolute-center"
+            title={$mapInputVariables[pSectionName]}
+            use:tooltipv1
+            placeholder={pDefaultFolder}
+            bind:value={$mapInputVariables[`${pSectionName}2`]}
+          />
+        {/if}
+      </section>
+    {/if}
+  </div>
+</li>

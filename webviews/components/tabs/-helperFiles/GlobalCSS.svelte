@@ -20,12 +20,19 @@
   :global(.sfdxet-li) {
     display: inline-block;
     text-align: left;
+    width: 100%;
+    margin-bottom: 5px;
   }
 
   :global(.sfdxet-ul) {
-    width: 400px;
-    margin-left: auto;
-    margin-right: auto;
+    /* width: 400px; */
+    /* margin-left: auto; */
+    /* margin-right: auto; */
+    list-style-type: none;
+  }
+
+  :global(.sfdxet-parent-ul) {
+    text-align: center;
   }
 
   :global(.sfdxet-spinner) {
@@ -64,6 +71,8 @@
     border: 1px solid rgba(105, 104, 104, 0.555);
     border-radius: 5px;
     padding: 10px;
+    margin-right: 15px;
+    margin-left: 15px;
   }
 
   :global(.sfdxet-error-select) {
@@ -86,5 +95,6 @@
 
   :global(.sfdxet-br) {
     margin-top: 10px;
+    margin-left: 15px;
   }
 </style>

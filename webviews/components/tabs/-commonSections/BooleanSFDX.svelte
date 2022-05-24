@@ -47,7 +47,7 @@
   }
 </script>
 
-<div class="col align-self-center sfdxet-br">
+<li class="sfdxet-li">
   <Title
     {pRequired}
     {pSFDXParameter}
@@ -66,4 +66,4 @@
     pBody={pMapDoc.body}
     {pSectionName}
   />
-</div>
+</li>

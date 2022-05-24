@@ -161,70 +161,71 @@
     <br />
     <h3>Options:</h3>
     <br />
-
-    <ul class="sfdxet-ul">
-      <!-- [--json] -->
-      <svelte:component
-        this={JSONs}
-        bind:this={JSONv}
-        pMapDoc={mapDoc[commandType][fileName].json}
-        pShowSectionName={false}
-      />
-
-      <!-- [--loglevel LOGLEVEL] -->
-      <svelte:component
-        this={LOGLEVELs}
-        bind:this={LOGLEVELv}
-        pSectionName="loglevel"
-        pMapDoc={mapDoc[commandType][fileName].loglevel}
-        pSFDXParameter="--loglevel"
-        pList={gLists.lLOGLEVEL}
-        pDefaultValue="warn"
-      />
-
-      <!-- [-d OUTPUTDIR] -->
-      <!-- <svelte:component
-        this={OUTPUTDIRs}
-        bind:this={OUTPUTDIRv}
-        pSectionName="outputdir"
-        pMapDoc={mapDoc[commandType][fileName].outputdir}
-        pSFDXParameter="-d"
-        pDefaultFolder="."
-      /> -->
-
-      <!-- [--apiversion APIVERSION] -->
-      <!-- <svelte:component
-        this={APIVERSIONs}
-        bind:this={APIVERSIONv}
-        pSectionName="apiversion"
-        pMapDoc={mapDoc[commandType][fileName].apiversion}
-        pSFDXParameter="--apiversion"
-        pList={lAPIVERSION}
-        pDefaultValue={dAPIVERSION}
-      /> -->
-
-      <!-- -n TEMPLATENAME -->
-      <!-- <svelte:component
-        this={TEMPLATENAMEs}
-        bind:this={TEMPLATENAMEv}
-        pSectionName="templatename"
-        pRequired={true}
-        pMapDoc={mapDoc[commandType][fileName].templatename}
-        pSFDXParameter="-n"
-        pSectionTitle="Template Name"
-        pTitle={mapDoc[commandType][fileName].templatename.title}
-        pPlaceholder="Insert..."
-        pChecked={true}
-        pDisabled={true}
-      /> -->
-
-      <!-- [ADVANCED] -->
-      <!-- <svelte:component
-        this={ADVANCEDs}
-        bind:this={ADVANCEDv}
-        pMapDoc={mapDoc.advanced}
-      /> -->
-    </ul>
+    <div class="sfdxet-parent-ul">
+      <ul class="sfdxet-ul">
+        <!-- [--json] -->
+        <svelte:component
+          this={JSONs}
+          bind:this={JSONv}
+          pMapDoc={mapDoc[commandType][fileName].json}
+          pShowSectionName={false}
+        />
+  
+        <!-- [--loglevel LOGLEVEL] -->
+        <svelte:component
+          this={LOGLEVELs}
+          bind:this={LOGLEVELv}
+          pSectionName="loglevel"
+          pMapDoc={mapDoc[commandType][fileName].loglevel}
+          pSFDXParameter="--loglevel"
+          pList={gLists.lLOGLEVEL}
+          pDefaultValue="warn"
+        />
+  
+        <!-- [-d OUTPUTDIR] -->
+        <svelte:component
+          this={OUTPUTDIRs}
+          bind:this={OUTPUTDIRv}
+          pSectionName="outputdir"
+          pMapDoc={mapDoc[commandType][fileName].outputdir}
+          pSFDXParameter="-d"
+          pDefaultFolder="."
+        />
+  
+        <!-- [--apiversion APIVERSION] -->
+        <svelte:component
+          this={APIVERSIONs}
+          bind:this={APIVERSIONv}
+          pSectionName="apiversion"
+          pMapDoc={mapDoc[commandType][fileName].apiversion}
+          pSFDXParameter="--apiversion"
+          pList={lAPIVERSION}
+          pDefaultValue={dAPIVERSION}
+        />
+  
+        <!-- -n TEMPLATENAME -->
+        <svelte:component
+          this={TEMPLATENAMEs}
+          bind:this={TEMPLATENAMEv}
+          pSectionName="templatename"
+          pRequired={true}
+          pMapDoc={mapDoc[commandType][fileName].templatename}
+          pSFDXParameter="-n"
+          pSectionTitle="Template Name"
+          pTitle={mapDoc[commandType][fileName].templatename.title}
+          pPlaceholder="Insert..."
+          pChecked={true}
+          pDisabled={true}
+        />
+  
+        <!-- [ADVANCED] -->
+        <svelte:component
+          this={ADVANCEDs}
+          bind:this={ADVANCEDv}
+          pMapDoc={mapDoc.advanced}
+        />
+      </ul>
+    </div>
     <br />
     <br />
     <button class="sfdxet-buttons-icon" on:click={reset} title="Reset Options"
