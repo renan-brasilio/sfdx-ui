@@ -13,7 +13,6 @@
   import {
     lTARGETUSERNAME,
     lastAPIVersion,
-    mapErrors,
     mapInformation,
     mapInputVariables,
     mapShowSections,
@@ -24,19 +23,31 @@
   // Sections
   import JSONs from "../../-commonSections/JSONSection.svelte";
   import LOGLEVELs from "../../-commonSections/SelectSFDX.svelte";
+  import TARGETDEVHUBUSERNAMEs from "../../-commonSections/StringSFDX.svelte";
   import TARGETUSERNAMEs from "../../-commonSections/SelectSFDX.svelte";
   import APIVERSIONs from "../../-commonSections/SelectSFDX.svelte";
-  import NOPROMPTs from "../../-commonSections/BooleanSFDX.svelte";
+  import SETALIASs from "../../-commonSections/StringSFDX.svelte";
+  import DEFINITIONFILEs from "../../-commonSections/FilepathSFDX.svelte";
+  import SETUNIQUEUSERNAMEs from "../../-commonSections/BooleanSFDX.svelte";
   import ADVANCEDs from "../../-commonSections/ADVANCEDSection.svelte";
 
   // Component Validations
-  let JSONv, LOGLEVELv, TARGETUSERNAMEv, APIVERSIONv, NOPROMPTv, ADVANCEDv;
+  let 
+    JSONv, 
+    LOGLEVELv, 
+    TARGETDEVHUBUSERNAMEv, 
+    TARGETUSERNAMEv, 
+    APIVERSIONv, 
+    SETALIASv, 
+    DEFINITIONFILEv, 
+    SETUNIQUEUSERNAMEv, 
+    ADVANCEDv;
 
   // Documentation
-  let fileName = "tracking_clear";
+  let fileName = "create";
   let showFileName = fileName.replace("_", ":");
-  let showFileNameUpper = "Tracking:Clear";
-  let commandType = "source";
+  let showFileNameUpper = "Create";
+  let commandType = "user";
   let linkDocumentation = `https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference_force_${commandType}.htm#cli_reference_force_${commandType}_${fileName}`;
 
   // Initial loading
@@ -57,17 +68,16 @@
     Promise.all([
       JSONv.validate(),
       LOGLEVELv.validate(),
+      TARGETDEVHUBUSERNAMEv.validate(),
       TARGETUSERNAMEv.validate(),
       APIVERSIONv.validate(),
-      NOPROMPTv.validate(),
+      SETALIASv.validate(),
+      DEFINITIONFILEv.validate(),
+      SETUNIQUEUSERNAMEv.validate(),
       ADVANCEDv.validate(),
     ]).then((values) => {
       if (values) {
         if (!values.includes(false)) {
-          for (let key in $mapErrors) {
-            $mapErrors[key] = "";
-          }
-
           $mapSpinner.main = true;
           $mapInformation.main = true;
 
@@ -153,6 +163,18 @@
       pDefaultValue="warn"
     />
 
+    <!-- [-v TARGETDEVHUBUSERNAME] -->
+    <svelte:component
+      this={TARGETDEVHUBUSERNAMEs}
+      bind:this={TARGETDEVHUBUSERNAMEv}
+      pSectionName="targetdevhubusername"
+      pMapDoc={mapDoc[commandType][fileName].targetdevhubusername}
+      pSFDXParameter="-v"
+      pSectionTitle="Target Devhub Username"
+      pTitle={mapDoc[commandType][fileName].targetdevhubusername}
+      pPlaceholder="Insert..."
+    />
+
     <!-- [-u TARGETUSERNAME] -->
     <svelte:component
       this={TARGETUSERNAMEs}
@@ -174,13 +196,36 @@
       pDefaultValue={dAPIVERSION}
     />
 
-    <!-- [-p] -->
+    <!-- [-a SETALIAS]  -->
     <svelte:component
-      this={NOPROMPTs}
-      bind:this={NOPROMPTv}
-      pSectionName="noprompt"
-      pMapDoc={mapDoc[commandType][fileName].noprompt}
-      pSFDXParameter="-p"
+      this={SETALIASs}
+      bind:this={SETALIASv}
+      pSectionName="setalias"
+      pMapDoc={mapDoc[commandType][fileName].setalias}
+      pSFDXParameter="-a"
+      pSectionTitle="Set Alias"
+      pTitle={mapDoc[commandType][fileName].setalias}
+      pPlaceholder="Insert..."
+    />
+
+    <!-- [-f DEFINITIONFILE]  -->
+    <svelte:component
+      this={DEFINITIONFILEs}
+      bind:this={DEFINITIONFILEv}
+      pSectionName="definitionfile"
+      pMapDoc={mapDoc[commandType][fileName].definitionfile}
+      pSFDXParameter="-f"
+      pPlaceholder="Insert..."
+      pButtonText="Select Definition File"
+    />
+
+    <!-- [-s] -->
+    <svelte:component
+      this={SETUNIQUEUSERNAMEs}
+      bind:this={SETUNIQUEUSERNAMEv}
+      pSectionName="setuniqueusername"
+      pMapDoc={mapDoc[commandType][fileName].setuniqueusername}
+      pSFDXParameter="-s"
       pShowSectionName={false}
     />
 

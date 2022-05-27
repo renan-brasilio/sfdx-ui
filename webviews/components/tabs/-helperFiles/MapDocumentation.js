@@ -4992,6 +4992,198 @@ export let mapDoc = {
       },
     },
   },
+  staticresource:{
+    create: {
+      json: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                <br/><br/>
+                Format output as JSON.<br/><br/>
+                Type: boolean
+            `,
+        title: `Format output as JSON.`,
+      },
+      loglevel: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                <br/><br/>            
+                The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.
+                <br/><br/>
+                Type: enum<br/>
+                Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                Default value: warn
+            `,
+        title: `The logging level for this command invocation.`,
+      },
+      resourcename: {
+        type: `<b>Required</b>`,
+        body: `
+                <br/><br/>            
+                The name of the new static resource. This name can contain only underscores and alphanumeric characters, and must be unique in your org. It must begin with a letter, not include spaces, not end with an underscore, and not contain two consecutive underscores.<br/><br/>
+                Type: string
+            `,
+        title: `The name of the new static resource.`,
+      },
+      contenttype: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                <br/><br/>
+                The content type of the generated static resource. This must be a valid MIME type such as application/json, application/javascript, application/zip, text/plain, text/css, etc.<br/><br/>
+                Type: string<br/><br/>
+                Default value: application/zip
+            `,
+        title: `The content type of the generated static resource.`,
+      },
+      outputdir: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                <br/><br/>
+                The directory to store the newly created files. The location can be an absolute path or relative to the current working directory. The default is the current directory.<br/><br/>
+                Type: string<br/><br/>
+                Default value: .
+            `,
+        title: `The directory to store the newly created files.`,
+      },
+      apiversion: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                <br/><br/>
+                Override the API version used for API requests made by this command.<br/><br/>
+                Type: string
+            `,
+        title: `Override the API version used for API requests made by this command.`,
+      },
+    },
+  },
+  user:{
+    create: {
+      json: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                <br/><br/>
+                Format output as JSON.<br/><br/>
+                Type: boolean
+            `,
+        title: `Format output as JSON.`,
+      },
+      loglevel: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                <br/><br/>            
+                The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.
+                <br/><br/>
+                Type: enum<br/>
+                Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                Default value: warn
+            `,
+        title: `The logging level for this command invocation.`,
+      },
+      targetdevhubusername: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                <br/><br/>            
+                A username or alias for the target Dev Hub org. Overrides the default Dev Hub org.<br/><br/>
+                Type: string
+            `,
+        title: `A username or alias for the target Dev Hub org.`,
+      },
+      targetusername: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                <br/><br/>
+                A username or alias for the target org. Overrides the default target org.<br/><br/>
+                Type: string
+            `,
+        title: `A username or alias for the target org.`,
+      },
+      apiversion: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                <br/><br/>
+                Override the API version used for API requests made by this command.<br/><br/>
+                Type: string
+            `,
+        title: `Override the API version used for API requests made by this command.`,
+      },
+      setalias: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                <br/><br/>
+                Set an alias for the created username to reference within the CLI.<br/><br/>
+                Type: string
+            `,
+        title: `Set an alias for the created username to reference within the CLI.`,
+      },
+      definitionfile: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                <br/><br/>
+                File path to a user definition.<br/><br/>
+                Type: string
+            `,
+        title: `File path to a user definition.`,
+      },
+      setuniqueusername: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                <br/><br/>
+                Force the username, if specified in the definition file or at the command line, to be unique by appending the org ID.<br/><br/>
+                Type: boolean
+            `,
+        title: `Force the username, if specified in the definition file or at the command line, to be unique by appending the org ID.`,
+      },
+    },
+    display: {
+      json: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                <br/><br/>
+                Format output as JSON.<br/><br/>
+                Type: boolean
+            `,
+        title: `Format output as JSON.`,
+      },
+      loglevel: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                <br/><br/>            
+                The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.
+                <br/><br/>
+                Type: enum<br/>
+                Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                Default value: warn
+            `,
+        title: `The logging level for this command invocation.`,
+      },
+      targetdevhubusername: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                <br/><br/>            
+                A username or alias for the target Dev Hub org. Overrides the default Dev Hub org.<br/><br/>
+                Type: string
+            `,
+        title: `A username or alias for the target Dev Hub org.`,
+      },
+      targetusername: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                <br/><br/>
+                A username or alias for the target org. Overrides the default target org.<br/><br/>
+                Type: string
+            `,
+        title: `A username or alias for the target org.`,
+      },
+      apiversion: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                <br/><br/>
+                Override the API version used for API requests made by this command.<br/><br/>
+                Type: string
+            `,
+        title: `Override the API version used for API requests made by this command.`,
+      },
+    },
+  },
   advanced: {
     type: `<b><i>Optional</i></b>`,
     body: `

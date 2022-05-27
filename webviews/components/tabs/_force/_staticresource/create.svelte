@@ -11,11 +11,11 @@
 
   // Store
   import {
-    lTARGETUSERNAME,
     lastAPIVersion,
     mapErrors,
     mapInformation,
     mapInputVariables,
+    mapSectionValidation,
     mapShowSections,
     mapSpinner,
     objSFDX,
@@ -24,19 +24,26 @@
   // Sections
   import JSONs from "../../-commonSections/JSONSection.svelte";
   import LOGLEVELs from "../../-commonSections/SelectSFDX.svelte";
-  import TARGETUSERNAMEs from "../../-commonSections/SelectSFDX.svelte";
+  import RESOURCENAMEs from "../../-commonSections/StringSFDX.svelte";
+  import CONTENTTYPEs from "../../-commonSections/SelectSFDX.svelte";
+  import OUTPUTDIRs from "../../-commonSections/FolderpathSFDX.svelte";
   import APIVERSIONs from "../../-commonSections/SelectSFDX.svelte";
-  import NOPROMPTs from "../../-commonSections/BooleanSFDX.svelte";
   import ADVANCEDs from "../../-commonSections/ADVANCEDSection.svelte";
 
   // Component Validations
-  let JSONv, LOGLEVELv, TARGETUSERNAMEv, APIVERSIONv, NOPROMPTv, ADVANCEDv;
+  let JSONv,
+    LOGLEVELv,
+    RESOURCENAMEv,
+    CONTENTTYPEv,
+    OUTPUTDIRv,
+    APIVERSIONv,
+    ADVANCEDv;
 
   // Documentation
-  let fileName = "tracking_clear";
+  let fileName = "create";
   let showFileName = fileName.replace("_", ":");
-  let showFileNameUpper = "Tracking:Clear";
-  let commandType = "source";
+  let showFileNameUpper = "StaticResource:Create";
+  let commandType = "staticresource";
   let linkDocumentation = `https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference_force_${commandType}.htm#cli_reference_force_${commandType}_${fileName}`;
 
   // Initial loading
@@ -50,6 +57,20 @@
     $mapSpinner.force[fileName] = false;
   }, 1000);
 
+    // Mandatory Field(s)
+    let mandatorySections = ["resourcename"];
+
+    if (!$mapShowSections) {
+      $mapShowSections = {};
+    }
+
+    $mapSectionValidation = {};
+
+    for (let i = 0; i < mandatorySections.length; i++) {
+      $mapShowSections[mandatorySections[i]] = true;
+      $mapSectionValidation[mandatorySections[i]] = 0;
+    }
+
   function startSFDX() {
     $objSFDX.terminal = "";
     $objSFDX.terminal = `force:${commandType}:${showFileName}`;
@@ -57,9 +78,10 @@
     Promise.all([
       JSONv.validate(),
       LOGLEVELv.validate(),
-      TARGETUSERNAMEv.validate(),
+      RESOURCENAMEv.validate(),
+      CONTENTTYPEv.validate(),
+      OUTPUTDIRv.validate(),
       APIVERSIONv.validate(),
-      NOPROMPTv.validate(),
       ADVANCEDv.validate(),
     ]).then((values) => {
       if (values) {
@@ -110,6 +132,9 @@
   lAPIVERSION.reverse();
 
   $mapInputVariables[fileName] = dAPIVERSION;
+
+  // CONTENTTYPE
+  let dCONTENTTYPE = "application/zip";
 </script>
 
 <WebviewListener {fileName} {commandType} showCommand={showFileNameUpper} />
@@ -153,14 +178,40 @@
       pDefaultValue="warn"
     />
 
-    <!-- [-u TARGETUSERNAME] -->
+    <!-- -n RESOURCENAME -->
     <svelte:component
-      this={TARGETUSERNAMEs}
-      bind:this={TARGETUSERNAMEv}
-      pSectionName="targetusername"
-      pMapDoc={mapDoc[commandType][fileName].targetusername}
-      pSFDXParameter="-u"
-      pList={$lTARGETUSERNAME}
+      this={RESOURCENAMEs}
+      bind:this={RESOURCENAMEv}
+      pSectionName="resourcename"
+      pRequired={true}
+      pMapDoc={mapDoc[commandType][fileName].resourcename}
+      pSFDXParameter="-n"
+      pSectionTitle="Resource Name"
+      pTitle={mapDoc[commandType][fileName].resourcename}
+      pPlaceholder="Insert..."
+      pChecked={true}
+      pDisabled={true}
+    />
+
+    <!-- [--contenttype CONTENTTYPE] -->
+    <svelte:component
+      this={CONTENTTYPEs}
+      bind:this={CONTENTTYPEv}
+      pSectionName="contenttype"
+      pMapDoc={mapDoc[commandType][fileName].contenttype}
+      pSFDXParameter="--contenttype"
+      pList={gLists.lCONTENTTYPE}
+      pDefaultValue={dCONTENTTYPE}
+    />
+
+    <!-- [-d OUTPUTDIR] -->
+    <svelte:component
+      this={OUTPUTDIRs}
+      bind:this={OUTPUTDIRv}
+      pSectionName="outputdir"
+      pMapDoc={mapDoc[commandType][fileName].outputdir}
+      pSFDXParameter="-d"
+      pDefaultFolder="."
     />
 
     <!-- [--apiversion APIVERSION] -->
@@ -172,16 +223,6 @@
       pSFDXParameter="--apiversion"
       pList={lAPIVERSION}
       pDefaultValue={dAPIVERSION}
-    />
-
-    <!-- [-p] -->
-    <svelte:component
-      this={NOPROMPTs}
-      bind:this={NOPROMPTv}
-      pSectionName="noprompt"
-      pMapDoc={mapDoc[commandType][fileName].noprompt}
-      pSFDXParameter="-p"
-      pShowSectionName={false}
     />
 
     <!-- [ADVANCED] -->

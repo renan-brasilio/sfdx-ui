@@ -110,6 +110,13 @@
   import Source_Tracking_Clear from "./_source/tracking_clear.svelte";
   import Source_Tracking_Reset from "./_source/tracking_reset.svelte";
 
+  // StaticResource
+  import StaticResource_Create from "./_staticresource/create.svelte";
+  
+  // User
+  import User_Create from "./_user/create.svelte";
+  import User_Display from "./_user/display.svelte";
+
   // Fill the initial Maps
   handleMapCommand(lists.analytics, "analytics");
   handleMapCommand(lists.apex, "apex");
@@ -121,6 +128,8 @@
   handleMapCommand(lists.mdapi, "mdapi");
   handleMapCommand(lists.org, "org");
   handleMapCommand(lists.source, "source");
+  handleMapCommand(lists.staticresource, "staticresource");
+  handleMapCommand(lists.user, "user");
 
   export let mainFileName = "force";
 
@@ -571,6 +580,52 @@
       <Source_Tracking_Clear />
     {:else if $mapCommand["source"]["tracking:reset"]}
       <Source_Tracking_Reset />
+    {/if}
+  </div>
+{/if}
+
+{#if $mapForceShowSections.staticresource}
+  <div class="sfdxet-select-theme sfdxet-absolute-center">
+    <h4>staticresource Commands</h4>
+    <br />
+    <Select
+      id="staticresource"
+      items={lists.staticresource}
+      on:select={(e) => {
+        handleSelect(e, "staticresource");
+      }}
+      on:clear={(e) => {
+        handleClear(e, "staticresource");
+      }}
+      value="create"
+    />
+    <br />
+    <br />
+    <StaticResource_Create />
+  </div>
+{/if}
+
+{#if $mapForceShowSections.user}
+  <div class="sfdxet-select-theme sfdxet-absolute-center">
+    <h4>source Commands</h4>
+    <br />
+    <Select
+      id="user"
+      items={lists.user}
+      on:select={(e) => {
+        handleSelect(e, "user");
+      }}
+      on:clear={(e) => {
+        handleClear(e, "user");
+      }}
+      value={$mapLastValue["user"]}
+    />
+    <br />
+    <br />
+    {#if $mapCommand["user"]["create"]}
+      <User_Create />
+    {:else if $mapCommand["user"]["display"]}
+      <User_Display />
     {/if}
   </div>
 {/if}

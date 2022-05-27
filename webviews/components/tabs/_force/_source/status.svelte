@@ -12,11 +12,11 @@
   // Store
   import {
     lTARGETUSERNAME,
+    lastAPIVersion,
     mapErrors,
     mapInformation,
     mapInputVariables,
     mapShowSections,
-    mapSectionValidation,
     mapSpinner,
     objSFDX,
   } from "../../-helperFiles/GlobalStore";
@@ -102,8 +102,8 @@
   let dAPIVERSION = "";
   const lAPIVERSION = [];
 
-  for (let i = 8; i < 54; i++) {
-    if (i === 53) {
+  for (let i = 8; i < ($lastAPIVersion + 1); i++) {
+    if (i === ($lastAPIVersion - 1)) {
       dAPIVERSION = i.toFixed(1);
     }
 
