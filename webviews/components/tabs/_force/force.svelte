@@ -116,6 +116,9 @@
   // User
   import User_Create from "./_user/create.svelte";
   import User_Display from "./_user/display.svelte";
+  import User_List from "./_user/list.svelte";
+  import User_Password_Generate from "./_user/password_generate.svelte";
+  import User_Permset_Assign from "./_user/permset_assign.svelte";
 
   // Fill the initial Maps
   handleMapCommand(lists.analytics, "analytics");
@@ -626,6 +629,12 @@
       <User_Create />
     {:else if $mapCommand["user"]["display"]}
       <User_Display />
+    {:else if $mapCommand["user"]["list"]}
+      <User_List />
+    {:else if $mapCommand["user"]["password:generate"]}
+      <User_Password_Generate />
+    {:else if $mapCommand["user"]["permset:assign"]}
+      <User_Permset_Assign />
     {/if}
   </div>
 {/if}

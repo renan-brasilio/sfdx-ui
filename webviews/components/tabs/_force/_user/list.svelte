@@ -13,7 +13,6 @@
   import {
     lTARGETUSERNAME,
     lastAPIVersion,
-    mapErrors,
     mapInformation,
     mapInputVariables,
     mapShowSections,
@@ -24,25 +23,25 @@
   // Sections
   import JSONs from "../../-commonSections/JSONSection.svelte";
   import LOGLEVELs from "../../-commonSections/SelectSFDX.svelte";
+  import TARGETDEVHUBUSERNAMEs from "../../-commonSections/StringSFDX.svelte";
   import TARGETUSERNAMEs from "../../-commonSections/SelectSFDX.svelte";
   import APIVERSIONs from "../../-commonSections/SelectSFDX.svelte";
-  import NOPROMPTs from "../../-commonSections/BooleanSFDX.svelte";
   import ADVANCEDs from "../../-commonSections/ADVANCEDSection.svelte";
 
   // Component Validations
   let 
     JSONv, 
     LOGLEVELv, 
+    TARGETDEVHUBUSERNAMEv, 
     TARGETUSERNAMEv, 
     APIVERSIONv, 
-    NOPROMPTv, 
     ADVANCEDv;
 
   // Documentation
-  let fileName = "tracking_clear";
+  let fileName = "list";
   let showFileName = fileName.replace("_", ":");
-  let showFileNameUpper = "Tracking:Clear";
-  let commandType = "source";
+  let showFileNameUpper = "List";
+  let commandType = "user";
   let linkDocumentation = `https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference_force_${commandType}.htm#cli_reference_force_${commandType}_${fileName}`;
 
   // Initial loading
@@ -63,17 +62,13 @@
     Promise.all([
       JSONv.validate(),
       LOGLEVELv.validate(),
+      TARGETDEVHUBUSERNAMEv.validate(),
       TARGETUSERNAMEv.validate(),
       APIVERSIONv.validate(),
-      NOPROMPTv.validate(),
       ADVANCEDv.validate(),
     ]).then((values) => {
       if (values) {
         if (!values.includes(false)) {
-          for (let key in $mapErrors) {
-            $mapErrors[key] = "";
-          }
-
           $mapSpinner.main = true;
           $mapInformation.main = true;
 
@@ -159,6 +154,18 @@
       pDefaultValue="warn"
     />
 
+    <!-- [-v TARGETDEVHUBUSERNAME] -->
+    <svelte:component
+      this={TARGETDEVHUBUSERNAMEs}
+      bind:this={TARGETDEVHUBUSERNAMEv}
+      pSectionName="targetdevhubusername"
+      pMapDoc={mapDoc[commandType][fileName].targetdevhubusername}
+      pSFDXParameter="-v"
+      pSectionTitle="Target Devhub Username"
+      pTitle={mapDoc[commandType][fileName].targetdevhubusername}
+      pPlaceholder="Insert..."
+    />
+
     <!-- [-u TARGETUSERNAME] -->
     <svelte:component
       this={TARGETUSERNAMEs}
@@ -178,16 +185,6 @@
       pSFDXParameter="--apiversion"
       pList={lAPIVERSION}
       pDefaultValue={dAPIVERSION}
-    />
-
-    <!-- [-p] -->
-    <svelte:component
-      this={NOPROMPTs}
-      bind:this={NOPROMPTv}
-      pSectionName="noprompt"
-      pMapDoc={mapDoc[commandType][fileName].noprompt}
-      pSFDXParameter="-p"
-      pShowSectionName={false}
     />
 
     <!-- [ADVANCED] -->

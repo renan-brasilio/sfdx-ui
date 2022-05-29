@@ -65,9 +65,6 @@
       TARGETDEVHUBUSERNAMEv.validate(),
       TARGETUSERNAMEv.validate(),
       APIVERSIONv.validate(),
-      SETALIASv.validate(),
-      DEFINITIONFILEv.validate(),
-      SETUNIQUEUSERNAMEv.validate(),
       ADVANCEDv.validate(),
     ]).then((values) => {
       if (values) {

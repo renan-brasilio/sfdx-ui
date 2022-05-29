@@ -131,6 +131,9 @@ export const source = [
 export const user = [
   { value: "create", label: "create" },
   { value: "display", label: "display" },
+  { value: "list", label: "list" },
+  { value: "password:generate", label: "password:generate" },
+  { value: "permset:assign", label: "permset:assign" },
 ];
 
 export const staticresource = [

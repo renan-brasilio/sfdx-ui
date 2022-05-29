@@ -13,9 +13,9 @@
   import {
     lTARGETUSERNAME,
     lastAPIVersion,
-    mapErrors,
     mapInformation,
     mapInputVariables,
+    mapSectionValidation,
     mapShowSections,
     mapSpinner,
     objSFDX,
@@ -26,7 +26,8 @@
   import LOGLEVELs from "../../-commonSections/SelectSFDX.svelte";
   import TARGETUSERNAMEs from "../../-commonSections/SelectSFDX.svelte";
   import APIVERSIONs from "../../-commonSections/SelectSFDX.svelte";
-  import NOPROMPTs from "../../-commonSections/BooleanSFDX.svelte";
+  import PERMSETNAMEs from "../../-commonSections/StringSFDX.svelte";
+  import ONBEHALFOFs from "../../-commonSections/StringSFDX.svelte";
   import ADVANCEDs from "../../-commonSections/ADVANCEDSection.svelte";
 
   // Component Validations
@@ -35,14 +36,15 @@
     LOGLEVELv, 
     TARGETUSERNAMEv, 
     APIVERSIONv, 
-    NOPROMPTv, 
+    PERMSETNAMEv, 
+    ONBEHALFOFv, 
     ADVANCEDv;
 
   // Documentation
-  let fileName = "tracking_clear";
+  let fileName = "permset_assign";
   let showFileName = fileName.replace("_", ":");
-  let showFileNameUpper = "Tracking:Clear";
-  let commandType = "source";
+  let showFileNameUpper = "Permset:Assign";
+  let commandType = "user";
   let linkDocumentation = `https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference_force_${commandType}.htm#cli_reference_force_${commandType}_${fileName}`;
 
   // Initial loading
@@ -56,6 +58,20 @@
     $mapSpinner.force[fileName] = false;
   }, 1000);
 
+  // Mandatory Field(s)
+  let mandatorySections = ["permsetname"];
+
+  if (!$mapShowSections) {
+    $mapShowSections = {};
+  }
+
+  $mapSectionValidation = {};
+
+  for (let i = 0; i < mandatorySections.length; i++) {
+    $mapShowSections[mandatorySections[i]] = true;
+    $mapSectionValidation[mandatorySections[i]] = 0;
+  }
+
   function startSFDX() {
     $objSFDX.terminal = "";
     $objSFDX.terminal = `force:${commandType}:${showFileName}`;
@@ -65,15 +81,12 @@
       LOGLEVELv.validate(),
       TARGETUSERNAMEv.validate(),
       APIVERSIONv.validate(),
-      NOPROMPTv.validate(),
+      PERMSETNAMEv.validate(),
+      ONBEHALFOFv.validate(),
       ADVANCEDv.validate(),
     ]).then((values) => {
       if (values) {
         if (!values.includes(false)) {
-          for (let key in $mapErrors) {
-            $mapErrors[key] = "";
-          }
-
           $mapSpinner.main = true;
           $mapInformation.main = true;
 
@@ -180,14 +193,31 @@
       pDefaultValue={dAPIVERSION}
     />
 
-    <!-- [-p] -->
+    <!-- -n PERMSETNAME -->
     <svelte:component
-      this={NOPROMPTs}
-      bind:this={NOPROMPTv}
-      pSectionName="noprompt"
-      pMapDoc={mapDoc[commandType][fileName].noprompt}
-      pSFDXParameter="-p"
-      pShowSectionName={false}
+      this={PERMSETNAMEs}
+      bind:this={PERMSETNAMEv}
+      pSectionName="permsetname"
+      pRequired={true}
+      pMapDoc={mapDoc[commandType][fileName].permsetname}
+      pSFDXParameter="-n"
+      pSectionTitle="Permission Set Name"
+      pTitle={mapDoc[commandType][fileName].permsetname}
+      pPlaceholder="Insert..."
+      pChecked={true}
+      pDisabled={true}
+    />
+
+    <!-- [-o ONBEHALFOF] -->
+    <svelte:component
+      this={ONBEHALFOFs}
+      bind:this={ONBEHALFOFv}
+      pSectionName="onbehalfof"
+      pMapDoc={mapDoc[commandType][fileName].onbehalfof}
+      pSFDXParameter="-o"
+      pSectionTitle="On Behalf Of"
+      pTitle={mapDoc[commandType][fileName].onbehalfof}
+      pPlaceholder="Insert..."
     />
 
     <!-- [ADVANCED] -->

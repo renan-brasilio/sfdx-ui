@@ -5183,6 +5183,194 @@ export let mapDoc = {
         title: `Override the API version used for API requests made by this command.`,
       },
     },
+    list: {
+      json: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                <br/><br/>
+                Format output as JSON.<br/><br/>
+                Type: boolean
+            `,
+        title: `Format output as JSON.`,
+      },
+      loglevel: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                <br/><br/>            
+                The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.
+                <br/><br/>
+                Type: enum<br/>
+                Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                Default value: warn
+            `,
+        title: `The logging level for this command invocation.`,
+      },
+      targetdevhubusername: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                <br/><br/>            
+                A username or alias for the target Dev Hub org. Overrides the default Dev Hub org.<br/><br/>
+                Type: string
+            `,
+        title: `A username or alias for the target Dev Hub org.`,
+      },
+      targetusername: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                <br/><br/>
+                A username or alias for the target org. Overrides the default target org.<br/><br/>
+                Type: string
+            `,
+        title: `A username or alias for the target org.`,
+      },
+      apiversion: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                <br/><br/>
+                Override the API version used for API requests made by this command.<br/><br/>
+                Type: string
+            `,
+        title: `Override the API version used for API requests made by this command.`,
+      },
+    },
+    password_generate: {
+      json: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                <br/><br/>
+                Format output as JSON.<br/><br/>
+                Type: boolean
+            `,
+        title: `Format output as JSON.`,
+      },
+      loglevel: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                <br/><br/>            
+                The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.
+                <br/><br/>
+                Type: enum<br/>
+                Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                Default value: warn
+            `,
+        title: `The logging level for this command invocation.`,
+      },
+      targetdevhubusername: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                <br/><br/>            
+                A username or alias for the target Dev Hub org. Overrides the default Dev Hub org.<br/><br/>
+                Type: string
+            `,
+        title: `A username or alias for the target Dev Hub org.`,
+      },
+      targetusername: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                <br/><br/>
+                A username or alias for the target org. Overrides the default target org.<br/><br/>
+                Type: string
+            `,
+        title: `A username or alias for the target org.`,
+      },
+      apiversion: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                <br/><br/>
+                Override the API version used for API requests made by this command.<br/><br/>
+                Type: string
+            `,
+        title: `Override the API version used for API requests made by this command.`,
+      },
+      onbehalfof: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                <br/><br/>
+                Comma-separated list of usernames or aliases to assign the password to.<br/><br/>
+                Type: array
+            `,
+        title: `Comma-separated list of usernames or aliases to assign the password to.`,
+      },
+      length: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                <br/><br/>
+                Number of characters in the generated password; valid values are between 8 and 1000.<br/><br/>
+                Type: integer<br/><br/>
+                Default value: 13
+            `,
+        title: `Number of characters in the generated password.`,
+      },
+      complexity: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                <br/><br/>
+                Level of password complexity or strength; the higher the value, the stronger the password.<br/><br/>
+                Type: integer<br/><br/>
+                Default value: 5
+            `,
+        title: `Level of password complexity or strength; the higher the value, the stronger the password.`,
+      },
+    },
+    permset_assign: {
+      json: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                <br/><br/>
+                Format output as JSON.<br/><br/>
+                Type: boolean
+            `,
+        title: `Format output as JSON.`,
+      },
+      loglevel: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                <br/><br/>            
+                The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.
+                <br/><br/>
+                Type: enum<br/>
+                Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                Default value: warn
+            `,
+        title: `The logging level for this command invocation.`,
+      },
+      targetusername: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                <br/><br/>
+                A username or alias for the target org. Overrides the default target org.<br/><br/>
+                Type: string
+            `,
+        title: `A username or alias for the target org.`,
+      },
+      apiversion: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                <br/><br/>
+                Override the API version used for API requests made by this command.<br/><br/>
+                Type: string
+            `,
+        title: `Override the API version used for API requests made by this command.`,
+      },
+      permsetname: {
+        type: `<b>Required</b>`,
+        body: `
+                <br/><br/>
+                Comma-separated list of permission sets to assign.<br/><br/>
+                Type: array
+            `,
+        title: `Comma-separated list of permission sets to assign.`,
+      },
+      onbehalfof: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                <br/><br/>
+                Comma-separated list of usernames or aliases to assign the password to.<br/><br/>
+                Type: array
+            `,
+        title: `Comma-separated list of usernames or aliases to assign the password to.`,
+      },
+    },
   },
   advanced: {
     type: `<b><i>Optional</i></b>`,
