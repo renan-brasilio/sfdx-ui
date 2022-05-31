@@ -12,7 +12,7 @@
   } from "../-helperFiles/GlobalStore";
 
   // Analytics
-  import Analytcs from "./_analytics/template_create.svelte";
+  import Analytics from "./_analytics/template_create.svelte";
 
   // Apex
   import Apex_Class_Create from "./_apex/class_create.svelte";
@@ -89,6 +89,26 @@
   import Org_Snapshot_List from "./_org/snapshot_list.svelte";
   import Org_Status from "./_org/status.svelte";
 
+  // Package
+  import Package_Create from "./_package/create.svelte";
+  import Package_Delete from "./_package/delete.svelte";
+  import Package_Install from "./_package/install.svelte";
+  // import Package_Install_Report from "./_package/install_report.svelte";
+  // import Package_Installed_List from "./_package/installed_list.svelte";
+  // import Package_List from "./_package/list.svelte";
+  // import Package_Uninstall from "./_package/uninstall.svelte";
+  // import Package_Uninstall_Report from "./_package/uninstall_report.svelte";
+  // import Package_Update from "./_package/update.svelte";
+  // import Package_Version_Create from "./_package/version_create.svelte";
+  // import Package_Version_Create_List from "./_package/version_create_list.svelte";
+  // import Package_Version_Create_Report from "./_package/version_create_report.svelte";
+  // import Package_Version_Delete from "./_package/version_delete.svelte";
+  // import Package_Version_DisplayAncestry from "./_package/version_displayancestry.svelte";
+  // import Package_Version_List from "./_package/version_list.svelte";
+  // import Package_Version_Promote from "./_package/version_promote.svelte";
+  // import Package_Version_Report from "./_package/version_report.svelte";
+  // import Package_Version_Update from "./_package/version_update.svelte";
+
   // Source
   import Source_Beta_Pull from "./_source/beta_pull.svelte";
   import Source_Beta_Push from "./_source/beta_push.svelte";
@@ -119,6 +139,11 @@
   import User_List from "./_user/list.svelte";
   import User_Password_Generate from "./_user/password_generate.svelte";
   import User_Permset_Assign from "./_user/permset_assign.svelte";
+  import User_PermsetLicense_Assign from "./_user/permsetlicense_assign.svelte";
+  
+  // User
+  import Visualforce_Component_Create from "./_visualforce/component_create.svelte";
+  import Visualforce_Page_Create from "./_visualforce/page_create.svelte";
 
   // Fill the initial Maps
   handleMapCommand(lists.analytics, "analytics");
@@ -130,9 +155,11 @@
   handleMapCommand(lists.limits, "limits");
   handleMapCommand(lists.mdapi, "mdapi");
   handleMapCommand(lists.org, "org");
+  handleMapCommand(lists.lPackage, "package");
   handleMapCommand(lists.source, "source");
   handleMapCommand(lists.staticresource, "staticresource");
   handleMapCommand(lists.user, "user");
+  handleMapCommand(lists.visualforce, "visualforce");
 
   export let mainFileName = "force";
 
@@ -238,7 +265,7 @@
     />
     <br />
     <br />
-    <Analytcs />
+    <Analytics />
   </div>
 {/if}
 
@@ -528,6 +555,63 @@
   </div>
 {/if}
 
+{#if $mapForceShowSections.package}
+  <div class="sfdxet-select-theme sfdxet-absolute-center">
+    <h4>package Commands</h4>
+    <br />
+    <Select
+      id="package"
+      items={lists.lPackage}
+      on:select={(e) => {
+        handleSelect(e, "package");
+      }}
+      on:clear={(e) => {
+        handleClear(e, "package");
+      }}
+      value={$mapLastValue["package"]}
+    />
+    <br />
+    <br />
+    {#if $mapCommand["package"]["create"]}
+      <Package_Create />
+    {:else if $mapCommand["package"]["delete"]}
+      <Package_Delete />
+    {:else if $mapCommand["package"]["install"]}
+      <Package_Install />
+    <!-- {:else if $mapCommand["package"]["install:report"]}
+      <Package_Install_Report /> -->
+    <!-- {:else if $mapCommand["package"]["installed:list"]}
+      <Package_Installed_List /> -->
+    <!-- {:else if $mapCommand["package"]["list"]}
+      <Package_List /> -->
+    <!-- {:else if $mapCommand["package"]["uninstall"]}
+      <Package_Uninstall /> -->
+    <!-- {:else if $mapCommand["package"]["uninstall:report"]}
+      <Package_Uninstall_Report /> -->
+    <!-- {:else if $mapCommand["package"]["update"]}
+      <Package_Update /> -->
+    <!-- {:else if $mapCommand["package"]["version:create"]}
+      <Package_Version_Create /> -->
+    <!-- {:else if $mapCommand["package"]["version:create:list"]}
+      <Package_Version_Create_List /> -->
+    <!-- {:else if $mapCommand["package"]["version:create:report"]}
+      <Package_Version_Create_Report /> -->
+    <!-- {:else if $mapCommand["package"]["version:delete"]}
+      <Package_Version_Delete /> -->
+    <!-- {:else if $mapCommand["package"]["version:displayancestry"]}
+      <Package_Version_DisplayAncestry /> -->
+    <!-- {:else if $mapCommand["package"]["version:list"]}
+      <Package_Version_List /> -->
+    <!-- {:else if $mapCommand["package"]["version:promote"]}
+      <Package_Version_Promote /> -->
+    <!-- {:else if $mapCommand["package"]["version:report"]}
+      <Package_Version_Report /> -->
+    <!-- {:else if $mapCommand["package"]["version:update"]}
+      <Package_Version_Update /> -->
+    {/if}
+  </div>
+{/if}
+
 {#if $mapForceShowSections.source}
   <div class="sfdxet-select-theme sfdxet-absolute-center">
     <h4>source Commands</h4>
@@ -610,7 +694,7 @@
 
 {#if $mapForceShowSections.user}
   <div class="sfdxet-select-theme sfdxet-absolute-center">
-    <h4>source Commands</h4>
+    <h4>user Commands</h4>
     <br />
     <Select
       id="user"
@@ -635,6 +719,33 @@
       <User_Password_Generate />
     {:else if $mapCommand["user"]["permset:assign"]}
       <User_Permset_Assign />
+    {:else if $mapCommand["user"]["permsetlicense:assign"]}
+      <User_PermsetLicense_Assign />
+    {/if}
+  </div>
+{/if}
+
+{#if $mapForceShowSections.visualforce}
+  <div class="sfdxet-select-theme sfdxet-absolute-center">
+    <h4>visualforce Commands</h4>
+    <br />
+    <Select
+      id="visualforce"
+      items={lists.visualforce}
+      on:select={(e) => {
+        handleSelect(e, "visualforce");
+      }}
+      on:clear={(e) => {
+        handleClear(e, "visualforce");
+      }}
+      value={$mapLastValue["visualforce"]}
+    />
+    <br />
+    <br />
+    {#if $mapCommand["visualforce"]["component:create"]}
+      <Visualforce_Component_Create />
+    {:else if $mapCommand["visualforce"]["page:create"]}
+      <Visualforce_Page_Create />
     {/if}
   </div>
 {/if}

@@ -8,14 +8,14 @@ export const force = [
   { value: "limits", label: "limits" },
   { value: "mdapi", label: "mdapi" },
   { value: "org", label: "org" },
-  // {value: "package", label: "package"},
+  {value: "package", label: "package"},
   // {value: "package1", label: "package1"},
   // {value: "project", label: "project"},
   // {value: "schema", label: "schema"},
   { value: "source", label: "source" },
   {value: "staticresource", label: "staticresource"},
   {value: "user", label: "user"},
-  // {value: "visualforce", label: "visualforce"},
+  {value: "visualforce", label: "visualforce"},
 ];
 
 export const analytics = [
@@ -106,6 +106,27 @@ export const org = [
   { value: "status", label: "status" },
 ];
 
+export const lPackage = [
+  { value: "create", label: "create" },
+  { value: "delete", label: "delete" },
+  { value: "install", label: "install" },
+  // { value: "install:report", label: "install:report" },
+  // { value: "installed:list", label: "installed:list" },
+  // { value: "list", label: "list" },
+  // { value: "uninstall", label: "uninstall" },
+  // { value: "uninstall:report", label: "uninstall:report" },
+  // { value: "update", label: "update" },
+  // { value: "version:create", label: "version:create" },
+  // { value: "version:create:list", label: "version:create:list" },
+  // { value: "version:create:report", label: "version:create:report" },
+  // { value: "version:delete", label: "version:delete" },
+  // { value: "version:displayancestry", label: "version:displayancestry" },
+  // { value: "version:list", label: "version:list" },
+  // { value: "version:promote", label: "version:promote" },
+  // { value: "version:report", label: "version:report" },
+  // { value: "version:update", label: "version:update" },
+];
+
 export const source = [
   { value: "beta:pull", label: "beta:pull" },
   { value: "beta:push", label: "beta:push" },
@@ -128,16 +149,22 @@ export const source = [
   { value: "tracking:reset", label: "tracking:reset" },
 ];
 
+export const staticresource = [
+  { value: "create", label: "create" },
+];
+
 export const user = [
   { value: "create", label: "create" },
   { value: "display", label: "display" },
   { value: "list", label: "list" },
   { value: "password:generate", label: "password:generate" },
   { value: "permset:assign", label: "permset:assign" },
+  { value: "permsetlicense:assign", label: "permsetlicense:assign" },
 ];
 
-export const staticresource = [
-  { value: "create", label: "create" },
+export const visualforce = [
+  { value: "component:create", label: "component:create" },
+  { value: "page:create", label: "page:create" },
 ];
 
 export const lLOGLEVEL = [
@@ -296,6 +323,27 @@ export const lMANIFESTTYPE = [
   { value: "post", label: "post" },
   { value: "destroy", label: "destroy" },
   { value: "package", label: "package" },
+];
+
+export const lPACKAGETYPE = [
+  { value: "Managed", label: "Managed" },
+  { value: "Unlocked", label: "Unlocked" },
+];
+
+export const lAPEXCOMPILE = [
+  { value: "all", label: "all" },
+  { value: "package", label: "package" },
+];
+
+export const lSECURITYTYPE = [
+  { value: "AllUsers", label: "AllUsers" },
+  { value: "AdminsOnly", label: "AdminsOnly" },
+];
+
+export const lUPGRADETYPE = [
+  { value: "DeprecateOnly", label: "DeprecateOnly" },
+  { value: "Mixed", label: "Mixed" },
+  { value: "Delete", label: "Delete" },
 ];
 
 export const lCONTENTTYPE = [

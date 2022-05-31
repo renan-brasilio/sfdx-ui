@@ -129,7 +129,6 @@
           name={pSectionName + `input`}
           class="sfdxet-absolute-center"
           title={pTitle}
-          use:tooltipv1
           placeholder={pPlaceholder}
           maxlength={pMaxLength}
           on:change={validatePattern}
