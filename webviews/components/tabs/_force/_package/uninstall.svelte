@@ -27,12 +27,8 @@
   import LOGLEVELs from "../../-commonSections/SelectSFDX.svelte";
   import TARGETUSERNAMEs from "../../-commonSections/SelectSFDX.svelte";
   import APIVERSIONs from "../../-commonSections/SelectSFDX.svelte";
-  import TESTRUNIDs from "../../-commonSections/StringSFDX.svelte";
-  import CODECOVERAGEs from "../../-commonSections/BooleanSFDX.svelte";
-  import OUTPUTDIRs from "../../-commonSections/FolderpathSFDX.svelte";
-  import RESULTFORMATs from "../../-commonSections/SelectSFDX.svelte";
   import WAITs from "../../-commonSections/MinuteSFDX.svelte";
-  import VERBOSEs from "../../-commonSections/BooleanSFDX.svelte";
+  import PACKAGEs from "../../-commonSections/StringSFDX.svelte";
   import ADVANCEDs from "../../-commonSections/ADVANCEDSection.svelte";
 
   // Component Validations
@@ -40,19 +36,15 @@
     LOGLEVELv,
     TARGETUSERNAMEv,
     APIVERSIONv,
-    TESTRUNIDv,
-    CODECOVERAGEv,
-    OUTPUTDIRv,
-    RESULTFORMATv,
     WAITv,
-    VERBOSEv,
+    PACKAGEv,
     ADVANCEDv;
 
   // Documentation
-  let fileName = "test_report";
+  let fileName = "uninstall";
   let showFileName = fileName.replaceAll("_", ":");
-  let showFileNameUpper = "Test:Report";
-  let commandType = "apex";
+  let showFileNameUpper = "Uninstall";
+  let commandType = "package";
   let linkDocumentation = `https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference_force_${commandType}.htm#cli_reference_force_${commandType}_${fileName}`;
 
   // Initial loading
@@ -66,22 +58,6 @@
     $mapSpinner.force[fileName] = false;
   }, 1000);
 
-  // Mandatory Field(s)
-  let mandatorySections = ["testrunid"];
-
-  if (!$mapShowSections) {
-    $mapShowSections = {};
-  }
-
-  if (!$mapSectionValidation) {
-    $mapSectionValidation = {};
-  }
-
-  for (let i = 0; i < mandatorySections.length; i++) {
-    $mapShowSections[mandatorySections[i]] = true;
-    $mapSectionValidation[mandatorySections[i]] = 0;
-  }
-
   function startSFDX() {
     let validation = 0;
     let sectionError;
@@ -94,12 +70,8 @@
       LOGLEVELv.validate(),
       TARGETUSERNAMEv.validate(),
       APIVERSIONv.validate(),
-      TESTRUNIDv.validate(),
-      CODECOVERAGEv.validate(),
-      OUTPUTDIRv.validate(),
-      RESULTFORMATv.validate(),
       WAITv.validate(),
-      VERBOSEv.validate(),
+      PACKAGEv.validate(),
       ADVANCEDv.validate(),
     ]).then((values) => {
       if (values) {
@@ -114,7 +86,21 @@
         }
 
         if (validation === 0) {
-          return;
+          if (!$mapErrors) {
+            $mapErrors = {};
+          }
+
+          if (sectionError) {
+            $mapErrors[sectionError] = "sfdxet-error-span";
+            sectionError = sectionError.toUpperCase();
+
+            tsvscode.postMessage({
+              type: "onError",
+              value: `ERROR: ${sectionError} is required.`,
+            });
+
+            return;
+          }
         } else if (!values.includes(false)) {
           for (let key in $mapErrors) {
             $mapErrors[key] = "";
@@ -133,14 +119,11 @@
     $mapInputVariables = {};
 
     for (let key in $mapShowSections) {
-      $mapShowSections[key] = false;
+      if (key !== fileName) {
+        $mapShowSections[key] = false;
+      }
     }
   }
-
-  // TARGETUSERNAME
-  tsvscode.postMessage({
-    type: "onGetAliasUsers",
-  });
 
   // APIVERSION
   let dAPIVERSION = "";
@@ -226,51 +209,6 @@
       pDefaultValue={dAPIVERSION}
     />
 
-    <!-- -i TESTRUNID -->
-    <svelte:component
-      this={TESTRUNIDs}
-      bind:this={TESTRUNIDv}
-      pSectionName="testrunid"
-      pRequired={true}
-      pMapDoc={mapDoc[commandType][fileName].testrunid}
-      pSFDXParameter="-n"
-      pSectionTitle="Test Run Id"
-      pTitle={mapDoc[commandType][fileName].testrunid.title}
-      pPlaceholder="Insert..."
-      pMaxLength={18}
-      pChecked={true}
-      pDisabled={true}
-    />
-
-    <!-- [-c] -->
-    <svelte:component
-      this={CODECOVERAGEs}
-      bind:this={CODECOVERAGEv}
-      pSectionName="codecoverage"
-      pMapDoc={mapDoc[commandType][fileName].codecoverage}
-      pSFDXParameter="-c"
-      pShowSectionName={false}
-    />
-
-    <!-- [-d OUTPUTDIR] -->
-    <svelte:component
-      this={OUTPUTDIRs}
-      bind:this={OUTPUTDIRv}
-      pSectionName="outputdir"
-      pMapDoc={mapDoc[commandType][fileName].outputdir}
-      pSFDXParameter="-d"
-    />
-
-    <!-- [-r RESULTFORMAT] -->
-    <svelte:component
-      this={RESULTFORMATs}
-      bind:this={RESULTFORMATv}
-      pSectionName="resultformat"
-      pMapDoc={mapDoc[commandType][fileName].resultformat}
-      pSFDXParameter="-r"
-      pList={gLists.lRESULTFORMAT}
-    />
-
     <!-- [-w WAIT] -->
     <svelte:component
       this={WAITs}
@@ -278,16 +216,19 @@
       pSectionName="wait"
       pMapDoc={mapDoc[commandType][fileName].wait}
       pSFDXParameter="-w"
+      pDefaultValue="0"
     />
 
-    <!-- [--verbose] -->
+    <!-- [-p PACKAGE] -->
     <svelte:component
-      this={VERBOSEs}
-      bind:this={VERBOSEv}
-      pSectionName="verbose"
-      pMapDoc={mapDoc[commandType][fileName].verbose}
-      pSFDXParameter="--verbose"
-      pShowSectionName={false}
+      this={PACKAGEs}
+      bind:this={PACKAGEv}
+      pSectionName="package"
+      pMapDoc={mapDoc[commandType][fileName].package}
+      pSFDXParameter="-p"
+      pSectionTitle="Package Name"
+      pTitle={mapDoc[commandType][fileName].package}
+      pPlaceholder="Insert..."
     />
 
     <!-- [ADVANCED] -->

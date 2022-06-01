@@ -54,7 +54,7 @@
 
   // Documentation
   let fileName = "generate";
-  let showFileName = fileName.replace("_", ":");
+  let showFileName = fileName.replaceAll("_", ":");
   let showFileNameUpper = "Generate";
   let commandType = "cmdt";
   let linkDocumentation = `https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference_force_${commandType}.htm#cli_reference_force_${commandType}_${fileName}`;

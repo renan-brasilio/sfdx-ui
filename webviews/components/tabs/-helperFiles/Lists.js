@@ -110,17 +110,17 @@ export const lPackage = [
   { value: "create", label: "create" },
   { value: "delete", label: "delete" },
   { value: "install", label: "install" },
-  // { value: "install:report", label: "install:report" },
-  // { value: "installed:list", label: "installed:list" },
-  // { value: "list", label: "list" },
-  // { value: "uninstall", label: "uninstall" },
-  // { value: "uninstall:report", label: "uninstall:report" },
-  // { value: "update", label: "update" },
-  // { value: "version:create", label: "version:create" },
-  // { value: "version:create:list", label: "version:create:list" },
-  // { value: "version:create:report", label: "version:create:report" },
-  // { value: "version:delete", label: "version:delete" },
-  // { value: "version:displayancestry", label: "version:displayancestry" },
+  { value: "install:report", label: "install:report" },
+  { value: "installed:list", label: "installed:list" },
+  { value: "list", label: "list" },
+  { value: "uninstall", label: "uninstall" },
+  { value: "uninstall:report", label: "uninstall:report" },
+  { value: "update", label: "update" },
+  { value: "version:create", label: "version:create" },
+  { value: "version:create:list", label: "version:create:list" },
+  { value: "version:create:report", label: "version:create:report" },
+  { value: "version:delete", label: "version:delete" },
+  { value: "version:displayancestry", label: "version:displayancestry" },
   // { value: "version:list", label: "version:list" },
   // { value: "version:promote", label: "version:promote" },
   // { value: "version:report", label: "version:report" },
@@ -344,6 +344,13 @@ export const lUPGRADETYPE = [
   { value: "DeprecateOnly", label: "DeprecateOnly" },
   { value: "Mixed", label: "Mixed" },
   { value: "Delete", label: "Delete" },
+];
+
+export const lSTATUS = [
+  { value: "Queued", label: "Queued" },
+  { value: "InProgress", label: "InProgress" },
+  { value: "Success", label: "Success" },
+  { value: "Error", label: "Error" },
 ];
 
 export const lCONTENTTYPE = [

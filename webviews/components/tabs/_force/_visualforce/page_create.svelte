@@ -43,7 +43,7 @@
 
   // Documentation
   let fileName = "page_create";
-  let showFileName = fileName.replace("_", ":");
+  let showFileName = fileName.replaceAll("_", ":");
   let showFileNameUpper = "Page:Create";
   let commandType = "visualforce";
   let linkDocumentation = `https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference_force_${commandType}.htm#cli_reference_force_${commandType}_${fileName}`;

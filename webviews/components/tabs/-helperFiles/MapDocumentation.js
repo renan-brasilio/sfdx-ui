@@ -3897,6 +3897,794 @@ export let mapDoc = {
         title: `For package upgrades, specifies whether to mark all removed components as deprecated (DeprecateOnly), to delete removed components that can be safely deleted and deprecate the others (Mixed), or to delete all removed components, except for custom objects and custom fields, that don't have dependencies (Delete).`,
       },
     },
+    install_report: {
+      json: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+              <br/><br/>
+              Format output as JSON.<br/><br/>
+              Type: boolean
+              `,
+        title: `Format output as JSON.`,
+      },
+      loglevel: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>            
+                    The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.
+                    <br/><br/>
+                    Type: enum<br/>
+                    Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                    Default value: warn
+                `,
+        title: `The logging level for this command invocation.`,
+      },
+      targetusername: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    A username or alias for the target org. Overrides the default target org.<br/><br/>
+                    Type: string
+                `,
+        title: `A username or alias for the target org.`,
+      },
+      apiversion: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    Override the API version used for API requests made by this command.
+                    <br/><br/>
+                    Type: string
+                `,
+        title: `Override the API version used for API requests made by this command.`,
+      },
+      requestid: {
+        type: `<b>Required</b>`,
+        body: `
+                    <br/><br/>
+                    The ID of the package install request you want to check.<br/><br/>
+                    Type: id
+                `,
+        title: `The ID of the package install request you want to check.`,
+      },
+    },
+    installed_list: {
+      json: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+              <br/><br/>
+              Format output as JSON.<br/><br/>
+              Type: boolean
+              `,
+        title: `Format output as JSON.`,
+      },
+      loglevel: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>            
+                    The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.
+                    <br/><br/>
+                    Type: enum<br/>
+                    Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                    Default value: warn
+                `,
+        title: `The logging level for this command invocation.`,
+      },
+      targetusername: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    A username or alias for the target org. Overrides the default target org.<br/><br/>
+                    Type: string
+                `,
+        title: `A username or alias for the target org.`,
+      },
+      apiversion: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    Override the API version used for API requests made by this command.
+                    <br/><br/>
+                    Type: string
+                `,
+        title: `Override the API version used for API requests made by this command.`,
+      },
+    },
+    list: {
+      json: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+              <br/><br/>
+              Format output as JSON.<br/><br/>
+              Type: boolean
+              `,
+        title: `Format output as JSON.`,
+      },
+      loglevel: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>            
+                    The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.
+                    <br/><br/>
+                    Type: enum<br/>
+                    Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                    Default value: warn
+                `,
+        title: `The logging level for this command invocation.`,
+      },
+      targetdevhubusername: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    A username or alias for the target Dev Hub org. Overrides the default Dev Hub org.<br/><br/>
+                    Type: string
+                `,
+        title: `A username or alias for the target Dev Hub org.`,
+      },
+      apiversion: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    Override the API version used for API requests made by this command.
+                    <br/><br/>
+                    Type: string
+                `,
+        title: `Override the API version used for API requests made by this command.`,
+      },
+      verbose: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    Displays extended package details.
+                    <br/><br/>
+                    Type: boolean
+                `,
+        title: `Displays extended package details.`,
+      },
+    },
+    uninstall: {
+      json: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+              <br/><br/>
+              Format output as JSON.<br/><br/>
+              Type: boolean
+              `,
+        title: `Format output as JSON.`,
+      },
+      loglevel: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>            
+                    The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.
+                    <br/><br/>
+                    Type: enum<br/>
+                    Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                    Default value: warn
+                `,
+        title: `The logging level for this command invocation.`,
+      },
+      targetusername: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    A username or alias for the target org. Overrides the default target org.<br/><br/>
+                    Type: string
+                `,
+        title: `A username or alias for the target org.`,
+      },
+      apiversion: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    Override the API version used for API requests made by this command.
+                    <br/><br/>
+                    Type: string
+                `,
+        title: `Override the API version used for API requests made by this command.`,
+      },
+      wait: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    Maximum number of minutes to wait for installation status. The default is 0.<br/><br/>
+                    Type: minutes
+                `,
+        title: `Maximum number of minutes to wait for installation status.`,
+      },
+      package: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    The ID (starts with 04t) or alias of the package version to uninstall.<br/><br/>
+                    Type: string
+                `,
+        title: `The ID (starts with 04t) or alias of the package version to uninstall.`,
+      },
+    },
+    uninstall_report: {
+      json: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+              <br/><br/>
+              Format output as JSON.<br/><br/>
+              Type: boolean
+              `,
+        title: `Format output as JSON.`,
+      },
+      loglevel: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>            
+                    The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.
+                    <br/><br/>
+                    Type: enum<br/>
+                    Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                    Default value: warn
+                `,
+        title: `The logging level for this command invocation.`,
+      },
+      targetusername: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    A username or alias for the target org. Overrides the default target org.<br/><br/>
+                    Type: string
+                `,
+        title: `A username or alias for the target org.`,
+      },
+      apiversion: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    Override the API version used for API requests made by this command.
+                    <br/><br/>
+                    Type: string
+                `,
+        title: `Override the API version used for API requests made by this command.`,
+      },
+      requestid: {
+        type: `<b>Required</b>`,
+        body: `
+                    <br/><br/>
+                    The ID of the package install request you want to check.<br/><br/>
+                    Type: id
+                `,
+        title: `The ID of the package install request you want to check.`,
+      },
+    },
+    update: {
+      json: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+              <br/><br/>
+              Format output as JSON.<br/><br/>
+              Type: boolean
+              `,
+        title: `Format output as JSON.`,
+      },
+      loglevel: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>            
+                    The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.
+                    <br/><br/>
+                    Type: enum<br/>
+                    Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                    Default value: warn
+                `,
+        title: `The logging level for this command invocation.`,
+      },
+      targetdevhubusername: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    A username or alias for the target Dev Hub org. Overrides the default Dev Hub org.<br/><br/>
+                    Type: string
+                `,
+        title: `A username or alias for the target Dev Hub org.`,
+      },
+      apiversion: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    Override the API version used for API requests made by this command.
+                    <br/><br/>
+                    Type: string
+                `,
+        title: `Override the API version used for API requests made by this command.`,
+      },
+      package: {
+        type: `<b>Required</b>`,
+        body: `
+                    <br/><br/>
+                    The ID (starts with 0Ho) or alias of the package to update.<br/><br/>
+                    Type: string
+                `,
+        title: `The ID (starts with 0Ho) or alias of the package to update.`,
+      },
+      name: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    New name of the package.
+                    <br/><br/>
+                    Type: string
+                `,
+        title: `New name of the package.`,
+      },
+      description: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    Description of the package.<br/><br/>
+                    Type: string
+                `,
+        title: `Description of the package.`,
+      },
+      errornotificationusername: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    An active Dev Hub org user designated to receive email notifications for unhandled Apex exceptions, and install, upgrade, or uninstall failures associated with your package.<br/><br/>
+                    Type: string
+                `,
+        title: `An active Dev Hub org user designated to receive email notifications for unhandled Apex exceptions, and install, upgrade, or uninstall failures associated with your package.`,
+      },
+    },
+    version_create: {
+      json: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+              <br/><br/>
+              Format output as JSON.<br/><br/>
+              Type: boolean
+              `,
+        title: `Format output as JSON.`,
+      },
+      loglevel: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>            
+                    The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.
+                    <br/><br/>
+                    Type: enum<br/>
+                    Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                    Default value: warn
+                `,
+        title: `The logging level for this command invocation.`,
+      },
+      targetdevhubusername: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    A username or alias for the target Dev Hub org. Overrides the default Dev Hub org.<br/><br/>
+                    Type: string
+                `,
+        title: `A username or alias for the target Dev Hub org.`,
+      },
+      apiversion: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    Override the API version used for API requests made by this command.
+                    <br/><br/>
+                    Type: string
+                `,
+        title: `Override the API version used for API requests made by this command.`,
+      },
+      package: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    The ID (starts with 0Ho) or alias of the package to create a version of.<br/><br/>
+                    Type: string
+                `,
+        title: `The ID (starts with 0Ho) or alias of the package to create a version of.`,
+      },
+      path: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    The path to the directory that contains the contents of the package.<br/><br/>
+                    Type: directory
+                `,
+        title: `The path to the directory that contains the contents of the package.`,
+      },
+      definitionfile: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    The path to a definition file similar to scratch org definition file that contains the list of features and org preferences that the metadata of the package version depends on.<br/><br/>
+                    Type: filepath
+                `,
+        title: `The path to a definition file similar to scratch org definition file that contains the list of features and org preferences that the metadata of the package version depends on.`,
+      },
+      branch: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    Name of the branch in your source control system that the package version is based on.<br/><br/>
+                    Type: string
+                `,
+        title: `Name of the branch in your source control system that the package version is based on.`,
+      },
+      tag: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    The package version’s tag.<br/><br/>
+                    Type: string
+                `,
+        title: `The package version’s tag.`,
+      },
+      installationkey: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    Installation key for creating the key-protected package. Either an --installationkey value or the --installationkeybypass flag is required.<br/><br/>
+                    Type: string
+                `,
+        title: `Installation key for creating the key-protected package.`,
+      },
+      installationkeybypass: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    Bypasses the installation key requirement. If you bypass this requirement, anyone can install your package. Either an --installationkey value or the --installationkeybypass flag is required.<br/><br/>
+                    Type: boolean
+                `,
+        title: `Bypasses the installation key requirement.`,
+      },
+      wait: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    The number of minutes to wait for the package version to be created.<br/><br/>
+                    Type: minutes<br/><br/>
+                    Default value: 0 minutes
+                `,
+        title: `The number of minutes to wait for the package version to be created.`,
+      },
+      versionname: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    The name of the package version to be created. Overrides the sfdx-project.json value.<br/><br/>
+                    Type: string
+                `,
+        title: `The name of the package version to be created.`,
+      },
+      versionnumber: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    The version number of the package version to be created. Overrides the sfdx-project.json value.<br/><br/>
+                    Type: string
+                `,
+        title: `The version number of the package version to be created.`,
+      },
+      versiondescription: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    The description of the package version to be created. Overrides the sfdx-project.json value.<br/><br/>
+                    Type: string
+                `,
+        title: `The description of the package version to be created.`,
+      },
+      codecoverage: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    Calculate and store the code coverage percentage by running the Apex tests included in this package version. Before you can promote and release a managed or unlocked package version, the Apex code must meet a minimum 75% code coverage requirement. We don’t calculate code coverage for org-dependent unlocked packages or for package versions that specify --skipvalidation.<br/><br/>
+                    Type: boolean
+                `,
+        title: `Calculate and store the code coverage percentage by running the Apex tests included in this package version.`,
+      },
+      releasenotesurl: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    The release notes URL. This link is displayed in the package installation UI to provide release notes for this package version to subscribers.<br/><br/>
+                    Type: url
+                `,
+        title: `The release notes URL.`,
+      },
+      postinstallurl: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    The post-install instructions URL. The contents of the post-installation instructions URL are displayed in the UI after installation of the package version.<br/><br/>
+                    Type: url
+                `,
+        title: `The post-install instructions URL.`,
+      },
+      postinstallscript: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    Applies to managed packages only. The post-install script name. The post-install script is an Apex class within this package that is run in the installing org after installations or upgrades of this package version.<br/><br/>
+                    Type: string
+                `,
+        title: `Applies to managed packages only.`,
+      },
+      uninstallscript: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    Applies to managed packages only. The uninstall script name. The uninstall script is an Apex class within this package that is run in the installing org after uninstallations of this package.<br/><br/>
+                    Type: string
+                `,
+        title: `Applies to managed packages only.`,
+      },
+      skipvalidation: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    Skips validation of dependencies, package ancestors, and metadata during package version creation. Skipping validation reduces the time it takes to create a new package version, but you can promote only validated package versions. Skipping validation can suppress important errors that can surface at a later stage. You can specify skip validation or code coverage, but not both. Code coverage is calculated during validation.<br/><br/>
+                    Type: boolean
+                `,
+        title: `Skips validation of dependencies, package ancestors, and metadata during package version creation.`,
+      },
+      skipancestorcheck: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    Override ancestry requirements, which allows you to specify a package ancestor that isn’t the highest released package version.<br/><br/>
+                    Type: boolean
+                `,
+        title: `Override ancestry requirements, which allows you to specify a package ancestor that isn’t the highest released package version.`,
+      },
+    },
+    version_create_list: {
+      json: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+              <br/><br/>
+              Format output as JSON.<br/><br/>
+              Type: boolean
+              `,
+        title: `Format output as JSON.`,
+      },
+      loglevel: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>            
+                    The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.
+                    <br/><br/>
+                    Type: enum<br/>
+                    Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                    Default value: warn
+                `,
+        title: `The logging level for this command invocation.`,
+      },
+      targetdevhubusername: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    A username or alias for the target Dev Hub org. Overrides the default Dev Hub org.<br/><br/>
+                    Type: string
+                `,
+        title: `A username or alias for the target Dev Hub org.`,
+      },
+      apiversion: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    Override the API version used for API requests made by this command.
+                    <br/><br/>
+                    Type: string
+                `,
+        title: `Override the API version used for API requests made by this command.`,
+      },
+      createdlastdays: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    Filters the list based on the specified maximum number of days since the request was created (starting at 00:00:00 of first day to now; 0 for today).
+                    <br/><br/>
+                    Type: number
+                `,
+        title: `Filters the list based on the specified maximum number of days since the request was created (starting at 00:00:00 of first day to now; 0 for today).`,
+      },
+      status: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    Filters the list based on the status of version creation requests.<br/><br/>
+                    Type: enum<br/><br/>
+                    Permissible values are: Queued, InProgress, Success, Error
+                `,
+        title: `Filters the list based on the status of version creation requests.`,
+      },
+    },
+    version_create_report: {
+      json: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+              <br/><br/>
+              Format output as JSON.<br/><br/>
+              Type: boolean
+              `,
+        title: `Format output as JSON.`,
+      },
+      loglevel: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>            
+                    The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.
+                    <br/><br/>
+                    Type: enum<br/>
+                    Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                    Default value: warn
+                `,
+        title: `The logging level for this command invocation.`,
+      },
+      targetdevhubusername: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    A username or alias for the target Dev Hub org. Overrides the default Dev Hub org.<br/><br/>
+                    Type: string
+                `,
+        title: `A username or alias for the target Dev Hub org.`,
+      },
+      apiversion: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    Override the API version used for API requests made by this command.
+                    <br/><br/>
+                    Type: string
+                `,
+        title: `Override the API version used for API requests made by this command.`,
+      },
+      packagecreaterequestid: {
+        type: `<b>Required</b>`,
+        body: `
+                    <br/><br/>
+                    The ID (starts with 08c) of the package version creation request you want to display.
+                    <br/><br/>
+                    Type: number
+                `,
+        title: `The ID (starts with 08c) of the package version creation request you want to display.`,
+      },
+    },
+    version_delete: {
+      json: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+              <br/><br/>
+              Format output as JSON.<br/><br/>
+              Type: boolean
+              `,
+        title: `Format output as JSON.`,
+      },
+      loglevel: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>            
+                    The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.
+                    <br/><br/>
+                    Type: enum<br/>
+                    Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                    Default value: warn
+                `,
+        title: `The logging level for this command invocation.`,
+      },
+      targetdevhubusername: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    A username or alias for the target Dev Hub org. Overrides the default Dev Hub org.<br/><br/>
+                    Type: string
+                `,
+        title: `A username or alias for the target Dev Hub org.`,
+      },
+      apiversion: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    Override the API version used for API requests made by this command.
+                    <br/><br/>
+                    Type: string
+                `,
+        title: `Override the API version used for API requests made by this command.`,
+      },
+      noprompt: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    don’t prompt before deleting the package version
+                    <br/><br/>
+                    Type: boolean
+                `,
+        title: `don’t prompt before deleting the package version`,
+      },
+      package: {
+        type: `<b>Required</b>`,
+        body: `
+                    <br/><br/>
+                    The ID (starts with 04t) or alias of the package version to delete.
+                    <br/><br/>
+                    Type: number
+                `,
+        title: `The ID (starts with 04t) or alias of the package version to delete.`,
+      },
+    },
+    version_displayancestry: {
+      json: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+              <br/><br/>
+              Format output as JSON.<br/><br/>
+              Type: boolean
+              `,
+        title: `Format output as JSON.`,
+      },
+      loglevel: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>            
+                    The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.
+                    <br/><br/>
+                    Type: enum<br/>
+                    Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                    Default value: warn
+                `,
+        title: `The logging level for this command invocation.`,
+      },
+      targetdevhubusername: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    A username or alias for the target Dev Hub org. Overrides the default Dev Hub org.<br/><br/>
+                    Type: string
+                `,
+        title: `A username or alias for the target Dev Hub org.`,
+      },
+      apiversion: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    Override the API version used for API requests made by this command.
+                    <br/><br/>
+                    Type: string
+                `,
+        title: `Override the API version used for API requests made by this command.`,
+      },
+      package: {
+        type: `<b>Required</b>`,
+        body: `
+                    <br/><br/>
+                    The ID (starts with 04t) or alias of the package version to delete.
+                    <br/><br/>
+                    Type: number
+                `,
+        title: `The ID (starts with 04t) or alias of the package version to delete.`,
+      },
+      dotcode: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    Displays the ancestry tree in DOT code. You can use the DOT code output in graph visualization software to create tree visualizations.
+                    <br/><br/>
+                    Type: boolean
+                `,
+        title: `Displays the ancestry tree in DOT code.`,
+      },
+      verbose: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    Displays both the package version ID (starts with 04t) and the version number (major.minor.patch.build) in the ancestry tree.
+                    <br/><br/>
+                    Type: boolean
+                `,
+        title: `Displays both the package version ID (starts with 04t) and the version number (major.minor.patch.build) in the ancestry tree.`,
+      },
+    },
   },
   source: {
     beta_pull: {

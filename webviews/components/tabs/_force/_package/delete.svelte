@@ -42,8 +42,8 @@
 
   // Documentation
   let fileName = "delete";
-  let showFileName = fileName.replace("_", ":");
-  let showFileNameUpper = "Package:Delete";
+  let showFileName = fileName.replaceAll("_", ":");
+  let showFileNameUpper = "Delete";
   let commandType = "package";
   let linkDocumentation = `https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference_force_${commandType}.htm#cli_reference_force_${commandType}_${fileName}`;
 

@@ -93,17 +93,17 @@
   import Package_Create from "./_package/create.svelte";
   import Package_Delete from "./_package/delete.svelte";
   import Package_Install from "./_package/install.svelte";
-  // import Package_Install_Report from "./_package/install_report.svelte";
-  // import Package_Installed_List from "./_package/installed_list.svelte";
-  // import Package_List from "./_package/list.svelte";
-  // import Package_Uninstall from "./_package/uninstall.svelte";
-  // import Package_Uninstall_Report from "./_package/uninstall_report.svelte";
-  // import Package_Update from "./_package/update.svelte";
-  // import Package_Version_Create from "./_package/version_create.svelte";
-  // import Package_Version_Create_List from "./_package/version_create_list.svelte";
-  // import Package_Version_Create_Report from "./_package/version_create_report.svelte";
-  // import Package_Version_Delete from "./_package/version_delete.svelte";
-  // import Package_Version_DisplayAncestry from "./_package/version_displayancestry.svelte";
+  import Package_Install_Report from "./_package/install_report.svelte";
+  import Package_Installed_List from "./_package/installed_list.svelte";
+  import Package_List from "./_package/list.svelte";
+  import Package_Uninstall from "./_package/uninstall.svelte";
+  import Package_Uninstall_Report from "./_package/uninstall_report.svelte";
+  import Package_Update from "./_package/update.svelte";
+  import Package_Version_Create from "./_package/version_create.svelte";
+  import Package_Version_Create_List from "./_package/version_create_list.svelte";
+  import Package_Version_Create_Report from "./_package/version_create_report.svelte";
+  import Package_Version_Delete from "./_package/version_delete.svelte";
+  import Package_Version_DisplayAncestry from "./_package/version_displayancestry.svelte";
   // import Package_Version_List from "./_package/version_list.svelte";
   // import Package_Version_Promote from "./_package/version_promote.svelte";
   // import Package_Version_Report from "./_package/version_report.svelte";
@@ -578,28 +578,28 @@
       <Package_Delete />
     {:else if $mapCommand["package"]["install"]}
       <Package_Install />
-    <!-- {:else if $mapCommand["package"]["install:report"]}
-      <Package_Install_Report /> -->
-    <!-- {:else if $mapCommand["package"]["installed:list"]}
-      <Package_Installed_List /> -->
-    <!-- {:else if $mapCommand["package"]["list"]}
-      <Package_List /> -->
-    <!-- {:else if $mapCommand["package"]["uninstall"]}
-      <Package_Uninstall /> -->
-    <!-- {:else if $mapCommand["package"]["uninstall:report"]}
-      <Package_Uninstall_Report /> -->
-    <!-- {:else if $mapCommand["package"]["update"]}
-      <Package_Update /> -->
-    <!-- {:else if $mapCommand["package"]["version:create"]}
-      <Package_Version_Create /> -->
-    <!-- {:else if $mapCommand["package"]["version:create:list"]}
-      <Package_Version_Create_List /> -->
-    <!-- {:else if $mapCommand["package"]["version:create:report"]}
-      <Package_Version_Create_Report /> -->
-    <!-- {:else if $mapCommand["package"]["version:delete"]}
-      <Package_Version_Delete /> -->
-    <!-- {:else if $mapCommand["package"]["version:displayancestry"]}
-      <Package_Version_DisplayAncestry /> -->
+    {:else if $mapCommand["package"]["install:report"]}
+      <Package_Install_Report />
+    {:else if $mapCommand["package"]["installed:list"]}
+      <Package_Installed_List />
+    {:else if $mapCommand["package"]["list"]}
+      <Package_List />
+    {:else if $mapCommand["package"]["uninstall"]}
+      <Package_Uninstall />
+    {:else if $mapCommand["package"]["uninstall:report"]}
+      <Package_Uninstall_Report />
+    {:else if $mapCommand["package"]["update"]}
+      <Package_Update />
+    {:else if $mapCommand["package"]["version:create"]}
+      <Package_Version_Create />
+    {:else if $mapCommand["package"]["version:create:list"]}
+      <Package_Version_Create_List />
+    {:else if $mapCommand["package"]["version:create:report"]}
+      <Package_Version_Create_Report />
+    {:else if $mapCommand["package"]["version:delete"]}
+      <Package_Version_Delete />
+    {:else if $mapCommand["package"]["version:displayancestry"]}
+      <Package_Version_DisplayAncestry />
     <!-- {:else if $mapCommand["package"]["version:list"]}
       <Package_Version_List /> -->
     <!-- {:else if $mapCommand["package"]["version:promote"]}
