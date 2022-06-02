@@ -104,9 +104,9 @@
   import Package_Version_Create_Report from "./_package/version_create_report.svelte";
   import Package_Version_Delete from "./_package/version_delete.svelte";
   import Package_Version_DisplayAncestry from "./_package/version_displayancestry.svelte";
-  // import Package_Version_List from "./_package/version_list.svelte";
-  // import Package_Version_Promote from "./_package/version_promote.svelte";
-  // import Package_Version_Report from "./_package/version_report.svelte";
+  import Package_Version_List from "./_package/version_list.svelte";
+  import Package_Version_Promote from "./_package/version_promote.svelte";
+  import Package_Version_Report from "./_package/version_report.svelte";
   // import Package_Version_Update from "./_package/version_update.svelte";
 
   // Source
@@ -600,12 +600,12 @@
       <Package_Version_Delete />
     {:else if $mapCommand["package"]["version:displayancestry"]}
       <Package_Version_DisplayAncestry />
-    <!-- {:else if $mapCommand["package"]["version:list"]}
-      <Package_Version_List /> -->
-    <!-- {:else if $mapCommand["package"]["version:promote"]}
-      <Package_Version_Promote /> -->
-    <!-- {:else if $mapCommand["package"]["version:report"]}
-      <Package_Version_Report /> -->
+    {:else if $mapCommand["package"]["version:list"]}
+      <Package_Version_List />
+    {:else if $mapCommand["package"]["version:promote"]}
+      <Package_Version_Promote />
+    {:else if $mapCommand["package"]["version:report"]}
+      <Package_Version_Report />
     <!-- {:else if $mapCommand["package"]["version:update"]}
       <Package_Version_Update /> -->
     {/if}

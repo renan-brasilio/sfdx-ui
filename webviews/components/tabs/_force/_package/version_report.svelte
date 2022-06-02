@@ -27,8 +27,8 @@
   import LOGLEVELs from "../../-commonSections/SelectSFDX.svelte";
   import TARGETDEVHUBUSERNAMEs from "../../-commonSections/SelectSFDX.svelte";
   import APIVERSIONs from "../../-commonSections/SelectSFDX.svelte";
-  import NOPROMPTs from "../../-commonSections/BooleanSFDX.svelte";
   import PACKAGEs from "../../-commonSections/StringSFDX.svelte";
+  import VERBOSEs from "../../-commonSections/BooleanSFDX.svelte";
   import ADVANCEDs from "../../-commonSections/ADVANCEDSection.svelte";
 
   // Component Validations
@@ -36,14 +36,14 @@
     LOGLEVELv,
     TARGETDEVHUBUSERNAMEv,
     APIVERSIONv,
-    NOPROMPTv,
     PACKAGEv,
+    VERBOSEv,
     ADVANCEDv;
 
   // Documentation
-  let fileName = "version_delete";
+  let fileName = "version_report";
   let showFileName = fileName.replaceAll("_", ":");
-  let showFileNameUpper = "Version:Delete";
+  let showFileNameUpper = "Version:Report";
   let commandType = "package";
   let linkDocumentation = `https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference_force_${commandType}.htm#cli_reference_force_${commandType}_${fileName}`;
 
@@ -84,8 +84,8 @@
       LOGLEVELv.validate(),
       TARGETDEVHUBUSERNAMEv.validate(),
       APIVERSIONv.validate(),
-      NOPROMPTv.validate(),
       PACKAGEv.validate(),
+      VERBOSEv.validate(),
       ADVANCEDv.validate(),
     ]).then((values) => {
       if (values) {
@@ -223,16 +223,6 @@
       pDefaultValue={dAPIVERSION}
     />
 
-    <!-- [-n] -->
-    <svelte:component
-      this={NOPROMPTs}
-      bind:this={NOPROMPTv}
-      pSectionName="noprompt"
-      pMapDoc={mapDoc[commandType][fileName].noprompt}
-      pSFDXParameter="-n"
-      pShowSectionName={false}
-    />
-
     <!-- -p PACKAGE -->
     <svelte:component
       this={PACKAGEs}
@@ -246,6 +236,16 @@
       pPlaceholder="Insert..."
       pChecked={true}
       pDisabled={true}
+    />
+
+    <!-- [-n] -->
+    <svelte:component
+      this={VERBOSEs}
+      bind:this={VERBOSEv}
+      pSectionName="verbose"
+      pMapDoc={mapDoc[commandType][fileName].verbose}
+      pSFDXParameter="-n"
+      pShowSectionName={false}
     />
 
     <!-- [ADVANCED] -->

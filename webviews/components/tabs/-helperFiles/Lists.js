@@ -121,9 +121,9 @@ export const lPackage = [
   { value: "version:create:report", label: "version:create:report" },
   { value: "version:delete", label: "version:delete" },
   { value: "version:displayancestry", label: "version:displayancestry" },
-  // { value: "version:list", label: "version:list" },
-  // { value: "version:promote", label: "version:promote" },
-  // { value: "version:report", label: "version:report" },
+  { value: "version:list", label: "version:list" },
+  { value: "version:promote", label: "version:promote" },
+  { value: "version:report", label: "version:report" },
   // { value: "version:update", label: "version:update" },
 ];
 

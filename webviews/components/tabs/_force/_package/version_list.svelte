@@ -27,8 +27,13 @@
   import LOGLEVELs from "../../-commonSections/SelectSFDX.svelte";
   import TARGETDEVHUBUSERNAMEs from "../../-commonSections/SelectSFDX.svelte";
   import APIVERSIONs from "../../-commonSections/SelectSFDX.svelte";
-  import NOPROMPTs from "../../-commonSections/BooleanSFDX.svelte";
-  import PACKAGEs from "../../-commonSections/StringSFDX.svelte";
+  import CREATEDLASTDAYSs from "../../-commonSections/NumberSFDX.svelte";
+  import CONCISEs from "../../-commonSections/BooleanSFDX.svelte";
+  import MODIFIEDLASTDAYSs from "../../-commonSections/NumberSFDX.svelte";
+  import PACKAGESs from "../../-commonSections/StringSFDX.svelte";
+  import RELEASEDs from "../../-commonSections/BooleanSFDX.svelte";
+  import ORDERBYs from "../../-commonSections/StringSFDX.svelte";
+  import VERBOSEs from "../../-commonSections/BooleanSFDX.svelte";
   import ADVANCEDs from "../../-commonSections/ADVANCEDSection.svelte";
 
   // Component Validations
@@ -36,14 +41,19 @@
     LOGLEVELv,
     TARGETDEVHUBUSERNAMEv,
     APIVERSIONv,
-    NOPROMPTv,
-    PACKAGEv,
+    CREATEDLASTDAYSv,
+    CONCISEv,
+    MODIFIEDLASTDAYSv,
+    PACKAGESv,
+    RELEASEDv,
+    ORDERBYv,
+    VERBOSEv,
     ADVANCEDv;
 
   // Documentation
-  let fileName = "version_delete";
+  let fileName = "version_list";
   let showFileName = fileName.replaceAll("_", ":");
-  let showFileNameUpper = "Version:Delete";
+  let showFileNameUpper = "Version:List";
   let commandType = "package";
   let linkDocumentation = `https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference_force_${commandType}.htm#cli_reference_force_${commandType}_${fileName}`;
 
@@ -58,20 +68,6 @@
     $mapSpinner.force[fileName] = false;
   }, 1000);
 
-  // Mandatory Field(s)
-  let mandatorySections = ["package"];
-
-  if (!$mapShowSections) {
-    $mapShowSections = {};
-  }
-
-  $mapSectionValidation = {};
-
-  for (let i = 0; i < mandatorySections.length; i++) {
-    $mapShowSections[mandatorySections[i]] = true;
-    $mapSectionValidation[mandatorySections[i]] = 0;
-  }
-
   function startSFDX() {
     let validation = 0;
     let sectionError;
@@ -84,8 +80,13 @@
       LOGLEVELv.validate(),
       TARGETDEVHUBUSERNAMEv.validate(),
       APIVERSIONv.validate(),
-      NOPROMPTv.validate(),
-      PACKAGEv.validate(),
+      CREATEDLASTDAYSv.validate(),
+      CONCISEv.validate(),
+      MODIFIEDLASTDAYSv.validate(),
+      PACKAGESv.validate(),
+      RELEASEDv.validate(),
+      ORDERBYv.validate(),
+      VERBOSEv.validate(),
       ADVANCEDv.validate(),
     ]).then((values) => {
       if (values) {
@@ -223,29 +224,78 @@
       pDefaultValue={dAPIVERSION}
     />
 
-    <!-- [-n] -->
+    <!-- [-c CREATEDLASTDAYS] -->
     <svelte:component
-      this={NOPROMPTs}
-      bind:this={NOPROMPTv}
-      pSectionName="noprompt"
-      pMapDoc={mapDoc[commandType][fileName].noprompt}
-      pSFDXParameter="-n"
+      this={CREATEDLASTDAYSs}
+      bind:this={CREATEDLASTDAYSv}
+      pSectionName="createdlastdays"
+      pMapDoc={mapDoc[commandType][fileName].createdlastdays}
+      pSFDXParameter="-c"
+      pPlaceholder="Insert..."
+    />
+
+    <!-- [--concise] -->
+    <svelte:component
+      this={CONCISEs}
+      bind:this={CONCISEv}
+      pSectionName="concise"
+      pMapDoc={mapDoc[commandType][fileName].concise}
+      pSFDXParameter="--concise"
       pShowSectionName={false}
     />
 
-    <!-- -p PACKAGE -->
+    <!-- [-m MODIFIEDLASTDAYS] -->
     <svelte:component
-      this={PACKAGEs}
-      bind:this={PACKAGEv}
-      pSectionName="package"
-      pRequired={true}
-      pMapDoc={mapDoc[commandType][fileName].package}
-      pSFDXParameter="-p"
-      pSectionTitle="Package Id"
-      pTitle={mapDoc[commandType][fileName].package}
+      this={MODIFIEDLASTDAYSs}
+      bind:this={MODIFIEDLASTDAYSv}
+      pSectionName="modifiedlastdays"
+      pMapDoc={mapDoc[commandType][fileName].modifiedlastdays}
+      pSFDXParameter="-m"
       pPlaceholder="Insert..."
-      pChecked={true}
-      pDisabled={true}
+    />
+
+    <!-- [-p PACKAGES] -->
+    <svelte:component
+      this={PACKAGESs}
+      bind:this={PACKAGESv}
+      pSectionName="packages"
+      pMapDoc={mapDoc[commandType][fileName].packages}
+      pSFDXParameter="-p"
+      pSectionTitle="Package List"
+      pTitle={mapDoc[commandType][fileName].packages}
+      pPlaceholder="Insert..."
+    />
+
+    <!-- [-r] -->
+    <svelte:component
+      this={RELEASEDs}
+      bind:this={RELEASEDv}
+      pSectionName="released"
+      pMapDoc={mapDoc[commandType][fileName].released}
+      pSFDXParameter="-r"
+      pShowSectionName={false}
+    />
+
+    <!-- [-o ORDERBY] -->
+    <svelte:component
+      this={ORDERBYs}
+      bind:this={ORDERBYv}
+      pSectionName="orderby"
+      pMapDoc={mapDoc[commandType][fileName].orderby}
+      pSFDXParameter="-o"
+      pSectionTitle="Order By"
+      pTitle={mapDoc[commandType][fileName].orderby}
+      pPlaceholder="Insert..."
+    />
+
+    <!-- [--verbose] -->
+    <svelte:component
+      this={VERBOSEs}
+      bind:this={VERBOSEv}
+      pSectionName="verbose"
+      pMapDoc={mapDoc[commandType][fileName].verbose}
+      pSFDXParameter="--verbose"
+      pShowSectionName={false}
     />
 
     <!-- [ADVANCED] -->

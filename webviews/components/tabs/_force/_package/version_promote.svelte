@@ -27,8 +27,8 @@
   import LOGLEVELs from "../../-commonSections/SelectSFDX.svelte";
   import TARGETDEVHUBUSERNAMEs from "../../-commonSections/SelectSFDX.svelte";
   import APIVERSIONs from "../../-commonSections/SelectSFDX.svelte";
-  import NOPROMPTs from "../../-commonSections/BooleanSFDX.svelte";
   import PACKAGEs from "../../-commonSections/StringSFDX.svelte";
+  import NOPROMPTs from "../../-commonSections/BooleanSFDX.svelte";
   import ADVANCEDs from "../../-commonSections/ADVANCEDSection.svelte";
 
   // Component Validations
@@ -36,8 +36,8 @@
     LOGLEVELv,
     TARGETDEVHUBUSERNAMEv,
     APIVERSIONv,
-    NOPROMPTv,
     PACKAGEv,
+    NOPROMPTv,
     ADVANCEDv;
 
   // Documentation
@@ -84,8 +84,8 @@
       LOGLEVELv.validate(),
       TARGETDEVHUBUSERNAMEv.validate(),
       APIVERSIONv.validate(),
-      NOPROMPTv.validate(),
       PACKAGEv.validate(),
+      NOPROMPTv.validate(),
       ADVANCEDv.validate(),
     ]).then((values) => {
       if (values) {
@@ -223,16 +223,6 @@
       pDefaultValue={dAPIVERSION}
     />
 
-    <!-- [-n] -->
-    <svelte:component
-      this={NOPROMPTs}
-      bind:this={NOPROMPTv}
-      pSectionName="noprompt"
-      pMapDoc={mapDoc[commandType][fileName].noprompt}
-      pSFDXParameter="-n"
-      pShowSectionName={false}
-    />
-
     <!-- -p PACKAGE -->
     <svelte:component
       this={PACKAGEs}
@@ -246,6 +236,16 @@
       pPlaceholder="Insert..."
       pChecked={true}
       pDisabled={true}
+    />
+
+    <!-- [-n] -->
+    <svelte:component
+      this={NOPROMPTs}
+      bind:this={NOPROMPTv}
+      pSectionName="noprompt"
+      pMapDoc={mapDoc[commandType][fileName].noprompt}
+      pSFDXParameter="-n"
+      pShowSectionName={false}
     />
 
     <!-- [ADVANCED] -->

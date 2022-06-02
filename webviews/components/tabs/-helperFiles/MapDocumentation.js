@@ -4685,6 +4685,242 @@ export let mapDoc = {
         title: `Displays both the package version ID (starts with 04t) and the version number (major.minor.patch.build) in the ancestry tree.`,
       },
     },
+    version_list: {
+      json: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+              <br/><br/>
+              Format output as JSON.<br/><br/>
+              Type: boolean
+              `,
+        title: `Format output as JSON.`,
+      },
+      loglevel: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>            
+                    The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.
+                    <br/><br/>
+                    Type: enum<br/>
+                    Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                    Default value: warn
+                `,
+        title: `The logging level for this command invocation.`,
+      },
+      targetdevhubusername: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    A username or alias for the target Dev Hub org. Overrides the default Dev Hub org.<br/><br/>
+                    Type: string
+                `,
+        title: `A username or alias for the target Dev Hub org.`,
+      },
+      apiversion: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    Override the API version used for API requests made by this command.
+                    <br/><br/>
+                    Type: string
+                `,
+        title: `Override the API version used for API requests made by this command.`,
+      },
+      createdlastdays: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    Filters the list based on the specified maximum number of days since the request was created (starting at 00:00:00 of first day to now; 0 for today).
+                    <br/><br/>
+                    Type: number
+                `,
+        title: `Filters the list based on the specified maximum number of days since the request was created (starting at 00:00:00 of first day to now; 0 for today).`,
+      },
+      concise: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    Displays limited package version details.
+                    <br/><br/>
+                    Type: boolean
+                `,
+        title: `Displays limited package version details.`,
+      },
+      modifiedlastdays: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    Lists the items modified in the specified last number of days, starting at 00:00:00 of first day to now. Use 0 for today.
+                    <br/><br/>
+                    Type: number
+                `,
+        title: `Lists the items modified in the specified last number of days, starting at 00:00:00 of first day to now.`,
+      },
+      packages: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    Filters results on the specified comma-delimited packages (aliases or 0Ho IDs).
+                    <br/><br/>
+                    Type: array
+                `,
+        title: `Filters results on the specified comma-delimited packages (aliases or 0Ho IDs).`,
+      },
+      released: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    Displays released versions only (IsReleased=true).
+                    <br/><br/>
+                    Type: boolean
+                `,
+        title: `Displays released versions only (IsReleased=true).`,
+      },
+      orderby: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    Orders the list by the specified package version fields.
+                    <br/><br/>
+                    Type: array
+                `,
+        title: `Orders the list by the specified package version fields.`,
+      },
+      verbose: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    Displays extended package version details.
+                    <br/><br/>
+                    Type: boolean
+                `,
+        title: `Displays extended package version details.`,
+      },
+    },
+    version_delete: {
+      json: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+              <br/><br/>
+              Format output as JSON.<br/><br/>
+              Type: boolean
+              `,
+        title: `Format output as JSON.`,
+      },
+      loglevel: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>            
+                    The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.
+                    <br/><br/>
+                    Type: enum<br/>
+                    Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                    Default value: warn
+                `,
+        title: `The logging level for this command invocation.`,
+      },
+      targetdevhubusername: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    A username or alias for the target Dev Hub org. Overrides the default Dev Hub org.<br/><br/>
+                    Type: string
+                `,
+        title: `A username or alias for the target Dev Hub org.`,
+      },
+      apiversion: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    Override the API version used for API requests made by this command.
+                    <br/><br/>
+                    Type: string
+                `,
+        title: `Override the API version used for API requests made by this command.`,
+      },
+      package: {
+        type: `<b>Required</b>`,
+        body: `
+                    <br/><br/>
+                    The ID (starts with 04t) or alias of the package version to promote.
+                    <br/><br/>
+                    Type: number
+                `,
+        title: `The ID (starts with 04t) or alias of the package version to promote.`,
+      },
+      noprompt: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    Do not prompt to confirm setting the package version as released.
+                    <br/><br/>
+                    Type: boolean
+                `,
+        title: `Do not prompt to confirm setting the package version as released.`,
+      },
+    },
+    version_report: {
+      json: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+              <br/><br/>
+              Format output as JSON.<br/><br/>
+              Type: boolean
+              `,
+        title: `Format output as JSON.`,
+      },
+      loglevel: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>            
+                    The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.
+                    <br/><br/>
+                    Type: enum<br/>
+                    Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                    Default value: warn
+                `,
+        title: `The logging level for this command invocation.`,
+      },
+      targetdevhubusername: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    A username or alias for the target Dev Hub org. Overrides the default Dev Hub org.<br/><br/>
+                    Type: string
+                `,
+        title: `A username or alias for the target Dev Hub org.`,
+      },
+      apiversion: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    Override the API version used for API requests made by this command.
+                    <br/><br/>
+                    Type: string
+                `,
+        title: `Override the API version used for API requests made by this command.`,
+      },
+      package: {
+        type: `<b>Required</b>`,
+        body: `
+                    <br/><br/>
+                    The ID (starts with 04t) or alias of the package version to promote.
+                    <br/><br/>
+                    Type: number
+                `,
+        title: `The ID (starts with 04t) or alias of the package version to promote.`,
+      },
+      verbose: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    Displays extended package version details.
+                    <br/><br/>
+                    Type: boolean
+                `,
+        title: `Displays extended package version details.`,
+      },
+    },
   },
   source: {
     beta_pull: {
