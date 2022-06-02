@@ -107,7 +107,7 @@
   import Package_Version_List from "./_package/version_list.svelte";
   import Package_Version_Promote from "./_package/version_promote.svelte";
   import Package_Version_Report from "./_package/version_report.svelte";
-  // import Package_Version_Update from "./_package/version_update.svelte";
+  import Package_Version_Update from "./_package/version_update.svelte";
 
   // Source
   import Source_Beta_Pull from "./_source/beta_pull.svelte";
@@ -156,6 +156,7 @@
   handleMapCommand(lists.mdapi, "mdapi");
   handleMapCommand(lists.org, "org");
   handleMapCommand(lists.lPackage, "package");
+  handleMapCommand(lists.package1, "package1");
   handleMapCommand(lists.source, "source");
   handleMapCommand(lists.staticresource, "staticresource");
   handleMapCommand(lists.user, "user");
@@ -606,8 +607,8 @@
       <Package_Version_Promote />
     {:else if $mapCommand["package"]["version:report"]}
       <Package_Version_Report />
-    <!-- {:else if $mapCommand["package"]["version:update"]}
-      <Package_Version_Update /> -->
+    {:else if $mapCommand["package"]["version:update"]}
+      <Package_Version_Update />
     {/if}
   </div>
 {/if}

@@ -9,7 +9,7 @@ export const force = [
   { value: "mdapi", label: "mdapi" },
   { value: "org", label: "org" },
   {value: "package", label: "package"},
-  // {value: "package1", label: "package1"},
+  {value: "package1", label: "package1"},
   // {value: "project", label: "project"},
   // {value: "schema", label: "schema"},
   { value: "source", label: "source" },
@@ -124,7 +124,14 @@ export const lPackage = [
   { value: "version:list", label: "version:list" },
   { value: "version:promote", label: "version:promote" },
   { value: "version:report", label: "version:report" },
-  // { value: "version:update", label: "version:update" },
+  { value: "version:update", label: "version:update" },
+];
+
+export const package1 = [
+  { value: "version:create", label: "version:create" },
+  // { value: "version:create:get", label: "version:create:get" },
+  // { value: "version:display", label: "version:display" },
+  // { value: "version:list", label: "version:list" },
 ];
 
 export const source = [

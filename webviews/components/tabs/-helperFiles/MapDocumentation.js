@@ -4921,6 +4921,453 @@ export let mapDoc = {
         title: `Displays extended package version details.`,
       },
     },
+    version_update: {
+      json: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+              <br/><br/>
+              Format output as JSON.<br/><br/>
+              Type: boolean
+              `,
+        title: `Format output as JSON.`,
+      },
+      loglevel: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>            
+                    The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.
+                    <br/><br/>
+                    Type: enum<br/>
+                    Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                    Default value: warn
+                `,
+        title: `The logging level for this command invocation.`,
+      },
+      targetdevhubusername: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    A username or alias for the target Dev Hub org. Overrides the default Dev Hub org.<br/><br/>
+                    Type: string
+                `,
+        title: `A username or alias for the target Dev Hub org.`,
+      },
+      apiversion: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    Override the API version used for API requests made by this command.
+                    <br/><br/>
+                    Type: string
+                `,
+        title: `Override the API version used for API requests made by this command.`,
+      },
+      package: {
+        type: `<b>Required</b>`,
+        body: `
+                    <br/><br/>
+                    The ID (starts with 04t) or alias of the package to update a version of.
+                    <br/><br/>
+                    Type: number
+                `,
+        title: `The ID (starts with 04t) or alias of the package to update a version of.`,
+      },
+      versionname: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    The new package version name.
+                    <br/><br/>
+                    Type: string
+                `,
+        title: `The new package version name.`,
+      },
+      versiondescription: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    The new package version description.
+                    <br/><br/>
+                    Type: string
+                `,
+        title: `The new package version description.`,
+      },
+      branch: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    The new package version branch.
+                    <br/><br/>
+                    Type: string
+                `,
+        title: `The new package version branch.`,
+      },
+      tag: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    The new package version tag.
+                    <br/><br/>
+                    Type: string
+                `,
+        title: `The new package version tag.`,
+      },
+      installationkey: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    The new installation key for the key-protected package. The default is null.
+                    <br/><br/>
+                    Type: string
+                `,
+        title: `The new installation key for the key-protected package.`,
+      },
+    },
+  },
+  package1:{
+    version_create: {
+      json: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+              <br/><br/>
+              Format output as JSON.<br/><br/>
+              Type: boolean
+              `,
+        title: `Format output as JSON.`,
+      },
+      loglevel: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>            
+                    The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.
+                    <br/><br/>
+                    Type: enum<br/>
+                    Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                    Default value: warn
+                `,
+        title: `The logging level for this command invocation.`,
+      },
+      targetdevhubusername: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    A username or alias for the target Dev Hub org. Overrides the default Dev Hub org.<br/><br/>
+                    Type: string
+                `,
+        title: `A username or alias for the target Dev Hub org.`,
+      },
+      apiversion: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    Override the API version used for API requests made by this command.
+                    <br/><br/>
+                    Type: string
+                `,
+        title: `Override the API version used for API requests made by this command.`,
+      },
+      name: {
+        type: `<b>Required</b>`,
+        body: `
+                    <br/><br/>
+                    Name of the package to create.
+                    <br/><br/>
+                    Type: string
+                `,
+        title: `Name of the package to create.`,
+      },
+      packagetype: {
+        type: `<b>Required</b>`,
+        body: `
+                    <br/><br/>
+                    Package type for the package.<br/><br/>
+                    The options for package type are Managed and Unlocked (Managed=DeveloperManagedSubscriberManaged, Unlocked=DeveloperControlledSubscriberEditable).<br/><br/>
+                    These options determine upgrade and editability rules.<br/><br/>
+                    Type: enum<br/><br/>
+                    Permissible values are: Managed, Unlocked
+                `,
+        title: `Package type for the package.`,
+      },
+      description: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    Description of the package.<br/><br/>
+                    Type: string
+                `,
+        title: `Description of the package.`,
+      },
+      nonamespace: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    Creates the package with no namespace. Available only for unlocked packages. Useful when you’re migrating an existing org to packages. But, use a namespaced package for new metadata.<br/><br/>
+                    Type: boolean
+                `,
+        title: `Creates the package with no namespace.`,
+      },
+      path: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    The path to the directory that contains the contents of the package.<br/><br/>
+                    Type: directory
+                `,
+        title: `The path to the directory that contains the contents of the package.`,
+      },
+      orgdependent: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    Package depends on unpackaged metadata in the installation org. Applies to unlocked packages only.<br/><br/>
+                    Use Source Tracking in Sandboxes to develop your org-dependent unlocked package.<br/><br/>
+                    For more information, see "Create Org-Dependent Unlocked Packages" in the Salesforce DX Developer Guide.<br/><br/>
+                    Type: boolean
+                `,
+        title: `Package depends on unpackaged metadata in the installation org.`,
+      },
+      errornotificationusername: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    An active Dev Hub org user designated to receive email notifications for unhandled Apex exceptions, and install, upgrade, or uninstall failures associated with your package.<br/><br/>
+                    Type: string
+                `,
+        title: `An active Dev Hub org user designated to receive email notifications for unhandled Apex exceptions, and install, upgrade, or uninstall failures associated with your package.`,
+      },
+    },
+    delete: {
+      json: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+              <br/><br/>
+              Format output as JSON.<br/><br/>
+              Type: boolean
+              `,
+        title: `Format output as JSON.`,
+      },
+      loglevel: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>            
+                    The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.
+                    <br/><br/>
+                    Type: enum<br/>
+                    Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                    Default value: warn
+                `,
+        title: `The logging level for this command invocation.`,
+      },
+      targetdevhubusername: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    A username or alias for the target Dev Hub org. Overrides the default Dev Hub org.<br/><br/>
+                    Type: string
+                `,
+        title: `A username or alias for the target Dev Hub org.`,
+      },
+      apiversion: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    Override the API version used for API requests made by this command.
+                    <br/><br/>
+                    Type: string
+                `,
+        title: `Override the API version used for API requests made by this command.`,
+      },
+      noprompt: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    don’t prompt before deleting the package.<br/><br/>
+                    Type: boolean
+                `,
+        title: `don’t prompt before deleting the package.`,
+      },
+      package: {
+        type: `<b>Required</b>`,
+        body: `
+                    <br/><br/>
+                    The ID (starts with 0Ho) or alias of the package to delete.<br/><br/>
+                    Type: string
+                `,
+        title: `The ID (starts with 0Ho) or alias of the package to delete.`,
+      },
+    },
+    install: {
+      json: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+              <br/><br/>
+              Format output as JSON.<br/><br/>
+              Type: boolean
+              `,
+        title: `Format output as JSON.`,
+      },
+      loglevel: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>            
+                    The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.
+                    <br/><br/>
+                    Type: enum<br/>
+                    Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                    Default value: warn
+                `,
+        title: `The logging level for this command invocation.`,
+      },
+      targetdevhubusername: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    A username or alias for the target org. Overrides the default target org.<br/><br/>
+                    Type: string
+                `,
+        title: `A username or alias for the target org.`,
+      },
+      apiversion: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    Override the API version used for API requests made by this command.
+                    <br/><br/>
+                    Type: string
+                `,
+        title: `Override the API version used for API requests made by this command.`,
+      },
+      wait: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    Maximum number of minutes to wait for installation status. The default is 0.<br/><br/>
+                    Type: minutes
+                `,
+        title: `Maximum number of minutes to wait for installation status.`,
+      },
+      installationkey: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    Installation key for installing a key-protected package. The default is null.<br/><br/>
+                    Type: string
+                `,
+        title: `Installation key for installing a key-protected package.`,
+      },
+      publishwait: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    Maximum number of minutes to wait for the Subscriber Package Version ID to become available in the target org before canceling the install request. The default is 0.<br/><br/>
+                    Type: minutes
+                `,
+        title: `Maximum number of minutes to wait for the Subscriber Package Version ID to become available in the target org before canceling the install request.`,
+      },
+      noprompt: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    Allows the following without an explicit confirmation response: 1) Remote Site Settings and Content Security Policy websites to send or receive data, and 2) --upgradetype Delete to proceed.<br/><br/>
+                    Type: boolean
+                `,
+        title: `Allows the following without an explicit confirmation response: 1) Remote Site Settings and Content Security Policy websites to send or receive data, and 2) --upgradetype Delete to proceed.`,
+      },
+      package: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    The ID (starts with 04t) or alias of the package version to install.<br/><br/>
+                    Type: string
+                `,
+        title: `The ID (starts with 04t) or alias of the package version to install.`,
+      },
+      apexcompile: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    Applies to unlocked packages only. Specifies whether to compile all Apex in the org and package, or only the Apex in the package.<br/><br/>
+                    Type: enum<br/><br/>
+                    Permissible values are: all, package<br/><br/>
+                    Default value: all
+                `,
+        title: `Applies to unlocked packages only.`,
+      },
+      securitytype: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    Security access type for the installed package.<br/><br/>
+                    Deprecation notice: The --securitytype parameter's default value will change from AllUsers to AdminsOnly in an upcoming release (v47.0 or later).<br/><br/>
+                    Type: enum<br/><br/>
+                    Permissible values are: AllUsers, AdminsOnly<br/><br/>
+                    Default value: AdminsOnly
+                `,
+        title: `Security access type for the installed package.`,
+      },
+      upgradetype: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    For package upgrades, specifies whether to mark all removed components as deprecated (DeprecateOnly), to delete removed components that can be safely deleted and deprecate the others (Mixed), or to delete all removed components, except for custom objects and custom fields, that don't have dependencies (Delete). The default is Mixed. Can specify DeprecateOnly or Delete only for unlocked package upgrades.<br/><br/>
+                    Type: enum<br/><br/>
+                    Permissible values are: DeprecateOnly, Mixed, Delete<br/><br/>
+                    Default value: Mixed
+                `,
+        title: `For package upgrades, specifies whether to mark all removed components as deprecated (DeprecateOnly), to delete removed components that can be safely deleted and deprecate the others (Mixed), or to delete all removed components, except for custom objects and custom fields, that don't have dependencies (Delete).`,
+      },
+    },
+    install_report: {
+      json: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+              <br/><br/>
+              Format output as JSON.<br/><br/>
+              Type: boolean
+              `,
+        title: `Format output as JSON.`,
+      },
+      loglevel: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>            
+                    The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.
+                    <br/><br/>
+                    Type: enum<br/>
+                    Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                    Default value: warn
+                `,
+        title: `The logging level for this command invocation.`,
+      },
+      targetusername: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    A username or alias for the target org. Overrides the default target org.<br/><br/>
+                    Type: string
+                `,
+        title: `A username or alias for the target org.`,
+      },
+      apiversion: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    Override the API version used for API requests made by this command.
+                    <br/><br/>
+                    Type: string
+                `,
+        title: `Override the API version used for API requests made by this command.`,
+      },
+      requestid: {
+        type: `<b>Required</b>`,
+        body: `
+                    <br/><br/>
+                    The ID of the package install request you want to check.<br/><br/>
+                    Type: id
+                `,
+        title: `The ID of the package install request you want to check.`,
+      },
+    },
   },
   source: {
     beta_pull: {
