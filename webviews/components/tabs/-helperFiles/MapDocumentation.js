@@ -7918,6 +7918,75 @@ export let mapDoc = {
         },
       },
     },
+    web: {
+      login: {
+        json: {
+          type: `<b><i>Optional</i></b>`,
+          body: `
+                      <br/><br/>
+                      Format output as JSON.<br/><br/>
+                      Type: boolean
+                  `,
+          title: `Format output as JSON.`,
+        },
+        loglevel: {
+          type: `<b><i>Optional</i></b>`,
+          body: `
+                      <br/><br/>            
+                      The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.<br/><br/>
+                      Type: enum<br/>
+                      Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                      Default value: warn
+                  `,
+          title: `The logging level for this command invocation.`,
+        },
+        clientid: {
+          type: `<b><i>Optional</i></b>`,
+          body: `
+                      <br/><br/>            
+                      OAuth client ID (sometimes called the consumer key).<br/><br/>
+                      Type: string
+                  `,
+          title: `OAuth client ID (sometimes called the consumer key).`,
+        },
+        instanceurl: {
+          type: `<b><i>Optional</i></b>`,
+          body: `
+                      <br/><br/>            
+                      The login URL of the instance the org lives on.<br/><br/>
+                      Type: url
+                  `,
+          title: `The login URL of the instance the org lives on.`,
+        },
+        setdefaultdevhubusername: {
+          type: `<b><i>Optional</i></b>`,
+          body: `
+                      <br/><br/>            
+                      Set the authenticated org as the default dev hub org for scratch org creation.<br/><br/>
+                      Type: boolean
+                  `,
+          title: `Set the authenticated org as the default dev hub org for scratch org creation.`,
+        },
+        setdefaultusername: {
+          type: `<b><i>Optional</i></b>`,
+          body: `
+                      <br/><br/>            
+                      Set the authenticated org as the default username that all commands run against.<br/><br/>
+                      Type: boolean
+                  `,
+          title: `Set the authenticated org as the default username that all commands run against.`,
+        },
+        setalias: {
+          type: `<b><i>Optional</i></b>`,
+          body: `
+                      <br/><br/>            
+                      Set an alias for the authenticated org.<br/><br/>
+                      Type: string
+                  `,
+          title: `Set an alias for the authenticated org.`,
+        },
+      },
+    },
   },
   advanced: {
     type: `<b><i>Optional</i></b>`,

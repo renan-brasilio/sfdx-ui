@@ -28,7 +28,7 @@
   import SFDXURL_Store from "./_sfdxurl/store.svelte";
   
   // Web
-  // import Web_Login from "./_web/login.svelte";
+  import Web_Login from "./_web/login.svelte";
 
 
   // Fill the initial Maps
@@ -236,7 +236,7 @@
   </div>
 {/if}
 
-<!-- {#if $mapForceShowSections.web}
+{#if $mapForceShowSections.web}
   <div class="sfdxet-select-theme sfdxet-absolute-center">
     <h4>web Commands</h4>
     <br />
@@ -255,6 +255,6 @@
     <br />
     <Web_Login />
   </div>
-{/if} -->
+{/if}
 
 <CSS />
