@@ -5066,77 +5066,90 @@ export let mapDoc = {
                 `,
         title: `Override the API version used for API requests made by this command.`,
       },
+      packageid: {
+        type: `<b>Required</b>`,
+        body: `
+                    <br/><br/>
+                    ID of the metadata package (starts with 033) of which you’re creating a new version.
+                    <br/><br/>
+                    Type: id
+                `,
+        title: `ID of the metadata package (starts with 033) of which you’re creating a new version.`,
+      },
       name: {
         type: `<b>Required</b>`,
         body: `
                     <br/><br/>
-                    Name of the package to create.
-                    <br/><br/>
+                    Package version name.<br/><br/>
                     Type: string
                 `,
-        title: `Name of the package to create.`,
-      },
-      packagetype: {
-        type: `<b>Required</b>`,
-        body: `
-                    <br/><br/>
-                    Package type for the package.<br/><br/>
-                    The options for package type are Managed and Unlocked (Managed=DeveloperManagedSubscriberManaged, Unlocked=DeveloperControlledSubscriberEditable).<br/><br/>
-                    These options determine upgrade and editability rules.<br/><br/>
-                    Type: enum<br/><br/>
-                    Permissible values are: Managed, Unlocked
-                `,
-        title: `Package type for the package.`,
+        title: `Package version name.`,
       },
       description: {
         type: `<b><i>Optional</i></b>`,
         body: `
                     <br/><br/>
-                    Description of the package.<br/><br/>
+                    Package version description.<br/><br/>
                     Type: string
                 `,
-        title: `Description of the package.`,
+        title: `Package version description.`,
       },
-      nonamespace: {
+      version: {
         type: `<b><i>Optional</i></b>`,
         body: `
                     <br/><br/>
-                    Creates the package with no namespace. Available only for unlocked packages. Useful when you’re migrating an existing org to packages. But, use a namespaced package for new metadata.<br/><br/>
-                    Type: boolean
-                `,
-        title: `Creates the package with no namespace.`,
-      },
-      path: {
-        type: `<b><i>Optional</i></b>`,
-        body: `
-                    <br/><br/>
-                    The path to the directory that contains the contents of the package.<br/><br/>
-                    Type: directory
-                `,
-        title: `The path to the directory that contains the contents of the package.`,
-      },
-      orgdependent: {
-        type: `<b><i>Optional</i></b>`,
-        body: `
-                    <br/><br/>
-                    Package depends on unpackaged metadata in the installation org. Applies to unlocked packages only.<br/><br/>
-                    Use Source Tracking in Sandboxes to develop your org-dependent unlocked package.<br/><br/>
-                    For more information, see "Create Org-Dependent Unlocked Packages" in the Salesforce DX Developer Guide.<br/><br/>
-                    Type: boolean
-                `,
-        title: `Package depends on unpackaged metadata in the installation org.`,
-      },
-      errornotificationusername: {
-        type: `<b><i>Optional</i></b>`,
-        body: `
-                    <br/><br/>
-                    An active Dev Hub org user designated to receive email notifications for unhandled Apex exceptions, and install, upgrade, or uninstall failures associated with your package.<br/><br/>
+                    Package version in major.minor format, for example, 3.2.<br/><br/>
                     Type: string
                 `,
-        title: `An active Dev Hub org user designated to receive email notifications for unhandled Apex exceptions, and install, upgrade, or uninstall failures associated with your package.`,
+        title: `Package version in major.minor format, for example, 3.2.`,
+      },
+      managedreleased: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    Creates a managed package version. To create a beta version, don’t include this parameter.<br/><br/>
+                    Type: boolean
+                `,
+        title: `Creates a managed package version.`,
+      },
+      releasenotesurl: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    The release notes URL. This link is displayed in the package installation UI to provide release notes for this package version to subscribers.<br/><br/>
+                    Type: url
+                `,
+        title: `The release notes URL.`,
+      },
+      postinstallurl: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    The post-install instructions URL. The contents of the post-installation instructions URL are displayed in the UI after installation of the package version.<br/><br/>
+                    Type: url
+                `,
+        title: `The post-install instructions URL.`,
+      },
+      installationkey: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    Installation key for creating the key-protected package. The default is null.<br/><br/>
+                    Type: string
+                `,
+        title: `Installation key for creating the key-protected package.`,
+      },
+      wait: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    Minutes to wait for the package version to be created. The default is 2 minutes.<br/><br/>
+                    Type: number
+                `,
+        title: `Minutes to wait for the package version to be created.`,
       },
     },
-    delete: {
+    version_create_get: {
       json: {
         type: `<b><i>Optional</i></b>`,
         body: `
@@ -5177,26 +5190,18 @@ export let mapDoc = {
                 `,
         title: `Override the API version used for API requests made by this command.`,
       },
-      noprompt: {
-        type: `<b><i>Optional</i></b>`,
-        body: `
-                    <br/><br/>
-                    don’t prompt before deleting the package.<br/><br/>
-                    Type: boolean
-                `,
-        title: `don’t prompt before deleting the package.`,
-      },
-      package: {
+      requestid: {
         type: `<b>Required</b>`,
         body: `
                     <br/><br/>
-                    The ID (starts with 0Ho) or alias of the package to delete.<br/><br/>
-                    Type: string
+                    The ID of the PackageUploadRequest.
+                    <br/><br/>
+                    Type: id
                 `,
-        title: `The ID (starts with 0Ho) or alias of the package to delete.`,
+        title: `The ID of the PackageUploadRequest.`,
       },
     },
-    install: {
+    version_display: {
       json: {
         type: `<b><i>Optional</i></b>`,
         body: `
@@ -5222,10 +5227,10 @@ export let mapDoc = {
         type: `<b><i>Optional</i></b>`,
         body: `
                     <br/><br/>
-                    A username or alias for the target org. Overrides the default target org.<br/><br/>
+                    A username or alias for the target Dev Hub org. Overrides the default Dev Hub org.<br/><br/>
                     Type: string
                 `,
-        title: `A username or alias for the target org.`,
+        title: `A username or alias for the target Dev Hub org.`,
       },
       apiversion: {
         type: `<b><i>Optional</i></b>`,
@@ -5237,87 +5242,156 @@ export let mapDoc = {
                 `,
         title: `Override the API version used for API requests made by this command.`,
       },
-      wait: {
-        type: `<b><i>Optional</i></b>`,
+      packageversionid: {
+        type: `<b>Required</b>`,
         body: `
                     <br/><br/>
-                    Maximum number of minutes to wait for installation status. The default is 0.<br/><br/>
-                    Type: minutes
-                `,
-        title: `Maximum number of minutes to wait for installation status.`,
-      },
-      installationkey: {
-        type: `<b><i>Optional</i></b>`,
-        body: `
+                    ID (starts with 04t) of the metadata package version whose details you want to display.
                     <br/><br/>
-                    Installation key for installing a key-protected package. The default is null.<br/><br/>
-                    Type: string
+                    Type: id
                 `,
-        title: `Installation key for installing a key-protected package.`,
-      },
-      publishwait: {
-        type: `<b><i>Optional</i></b>`,
-        body: `
-                    <br/><br/>
-                    Maximum number of minutes to wait for the Subscriber Package Version ID to become available in the target org before canceling the install request. The default is 0.<br/><br/>
-                    Type: minutes
-                `,
-        title: `Maximum number of minutes to wait for the Subscriber Package Version ID to become available in the target org before canceling the install request.`,
-      },
-      noprompt: {
-        type: `<b><i>Optional</i></b>`,
-        body: `
-                    <br/><br/>
-                    Allows the following without an explicit confirmation response: 1) Remote Site Settings and Content Security Policy websites to send or receive data, and 2) --upgradetype Delete to proceed.<br/><br/>
-                    Type: boolean
-                `,
-        title: `Allows the following without an explicit confirmation response: 1) Remote Site Settings and Content Security Policy websites to send or receive data, and 2) --upgradetype Delete to proceed.`,
-      },
-      package: {
-        type: `<b><i>Optional</i></b>`,
-        body: `
-                    <br/><br/>
-                    The ID (starts with 04t) or alias of the package version to install.<br/><br/>
-                    Type: string
-                `,
-        title: `The ID (starts with 04t) or alias of the package version to install.`,
-      },
-      apexcompile: {
-        type: `<b><i>Optional</i></b>`,
-        body: `
-                    <br/><br/>
-                    Applies to unlocked packages only. Specifies whether to compile all Apex in the org and package, or only the Apex in the package.<br/><br/>
-                    Type: enum<br/><br/>
-                    Permissible values are: all, package<br/><br/>
-                    Default value: all
-                `,
-        title: `Applies to unlocked packages only.`,
-      },
-      securitytype: {
-        type: `<b><i>Optional</i></b>`,
-        body: `
-                    <br/><br/>
-                    Security access type for the installed package.<br/><br/>
-                    Deprecation notice: The --securitytype parameter's default value will change from AllUsers to AdminsOnly in an upcoming release (v47.0 or later).<br/><br/>
-                    Type: enum<br/><br/>
-                    Permissible values are: AllUsers, AdminsOnly<br/><br/>
-                    Default value: AdminsOnly
-                `,
-        title: `Security access type for the installed package.`,
-      },
-      upgradetype: {
-        type: `<b><i>Optional</i></b>`,
-        body: `
-                    <br/><br/>
-                    For package upgrades, specifies whether to mark all removed components as deprecated (DeprecateOnly), to delete removed components that can be safely deleted and deprecate the others (Mixed), or to delete all removed components, except for custom objects and custom fields, that don't have dependencies (Delete). The default is Mixed. Can specify DeprecateOnly or Delete only for unlocked package upgrades.<br/><br/>
-                    Type: enum<br/><br/>
-                    Permissible values are: DeprecateOnly, Mixed, Delete<br/><br/>
-                    Default value: Mixed
-                `,
-        title: `For package upgrades, specifies whether to mark all removed components as deprecated (DeprecateOnly), to delete removed components that can be safely deleted and deprecate the others (Mixed), or to delete all removed components, except for custom objects and custom fields, that don't have dependencies (Delete).`,
+        title: `ID (starts with 04t) of the metadata package version whose details you want to display.`,
       },
     },
-    install_report: {
+    version_list: {
+      json: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+              <br/><br/>
+              Format output as JSON.<br/><br/>
+              Type: boolean
+              `,
+        title: `Format output as JSON.`,
+      },
+      loglevel: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>            
+                    The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.
+                    <br/><br/>
+                    Type: enum<br/>
+                    Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                    Default value: warn
+                `,
+        title: `The logging level for this command invocation.`,
+      },
+      targetdevhubusername: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    A username or alias for the target Dev Hub org. Overrides the default Dev Hub org.<br/><br/>
+                    Type: string
+                `,
+        title: `A username or alias for the target Dev Hub org.`,
+      },
+      apiversion: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    Override the API version used for API requests made by this command.
+                    <br/><br/>
+                    Type: string
+                `,
+        title: `Override the API version used for API requests made by this command.`,
+      },
+      packageid: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    Metadata package ID (starts with 033) whose package versions you want to list. If not specified, shows all versions for all packages (managed and unmanaged) in the org.
+                    <br/><br/>
+                    Type: id
+                `,
+        title: `Metadata package ID (starts with 033) whose package versions you want to list.`,
+      },
+    },
+  },
+  project:{
+    create: {
+      json: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+              <br/><br/>
+              Format output as JSON.<br/><br/>
+              Type: boolean
+              `,
+        title: `Format output as JSON.`,
+      },
+      loglevel: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>            
+                    The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.
+                    <br/><br/>
+                    Type: enum<br/>
+                    Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                    Default value: warn
+                `,
+        title: `The logging level for this command invocation.`,
+      },
+      projectname: {
+        type: `<b>Required</b>`,
+        body: `
+                    <br/><br/>
+                    The name for the new project. Any valid folder name is accepted.
+                    <br/><br/>
+                    Type: id
+                `,
+        title: `The name for the new project.`,
+      },
+      template: {
+        type: `<b>Required</b>`,
+        body: `
+                    <br/><br/>
+                    The template to use to create the project. Supplied parameter values or default values are filled into a copy of the template.<br/><br/>
+                    Type: string<br/><br/>
+                    Permissible values are: standard, empty, analytics<br/><br/>
+                    Default value: standard
+                `,
+        title: `The template to use to create the project.`,
+      },
+      outputdir: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    The directory to store the newly created files. The location can be an absolute path or relative to the current working directory. The default is the current directory.<br/><br/>
+                    Type: string<br/><br/>
+                    Default value: .
+                `,
+        title: `The directory to store the newly created files.`,
+      },
+      namespace: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    The namespace associated with this project and any connected scratch orgs.<br/><br/>
+                    Type: string
+                `,
+        title: `The namespace associated with this project and any connected scratch orgs.`,
+      },
+      defaultpackagedir: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    The default package directory name. Metadata items such as classes and Lightning bundles are placed inside this folder.<br/><br/>
+                    Type: string<br/><br/>
+                    Default value: force-app
+                `,
+        title: `The default package directory name.`,
+      },
+      manifest: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    Generates a default manifest (package.xml) for fetching Apex, Visualforce, Lightning components, and static resources.<br/><br/>
+                    Type: boolean
+                `,
+        title: `Generates a default manifest (package.xml) for fetching Apex, Visualforce, Lightning components, and static resources.`,
+      },
+    },
+  },
+  schema:{
+    sobject_describe: {
       json: {
         type: `<b><i>Optional</i></b>`,
         body: `
@@ -5342,30 +5416,89 @@ export let mapDoc = {
       targetusername: {
         type: `<b><i>Optional</i></b>`,
         body: `
-                    <br/><br/>
+                    <br/><br/>            
                     A username or alias for the target org. Overrides the default target org.<br/><br/>
                     Type: string
                 `,
-        title: `A username or alias for the target org.`,
+        title: `A username or alias for the target org. Overrides the default target org.`,
       },
       apiversion: {
         type: `<b><i>Optional</i></b>`,
         body: `
                     <br/><br/>
-                    Override the API version used for API requests made by this command.
-                    <br/><br/>
+                    Override the API version used for API requests made by this command.<br/><br/>
                     Type: string
                 `,
         title: `Override the API version used for API requests made by this command.`,
       },
-      requestid: {
+      sobjecttype: {
         type: `<b>Required</b>`,
         body: `
                     <br/><br/>
-                    The ID of the package install request you want to check.<br/><br/>
-                    Type: id
+                    The API name of the object to describe.<br/><br/>
+                    Type: string
                 `,
-        title: `The ID of the package install request you want to check.`,
+        title: `The API name of the object to describe.`,
+      },
+      usetoolingapi: {
+        type: `<b>Required</b>`,
+        body: `
+                    <br/><br/>
+                    Execute with Tooling API.<br/><br/>
+                    Type: boolean
+                `,
+        title: `Execute with Tooling API.`,
+      },
+    },
+    sobject_list: {
+      json: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+              <br/><br/>
+              Format output as JSON.<br/><br/>
+              Type: boolean
+              `,
+        title: `Format output as JSON.`,
+      },
+      loglevel: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>            
+                    The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.
+                    <br/><br/>
+                    Type: enum<br/>
+                    Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                    Default value: warn
+                `,
+        title: `The logging level for this command invocation.`,
+      },
+      targetusername: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>            
+                    A username or alias for the target org. Overrides the default target org.<br/><br/>
+                    Type: string
+                `,
+        title: `A username or alias for the target org. Overrides the default target org.`,
+      },
+      apiversion: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    Override the API version used for API requests made by this command.<br/><br/>
+                    Type: string
+                `,
+        title: `Override the API version used for API requests made by this command.`,
+      },
+      sobjecttypecategory: {
+        type: `<b><i>Optional</i></b>`,
+        body: `
+                    <br/><br/>
+                    The type of objects to list (all|custom|standard).<br/><br/>
+                    Type: string<br/><br/>
+                    Default value: ALL
+                `,
+        title: `The type of objects to list (all|custom|standard).`,
       },
     },
   },

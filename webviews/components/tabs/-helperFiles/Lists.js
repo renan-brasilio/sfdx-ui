@@ -8,14 +8,14 @@ export const force = [
   { value: "limits", label: "limits" },
   { value: "mdapi", label: "mdapi" },
   { value: "org", label: "org" },
-  {value: "package", label: "package"},
-  {value: "package1", label: "package1"},
-  // {value: "project", label: "project"},
-  // {value: "schema", label: "schema"},
+  { value: "package", label: "package" },
+  { value: "package1", label: "package1" },
+  { value: "project", label: "project" },
+  { value: "schema", label: "schema" },
   { value: "source", label: "source" },
-  {value: "staticresource", label: "staticresource"},
-  {value: "user", label: "user"},
-  {value: "visualforce", label: "visualforce"},
+  { value: "staticresource", label: "staticresource" },
+  { value: "user", label: "user" },
+  { value: "visualforce", label: "visualforce" },
 ];
 
 export const analytics = [
@@ -129,9 +129,18 @@ export const lPackage = [
 
 export const package1 = [
   { value: "version:create", label: "version:create" },
-  // { value: "version:create:get", label: "version:create:get" },
-  // { value: "version:display", label: "version:display" },
-  // { value: "version:list", label: "version:list" },
+  { value: "version:create:get", label: "version:create:get" },
+  { value: "version:display", label: "version:display" },
+  { value: "version:list", label: "version:list" },
+];
+
+export const project = [
+  { value: "create", label: "create" },
+];
+
+export const schema = [
+  { value: "sobject:describe", label: "sobject:describe" },
+  { value: "sobject:list", label: "sobject:list" },
 ];
 
 export const source = [
@@ -276,6 +285,13 @@ export let lTemplate = {
       { value: "DefaultLightningTest", label: "DefaultLightningTest" },
     ],
   },
+  project: {
+    create: [
+      { value: "standard", label: "standard" },
+      { value: "empty", label: "empty" },
+      { value: "analytics", label: "analytics" },
+    ],
+  },
 };
 
 export const lTYPE = {
@@ -358,6 +374,12 @@ export const lSTATUS = [
   { value: "InProgress", label: "InProgress" },
   { value: "Success", label: "Success" },
   { value: "Error", label: "Error" },
+];
+
+export const lSOBJECTTYPECATEGORY = [
+  { value: "all", label: "all" },
+  { value: "custom", label: "custom" },
+  { value: "standard", label: "standard" },
 ];
 
 export const lCONTENTTYPE = [

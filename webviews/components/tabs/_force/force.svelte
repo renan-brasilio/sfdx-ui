@@ -109,6 +109,19 @@
   import Package_Version_Report from "./_package/version_report.svelte";
   import Package_Version_Update from "./_package/version_update.svelte";
 
+  // Package1
+  import Package1_Version_Create from "./_package1/version_create.svelte";
+  import Package1_Version_Create_Get from "./_package1/version_create_get.svelte";
+  import Package1_Version_Display from "./_package1/version_display.svelte";
+  import Package1_Version_List from "./_package1/version_list.svelte";
+
+  // Project
+  import Project_Create from "./_project/create.svelte";
+
+  // Schema
+  import Schema_SObject_Describe from "./_schema/sobject_describe.svelte";
+  import Schema_SObject_List from "./_schema/sobject_list.svelte";
+
   // Source
   import Source_Beta_Pull from "./_source/beta_pull.svelte";
   import Source_Beta_Push from "./_source/beta_push.svelte";
@@ -157,6 +170,8 @@
   handleMapCommand(lists.org, "org");
   handleMapCommand(lists.lPackage, "package");
   handleMapCommand(lists.package1, "package1");
+  handleMapCommand(lists.project, "project");
+  handleMapCommand(lists.schema, "schema");
   handleMapCommand(lists.source, "source");
   handleMapCommand(lists.staticresource, "staticresource");
   handleMapCommand(lists.user, "user");
@@ -609,6 +624,83 @@
       <Package_Version_Report />
     {:else if $mapCommand["package"]["version:update"]}
       <Package_Version_Update />
+    {/if}
+  </div>
+{/if}
+
+{#if $mapForceShowSections.package1}
+  <div class="sfdxet-select-theme sfdxet-absolute-center">
+    <h4>package1 Commands</h4>
+    <br />
+    <Select
+      id="package1"
+      items={lists.package1}
+      on:select={(e) => {
+        handleSelect(e, "package1");
+      }}
+      on:clear={(e) => {
+        handleClear(e, "package1");
+      }}
+      value={$mapLastValue["package1"]}
+    />
+    <br />
+    <br />
+    {#if $mapCommand["package1"]["version:create"]}
+      <Package1_Version_Create />
+    {:else if $mapCommand["package1"]["version:create:get"]}
+      <Package1_Version_Create_Get />
+    {:else if $mapCommand["package1"]["version:display"]}
+      <Package1_Version_Display />
+    {:else if $mapCommand["package1"]["version:list"]}
+      <Package1_Version_List />
+    {/if}
+  </div>
+{/if}
+
+{#if $mapForceShowSections.project}
+  <div class="sfdxet-select-theme sfdxet-absolute-center">
+    <h4>project Commands</h4>
+    <br />
+    <Select
+      id="project"
+      items={lists.project}
+      on:select={(e) => {
+        handleSelect(e, "project");
+      }}
+      on:clear={(e) => {
+        handleClear(e, "project");
+      }}
+      value={$mapLastValue["project"]}
+    />
+    <br />
+    <br />
+    {#if $mapCommand["project"]["create"]}
+      <Project_Create />
+    {/if}
+  </div>
+{/if}
+
+{#if $mapForceShowSections.schema}
+  <div class="sfdxet-select-theme sfdxet-absolute-center">
+    <h4>schema Commands</h4>
+    <br />
+    <Select
+      id="schema"
+      items={lists.schema}
+      on:select={(e) => {
+        handleSelect(e, "schema");
+      }}
+      on:clear={(e) => {
+        handleClear(e, "schema");
+      }}
+      value={$mapLastValue["schema"]}
+    />
+    <br />
+    <br />
+    {#if $mapCommand["schema"]["sobject:describe"]}
+      <Schema_SObject_Describe />
+      {:else if $mapCommand["schema"]["sobject:list"]}
+      <Schema_SObject_List />
     {/if}
   </div>
 {/if}
