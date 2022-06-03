@@ -185,7 +185,7 @@
     <svelte:component
       this={JSONs}
       bind:this={JSONv}
-      pMapDoc={mapDoc[commandType][fileName].json}
+      pMapDoc={mapDoc["force"][commandType][fileName].json}
       pShowSectionName={false}
     />
 
@@ -194,7 +194,7 @@
       this={LOGLEVELs}
       bind:this={LOGLEVELv}
       pSectionName="loglevel"
-      pMapDoc={mapDoc[commandType][fileName].loglevel}
+      pMapDoc={mapDoc["force"][commandType][fileName].loglevel}
       pSFDXParameter="--loglevel"
       pList={gLists.lLOGLEVEL}
       pDefaultValue="warn"
@@ -205,7 +205,7 @@
       this={TARGETUSERNAMEs}
       bind:this={TARGETUSERNAMEv}
       pSectionName="targetusername"
-      pMapDoc={mapDoc[commandType][fileName].targetusername}
+      pMapDoc={mapDoc["force"][commandType][fileName].targetusername}
       pSFDXParameter="-u"
       pList={$lTARGETUSERNAME}
     />
@@ -215,7 +215,7 @@
       this={APIVERSIONs}
       bind:this={APIVERSIONv}
       pSectionName="apiversion"
-      pMapDoc={mapDoc[commandType][fileName].apiversion}
+      pMapDoc={mapDoc["force"][commandType][fileName].apiversion}
       pSFDXParameter="--apiversion"
       pList={lAPIVERSION}
       pDefaultValue={dAPIVERSION}
@@ -227,10 +227,10 @@
       bind:this={QUERYv}
       pSectionName="query"
       pRequired={true}
-      pMapDoc={mapDoc[commandType][fileName].query}
+      pMapDoc={mapDoc["force"][commandType][fileName].query}
       pSFDXParameter="-q"
       pSectionTitle="Query"
-      pTitle={mapDoc[commandType][fileName].query.title}
+      pTitle={mapDoc["force"][commandType][fileName].query.title}
       pPlaceholder="Insert..."
       pChecked={true}
       pDisabled={true}
@@ -241,7 +241,7 @@
       this={USETOOLINGAPIs}
       bind:this={USETOOLINGAPIv}
       pSectionName="usetoolingapi"
-      pMapDoc={mapDoc[commandType][fileName].usetoolingapi}
+      pMapDoc={mapDoc["force"][commandType][fileName].usetoolingapi}
       pSFDXParameter="-t"
       pShowSectionName={false}
     />
@@ -251,7 +251,7 @@
       this={RESULTFORMATs}
       bind:this={RESULTFORMATv}
       pSectionName="resultformat"
-      pMapDoc={mapDoc[commandType][fileName].resultformat}
+      pMapDoc={mapDoc["force"][commandType][fileName].resultformat}
       pSFDXParameter="-r"
       pList={gLists.lRESULTFORMAT}
     />
@@ -261,7 +261,7 @@
       this={PERFLOGs}
       bind:this={PERFLOGv}
       pSectionName="perflog"
-      pMapDoc={mapDoc[commandType][fileName].perflog}
+      pMapDoc={mapDoc["force"][commandType][fileName].perflog}
       pSFDXParameter="--perflog"
       pShowSectionName={false}
     />

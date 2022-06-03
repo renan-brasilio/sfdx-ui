@@ -144,7 +144,7 @@
     <svelte:component
       this={JSONs}
       bind:this={JSONv}
-      pMapDoc={mapDoc[commandType][fileName].json}
+      pMapDoc={mapDoc["force"][commandType][fileName].json}
       pShowSectionName={false}
     />
 
@@ -153,7 +153,7 @@
       this={LOGLEVELs}
       bind:this={LOGLEVELv}
       pSectionName="loglevel"
-      pMapDoc={mapDoc[commandType][fileName].loglevel}
+      pMapDoc={mapDoc["force"][commandType][fileName].loglevel}
       pSFDXParameter="--loglevel"
       pList={gLists.lLOGLEVEL}
       pDefaultValue="warn"
@@ -164,7 +164,7 @@
       this={TARGETUSERNAMEs}
       bind:this={TARGETUSERNAMEv}
       pSectionName="targetusername"
-      pMapDoc={mapDoc[commandType][fileName].targetusername}
+      pMapDoc={mapDoc["force"][commandType][fileName].targetusername}
       pSFDXParameter="-u"
       pList={$lTARGETUSERNAME}
     />
@@ -174,7 +174,7 @@
       this={APIVERSIONs}
       bind:this={APIVERSIONv}
       pSectionName="apiversion"
-      pMapDoc={mapDoc[commandType][fileName].apiversion}
+      pMapDoc={mapDoc["force"][commandType][fileName].apiversion}
       pSFDXParameter="--apiversion"
       pList={lAPIVERSION}
       pDefaultValue={dAPIVERSION}
@@ -185,10 +185,10 @@
       this={LOGIDs}
       bind:this={LOGIDv}
       pSectionName="logid"
-      pMapDoc={mapDoc[commandType][fileName].logid}
+      pMapDoc={mapDoc["force"][commandType][fileName].logid}
       pSFDXParameter="-i"
       pSectionTitle="Log Id"
-      pTitle={mapDoc[commandType][fileName].logid.title}
+      pTitle={mapDoc["force"][commandType][fileName].logid.title}
       pPlaceholder="Insert..."
       pMaxLength={18}
     />
@@ -198,7 +198,7 @@
       this={NUMBERs}
       bind:this={NUMBERv}
       pSectionName="number"
-      pMapDoc={mapDoc[commandType][fileName].number}
+      pMapDoc={mapDoc["force"][commandType][fileName].number}
       pSFDXParameter="-n"
       pPlaceholder="Insert..."
     />
@@ -208,7 +208,7 @@
       this={OUTPUTDIRs}
       bind:this={OUTPUTDIRv}
       pSectionName="outputdir"
-      pMapDoc={mapDoc[commandType][fileName].outputdir}
+      pMapDoc={mapDoc["force"][commandType][fileName].outputdir}
       pSFDXParameter="-d"
       pDefaultFolder="."
     />

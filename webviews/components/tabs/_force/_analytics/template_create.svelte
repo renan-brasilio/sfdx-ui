@@ -168,7 +168,7 @@
         <svelte:component
           this={JSONs}
           bind:this={JSONv}
-          pMapDoc={mapDoc[commandType][fileName].json}
+          pMapDoc={mapDoc["force"][commandType][fileName].json}
           pShowSectionName={false}
         />
   
@@ -177,7 +177,7 @@
           this={LOGLEVELs}
           bind:this={LOGLEVELv}
           pSectionName="loglevel"
-          pMapDoc={mapDoc[commandType][fileName].loglevel}
+          pMapDoc={mapDoc["force"][commandType][fileName].loglevel}
           pSFDXParameter="--loglevel"
           pList={gLists.lLOGLEVEL}
           pDefaultValue="warn"
@@ -188,7 +188,7 @@
           this={OUTPUTDIRs}
           bind:this={OUTPUTDIRv}
           pSectionName="outputdir"
-          pMapDoc={mapDoc[commandType][fileName].outputdir}
+          pMapDoc={mapDoc["force"][commandType][fileName].outputdir}
           pSFDXParameter="-d"
           pDefaultFolder="."
         />
@@ -198,7 +198,7 @@
           this={APIVERSIONs}
           bind:this={APIVERSIONv}
           pSectionName="apiversion"
-          pMapDoc={mapDoc[commandType][fileName].apiversion}
+          pMapDoc={mapDoc["force"][commandType][fileName].apiversion}
           pSFDXParameter="--apiversion"
           pList={lAPIVERSION}
           pDefaultValue={dAPIVERSION}
@@ -210,10 +210,10 @@
           bind:this={TEMPLATENAMEv}
           pSectionName="templatename"
           pRequired={true}
-          pMapDoc={mapDoc[commandType][fileName].templatename}
+          pMapDoc={mapDoc["force"][commandType][fileName].templatename}
           pSFDXParameter="-n"
           pSectionTitle="Template Name"
-          pTitle={mapDoc[commandType][fileName].templatename.title}
+          pTitle={mapDoc["force"][commandType][fileName].templatename.title}
           pPlaceholder="Insert..."
           pChecked={true}
           pDisabled={true}

@@ -187,7 +187,7 @@
     <svelte:component
       this={JSONs}
       bind:this={JSONv}
-      pMapDoc={mapDoc[commandType][fileName].json}
+      pMapDoc={mapDoc["force"][commandType][fileName].json}
       pShowSectionName={false}
     />
 
@@ -196,7 +196,7 @@
       this={LOGLEVELs}
       bind:this={LOGLEVELv}
       pSectionName="loglevel"
-      pMapDoc={mapDoc[commandType][fileName].loglevel}
+      pMapDoc={mapDoc["force"][commandType][fileName].loglevel}
       pSFDXParameter="--loglevel"
       pList={gLists.lLOGLEVEL}
       pDefaultValue="warn"
@@ -207,7 +207,7 @@
       this={TARGETDEVHUBUSERNAMEs}
       bind:this={TARGETDEVHUBUSERNAMEv}
       pSectionName="targetdevhubusername"
-      pMapDoc={mapDoc[commandType][fileName].targetdevhubusername}
+      pMapDoc={mapDoc["force"][commandType][fileName].targetdevhubusername}
       pSFDXParameter="-v"
       pList={$lTARGETUSERNAME}
     />
@@ -217,7 +217,7 @@
       this={APIVERSIONs}
       bind:this={APIVERSIONv}
       pSectionName="apiversion"
-      pMapDoc={mapDoc[commandType][fileName].apiversion}
+      pMapDoc={mapDoc["force"][commandType][fileName].apiversion}
       pSFDXParameter="--apiversion"
       pList={lAPIVERSION}
       pDefaultValue={dAPIVERSION}
@@ -229,10 +229,10 @@
       bind:this={PACKAGEv}
       pSectionName="package"
       pRequired={true}
-      pMapDoc={mapDoc[commandType][fileName].package}
+      pMapDoc={mapDoc["force"][commandType][fileName].package}
       pSFDXParameter="-p"
       pSectionTitle="Package Id"
-      pTitle={mapDoc[commandType][fileName].package}
+      pTitle={mapDoc["force"][commandType][fileName].package}
       pPlaceholder="Insert..."
       pChecked={true}
       pDisabled={true}
@@ -243,7 +243,7 @@
       this={VERBOSEs}
       bind:this={VERBOSEv}
       pSectionName="verbose"
-      pMapDoc={mapDoc[commandType][fileName].verbose}
+      pMapDoc={mapDoc["force"][commandType][fileName].verbose}
       pSFDXParameter="-n"
       pShowSectionName={false}
     />

@@ -221,7 +221,7 @@
     <svelte:component
       this={JSONs}
       bind:this={JSONv}
-      pMapDoc={mapDoc[commandType][fileName].json}
+      pMapDoc={mapDoc["force"][commandType][fileName].json}
       pShowSectionName={false}
     />
 
@@ -230,7 +230,7 @@
       this={LOGLEVELs}
       bind:this={LOGLEVELv}
       pSectionName="loglevel"
-      pMapDoc={mapDoc[commandType][fileName].loglevel}
+      pMapDoc={mapDoc["force"][commandType][fileName].loglevel}
       pSFDXParameter="--loglevel"
       pList={gLists.lLOGLEVEL}
       pDefaultValue="warn"
@@ -241,7 +241,7 @@
       this={TARGETDEVHUBUSERNAMEs}
       bind:this={TARGETDEVHUBUSERNAMEv}
       pSectionName="targetdevhubusername"
-      pMapDoc={mapDoc[commandType][fileName].targetdevhubusername}
+      pMapDoc={mapDoc["force"][commandType][fileName].targetdevhubusername}
       pSFDXParameter="-v"
       pList={$lTARGETUSERNAME}
     />
@@ -251,7 +251,7 @@
       this={APIVERSIONs}
       bind:this={APIVERSIONv}
       pSectionName="apiversion"
-      pMapDoc={mapDoc[commandType][fileName].apiversion}
+      pMapDoc={mapDoc["force"][commandType][fileName].apiversion}
       pSFDXParameter="--apiversion"
       pList={lAPIVERSION}
       pDefaultValue={dAPIVERSION}
@@ -262,10 +262,10 @@
       this={PACKAGEs}
       bind:this={PACKAGEv}
       pSectionName="package"
-      pMapDoc={mapDoc[commandType][fileName].package}
+      pMapDoc={mapDoc["force"][commandType][fileName].package}
       pSFDXParameter="-p"
       pSectionTitle="Package Name"
-      pTitle={mapDoc[commandType][fileName].package}
+      pTitle={mapDoc["force"][commandType][fileName].package}
       pPlaceholder="Insert..."
     />
 
@@ -274,7 +274,7 @@
       this={PATHs}
       bind:this={PATHv}
       pSectionName="path"
-      pMapDoc={mapDoc[commandType][fileName].path}
+      pMapDoc={mapDoc["force"][commandType][fileName].path}
       pSFDXParameter="-d"
       pDefaultFolder="."
     />
@@ -284,7 +284,7 @@
       this={DEFINITIONFILEs}
       bind:this={DEFINITIONFILEv}
       pSectionName="definitionfile"
-      pMapDoc={mapDoc[commandType][fileName].definitionfile}
+      pMapDoc={mapDoc["force"][commandType][fileName].definitionfile}
       pSFDXParameter="-f"
       pPlaceholder="Insert..."
       pButtonText="Select Definition File"
@@ -295,10 +295,10 @@
       this={BRANCHs}
       bind:this={BRANCHv}
       pSectionName="branch"
-      pMapDoc={mapDoc[commandType][fileName].branch}
+      pMapDoc={mapDoc["force"][commandType][fileName].branch}
       pSFDXParameter="-b"
       pSectionTitle="Branch Name"
-      pTitle={mapDoc[commandType][fileName].branch}
+      pTitle={mapDoc["force"][commandType][fileName].branch}
       pPlaceholder="Insert..."
     />
     
@@ -307,10 +307,10 @@
       this={TAGs}
       bind:this={TAGv}
       pSectionName="tag"
-      pMapDoc={mapDoc[commandType][fileName].tag}
+      pMapDoc={mapDoc["force"][commandType][fileName].tag}
       pSFDXParameter="-t"
       pSectionTitle="Tag Name"
-      pTitle={mapDoc[commandType][fileName].tag}
+      pTitle={mapDoc["force"][commandType][fileName].tag}
       pPlaceholder="Insert..."
     />
 
@@ -319,10 +319,10 @@
       this={INSTALLATIONKEYs}
       bind:this={INSTALLATIONKEYv}
       pSectionName="installationkey"
-      pMapDoc={mapDoc[commandType][fileName].installationkey}
+      pMapDoc={mapDoc["force"][commandType][fileName].installationkey}
       pSFDXParameter="-k"
       pSectionTitle="Installation Key"
-      pTitle={mapDoc[commandType][fileName].installationkey}
+      pTitle={mapDoc["force"][commandType][fileName].installationkey}
       pPlaceholder="Insert..."
     />
 
@@ -331,7 +331,7 @@
       this={INSTALLATIONKEYBYPASSs}
       bind:this={INSTALLATIONKEYBYPASSv}
       pSectionName="installationkeybypass"
-      pMapDoc={mapDoc[commandType][fileName].installationkeybypass}
+      pMapDoc={mapDoc["force"][commandType][fileName].installationkeybypass}
       pSFDXParameter="-x"
       pShowSectionName={false}
     />
@@ -341,7 +341,7 @@
       this={WAITs}
       bind:this={WAITv}
       pSectionName="wait"
-      pMapDoc={mapDoc[commandType][fileName].wait}
+      pMapDoc={mapDoc["force"][commandType][fileName].wait}
       pSFDXParameter="-w"
       pDefaultValue={0}
     />
@@ -351,10 +351,10 @@
       this={VERSIONNAMEs}
       bind:this={VERSIONNAMEv}
       pSectionName="versionname"
-      pMapDoc={mapDoc[commandType][fileName].versionname}
+      pMapDoc={mapDoc["force"][commandType][fileName].versionname}
       pSFDXParameter="-a"
       pSectionTitle="Version Name"
-      pTitle={mapDoc[commandType][fileName].versionname}
+      pTitle={mapDoc["force"][commandType][fileName].versionname}
       pPlaceholder="Insert..."
     />
 
@@ -363,10 +363,10 @@
       this={VERSIONNUMBERs}
       bind:this={VERSIONNUMBERv}
       pSectionName="versionnumber"
-      pMapDoc={mapDoc[commandType][fileName].versionnumber}
+      pMapDoc={mapDoc["force"][commandType][fileName].versionnumber}
       pSFDXParameter="-n"
       pSectionTitle="Version Number"
-      pTitle={mapDoc[commandType][fileName].versionnumber}
+      pTitle={mapDoc["force"][commandType][fileName].versionnumber}
       pPlaceholder="Insert..."
     />
 
@@ -375,10 +375,10 @@
       this={VERSIONDESCRIPTIONs}
       bind:this={VERSIONDESCRIPTIONv}
       pSectionName="versiondescription"
-      pMapDoc={mapDoc[commandType][fileName].versiondescription}
+      pMapDoc={mapDoc["force"][commandType][fileName].versiondescription}
       pSFDXParameter="-e"
       pSectionTitle="Version Description"
-      pTitle={mapDoc[commandType][fileName].versiondescription}
+      pTitle={mapDoc["force"][commandType][fileName].versiondescription}
       pPlaceholder="Insert..."
     />
 
@@ -387,7 +387,7 @@
       this={CODECOVERAGEs}
       bind:this={CODECOVERAGEv}
       pSectionName="codecoverage"
-      pMapDoc={mapDoc[commandType][fileName].codecoverage}
+      pMapDoc={mapDoc["force"][commandType][fileName].codecoverage}
       pSFDXParameter="-c"
       pShowSectionName={false}
     />
@@ -397,10 +397,10 @@
       this={RELEASENOTESURLs}
       bind:this={RELEASENOTESURLv}
       pSectionName="releasenotesurl"
-      pMapDoc={mapDoc[commandType][fileName].releasenotesurl}
+      pMapDoc={mapDoc["force"][commandType][fileName].releasenotesurl}
       pSFDXParameter="--releasenotesurl"
       pSectionTitle="Release Notes URL"
-      pTitle={mapDoc[commandType][fileName].releasenotesurl}
+      pTitle={mapDoc["force"][commandType][fileName].releasenotesurl}
       pPlaceholder="Insert..."
     />
 
@@ -409,10 +409,10 @@
       this={POSTINSTALLURLs}
       bind:this={POSTINSTALLURLv}
       pSectionName="postinstallurl"
-      pMapDoc={mapDoc[commandType][fileName].postinstallurl}
+      pMapDoc={mapDoc["force"][commandType][fileName].postinstallurl}
       pSFDXParameter="--postinstallurl"
       pSectionTitle="Post Install URL"
-      pTitle={mapDoc[commandType][fileName].postinstallurl}
+      pTitle={mapDoc["force"][commandType][fileName].postinstallurl}
       pPlaceholder="Insert..."
     />
 
@@ -421,10 +421,10 @@
       this={POSTINSTALLSCRIPTs}
       bind:this={POSTINSTALLSCRIPTv}
       pSectionName="postinstallscript"
-      pMapDoc={mapDoc[commandType][fileName].postinstallscript}
+      pMapDoc={mapDoc["force"][commandType][fileName].postinstallscript}
       pSFDXParameter="--postinstallscript"
       pSectionTitle="Post Install Script"
-      pTitle={mapDoc[commandType][fileName].postinstallscript}
+      pTitle={mapDoc["force"][commandType][fileName].postinstallscript}
       pPlaceholder="Insert..."
     />
 
@@ -433,10 +433,10 @@
       this={UNINSTALLSCRIPTs}
       bind:this={UNINSTALLSCRIPTv}
       pSectionName="uninstallscript"
-      pMapDoc={mapDoc[commandType][fileName].uninstallscript}
+      pMapDoc={mapDoc["force"][commandType][fileName].uninstallscript}
       pSFDXParameter="--uninstallscript"
       pSectionTitle="Uninstall Script"
-      pTitle={mapDoc[commandType][fileName].uninstallscript}
+      pTitle={mapDoc["force"][commandType][fileName].uninstallscript}
       pPlaceholder="Insert..."
     />
 
@@ -445,7 +445,7 @@
       this={SKIPVALIDATIONs}
       bind:this={SKIPVALIDATIONv}
       pSectionName="skipvalidation"
-      pMapDoc={mapDoc[commandType][fileName].skipvalidation}
+      pMapDoc={mapDoc["force"][commandType][fileName].skipvalidation}
       pSFDXParameter="--skipvalidation"
       pShowSectionName={false}
     />
@@ -455,7 +455,7 @@
       this={SKIPANCESTORCHECKs}
       bind:this={SKIPANCESTORCHECKv}
       pSectionName="skipancestorcheck"
-      pMapDoc={mapDoc[commandType][fileName].skipancestorcheck}
+      pMapDoc={mapDoc["force"][commandType][fileName].skipancestorcheck}
       pSFDXParameter="--skipancestorcheck"
       pShowSectionName={false}
     />

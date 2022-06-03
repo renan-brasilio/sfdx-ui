@@ -153,7 +153,7 @@
     <svelte:component
       this={JSONs}
       bind:this={JSONv}
-      pMapDoc={mapDoc[commandType][fileName].json}
+      pMapDoc={mapDoc["force"][commandType][fileName].json}
       pShowSectionName={false}
     />
 
@@ -162,7 +162,7 @@
       this={LOGLEVELs}
       bind:this={LOGLEVELv}
       pSectionName="loglevel"
-      pMapDoc={mapDoc[commandType][fileName].loglevel}
+      pMapDoc={mapDoc["force"][commandType][fileName].loglevel}
       pSFDXParameter="--loglevel"
       pList={gLists.lLOGLEVEL}
       pDefaultValue="warn"
@@ -173,7 +173,7 @@
       this={TARGETUSERNAMEs}
       bind:this={TARGETUSERNAMEv}
       pSectionName="targetusername"
-      pMapDoc={mapDoc[commandType][fileName].targetusername}
+      pMapDoc={mapDoc["force"][commandType][fileName].targetusername}
       pSFDXParameter="-u"
       pList={$lTARGETUSERNAME}
     />
@@ -183,7 +183,7 @@
       this={APIVERSIONs}
       bind:this={APIVERSIONv}
       pSectionName="apiversion"
-      pMapDoc={mapDoc[commandType][fileName].apiversion}
+      pMapDoc={mapDoc["force"][commandType][fileName].apiversion}
       pSFDXParameter="--apiversion"
       pList={lAPIVERSION}
       pDefaultValue={dAPIVERSION}
@@ -194,10 +194,10 @@
       this={SOBJECTTREEFILESs}
       bind:this={SOBJECTTREEFILESv}
       pSectionName="sobjecttreefiles"
-      pMapDoc={mapDoc[commandType][fileName].sobjecttreefiles}
+      pMapDoc={mapDoc["force"][commandType][fileName].sobjecttreefiles}
       pSFDXParameter="-f"
       pSectionTitle="sObject Tree Files"
-      pTitle={mapDoc[commandType][fileName].sobjecttreefiles.title}
+      pTitle={mapDoc["force"][commandType][fileName].sobjecttreefiles.title}
       pPlaceholder="Insert..."
     />
 
@@ -206,7 +206,7 @@
       this={PLANs}
       bind:this={PLANv}
       pSectionName="plan"
-      pMapDoc={mapDoc[commandType][fileName].plan}
+      pMapDoc={mapDoc["force"][commandType][fileName].plan}
       pSFDXParameter="-p"
       pPlaceholder="Insert..."
       pButtonText="Select Plan File"
@@ -217,7 +217,7 @@
       this={CONFIGHELPs}
       bind:this={CONFIGHELPv}
       pSectionName="confighelp"
-      pMapDoc={mapDoc[commandType][fileName].confighelp}
+      pMapDoc={mapDoc["force"][commandType][fileName].confighelp}
       pSFDXParameter="--confighelp"
       pShowSectionName={false}
     />

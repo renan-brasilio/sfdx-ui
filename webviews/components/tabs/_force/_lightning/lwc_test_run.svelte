@@ -111,7 +111,7 @@
     <svelte:component
       this={JSONs}
       bind:this={JSONv}
-      pMapDoc={mapDoc[commandType][fileName].json}
+      pMapDoc={mapDoc["force"][commandType][fileName].json}
       pShowSectionName={false}
     />
 
@@ -120,7 +120,7 @@
       this={LOGLEVELs}
       bind:this={LOGLEVELv}
       pSectionName="loglevel"
-      pMapDoc={mapDoc[commandType][fileName].loglevel}
+      pMapDoc={mapDoc["force"][commandType][fileName].loglevel}
       pSFDXParameter="--loglevel"
       pList={gLists.lLOGLEVEL}
       pDefaultValue="warn"
@@ -131,7 +131,7 @@
       this={DEBUGs}
       bind:this={DEBUGv}
       pSectionName="debug"
-      pMapDoc={mapDoc[commandType][fileName].debug}
+      pMapDoc={mapDoc["force"][commandType][fileName].debug}
       pSFDXParameter="-d"
       pShowSectionName={false}
     />
@@ -141,7 +141,7 @@
       this={WATCHs}
       bind:this={WATCHv}
       pSectionName="watch"
-      pMapDoc={mapDoc[commandType][fileName].watch}
+      pMapDoc={mapDoc["force"][commandType][fileName].watch}
       pSFDXParameter="--watch"
       pShowSectionName={false}
     />

@@ -185,7 +185,7 @@
     <svelte:component
       this={JSONs}
       bind:this={JSONv}
-      pMapDoc={mapDoc[commandType][fileName].json}
+      pMapDoc={mapDoc["force"][commandType][fileName].json}
       pShowSectionName={false}
     />
 
@@ -194,7 +194,7 @@
       this={LOGLEVELs}
       bind:this={LOGLEVELv}
       pSectionName="loglevel"
-      pMapDoc={mapDoc[commandType][fileName].loglevel}
+      pMapDoc={mapDoc["force"][commandType][fileName].loglevel}
       pSFDXParameter="--loglevel"
       pList={gLists.lLOGLEVEL}
       pDefaultValue="warn"
@@ -205,7 +205,7 @@
       this={TARGETUSERNAMEs}
       bind:this={TARGETUSERNAMEv}
       pSectionName="targetusername"
-      pMapDoc={mapDoc[commandType][fileName].targetusername}
+      pMapDoc={mapDoc["force"][commandType][fileName].targetusername}
       pSFDXParameter="-u"
       pList={$lTARGETUSERNAME}
     />
@@ -215,7 +215,7 @@
       this={APIVERSIONs}
       bind:this={APIVERSIONv}
       pSectionName="apiversion"
-      pMapDoc={mapDoc[commandType][fileName].apiversion}
+      pMapDoc={mapDoc["force"][commandType][fileName].apiversion}
       pSFDXParameter="--apiversion"
       pList={lAPIVERSION}
       pDefaultValue={dAPIVERSION}
@@ -227,10 +227,10 @@
       bind:this={NAMEv}
       pSectionName="name"
       pRequired={true}
-      pMapDoc={mapDoc[commandType][fileName].name}
+      pMapDoc={mapDoc["force"][commandType][fileName].name}
       pSFDXParameter="-n"
       pSectionTitle="Community Name"
-      pTitle={mapDoc[commandType][fileName].name.title}
+      pTitle={mapDoc["force"][commandType][fileName].name.title}
       pPlaceholder="Insert..."
       pChecked={true}
       pDisabled={true}
@@ -241,10 +241,10 @@
       this={TEMPLATENAMEs}
       bind:this={TEMPLATENAMEv}
       pSectionName="templatename"
-      pMapDoc={mapDoc[commandType][fileName].templatename}
+      pMapDoc={mapDoc["force"][commandType][fileName].templatename}
       pSFDXParameter="-t"
       pSectionTitle="Template Name"
-      pTitle={mapDoc[commandType][fileName].templatename.title}
+      pTitle={mapDoc["force"][commandType][fileName].templatename.title}
       pPlaceholder="Insert..."
       pRequired={true}
       pChecked={true}
@@ -256,10 +256,10 @@
       this={URLPATHPREFIXs}
       bind:this={URLPATHPREFIXv}
       pSectionName="urlpathprefix"
-      pMapDoc={mapDoc[commandType][fileName].urlpathprefix}
+      pMapDoc={mapDoc["force"][commandType][fileName].urlpathprefix}
       pSFDXParameter="-p"
       pSectionTitle="URL Path Prefix"
-      pTitle={mapDoc[commandType][fileName].urlpathprefix.title}
+      pTitle={mapDoc["force"][commandType][fileName].urlpathprefix.title}
       pPlaceholder="Insert..."
       pRequired={true}
       pChecked={true}
@@ -271,10 +271,10 @@
       this={DESCRIPTIONs}
       bind:this={DESCRIPTIONv}
       pSectionName="description"
-      pMapDoc={mapDoc[commandType][fileName].description}
+      pMapDoc={mapDoc["force"][commandType][fileName].description}
       pSFDXParameter="-d"
       pSectionTitle="Description"
-      pTitle={mapDoc[commandType][fileName].description.title}
+      pTitle={mapDoc["force"][commandType][fileName].description.title}
       pPlaceholder="Insert..."
     />
 

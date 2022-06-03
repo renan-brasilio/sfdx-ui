@@ -188,7 +188,7 @@
     <svelte:component
       this={JSONs}
       bind:this={JSONv}
-      pMapDoc={mapDoc[commandType][fileName].json}
+      pMapDoc={mapDoc["force"][commandType][fileName].json}
       pShowSectionName={false}
     />
 
@@ -197,7 +197,7 @@
       this={LOGLEVELs}
       bind:this={LOGLEVELv}
       pSectionName="loglevel"
-      pMapDoc={mapDoc[commandType][fileName].loglevel}
+      pMapDoc={mapDoc["force"][commandType][fileName].loglevel}
       pSFDXParameter="--loglevel"
       pList={gLists.lLOGLEVEL}
       pDefaultValue="warn"
@@ -208,7 +208,7 @@
       this={TARGETDEVHUBUSERNAMEs}
       bind:this={TARGETDEVHUBUSERNAMEv}
       pSectionName="targetdevhubusername"
-      pMapDoc={mapDoc[commandType][fileName].targetdevhubusername}
+      pMapDoc={mapDoc["force"][commandType][fileName].targetdevhubusername}
       pSFDXParameter="-v"
       pList={$lTARGETUSERNAME}
     />
@@ -218,7 +218,7 @@
       this={APIVERSIONs}
       bind:this={APIVERSIONv}
       pSectionName="apiversion"
-      pMapDoc={mapDoc[commandType][fileName].apiversion}
+      pMapDoc={mapDoc["force"][commandType][fileName].apiversion}
       pSFDXParameter="--apiversion"
       pList={lAPIVERSION}
       pDefaultValue={dAPIVERSION}
@@ -229,7 +229,7 @@
       this={CREATEDLASTDAYSs}
       bind:this={CREATEDLASTDAYSv}
       pSectionName="createdlastdays"
-      pMapDoc={mapDoc[commandType][fileName].createdlastdays}
+      pMapDoc={mapDoc["force"][commandType][fileName].createdlastdays}
       pSFDXParameter="-c"
       pPlaceholder="Insert..."
     />
@@ -239,7 +239,7 @@
       this={CONCISEs}
       bind:this={CONCISEv}
       pSectionName="concise"
-      pMapDoc={mapDoc[commandType][fileName].concise}
+      pMapDoc={mapDoc["force"][commandType][fileName].concise}
       pSFDXParameter="--concise"
       pShowSectionName={false}
     />
@@ -249,7 +249,7 @@
       this={MODIFIEDLASTDAYSs}
       bind:this={MODIFIEDLASTDAYSv}
       pSectionName="modifiedlastdays"
-      pMapDoc={mapDoc[commandType][fileName].modifiedlastdays}
+      pMapDoc={mapDoc["force"][commandType][fileName].modifiedlastdays}
       pSFDXParameter="-m"
       pPlaceholder="Insert..."
     />
@@ -259,10 +259,10 @@
       this={PACKAGESs}
       bind:this={PACKAGESv}
       pSectionName="packages"
-      pMapDoc={mapDoc[commandType][fileName].packages}
+      pMapDoc={mapDoc["force"][commandType][fileName].packages}
       pSFDXParameter="-p"
       pSectionTitle="Package List"
-      pTitle={mapDoc[commandType][fileName].packages}
+      pTitle={mapDoc["force"][commandType][fileName].packages}
       pPlaceholder="Insert..."
     />
 
@@ -271,7 +271,7 @@
       this={RELEASEDs}
       bind:this={RELEASEDv}
       pSectionName="released"
-      pMapDoc={mapDoc[commandType][fileName].released}
+      pMapDoc={mapDoc["force"][commandType][fileName].released}
       pSFDXParameter="-r"
       pShowSectionName={false}
     />
@@ -281,10 +281,10 @@
       this={ORDERBYs}
       bind:this={ORDERBYv}
       pSectionName="orderby"
-      pMapDoc={mapDoc[commandType][fileName].orderby}
+      pMapDoc={mapDoc["force"][commandType][fileName].orderby}
       pSFDXParameter="-o"
       pSectionTitle="Order By"
-      pTitle={mapDoc[commandType][fileName].orderby}
+      pTitle={mapDoc["force"][commandType][fileName].orderby}
       pPlaceholder="Insert..."
     />
 
@@ -293,7 +293,7 @@
       this={VERBOSEs}
       bind:this={VERBOSEv}
       pSectionName="verbose"
-      pMapDoc={mapDoc[commandType][fileName].verbose}
+      pMapDoc={mapDoc["force"][commandType][fileName].verbose}
       pSFDXParameter="--verbose"
       pShowSectionName={false}
     />

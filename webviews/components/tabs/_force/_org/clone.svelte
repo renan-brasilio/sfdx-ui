@@ -170,7 +170,7 @@
     <svelte:component
       this={JSONs}
       bind:this={JSONv}
-      pMapDoc={mapDoc[commandType][fileName].json}
+      pMapDoc={mapDoc["force"][commandType][fileName].json}
       pShowSectionName={false}
     />
 
@@ -179,7 +179,7 @@
       this={LOGLEVELs}
       bind:this={LOGLEVELv}
       pSectionName="loglevel"
-      pMapDoc={mapDoc[commandType][fileName].loglevel}
+      pMapDoc={mapDoc["force"][commandType][fileName].loglevel}
       pSFDXParameter="--loglevel"
       pList={gLists.lLOGLEVEL}
       pDefaultValue="warn"
@@ -190,7 +190,7 @@
       this={TARGETUSERNAMEs}
       bind:this={TARGETUSERNAMEv}
       pSectionName="targetusername"
-      pMapDoc={mapDoc[commandType][fileName].targetusername}
+      pMapDoc={mapDoc["force"][commandType][fileName].targetusername}
       pSFDXParameter="-u"
       pList={$lTARGETUSERNAME}
     />
@@ -200,7 +200,7 @@
       this={APIVERSIONs}
       bind:this={APIVERSIONv}
       pSectionName="apiversion"
-      pMapDoc={mapDoc[commandType][fileName].apiversion}
+      pMapDoc={mapDoc["force"][commandType][fileName].apiversion}
       pSFDXParameter="--apiversion"
       pList={lAPIVERSION}
       pDefaultValue={dAPIVERSION}
@@ -211,7 +211,7 @@
       this={TYPEs}
       bind:this={TYPEv}
       pSectionName="type"
-      pMapDoc={mapDoc[commandType][fileName].type}
+      pMapDoc={mapDoc["force"][commandType][fileName].type}
       pSFDXParameter="-t"
       pList={gLists.lTYPE[commandType][fileName]}
       pDefaultValue="sandbox"
@@ -225,7 +225,7 @@
       this={DEFINITIONFILEs}
       bind:this={DEFINITIONFILEv}
       pSectionName="definitionfile"
-      pMapDoc={mapDoc[commandType][fileName].definitionfile}
+      pMapDoc={mapDoc["force"][commandType][fileName].definitionfile}
       pSFDXParameter="-f"
     />
 
@@ -234,7 +234,7 @@
       this={SETDEFAULTUSERNAMEs}
       bind:this={SETDEFAULTUSERNAMEv}
       pSectionName="setdefaultusername"
-      pMapDoc={mapDoc[commandType][fileName].setdefaultusername}
+      pMapDoc={mapDoc["force"][commandType][fileName].setdefaultusername}
       pSFDXParameter="-s"
     />
 
@@ -243,10 +243,10 @@
       this={SETALIASs}
       bind:this={SETALIASv}
       pSectionName="setalias"
-      pMapDoc={mapDoc[commandType][fileName].setalias}
+      pMapDoc={mapDoc["force"][commandType][fileName].setalias}
       pSFDXParameter="-a"
       pSectionTitle="Set Alias"
-      pTitle={mapDoc[commandType][fileName].setalias.title}
+      pTitle={mapDoc["force"][commandType][fileName].setalias.title}
       pPlaceholder="Insert..."
     />
 
@@ -255,7 +255,7 @@
       this={WAITs}
       bind:this={WAITv}
       pSectionName="wait"
-      pMapDoc={mapDoc[commandType][fileName].wait}
+      pMapDoc={mapDoc["force"][commandType][fileName].wait}
       pSFDXParameter="-w"
       pDefaultValue="6"
     />

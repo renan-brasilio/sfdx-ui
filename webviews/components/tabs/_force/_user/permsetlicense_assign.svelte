@@ -157,7 +157,7 @@
     <svelte:component
       this={JSONs}
       bind:this={JSONv}
-      pMapDoc={mapDoc[commandType][fileName].json}
+      pMapDoc={mapDoc["force"][commandType][fileName].json}
       pShowSectionName={false}
     />
 
@@ -166,7 +166,7 @@
       this={LOGLEVELs}
       bind:this={LOGLEVELv}
       pSectionName="loglevel"
-      pMapDoc={mapDoc[commandType][fileName].loglevel}
+      pMapDoc={mapDoc["force"][commandType][fileName].loglevel}
       pSFDXParameter="--loglevel"
       pList={gLists.lLOGLEVEL}
       pDefaultValue="warn"
@@ -177,7 +177,7 @@
       this={TARGETUSERNAMEs}
       bind:this={TARGETUSERNAMEv}
       pSectionName="targetusername"
-      pMapDoc={mapDoc[commandType][fileName].targetusername}
+      pMapDoc={mapDoc["force"][commandType][fileName].targetusername}
       pSFDXParameter="-u"
       pList={$lTARGETUSERNAME}
     />
@@ -187,7 +187,7 @@
       this={APIVERSIONs}
       bind:this={APIVERSIONv}
       pSectionName="apiversion"
-      pMapDoc={mapDoc[commandType][fileName].apiversion}
+      pMapDoc={mapDoc["force"][commandType][fileName].apiversion}
       pSFDXParameter="--apiversion"
       pList={lAPIVERSION}
       pDefaultValue={dAPIVERSION}
@@ -199,10 +199,10 @@
       bind:this={NAMEv}
       pSectionName="name"
       pRequired={true}
-      pMapDoc={mapDoc[commandType][fileName].name}
+      pMapDoc={mapDoc["force"][commandType][fileName].name}
       pSFDXParameter="-n"
       pSectionTitle="Name"
-      pTitle={mapDoc[commandType][fileName].name}
+      pTitle={mapDoc["force"][commandType][fileName].name}
       pPlaceholder="Insert..."
       pChecked={true}
       pDisabled={true}
@@ -213,10 +213,10 @@
       this={ONBEHALFOFs}
       bind:this={ONBEHALFOFv}
       pSectionName="onbehalfof"
-      pMapDoc={mapDoc[commandType][fileName].onbehalfof}
+      pMapDoc={mapDoc["force"][commandType][fileName].onbehalfof}
       pSFDXParameter="-o"
       pSectionTitle="On Behalf Of"
-      pTitle={mapDoc[commandType][fileName].onbehalfof}
+      pTitle={mapDoc["force"][commandType][fileName].onbehalfof}
       pPlaceholder="Insert..."
     />
 

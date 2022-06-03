@@ -148,7 +148,7 @@
     <svelte:component
       this={JSONs}
       bind:this={JSONv}
-      pMapDoc={mapDoc[commandType][fileName].json}
+      pMapDoc={mapDoc["force"][commandType][fileName].json}
       pShowSectionName={false}
     />
 
@@ -157,7 +157,7 @@
       this={LOGLEVELs}
       bind:this={LOGLEVELv}
       pSectionName="loglevel"
-      pMapDoc={mapDoc[commandType][fileName].loglevel}
+      pMapDoc={mapDoc["force"][commandType][fileName].loglevel}
       pSFDXParameter="--loglevel"
       pList={gLists.lLOGLEVEL}
       pDefaultValue="warn"
@@ -168,10 +168,10 @@
       this={TARGETDEVHUBUSERNAMEs}
       bind:this={TARGETDEVHUBUSERNAMEv}
       pSectionName="targetdevhubusername"
-      pMapDoc={mapDoc[commandType][fileName].targetdevhubusername}
+      pMapDoc={mapDoc["force"][commandType][fileName].targetdevhubusername}
       pSFDXParameter="-v"
       pSectionTitle="Target Devhub Username"
-      pTitle={mapDoc[commandType][fileName].targetdevhubusername}
+      pTitle={mapDoc["force"][commandType][fileName].targetdevhubusername}
       pPlaceholder="Insert..."
     />
 
@@ -180,7 +180,7 @@
       this={TARGETUSERNAMEs}
       bind:this={TARGETUSERNAMEv}
       pSectionName="targetusername"
-      pMapDoc={mapDoc[commandType][fileName].targetusername}
+      pMapDoc={mapDoc["force"][commandType][fileName].targetusername}
       pSFDXParameter="-u"
       pList={$lTARGETUSERNAME}
     />
@@ -190,7 +190,7 @@
       this={APIVERSIONs}
       bind:this={APIVERSIONv}
       pSectionName="apiversion"
-      pMapDoc={mapDoc[commandType][fileName].apiversion}
+      pMapDoc={mapDoc["force"][commandType][fileName].apiversion}
       pSFDXParameter="--apiversion"
       pList={lAPIVERSION}
       pDefaultValue={dAPIVERSION}
@@ -201,10 +201,10 @@
       this={ONBEHALFOFs}
       bind:this={ONBEHALFOFv}
       pSectionName="onbehalfof"
-      pMapDoc={mapDoc[commandType][fileName].onbehalfof}
+      pMapDoc={mapDoc["force"][commandType][fileName].onbehalfof}
       pSFDXParameter="-o"
       pSectionTitle="On Behalf Of"
-      pTitle={mapDoc[commandType][fileName].onbehalfof}
+      pTitle={mapDoc["force"][commandType][fileName].onbehalfof}
       pPlaceholder="Insert..."
     />
 
@@ -213,7 +213,7 @@
       this={LENGTHs}
       bind:this={LENGTHv}
       pSectionName="length"
-      pMapDoc={mapDoc[commandType][fileName].length}
+      pMapDoc={mapDoc["force"][commandType][fileName].length}
       pSFDXParameter="-l"
       pPlaceholder="Insert..."
       pDefaultValue="13"
@@ -224,7 +224,7 @@
       this={COMPLEXITYs}
       bind:this={COMPLEXITYv}
       pSectionName="complexity"
-      pMapDoc={mapDoc[commandType][fileName].complexity}
+      pMapDoc={mapDoc["force"][commandType][fileName].complexity}
       pSFDXParameter="-c"
       pPlaceholder="Insert..."
       pDefaultValue="5"

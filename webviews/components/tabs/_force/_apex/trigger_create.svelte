@@ -158,8 +158,8 @@
   console.log(`commandType: ${commandType}`);
   console.log(`fileName: ${fileName}`);
   console.log(
-    `mapDoc[commandType][fileName]: ${JSON.stringify(
-      mapDoc[commandType][fileName]
+    `mapDoc["force"][commandType][fileName]: ${JSON.stringify(
+      mapDoc["force"][commandType][fileName]
     )}`
   );
 </script>
@@ -190,7 +190,7 @@
     <svelte:component
       this={JSONs}
       bind:this={JSONv}
-      pMapDoc={mapDoc[commandType][fileName].json}
+      pMapDoc={mapDoc["force"][commandType][fileName].json}
       pShowSectionName={false}
     />
 
@@ -199,7 +199,7 @@
       this={LOGLEVELs}
       bind:this={LOGLEVELv}
       pSectionName="loglevel"
-      pMapDoc={mapDoc[commandType][fileName].loglevel}
+      pMapDoc={mapDoc["force"][commandType][fileName].loglevel}
       pSFDXParameter="--loglevel"
       pList={gLists.lLOGLEVEL}
       pDefaultValue="warn"
@@ -211,10 +211,10 @@
       bind:this={TRIGGERNAMEv}
       pSectionName="triggername"
       pRequired={true}
-      pMapDoc={mapDoc[commandType][fileName].triggername}
+      pMapDoc={mapDoc["force"][commandType][fileName].triggername}
       pSFDXParameter="-n"
       pSectionTitle="Apex Trigger Name"
-      pTitle={mapDoc[commandType][fileName].triggername.title}
+      pTitle={mapDoc["force"][commandType][fileName].triggername.title}
       pPlaceholder="Insert..."
       pMaxLength={40}
       pChecked={true}
@@ -226,7 +226,7 @@
       this={TEMPLATEs}
       bind:this={TEMPLATEv}
       pSectionName="template"
-      pMapDoc={mapDoc[commandType][fileName].template}
+      pMapDoc={mapDoc["force"][commandType][fileName].template}
       pSFDXParameter="-t"
       pList={lTEMPLATE}
       pDefaultValue="ApexTrigger"
@@ -237,7 +237,7 @@
       this={OUTPUTDIRs}
       bind:this={OUTPUTDIRv}
       pSectionName="outputdir"
-      pMapDoc={mapDoc[commandType][fileName].outputdir}
+      pMapDoc={mapDoc["force"][commandType][fileName].outputdir}
       pSFDXParameter="-d"
       pDefaultFolder="."
     />
@@ -247,7 +247,7 @@
       this={APIVERSIONs}
       bind:this={APIVERSIONv}
       pSectionName="apiversion"
-      pMapDoc={mapDoc[commandType][fileName].apiversion}
+      pMapDoc={mapDoc["force"][commandType][fileName].apiversion}
       pSFDXParameter="--apiversion"
       pList={lAPIVERSION}
       pDefaultValue={dAPIVERSION}
@@ -258,10 +258,10 @@
       this={SOBJECTs}
       bind:this={SOBJECTv}
       pSectionName="sobject"
-      pMapDoc={mapDoc[commandType][fileName].sobject}
+      pMapDoc={mapDoc["force"][commandType][fileName].sobject}
       pSFDXParameter="-s"
       pSectionTitle="SObject API Name"
-      pTitle={mapDoc[commandType][fileName].sobject.title}
+      pTitle={mapDoc["force"][commandType][fileName].sobject.title}
       pPlaceholder="SObject"
       pMaxLength={40}
       pDefaultValue="SObject"
@@ -272,7 +272,7 @@
       this={TRIGGEREVENTSs}
       bind:this={TRIGGEREVENTSv}
       pSectionName="triggerevents"
-      pMapDoc={mapDoc[commandType][fileName].triggerevents}
+      pMapDoc={mapDoc["force"][commandType][fileName].triggerevents}
       pSFDXParameter="-e"
       pList={gLists.lTRIGGEREVENTS}
       pIsMulti={true}

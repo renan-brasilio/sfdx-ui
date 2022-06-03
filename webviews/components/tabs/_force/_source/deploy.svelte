@@ -213,7 +213,7 @@
         <svelte:component 
             this="{JSONs}" 
             bind:this="{JSONv}" 
-            pMapDoc={mapDoc[commandType][fileName].json}
+            pMapDoc={mapDoc["force"][commandType][fileName].json}
             pShowSectionName={false}
         />
 
@@ -222,7 +222,7 @@
             this="{LOGLEVELs}" 
             bind:this="{LOGLEVELv}" 
             pSectionName="loglevel"
-            pMapDoc={mapDoc[commandType][fileName].loglevel} 
+            pMapDoc={mapDoc["force"][commandType][fileName].loglevel} 
             pSFDXParameter="--loglevel"
             pList={gLists.lLOGLEVEL}
             pDefaultValue="warn"
@@ -233,7 +233,7 @@
             this="{TARGETUSERNAMEs}" 
             bind:this="{TARGETUSERNAMEv}" 
             pSectionName="targetusername"
-            pMapDoc={mapDoc[commandType][fileName].targetusername} 
+            pMapDoc={mapDoc["force"][commandType][fileName].targetusername} 
             pSFDXParameter="-u"
             pList={$lTARGETUSERNAME}
         />
@@ -243,7 +243,7 @@
             this="{APIVERSIONs}" 
             bind:this="{APIVERSIONv}" 
             pSectionName="apiversion"
-            pMapDoc={mapDoc[commandType][fileName].apiversion} 
+            pMapDoc={mapDoc["force"][commandType][fileName].apiversion} 
             pSFDXParameter="--apiversion"
             pList={lAPIVERSION}
             pDefaultValue={dAPIVERSION}
@@ -254,7 +254,7 @@
             this="{CHECKONLYs}" 
             bind:this="{CHECKONLYv}"
             pSectionName="checkonly"
-            pMapDoc={mapDoc[commandType][fileName].checkonly} 
+            pMapDoc={mapDoc["force"][commandType][fileName].checkonly} 
             pSFDXParameter="-c"
             pShowSectionName={false} 
         />
@@ -264,7 +264,7 @@
             this="{SOAPDEPLOYs}" 
             bind:this="{SOAPDEPLOYv}"
             pSectionName="soapdeploy"
-            pMapDoc={mapDoc[commandType][fileName].soapdeploy} 
+            pMapDoc={mapDoc["force"][commandType][fileName].soapdeploy} 
             pSFDXParameter="--soapdeploy"
             pShowSectionName={false} 
         />
@@ -274,7 +274,7 @@
             this="{WAITs}" 
             bind:this="{WAITv}" 
             pSectionName="wait"
-            pMapDoc={mapDoc[commandType][fileName].wait} 
+            pMapDoc={mapDoc["force"][commandType][fileName].wait} 
             pSFDXParameter="-w"
             pDefaultValue="-1"
         />
@@ -284,7 +284,7 @@
             this="{TESTLEVELs}" 
             bind:this="{TESTLEVELv}" 
             pSectionName="testlevel"
-            pMapDoc={mapDoc[commandType][fileName].testlevel} 
+            pMapDoc={mapDoc["force"][commandType][fileName].testlevel} 
             pSFDXParameter="-l"
             pList={gLists.lTESTLEVEL[commandType][fileName]}
         />
@@ -295,10 +295,10 @@
                 this="{RUNTESTSs}" 
                 bind:this="{RUNTESTSv}" 
                 pSectionName="runtests"
-                pMapDoc={mapDoc[commandType][fileName].runtests}
+                pMapDoc={mapDoc["force"][commandType][fileName].runtests}
                 pSFDXParameter="-r"
                 pSectionTitle="Run Tests"
-                pTitle={mapDoc[commandType][fileName].runtests.title}
+                pTitle={mapDoc["force"][commandType][fileName].runtests.title}
                 pPlaceholder="Insert..."
                 pChecked={true}
                 pRequired={true}
@@ -311,7 +311,7 @@
             this="{IGNOREERRORSs}" 
             bind:this="{IGNOREERRORSv}"
             pSectionName="ignoreerrors"
-            pMapDoc={mapDoc[commandType][fileName].ignoreerrors} 
+            pMapDoc={mapDoc["force"][commandType][fileName].ignoreerrors} 
             pSFDXParameter="-o"
             pShowSectionName={false} 
         />
@@ -321,7 +321,7 @@
             this="{IGNOREWARNINGSs}" 
             bind:this="{IGNOREWARNINGSv}"
             pSectionName="ignorewarnings"
-            pMapDoc={mapDoc[commandType][fileName].ignorewarnings} 
+            pMapDoc={mapDoc["force"][commandType][fileName].ignorewarnings} 
             pSFDXParameter="-g"
             pShowSectionName={false} 
         />
@@ -331,10 +331,10 @@
             this="{VALIDATEDDEPLOYREQUESTIDs}" 
             bind:this="{VALIDATEDDEPLOYREQUESTIDv}" 
             pSectionName="validateddeployrequestid"
-            pMapDoc={mapDoc[commandType][fileName].validateddeployrequestid}
+            pMapDoc={mapDoc["force"][commandType][fileName].validateddeployrequestid}
             pSFDXParameter="-q"
             pSectionTitle="Validated Deploy Request Id"
-            pTitle={mapDoc[commandType][fileName].validateddeployrequestid.title}
+            pTitle={mapDoc["force"][commandType][fileName].validateddeployrequestid.title}
             pPlaceholder="Insert..."
         />
 
@@ -343,7 +343,7 @@
             this="{VERBOSEs}" 
             bind:this="{VERBOSEv}"
             pSectionName="verbose"
-            pMapDoc={mapDoc[commandType][fileName].verbose} 
+            pMapDoc={mapDoc["force"][commandType][fileName].verbose} 
             pSFDXParameter="--verbose"
             pShowSectionName={false} 
         />
@@ -353,10 +353,10 @@
             this="{METADATAs}" 
             bind:this="{METADATAv}" 
             pSectionName="metadata"
-            pMapDoc={mapDoc[commandType][fileName].metadata}
+            pMapDoc={mapDoc["force"][commandType][fileName].metadata}
             pSFDXParameter="-m"
             pSectionTitle="Metadata List"
-            pTitle={mapDoc[commandType][fileName].metadata.title}
+            pTitle={mapDoc["force"][commandType][fileName].metadata.title}
             pPlaceholder="Insert..."
             pOnlyOneError={pOnlyOneError}
         />
@@ -366,10 +366,10 @@
             this="{SOURCEPATHs}" 
             bind:this="{SOURCEPATHv}" 
             pSectionName="sourcepath"
-            pMapDoc={mapDoc[commandType][fileName].sourcepath}
+            pMapDoc={mapDoc["force"][commandType][fileName].sourcepath}
             pSFDXParameter="-p"
             pSectionTitle="Source Path List"
-            pTitle={mapDoc[commandType][fileName].sourcepath.title}
+            pTitle={mapDoc["force"][commandType][fileName].sourcepath.title}
             pPlaceholder="Insert..."
             pOnlyOneError={pOnlyOneError}
         />
@@ -379,7 +379,7 @@
             this="{MANIFESTs}" 
             bind:this="{MANIFESTv}" 
             pSectionName="manifest"
-            pMapDoc={mapDoc[commandType][fileName].manifest} 
+            pMapDoc={mapDoc["force"][commandType][fileName].manifest} 
             pSFDXParameter="-x"
             pPlaceholder="Insert..."
             pButtonText="Select Manifest File"
@@ -391,7 +391,7 @@
             this="{PREDESTRUCTIVECHANGESs}" 
             bind:this="{PREDESTRUCTIVECHANGESv}" 
             pSectionName="predestructivechanges"
-            pMapDoc={mapDoc[commandType][fileName].predestructivechanges} 
+            pMapDoc={mapDoc["force"][commandType][fileName].predestructivechanges} 
             pSFDXParameter="--predestructivechanges"
             pPlaceholder="Insert..."
             pButtonText="Select Pre-Destructive Changes File"
@@ -403,7 +403,7 @@
             this="{POSTDESTRUCTIVECHANGESs}" 
             bind:this="{POSTDESTRUCTIVECHANGESv}" 
             pSectionName="postdestructivechanges"
-            pMapDoc={mapDoc[commandType][fileName].postdestructivechanges} 
+            pMapDoc={mapDoc["force"][commandType][fileName].postdestructivechanges} 
             pSFDXParameter="--postdestructivechanges"
             pPlaceholder="Insert..."
             pButtonText="Select Post-Destructive Changes File"

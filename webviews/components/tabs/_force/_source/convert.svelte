@@ -145,7 +145,7 @@
         <svelte:component 
             this="{JSONs}" 
             bind:this="{JSONv}" 
-            pMapDoc={mapDoc[commandType][fileName].json}
+            pMapDoc={mapDoc["force"][commandType][fileName].json}
             pShowSectionName={false}
         />
 
@@ -154,7 +154,7 @@
             this="{LOGLEVELs}" 
             bind:this="{LOGLEVELv}" 
             pSectionName="loglevel"
-            pMapDoc={mapDoc[commandType][fileName].loglevel} 
+            pMapDoc={mapDoc["force"][commandType][fileName].loglevel} 
             pSFDXParameter="--loglevel"
             pList={gLists.lLOGLEVEL}
             pDefaultValue="warn"
@@ -165,7 +165,7 @@
             this="{ROOTDIRs}" 
             bind:this="{ROOTDIRv}" 
             pSectionName="rootdir"
-            pMapDoc={mapDoc[commandType][fileName].rootdir} 
+            pMapDoc={mapDoc["force"][commandType][fileName].rootdir} 
             pSFDXParameter="-r"
             pRequired={true}
             pChecked={true}
@@ -177,7 +177,7 @@
             this="{OUTPUTDIRs}" 
             bind:this="{OUTPUTDIRv}" 
             pSectionName="outputdir"
-            pMapDoc={mapDoc[commandType][fileName].outputdir} 
+            pMapDoc={mapDoc["force"][commandType][fileName].outputdir} 
             pSFDXParameter="-d"
             pDefaultFolder="metadataPackage_1638492694112"
         />
@@ -187,10 +187,10 @@
             this="{PACKAGENAMEs}" 
             bind:this="{PACKAGENAMEv}" 
             pSectionName="packagename"
-            pMapDoc={mapDoc[commandType][fileName].packagename}
+            pMapDoc={mapDoc["force"][commandType][fileName].packagename}
             pSFDXParameter="-n"
             pSectionTitle="Package Name"
-            pTitle={mapDoc[commandType][fileName].packagename}
+            pTitle={mapDoc["force"][commandType][fileName].packagename}
             pPlaceholder="Insert..."
         />
 
@@ -199,7 +199,7 @@
             this="{MANIFESTs}" 
             bind:this="{MANIFESTv}" 
             pSectionName="manifest"
-            pMapDoc={mapDoc[commandType][fileName].manifest} 
+            pMapDoc={mapDoc["force"][commandType][fileName].manifest} 
             pSFDXParameter="-x"
             pPlaceholder="Insert..."
             pButtonText="Select Manifest File"
@@ -211,10 +211,10 @@
             this="{SOURCEPATHs}" 
             bind:this="{SOURCEPATHv}" 
             pSectionName="sourcepath"
-            pMapDoc={mapDoc[commandType][fileName].sourcepath}
+            pMapDoc={mapDoc["force"][commandType][fileName].sourcepath}
             pSFDXParameter="-p"
             pSectionTitle="Source Path List"
-            pTitle={mapDoc[commandType][fileName].sourcepath.title}
+            pTitle={mapDoc["force"][commandType][fileName].sourcepath.title}
             pPlaceholder="Insert..."
             pOnlyOneError={pOnlyOneError}
         />
@@ -224,10 +224,10 @@
             this="{METADATAs}" 
             bind:this="{METADATAv}" 
             pSectionName="metadata"
-            pMapDoc={mapDoc[commandType][fileName].metadata}
+            pMapDoc={mapDoc["force"][commandType][fileName].metadata}
             pSFDXParameter="-m"
             pSectionTitle="Metadata List"
-            pTitle={mapDoc[commandType][fileName].metadata.title}
+            pTitle={mapDoc["force"][commandType][fileName].metadata.title}
             pPlaceholder="Insert..."
             pOnlyOneError={pOnlyOneError}
         />

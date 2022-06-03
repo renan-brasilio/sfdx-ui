@@ -193,7 +193,7 @@
     <svelte:component
       this={JSONs}
       bind:this={JSONv}
-      pMapDoc={mapDoc[commandType][fileName].json}
+      pMapDoc={mapDoc["force"][commandType][fileName].json}
       pShowSectionName={false}
     />
 
@@ -202,7 +202,7 @@
       this={LOGLEVELs}
       bind:this={LOGLEVELv}
       pSectionName="loglevel"
-      pMapDoc={mapDoc[commandType][fileName].loglevel}
+      pMapDoc={mapDoc["force"][commandType][fileName].loglevel}
       pSFDXParameter="--loglevel"
       pList={gLists.lLOGLEVEL}
       pDefaultValue="warn"
@@ -214,10 +214,10 @@
       bind:this={PROJECTNAMEv}
       pSectionName="projectname"
       pRequired={true}
-      pMapDoc={mapDoc[commandType][fileName].projectname}
+      pMapDoc={mapDoc["force"][commandType][fileName].projectname}
       pSFDXParameter="-n"
       pSectionTitle="Package Name"
-      pTitle={mapDoc[commandType][fileName].projectname}
+      pTitle={mapDoc["force"][commandType][fileName].projectname}
       pPlaceholder="Insert..."
       pChecked={true}
       pDisabled={true}
@@ -228,7 +228,7 @@
       this={TEMPLATEs}
       bind:this={TEMPLATEv}
       pSectionName="template"
-      pMapDoc={mapDoc[commandType][fileName].template}
+      pMapDoc={mapDoc["force"][commandType][fileName].template}
       pSFDXParameter="-t"
       pList={gLists.lTemplate.project.create}
       pDefaultValue="standard"
@@ -239,7 +239,7 @@
       this={OUTPUTDIRs}
       bind:this={OUTPUTDIRv}
       pSectionName="outputdir"
-      pMapDoc={mapDoc[commandType][fileName].outputdir}
+      pMapDoc={mapDoc["force"][commandType][fileName].outputdir}
       pSFDXParameter="-d"
       pDefaultFolder="."
     />
@@ -249,10 +249,10 @@
       this={NAMESPACEs}
       bind:this={NAMESPACEv}
       pSectionName="namespace"
-      pMapDoc={mapDoc[commandType][fileName].namespace}
+      pMapDoc={mapDoc["force"][commandType][fileName].namespace}
       pSFDXParameter="-s"
       pSectionTitle="Name Space"
-      pTitle={mapDoc[commandType][fileName].namespace}
+      pTitle={mapDoc["force"][commandType][fileName].namespace}
       pPlaceholder="Insert..."
     />
 
@@ -261,7 +261,7 @@
       this={DEFAULTPACKAGEDIRs}
       bind:this={DEFAULTPACKAGEDIRv}
       pSectionName="defaultpackagedir"
-      pMapDoc={mapDoc[commandType][fileName].defaultpackagedir}
+      pMapDoc={mapDoc["force"][commandType][fileName].defaultpackagedir}
       pSFDXParameter="-p"
       pDefaultFolder="force-app"
     />
@@ -271,7 +271,7 @@
       this={MANIFESTs}
       bind:this={MANIFESTv}
       pSectionName="manifest"
-      pMapDoc={mapDoc[commandType][fileName].manifest}
+      pMapDoc={mapDoc["force"][commandType][fileName].manifest}
       pSFDXParameter="-x"
       pShowSectionName={false}
     />

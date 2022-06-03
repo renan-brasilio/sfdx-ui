@@ -189,7 +189,7 @@
         <svelte:component 
             this="{JSONs}" 
             bind:this="{JSONv}" 
-            pMapDoc={mapDoc[commandType][fileName].json}
+            pMapDoc={mapDoc["force"][commandType][fileName].json}
             pShowSectionName={false}
         />
 
@@ -198,7 +198,7 @@
             this="{LOGLEVELs}" 
             bind:this="{LOGLEVELv}" 
             pSectionName="loglevel"
-            pMapDoc={mapDoc[commandType][fileName].loglevel} 
+            pMapDoc={mapDoc["force"][commandType][fileName].loglevel} 
             pSFDXParameter="--loglevel"
             pList={gLists.lLOGLEVEL}
             pDefaultValue="warn"
@@ -209,7 +209,7 @@
             this="{TARGETUSERNAMEs}" 
             bind:this="{TARGETUSERNAMEv}" 
             pSectionName="targetusername"
-            pMapDoc={mapDoc[commandType][fileName].targetusername} 
+            pMapDoc={mapDoc["force"][commandType][fileName].targetusername} 
             pSFDXParameter="-u"
             pList={$lTARGETUSERNAME}
         />
@@ -219,7 +219,7 @@
             this="{APIVERSIONs}" 
             bind:this="{APIVERSIONv}" 
             pSectionName="apiversion"
-            pMapDoc={mapDoc[commandType][fileName].apiversion} 
+            pMapDoc={mapDoc["force"][commandType][fileName].apiversion} 
             pSFDXParameter="--apiversion"
             pList={lAPIVERSION}
             pDefaultValue={dAPIVERSION}
@@ -230,7 +230,7 @@
             this="{SOURCEFILEs}" 
             bind:this="{SOURCEFILEv}" 
             pSectionName="sourcefile"
-            pMapDoc={mapDoc[commandType][fileName].sourcefile} 
+            pMapDoc={mapDoc["force"][commandType][fileName].sourcefile} 
             pSFDXParameter="-f"
             pPlaceholder="Insert..."
             pButtonText="Select Source File"
@@ -244,7 +244,7 @@
             this="{URLONLYs}" 
             bind:this="{URLONLYv}"
             pSectionName="urlonly"
-            pMapDoc={mapDoc[commandType][fileName].urlonly} 
+            pMapDoc={mapDoc["force"][commandType][fileName].urlonly} 
             pSFDXParameter="-r"
             pShowSectionName={false} 
         />

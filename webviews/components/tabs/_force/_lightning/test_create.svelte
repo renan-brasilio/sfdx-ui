@@ -143,7 +143,7 @@
     <svelte:component
       this={JSONs}
       bind:this={JSONv}
-      pMapDoc={mapDoc[commandType][fileName].json}
+      pMapDoc={mapDoc["force"][commandType][fileName].json}
       pShowSectionName={false}
     />
 
@@ -152,7 +152,7 @@
       this={LOGLEVELs}
       bind:this={LOGLEVELv}
       pSectionName="loglevel"
-      pMapDoc={mapDoc[commandType][fileName].loglevel}
+      pMapDoc={mapDoc["force"][commandType][fileName].loglevel}
       pSFDXParameter="--loglevel"
       pList={gLists.lLOGLEVEL}
       pDefaultValue="warn"
@@ -164,10 +164,10 @@
       bind:this={TESTNAMEv}
       pSectionName="testname"
       pRequired={true}
-      pMapDoc={mapDoc[commandType][fileName].testname}
+      pMapDoc={mapDoc["force"][commandType][fileName].testname}
       pSFDXParameter="-n"
       pSectionTitle="Test Name"
-      pTitle={mapDoc[commandType][fileName].testname}
+      pTitle={mapDoc["force"][commandType][fileName].testname}
       pPlaceholder="Insert..."
       pMaxLength={40}
       pChecked={true}
@@ -179,7 +179,7 @@
       this={TEMPLATEs}
       bind:this={TEMPLATEv}
       pSectionName="template"
-      pMapDoc={mapDoc[commandType][fileName].template}
+      pMapDoc={mapDoc["force"][commandType][fileName].template}
       pSFDXParameter="-t"
       pList={gLists.lTemplate.lightning.test_create}
       pDefaultValue="DefaultLightningTest"
@@ -190,7 +190,7 @@
       this={OUTPUTDIRs}
       bind:this={OUTPUTDIRv}
       pSectionName="outputdir"
-      pMapDoc={mapDoc[commandType][fileName].outputdir}
+      pMapDoc={mapDoc["force"][commandType][fileName].outputdir}
       pSFDXParameter="-d"
       pDefaultFolder="."
     />

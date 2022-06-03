@@ -143,7 +143,7 @@
         <svelte:component 
             this="{JSONs}" 
             bind:this="{JSONv}" 
-            pMapDoc={mapDoc[commandType][fileName].json}
+            pMapDoc={mapDoc["force"][commandType][fileName].json}
             pShowSectionName={false}
         />
 
@@ -152,7 +152,7 @@
             this="{LOGLEVELs}" 
             bind:this="{LOGLEVELv}" 
             pSectionName="loglevel"
-            pMapDoc={mapDoc[commandType][fileName].loglevel} 
+            pMapDoc={mapDoc["force"][commandType][fileName].loglevel} 
             pSFDXParameter="--loglevel"
             pList={gLists.lLOGLEVEL}
             pDefaultValue="warn"
@@ -163,7 +163,7 @@
             this="{APIVERSIONs}" 
             bind:this="{APIVERSIONv}" 
             pSectionName="apiversion"
-            pMapDoc={mapDoc[commandType][fileName].apiversion} 
+            pMapDoc={mapDoc["force"][commandType][fileName].apiversion} 
             pSFDXParameter="--apiversion"
             pList={lAPIVERSION}
             pDefaultValue={dAPIVERSION}
@@ -174,10 +174,10 @@
             this="{METADATAs}" 
             bind:this="{METADATAv}" 
             pSectionName="metadata"
-            pMapDoc={mapDoc[commandType][fileName].metadata}
+            pMapDoc={mapDoc["force"][commandType][fileName].metadata}
             pSFDXParameter="-m"
             pSectionTitle="Metadata List"
-            pTitle={mapDoc[commandType][fileName].metadata.title}
+            pTitle={mapDoc["force"][commandType][fileName].metadata.title}
             pPlaceholder="Insert..."
         />
 
@@ -186,10 +186,10 @@
             this="{SOURCEPATHs}" 
             bind:this="{SOURCEPATHv}" 
             pSectionName="sourcepath"
-            pMapDoc={mapDoc[commandType][fileName].sourcepath}
+            pMapDoc={mapDoc["force"][commandType][fileName].sourcepath}
             pSFDXParameter="-p"
             pSectionTitle="Source Path List"
-            pTitle={mapDoc[commandType][fileName].sourcepath.title}
+            pTitle={mapDoc["force"][commandType][fileName].sourcepath.title}
             pPlaceholder="Insert..."
         />
 
@@ -198,10 +198,10 @@
             this="{MANIFESTNAMEs}" 
             bind:this="{MANIFESTNAMEv}" 
             pSectionName="manifestname"
-            pMapDoc={mapDoc[commandType][fileName].manifestname}
+            pMapDoc={mapDoc["force"][commandType][fileName].manifestname}
             pSFDXParameter="-n"
             pSectionTitle="Manifest Name"
-            pTitle={mapDoc[commandType][fileName].manifestname}
+            pTitle={mapDoc["force"][commandType][fileName].manifestname}
             pPlaceholder="Insert..."
         />
 
@@ -210,7 +210,7 @@
             this="{MANIFESTTYPEs}" 
             bind:this="{MANIFESTTYPEv}" 
             pSectionName="manifesttype"
-            pMapDoc={mapDoc[commandType][fileName].manifesttype} 
+            pMapDoc={mapDoc["force"][commandType][fileName].manifesttype} 
             pSFDXParameter="-t"
             pList={gLists.lMANIFESTTYPE}
         />
@@ -220,7 +220,7 @@
             this="{OUTPUTDIRs}" 
             bind:this="{OUTPUTDIRv}" 
             pSectionName="outputdir"
-            pMapDoc={mapDoc[commandType][fileName].outputdir} 
+            pMapDoc={mapDoc["force"][commandType][fileName].outputdir} 
             pSFDXParameter="-o"
         />
 

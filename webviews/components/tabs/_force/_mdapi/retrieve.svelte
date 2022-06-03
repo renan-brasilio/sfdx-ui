@@ -190,7 +190,7 @@
     <svelte:component
       this={JSONs}
       bind:this={JSONv}
-      pMapDoc={mapDoc[commandType][fileName].json}
+      pMapDoc={mapDoc["force"][commandType][fileName].json}
       pShowSectionName={false}
     />
 
@@ -199,7 +199,7 @@
       this={LOGLEVELs}
       bind:this={LOGLEVELv}
       pSectionName="loglevel"
-      pMapDoc={mapDoc[commandType][fileName].loglevel}
+      pMapDoc={mapDoc["force"][commandType][fileName].loglevel}
       pSFDXParameter="--loglevel"
       pList={gLists.lLOGLEVEL}
       pDefaultValue="warn"
@@ -210,7 +210,7 @@
       this={TARGETUSERNAMEs}
       bind:this={TARGETUSERNAMEv}
       pSectionName="targetusername"
-      pMapDoc={mapDoc[commandType][fileName].targetusername}
+      pMapDoc={mapDoc["force"][commandType][fileName].targetusername}
       pSFDXParameter="-u"
       pList={$lTARGETUSERNAME}
     />
@@ -220,7 +220,7 @@
       this={APIVERSIONs}
       bind:this={APIVERSIONv}
       pSectionName="apiversion"
-      pMapDoc={mapDoc[commandType][fileName].apiversion}
+      pMapDoc={mapDoc["force"][commandType][fileName].apiversion}
       pSFDXParameter="--apiversion"
       pList={lAPIVERSION}
       pDefaultValue={dAPIVERSION}
@@ -231,7 +231,7 @@
       this={WAITs}
       bind:this={WAITv}
       pSectionName="wait"
-      pMapDoc={mapDoc[commandType][fileName].wait}
+      pMapDoc={mapDoc["force"][commandType][fileName].wait}
       pSFDXParameter="-w"
     />
 
@@ -240,7 +240,7 @@
       this={RETRIEVETARGETDIRs}
       bind:this={RETRIEVETARGETDIRv}
       pSectionName="retrievetargetdir"
-      pMapDoc={mapDoc[commandType][fileName].retrievetargetdir}
+      pMapDoc={mapDoc["force"][commandType][fileName].retrievetargetdir}
       pSFDXParameter="-r"
       pRequired={true}
       pChecked={true}
@@ -252,7 +252,7 @@
       this={UNPACKAGEDs}
       bind:this={UNPACKAGEDv}
       pSectionName="unpackaged"
-      pMapDoc={mapDoc[commandType][fileName].unpackaged}
+      pMapDoc={mapDoc["force"][commandType][fileName].unpackaged}
       pSFDXParameter="-k"
       pPlaceholder="Insert..."
       pButtonText="Select Manifest File"
@@ -263,7 +263,7 @@
       this={VERBOSEs}
       bind:this={VERBOSEv}
       pSectionName="verbose"
-      pMapDoc={mapDoc[commandType][fileName].verbose}
+      pMapDoc={mapDoc["force"][commandType][fileName].verbose}
       pSFDXParameter="--verbose"
       pShowSectionName={false}
     />
@@ -273,7 +273,7 @@
       this={SOURCEDIRs}
       bind:this={SOURCEDIRv}
       pSectionName="sourcedir"
-      pMapDoc={mapDoc[commandType][fileName].sourcedir}
+      pMapDoc={mapDoc["force"][commandType][fileName].sourcedir}
       pSFDXParameter="-d"
     />
 
@@ -282,10 +282,10 @@
       this={PACKAGENAMESs}
       bind:this={PACKAGENAMESv}
       pSectionName="packagenames"
-      pMapDoc={mapDoc[commandType][fileName].packagenames}
+      pMapDoc={mapDoc["force"][commandType][fileName].packagenames}
       pSFDXParameter="-p"
       pSectionTitle="Package Names"
-      pTitle={mapDoc[commandType][fileName].packagenames.title}
+      pTitle={mapDoc["force"][commandType][fileName].packagenames.title}
       pPlaceholder="Insert..."
     />
 
@@ -294,7 +294,7 @@
       this={SINGLEPACKAGEs}
       bind:this={SINGLEPACKAGEv}
       pSectionName="singlepackage"
-      pMapDoc={mapDoc[commandType][fileName].singlepackage}
+      pMapDoc={mapDoc["force"][commandType][fileName].singlepackage}
       pSFDXParameter="-s"
       pShowSectionName={false}
     />

@@ -173,7 +173,7 @@
     <svelte:component
       this={JSONs}
       bind:this={JSONv}
-      pMapDoc={mapDoc[commandType][fileName].json}
+      pMapDoc={mapDoc["force"][commandType][fileName].json}
       pShowSectionName={false}
     />
 
@@ -182,7 +182,7 @@
       this={LOGLEVELs}
       bind:this={LOGLEVELv}
       pSectionName="loglevel"
-      pMapDoc={mapDoc[commandType][fileName].loglevel}
+      pMapDoc={mapDoc["force"][commandType][fileName].loglevel}
       pSFDXParameter="--loglevel"
       pList={gLists.lLOGLEVEL}
       pDefaultValue="warn"
@@ -193,7 +193,7 @@
       this={TARGETDEVHUBUSERNAMEs}
       bind:this={TARGETDEVHUBUSERNAMEv}
       pSectionName="targetdevhubusername"
-      pMapDoc={mapDoc[commandType][fileName].targetdevhubusername}
+      pMapDoc={mapDoc["force"][commandType][fileName].targetdevhubusername}
       pSFDXParameter="-v"
       pList={$lTARGETUSERNAME}
     />
@@ -203,7 +203,7 @@
       this={APIVERSIONs}
       bind:this={APIVERSIONv}
       pSectionName="apiversion"
-      pMapDoc={mapDoc[commandType][fileName].apiversion}
+      pMapDoc={mapDoc["force"][commandType][fileName].apiversion}
       pSFDXParameter="--apiversion"
       pList={lAPIVERSION}
       pDefaultValue={dAPIVERSION}
@@ -214,7 +214,7 @@
       this={CREATEDLASTDAYSs}
       bind:this={CREATEDLASTDAYSv}
       pSectionName="createdlastdays"
-      pMapDoc={mapDoc[commandType][fileName].createdlastdays}
+      pMapDoc={mapDoc["force"][commandType][fileName].createdlastdays}
       pSFDXParameter="-c"
       pPlaceholder="Insert..."
     />
@@ -224,7 +224,7 @@
       this={STATUSs}
       bind:this={STATUSv}
       pSectionName="status"
-      pMapDoc={mapDoc[commandType][fileName].status}
+      pMapDoc={mapDoc["force"][commandType][fileName].status}
       pSFDXParameter="-s"
       pList={gLists.lSTATUS}
     />

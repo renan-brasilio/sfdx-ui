@@ -193,7 +193,7 @@
     <svelte:component
       this={JSONs}
       bind:this={JSONv}
-      pMapDoc={mapDoc[commandType][fileName].json}
+      pMapDoc={mapDoc["force"][commandType][fileName].json}
       pShowSectionName={false}
     />
 
@@ -202,7 +202,7 @@
       this={LOGLEVELs}
       bind:this={LOGLEVELv}
       pSectionName="loglevel"
-      pMapDoc={mapDoc[commandType][fileName].loglevel}
+      pMapDoc={mapDoc["force"][commandType][fileName].loglevel}
       pSFDXParameter="--loglevel"
       pList={gLists.lLOGLEVEL}
       pDefaultValue="warn"
@@ -213,7 +213,7 @@
       this={TARGETDEVHUBUSERNAMEs}
       bind:this={TARGETDEVHUBUSERNAMEv}
       pSectionName="targetdevhubusername"
-      pMapDoc={mapDoc[commandType][fileName].targetdevhubusername}
+      pMapDoc={mapDoc["force"][commandType][fileName].targetdevhubusername}
       pSFDXParameter="-v"
       pList={$lTARGETUSERNAME}
     />
@@ -223,7 +223,7 @@
       this={APIVERSIONs}
       bind:this={APIVERSIONv}
       pSectionName="apiversion"
-      pMapDoc={mapDoc[commandType][fileName].apiversion}
+      pMapDoc={mapDoc["force"][commandType][fileName].apiversion}
       pSFDXParameter="--apiversion"
       pList={lAPIVERSION}
       pDefaultValue={dAPIVERSION}
@@ -234,10 +234,10 @@
       this={PACKAGEs}
       bind:this={PACKAGEv}
       pSectionName="package"
-      pMapDoc={mapDoc[commandType][fileName].package}
+      pMapDoc={mapDoc["force"][commandType][fileName].package}
       pSFDXParameter="-p"
       pSectionTitle="Package"
-      pTitle={mapDoc[commandType][fileName].package}
+      pTitle={mapDoc["force"][commandType][fileName].package}
       pPlaceholder="Insert..."
       pRequired={true}
       pChecked={true}
@@ -249,10 +249,10 @@
       this={NAMEs}
       bind:this={NAMEv}
       pSectionName="name"
-      pMapDoc={mapDoc[commandType][fileName].name}
+      pMapDoc={mapDoc["force"][commandType][fileName].name}
       pSFDXParameter="-n"
       pSectionTitle="Package Name"
-      pTitle={mapDoc[commandType][fileName].name}
+      pTitle={mapDoc["force"][commandType][fileName].name}
       pPlaceholder="Insert..."
     />
 
@@ -261,10 +261,10 @@
       this={DESCRIPTIONs}
       bind:this={DESCRIPTIONv}
       pSectionName="description"
-      pMapDoc={mapDoc[commandType][fileName].description}
+      pMapDoc={mapDoc["force"][commandType][fileName].description}
       pSFDXParameter="-d"
       pSectionTitle="Description"
-      pTitle={mapDoc[commandType][fileName].description}
+      pTitle={mapDoc["force"][commandType][fileName].description}
       pPlaceholder="Insert..."
     />
 
@@ -273,7 +273,7 @@
       this={ERRORNOTIFICATIONUSERNAMEs}
       bind:this={ERRORNOTIFICATIONUSERNAMEv}
       pSectionName="errornotificationusername"
-      pMapDoc={mapDoc[commandType][fileName].errornotificationusername}
+      pMapDoc={mapDoc["force"][commandType][fileName].errornotificationusername}
       pSFDXParameter="-o"
       pList={$lTARGETUSERNAME}
     />

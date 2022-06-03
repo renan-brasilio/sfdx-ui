@@ -197,7 +197,7 @@
     <svelte:component
       this={JSONs}
       bind:this={JSONv}
-      pMapDoc={mapDoc[commandType][fileName].json}
+      pMapDoc={mapDoc["force"][commandType][fileName].json}
       pShowSectionName={false}
     />
 
@@ -206,7 +206,7 @@
       this={LOGLEVELs}
       bind:this={LOGLEVELv}
       pSectionName="loglevel"
-      pMapDoc={mapDoc[commandType][fileName].loglevel}
+      pMapDoc={mapDoc["force"][commandType][fileName].loglevel}
       pSFDXParameter="--loglevel"
       pList={gLists.lLOGLEVEL}
       pDefaultValue="warn"
@@ -217,7 +217,7 @@
       this={TARGETUSERNAMEs}
       bind:this={TARGETUSERNAMEv}
       pSectionName="targetusername"
-      pMapDoc={mapDoc[commandType][fileName].targetusername}
+      pMapDoc={mapDoc["force"][commandType][fileName].targetusername}
       pSFDXParameter="-u"
       pList={$lTARGETUSERNAME}
     />
@@ -227,7 +227,7 @@
       this={APIVERSIONs}
       bind:this={APIVERSIONv}
       pSectionName="apiversion"
-      pMapDoc={mapDoc[commandType][fileName].apiversion}
+      pMapDoc={mapDoc["force"][commandType][fileName].apiversion}
       pSFDXParameter="--apiversion"
       pList={lAPIVERSION}
       pDefaultValue={dAPIVERSION}
@@ -239,10 +239,10 @@
       bind:this={DEVNAMEv}
       pSectionName="devname"
       pRequired={true}
-      pMapDoc={mapDoc[commandType][fileName].devname}
+      pMapDoc={mapDoc["force"][commandType][fileName].devname}
       pSFDXParameter="-n"
       pSectionTitle="DEV Name"
-      pTitle={mapDoc[commandType][fileName].devname.title}
+      pTitle={mapDoc["force"][commandType][fileName].devname.title}
       pPlaceholder="Insert..."
       pChecked={true}
       pDisabled={true}
@@ -253,10 +253,10 @@
       this={LABELs}
       bind:this={LABELv}
       pSectionName="label"
-      pMapDoc={mapDoc[commandType][fileName].label}
+      pMapDoc={mapDoc["force"][commandType][fileName].label}
       pSFDXParameter="-l"
       pSectionTitle="Label"
-      pTitle={mapDoc[commandType][fileName].label.title}
+      pTitle={mapDoc["force"][commandType][fileName].label.title}
       pPlaceholder="Insert..."
     />
 
@@ -265,10 +265,10 @@
       this={PLURALLABELs}
       bind:this={PLURALLABELv}
       pSectionName="plurallabel"
-      pMapDoc={mapDoc[commandType][fileName].plurallabel}
+      pMapDoc={mapDoc["force"][commandType][fileName].plurallabel}
       pSFDXParameter="-p"
       pSectionTitle="Plural Label"
-      pTitle={mapDoc[commandType][fileName].plurallabel.title}
+      pTitle={mapDoc["force"][commandType][fileName].plurallabel.title}
       pPlaceholder="Insert..."
     />
 
@@ -277,7 +277,7 @@
       this={VISIBILITYs}
       bind:this={VISIBILITYv}
       pSectionName="visibility"
-      pMapDoc={mapDoc[commandType][fileName].visibility}
+      pMapDoc={mapDoc["force"][commandType][fileName].visibility}
       pSFDXParameter="-v"
       pList={gLists.lVISIBILITY}
       pDefaultValue="Public"
@@ -289,10 +289,10 @@
       bind:this={SOBJECTNAMEv}
       pSectionName="sobjectname"
       pRequired={true}
-      pMapDoc={mapDoc[commandType][fileName].sobjectname}
+      pMapDoc={mapDoc["force"][commandType][fileName].sobjectname}
       pSFDXParameter="-s"
       pSectionTitle="sObject Name"
-      pTitle={mapDoc[commandType][fileName].sobjectname.title}
+      pTitle={mapDoc["force"][commandType][fileName].sobjectname.title}
       pPlaceholder="Insert..."
       pChecked={true}
       pDisabled={true}
@@ -303,7 +303,7 @@
       this={IGNOREUNSUPPORTEDs}
       bind:this={IGNOREUNSUPPORTEDv}
       pSectionName="ignoreunsupported"
-      pMapDoc={mapDoc[commandType][fileName].ignoreunsupported}
+      pMapDoc={mapDoc["force"][commandType][fileName].ignoreunsupported}
       pSFDXParameter="-i"
       pShowSectionName={false}
     />
@@ -313,7 +313,7 @@
       this={TYPEOUTPUTDIRs}
       bind:this={TYPEOUTPUTDIRv}
       pSectionName="typeoutputdir"
-      pMapDoc={mapDoc[commandType][fileName].typeoutputdir}
+      pMapDoc={mapDoc["force"][commandType][fileName].typeoutputdir}
       pSFDXParameter="-d"
       pDefaultFolder="force-app/main/default/objects/"
     />
@@ -323,7 +323,7 @@
       this={RECORDSOUTPUTDIRs}
       bind:this={RECORDSOUTPUTDIRv}
       pSectionName="recordsoutputdir"
-      pMapDoc={mapDoc[commandType][fileName].recordsoutputdir}
+      pMapDoc={mapDoc["force"][commandType][fileName].recordsoutputdir}
       pSFDXParameter="-r"
       pDefaultFolder="force-app/main/default/customMetadata/"
     />

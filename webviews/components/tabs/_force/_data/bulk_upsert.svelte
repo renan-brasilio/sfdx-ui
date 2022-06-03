@@ -188,7 +188,7 @@
     <svelte:component
       this={JSONs}
       bind:this={JSONv}
-      pMapDoc={mapDoc[commandType][fileName].json}
+      pMapDoc={mapDoc["force"][commandType][fileName].json}
       pShowSectionName={false}
     />
 
@@ -197,7 +197,7 @@
       this={LOGLEVELs}
       bind:this={LOGLEVELv}
       pSectionName="loglevel"
-      pMapDoc={mapDoc[commandType][fileName].loglevel}
+      pMapDoc={mapDoc["force"][commandType][fileName].loglevel}
       pSFDXParameter="--loglevel"
       pList={gLists.lLOGLEVEL}
       pDefaultValue="warn"
@@ -208,7 +208,7 @@
       this={TARGETUSERNAMEs}
       bind:this={TARGETUSERNAMEv}
       pSectionName="targetusername"
-      pMapDoc={mapDoc[commandType][fileName].targetusername}
+      pMapDoc={mapDoc["force"][commandType][fileName].targetusername}
       pSFDXParameter="-u"
       pList={$lTARGETUSERNAME}
     />
@@ -218,7 +218,7 @@
       this={APIVERSIONs}
       bind:this={APIVERSIONv}
       pSectionName="apiversion"
-      pMapDoc={mapDoc[commandType][fileName].apiversion}
+      pMapDoc={mapDoc["force"][commandType][fileName].apiversion}
       pSFDXParameter="--apiversion"
       pList={lAPIVERSION}
       pDefaultValue={dAPIVERSION}
@@ -230,10 +230,10 @@
       bind:this={EXTERNALIDv}
       pSectionName="externalid"
       pRequired={true}
-      pMapDoc={mapDoc[commandType][fileName].externalid}
+      pMapDoc={mapDoc["force"][commandType][fileName].externalid}
       pSFDXParameter="-i"
       pSectionTitle="External Id"
-      pTitle={mapDoc[commandType][fileName].externalid.title}
+      pTitle={mapDoc["force"][commandType][fileName].externalid.title}
       pPlaceholder="Insert..."
       pChecked={true}
       pDisabled={true}
@@ -244,7 +244,7 @@
       this={CSVFILEs}
       bind:this={CSVFILEv}
       pSectionName="csvfile"
-      pMapDoc={mapDoc[commandType][fileName].csvfile}
+      pMapDoc={mapDoc["force"][commandType][fileName].csvfile}
       pSFDXParameter="-f"
       pPlaceholder="Insert..."
       pButtonText="Select CSV File"
@@ -259,10 +259,10 @@
       bind:this={SOBJECTTYPEv}
       pSectionName="sobjecttype"
       pRequired={true}
-      pMapDoc={mapDoc[commandType][fileName].sobjecttype}
+      pMapDoc={mapDoc["force"][commandType][fileName].sobjecttype}
       pSFDXParameter="-s"
       pSectionTitle="sObject Type"
-      pTitle={mapDoc[commandType][fileName].sobjecttype.title}
+      pTitle={mapDoc["force"][commandType][fileName].sobjecttype.title}
       pPlaceholder="Insert..."
       pChecked={true}
       pDisabled={true}
@@ -273,7 +273,7 @@
       this={WAITs}
       bind:this={WAITv}
       pSectionName="wait"
-      pMapDoc={mapDoc[commandType][fileName].wait}
+      pMapDoc={mapDoc["force"][commandType][fileName].wait}
       pSFDXParameter="-w"
     />
 
@@ -282,7 +282,7 @@
       this={SERIALs}
       bind:this={SERIALv}
       pSectionName="serial"
-      pMapDoc={mapDoc[commandType][fileName].serial}
+      pMapDoc={mapDoc["force"][commandType][fileName].serial}
       pSFDXParameter="-r"
       pShowSectionName={false}
     />

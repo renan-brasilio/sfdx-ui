@@ -11,12 +11,14 @@
   // Turn off tsc task auto detection since we have the necessary tasks as npm scripts
   "typescript.tsc.autoDetect": "off",
   "cSpell.words": [
+    "acesstoken",
     "CLIENTI",
     "clientid",
     "CLIENTID",
     "CMDT",
     "INSTALLATIONK",
     "INSTALLATIONKEYBYPAS",
+    "jwtkeyfile",
     "MDAPI",
     "NOANCESTOR",
     "noancestors",
@@ -31,6 +33,8 @@
     "PACKAGEVERSIONID",
     "REQUESTID",
     "sfdxet",
+    "SFDXURL",
+    "SFDXURLFILE",
     "sobjecttype",
     "SOBJECTTYPECATEGORY",
     "SOBJECTTYPEs",

@@ -1,6 +1,6 @@
 <script>
-  // import alias from "./tabs/_alias/alias.svelte";
-  // import auth from "./tabs/_auth/auth.svelte";
+  import alias from "./tabs/_alias/alias.svelte";
+  import auth from "./tabs/_auth/auth.svelte";
   // import config from "./tabs/_config/config.svelte";
   import force from "./tabs/_force/force.svelte";
   import Tabs from "./Tabs.svelte";
@@ -12,30 +12,25 @@
 
   // List of tab items with labels, values and assigned components
   let items = [
-    // {
-    //     label: "alias",
-    //     value: 1,
-    //     component: alias
-    // },
-    // {
-    //     label: "auth",
-    //     value: 2,
-    //     component: auth
-    // },
+    {
+        label: "alias",
+        value: 1,
+        component: alias
+    },
+    {
+        label: "auth",
+        value: 2,
+        component: auth
+    },
     // {
     //     label: "config",
     //     value: 3,
     //     component: config
     // },
-    // {
-    //     label: "force",
-    //     value: 4,
-    //     component: force
-    // },
     {
-      label: "force",
-      value: 1,
-      component: force,
+        label: "force",
+        value: 4,
+        component: force
     },
   ];
 

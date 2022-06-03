@@ -187,7 +187,7 @@
     <svelte:component
       this={JSONs}
       bind:this={JSONv}
-      pMapDoc={mapDoc[commandType][fileName].json}
+      pMapDoc={mapDoc["force"][commandType][fileName].json}
       pShowSectionName={false}
     />
 
@@ -196,7 +196,7 @@
       this={LOGLEVELs}
       bind:this={LOGLEVELv}
       pSectionName="loglevel"
-      pMapDoc={mapDoc[commandType][fileName].loglevel}
+      pMapDoc={mapDoc["force"][commandType][fileName].loglevel}
       pSFDXParameter="--loglevel"
       pList={gLists.lLOGLEVEL}
       pDefaultValue="warn"
@@ -207,7 +207,7 @@
       this={TARGETUSERNAMEs}
       bind:this={TARGETUSERNAMEv}
       pSectionName="targetusername"
-      pMapDoc={mapDoc[commandType][fileName].targetusername}
+      pMapDoc={mapDoc["force"][commandType][fileName].targetusername}
       pSFDXParameter="-u"
       pList={$lTARGETUSERNAME}
     />
@@ -217,7 +217,7 @@
       this={APIVERSIONs}
       bind:this={APIVERSIONv}
       pSectionName="apiversion"
-      pMapDoc={mapDoc[commandType][fileName].apiversion}
+      pMapDoc={mapDoc["force"][commandType][fileName].apiversion}
       pSFDXParameter="--apiversion"
       pList={lAPIVERSION}
       pDefaultValue={dAPIVERSION}
@@ -229,10 +229,10 @@
       bind:this={SOBJECTTYPEv}
       pSectionName="sobjecttype"
       pRequired={true}
-      pMapDoc={mapDoc[commandType][fileName].sobjecttype}
+      pMapDoc={mapDoc["force"][commandType][fileName].sobjecttype}
       pSFDXParameter="-n"
       pSectionTitle="SObject Type"
-      pTitle={mapDoc[commandType][fileName].sobjecttype}
+      pTitle={mapDoc["force"][commandType][fileName].sobjecttype}
       pPlaceholder="Insert..."
       pChecked={true}
       pDisabled={true}
@@ -243,7 +243,7 @@
       this={USETOOLINGAPIs}
       bind:this={USETOOLINGAPIv}
       pSectionName="usetoolingapi"
-      pMapDoc={mapDoc[commandType][fileName].usetoolingapi}
+      pMapDoc={mapDoc["force"][commandType][fileName].usetoolingapi}
       pSFDXParameter="-t"
       pShowSectionName={false}
     />

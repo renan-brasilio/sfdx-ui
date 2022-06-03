@@ -1,3 +1,43 @@
+export const alias = [
+  { value: "alias", label: "alias" },
+];
+
+export const aliasC = [
+  { value: "list", label: "list" },
+  { value: "set", label: "set" },
+  { value: "unset", label: "unset" },
+];
+
+export const auth = [
+  { value: "auth", label: "auth" },
+  { value: "accesstoken", label: "accesstoken" },
+  { value: "device", label: "device" },
+  { value: "jwt", label: "jwt" },
+  { value: "sfdxurl", label: "sfdxurl" },
+  { value: "web", label: "web" },
+];
+
+export const accesstoken = [
+  { value: "store", label: "store" },
+];
+
+export const device = [
+  { value: "login", label: "login" },
+];
+
+export const jwt = [
+  { value: "grant", label: "grant" },
+];
+
+export const sfdxurl = [
+  { value: "store", label: "store" },
+];
+
+export const authC = [
+  { value: "list", label: "list" },
+  { value: "logout", label: "logout" },
+];
+
 export const force = [
   { value: "analytics", label: "analytics" },
   { value: "apex", label: "apex" },

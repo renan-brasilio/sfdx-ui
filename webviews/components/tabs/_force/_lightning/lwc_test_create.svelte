@@ -139,7 +139,7 @@
     <svelte:component
       this={JSONs}
       bind:this={JSONv}
-      pMapDoc={mapDoc[commandType][fileName].json}
+      pMapDoc={mapDoc["force"][commandType][fileName].json}
       pShowSectionName={false}
     />
 
@@ -148,7 +148,7 @@
       this={LOGLEVELs}
       bind:this={LOGLEVELv}
       pSectionName="loglevel"
-      pMapDoc={mapDoc[commandType][fileName].loglevel}
+      pMapDoc={mapDoc["force"][commandType][fileName].loglevel}
       pSFDXParameter="--loglevel"
       pList={gLists.lLOGLEVEL}
       pDefaultValue="warn"
@@ -159,7 +159,7 @@
       this={FILEPATHs}
       bind:this={FILEPATHv}
       pSectionName="filepath"
-      pMapDoc={mapDoc[commandType][fileName].filepath}
+      pMapDoc={mapDoc["force"][commandType][fileName].filepath}
       pSFDXParameter="-f"
       pPlaceholder="Insert..."
       pButtonText="Select JS File"

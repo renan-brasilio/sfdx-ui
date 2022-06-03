@@ -176,7 +176,7 @@
     <svelte:component
       this={JSONs}
       bind:this={JSONv}
-      pMapDoc={mapDoc[commandType][fileName].json}
+      pMapDoc={mapDoc["force"][commandType][fileName].json}
       pShowSectionName={false}
     />
 
@@ -185,7 +185,7 @@
       this={LOGLEVELs}
       bind:this={LOGLEVELv}
       pSectionName="loglevel"
-      pMapDoc={mapDoc[commandType][fileName].loglevel}
+      pMapDoc={mapDoc["force"][commandType][fileName].loglevel}
       pSFDXParameter="--loglevel"
       pList={gLists.lLOGLEVEL}
       pDefaultValue="warn"
@@ -197,10 +197,10 @@
       bind:this={COMPONENTNAMEv}
       pSectionName="componentname"
       pRequired={true}
-      pMapDoc={mapDoc[commandType][fileName].componentname}
+      pMapDoc={mapDoc["force"][commandType][fileName].componentname}
       pSFDXParameter="-n"
       pSectionTitle="Component Name"
-      pTitle={mapDoc[commandType][fileName].componentname}
+      pTitle={mapDoc["force"][commandType][fileName].componentname}
       pPlaceholder="Insert..."
       pMaxLength={40}
       pChecked={true}
@@ -212,7 +212,7 @@
       this={TEMPLATEs}
       bind:this={TEMPLATEv}
       pSectionName="template"
-      pMapDoc={mapDoc[commandType][fileName].template}
+      pMapDoc={mapDoc["force"][commandType][fileName].template}
       pSFDXParameter="-t"
       pList={gLists.lTemplate.lightning.component_create}
       pDefaultValue="default"
@@ -223,7 +223,7 @@
       this={OUTPUTDIRs}
       bind:this={OUTPUTDIRv}
       pSectionName="outputdir"
-      pMapDoc={mapDoc[commandType][fileName].outputdir}
+      pMapDoc={mapDoc["force"][commandType][fileName].outputdir}
       pSFDXParameter="-d"
       pDefaultFolder="."
     />
@@ -233,7 +233,7 @@
       this={APIVERSIONs}
       bind:this={APIVERSIONv}
       pSectionName="apiversion"
-      pMapDoc={mapDoc[commandType][fileName].apiversion}
+      pMapDoc={mapDoc["force"][commandType][fileName].apiversion}
       pSFDXParameter="--apiversion"
       pList={lAPIVERSION}
       pDefaultValue={dAPIVERSION}
@@ -244,7 +244,7 @@
       this={TYPEs}
       bind:this={TYPEv}
       pSectionName="type"
-      pMapDoc={mapDoc[commandType][fileName].type}
+      pMapDoc={mapDoc["force"][commandType][fileName].type}
       pSFDXParameter="--type"
       pList={gLists.lTYPE[commandType][fileName]}
       pDefaultValue="aura"

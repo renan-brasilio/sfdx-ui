@@ -107,7 +107,7 @@
         <svelte:component 
             this="{JSONs}" 
             bind:this="{JSONv}" 
-            pMapDoc={mapDoc[commandType][fileName].json}
+            pMapDoc={mapDoc["force"][commandType][fileName].json}
             pShowSectionName={false}
         />
 
@@ -116,7 +116,7 @@
             this="{LOGLEVELs}" 
             bind:this="{LOGLEVELv}" 
             pSectionName="loglevel"
-            pMapDoc={mapDoc[commandType][fileName].loglevel} 
+            pMapDoc={mapDoc["force"][commandType][fileName].loglevel} 
             pSFDXParameter="--loglevel"
             pList={gLists.lLOGLEVEL}
             pDefaultValue="warn"
@@ -127,10 +127,10 @@
             this="{SOURCEPATHs}" 
             bind:this="{SOURCEPATHv}" 
             pSectionName="sourcepath"
-            pMapDoc={mapDoc[commandType][fileName].sourcepath}
+            pMapDoc={mapDoc["force"][commandType][fileName].sourcepath}
             pSFDXParameter="-p"
             pSectionTitle="Source Path List"
-            pTitle={mapDoc[commandType][fileName].sourcepath.title}
+            pTitle={mapDoc["force"][commandType][fileName].sourcepath.title}
             pPlaceholder="Insert..."
         />
 

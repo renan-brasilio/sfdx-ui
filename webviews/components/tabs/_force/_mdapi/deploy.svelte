@@ -186,7 +186,7 @@
     <svelte:component
       this={JSONs}
       bind:this={JSONv}
-      pMapDoc={mapDoc[commandType][fileName].json}
+      pMapDoc={mapDoc["force"][commandType][fileName].json}
       pShowSectionName={false}
     />
 
@@ -195,7 +195,7 @@
       this={LOGLEVELs}
       bind:this={LOGLEVELv}
       pSectionName="loglevel"
-      pMapDoc={mapDoc[commandType][fileName].loglevel}
+      pMapDoc={mapDoc["force"][commandType][fileName].loglevel}
       pSFDXParameter="--loglevel"
       pList={gLists.lLOGLEVEL}
       pDefaultValue="warn"
@@ -206,7 +206,7 @@
       this={TARGETUSERNAMEs}
       bind:this={TARGETUSERNAMEv}
       pSectionName="targetusername"
-      pMapDoc={mapDoc[commandType][fileName].targetusername}
+      pMapDoc={mapDoc["force"][commandType][fileName].targetusername}
       pSFDXParameter="-u"
       pList={$lTARGETUSERNAME}
     />
@@ -216,7 +216,7 @@
       this={APIVERSIONs}
       bind:this={APIVERSIONv}
       pSectionName="apiversion"
-      pMapDoc={mapDoc[commandType][fileName].apiversion}
+      pMapDoc={mapDoc["force"][commandType][fileName].apiversion}
       pSFDXParameter="--apiversion"
       pList={lAPIVERSION}
       pDefaultValue={dAPIVERSION}
@@ -227,7 +227,7 @@
       this={CHECKONLYs}
       bind:this={CHECKONLYv}
       pSectionName="checkonly"
-      pMapDoc={mapDoc[commandType][fileName].checkonly}
+      pMapDoc={mapDoc["force"][commandType][fileName].checkonly}
       pSFDXParameter="-c"
       pShowSectionName={false}
     />
@@ -237,7 +237,7 @@
       this={DEPLOYDIRs}
       bind:this={DEPLOYDIRv}
       pSectionName="deploydir"
-      pMapDoc={mapDoc[commandType][fileName].deploydir}
+      pMapDoc={mapDoc["force"][commandType][fileName].deploydir}
       pSFDXParameter="-d"
     />
 
@@ -246,7 +246,7 @@
       this={WAITs}
       bind:this={WAITv}
       pSectionName="wait"
-      pMapDoc={mapDoc[commandType][fileName].wait}
+      pMapDoc={mapDoc["force"][commandType][fileName].wait}
       pSFDXParameter="-w"
       pDefaultValue="-1"
     />
@@ -256,7 +256,7 @@
       this={TESTLEVELs}
       bind:this={TESTLEVELv}
       pSectionName="testlevel"
-      pMapDoc={mapDoc[commandType][fileName].testlevel}
+      pMapDoc={mapDoc["force"][commandType][fileName].testlevel}
       pSFDXParameter="-l"
       pList={gLists.lTESTLEVEL[commandType][fileName]}
     />
@@ -267,10 +267,10 @@
         this={RUNTESTSs}
         bind:this={RUNTESTSv}
         pSectionName="runtests"
-        pMapDoc={mapDoc[commandType][fileName].runtests}
+        pMapDoc={mapDoc["force"][commandType][fileName].runtests}
         pSFDXParameter="-r"
         pSectionTitle="Run Tests"
-        pTitle={mapDoc[commandType][fileName].runtests.title}
+        pTitle={mapDoc["force"][commandType][fileName].runtests.title}
         pPlaceholder="Insert..."
         pChecked={true}
         pRequired={true}
@@ -283,7 +283,7 @@
       this={IGNOREERRORSs}
       bind:this={IGNOREERRORSv}
       pSectionName="ignoreerrors"
-      pMapDoc={mapDoc[commandType][fileName].ignoreerrors}
+      pMapDoc={mapDoc["force"][commandType][fileName].ignoreerrors}
       pSFDXParameter="-o"
       pShowSectionName={false}
     />
@@ -293,7 +293,7 @@
       this={IGNOREWARNINGSs}
       bind:this={IGNOREWARNINGSv}
       pSectionName="ignorewarnings"
-      pMapDoc={mapDoc[commandType][fileName].ignorewarnings}
+      pMapDoc={mapDoc["force"][commandType][fileName].ignorewarnings}
       pSFDXParameter="-g"
       pShowSectionName={false}
     />
@@ -303,10 +303,10 @@
       this={VALIDATEDDEPLOYREQUESTIDs}
       bind:this={VALIDATEDDEPLOYREQUESTIDv}
       pSectionName="validateddeployrequestid"
-      pMapDoc={mapDoc[commandType][fileName].validateddeployrequestid}
+      pMapDoc={mapDoc["force"][commandType][fileName].validateddeployrequestid}
       pSFDXParameter="-q"
       pSectionTitle="Validated Deploy Request Id"
-      pTitle={mapDoc[commandType][fileName].validateddeployrequestid.title}
+      pTitle={mapDoc["force"][commandType][fileName].validateddeployrequestid.title}
       pPlaceholder="Insert..."
     />
 
@@ -315,7 +315,7 @@
       this={VERBOSEs}
       bind:this={VERBOSEv}
       pSectionName="verbose"
-      pMapDoc={mapDoc[commandType][fileName].verbose}
+      pMapDoc={mapDoc["force"][commandType][fileName].verbose}
       pSFDXParameter="--verbose"
       pShowSectionName={false}
     />
@@ -325,7 +325,7 @@
       this={ZIPFILEs}
       bind:this={ZIPFILEv}
       pSectionName="zipfile"
-      pMapDoc={mapDoc[commandType][fileName].zipfile}
+      pMapDoc={mapDoc["force"][commandType][fileName].zipfile}
       pSFDXParameter="-f"
       pPlaceholder="Insert..."
       pButtonText="Select Zip File"
@@ -336,7 +336,7 @@
       this={SINGLEPACKAGEs}
       bind:this={SINGLEPACKAGEv}
       pSectionName="singlepackage"
-      pMapDoc={mapDoc[commandType][fileName].singlepackage}
+      pMapDoc={mapDoc["force"][commandType][fileName].singlepackage}
       pSFDXParameter="-s"
       pShowSectionName={false}
     />
@@ -346,7 +346,7 @@
       this={SOAPDEPLOYs}
       bind:this={SOAPDEPLOYv}
       pSectionName="soapdeploy"
-      pMapDoc={mapDoc[commandType][fileName].soapdeploy}
+      pMapDoc={mapDoc["force"][commandType][fileName].soapdeploy}
       pSFDXParameter="--soapdeploy"
       pShowSectionName={false}
     />

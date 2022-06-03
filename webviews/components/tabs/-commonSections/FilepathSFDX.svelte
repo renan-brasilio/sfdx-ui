@@ -146,7 +146,7 @@
   />
 
   {#if $mapShowSections[pSectionName]}
-    <section class="sfdxet-section sfdxet-br">
+    <section class="sfdxet-section sfdxet-br sfdxet-absolute-center">
       <button
         class="sfdxet-buttons {$mapErrors[pSectionName]}"
         on:click={() => {

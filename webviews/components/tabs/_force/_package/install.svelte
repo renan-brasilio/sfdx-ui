@@ -191,7 +191,7 @@
     <svelte:component
       this={JSONs}
       bind:this={JSONv}
-      pMapDoc={mapDoc[commandType][fileName].json}
+      pMapDoc={mapDoc["force"][commandType][fileName].json}
       pShowSectionName={false}
     />
 
@@ -200,7 +200,7 @@
       this={LOGLEVELs}
       bind:this={LOGLEVELv}
       pSectionName="loglevel"
-      pMapDoc={mapDoc[commandType][fileName].loglevel}
+      pMapDoc={mapDoc["force"][commandType][fileName].loglevel}
       pSFDXParameter="--loglevel"
       pList={gLists.lLOGLEVEL}
       pDefaultValue="warn"
@@ -211,7 +211,7 @@
       this={TARGETDEVHUBUSERNAMEs}
       bind:this={TARGETDEVHUBUSERNAMEv}
       pSectionName="targetdevhubusername"
-      pMapDoc={mapDoc[commandType][fileName].targetdevhubusername}
+      pMapDoc={mapDoc["force"][commandType][fileName].targetdevhubusername}
       pSFDXParameter="-v"
       pList={$lTARGETUSERNAME}
     />
@@ -221,7 +221,7 @@
       this={APIVERSIONs}
       bind:this={APIVERSIONv}
       pSectionName="apiversion"
-      pMapDoc={mapDoc[commandType][fileName].apiversion}
+      pMapDoc={mapDoc["force"][commandType][fileName].apiversion}
       pSFDXParameter="--apiversion"
       pList={lAPIVERSION}
       pDefaultValue={dAPIVERSION}
@@ -232,7 +232,7 @@
       this={WAITs}
       bind:this={WAITv}
       pSectionName="wait"
-      pMapDoc={mapDoc[commandType][fileName].wait}
+      pMapDoc={mapDoc["force"][commandType][fileName].wait}
       pSFDXParameter="-w"
       pDefaultValue="0"
     />
@@ -242,10 +242,10 @@
       this={INSTALLATIONKEYs}
       bind:this={INSTALLATIONKEYv}
       pSectionName="installationkey"
-      pMapDoc={mapDoc[commandType][fileName].installationkey}
+      pMapDoc={mapDoc["force"][commandType][fileName].installationkey}
       pSFDXParameter="-k"
       pSectionTitle="Installation Key"
-      pTitle={mapDoc[commandType][fileName].installationkey}
+      pTitle={mapDoc["force"][commandType][fileName].installationkey}
       pPlaceholder="Insert..."
       pDefaultValue="null"
     />
@@ -255,7 +255,7 @@
       this={PUBLISHWAITs}
       bind:this={PUBLISHWAITv}
       pSectionName="publishwait"
-      pMapDoc={mapDoc[commandType][fileName].publishwait}
+      pMapDoc={mapDoc["force"][commandType][fileName].publishwait}
       pSFDXParameter="-b"
       pDefaultValue="0"
     />
@@ -265,7 +265,7 @@
       this={NOPROMPTs}
       bind:this={NOPROMPTv}
       pSectionName="noprompt"
-      pMapDoc={mapDoc[commandType][fileName].noprompt}
+      pMapDoc={mapDoc["force"][commandType][fileName].noprompt}
       pSFDXParameter="-r"
       pShowSectionName={false}
     />
@@ -275,10 +275,10 @@
       this={PACKAGEs}
       bind:this={PACKAGEv}
       pSectionName="package"
-      pMapDoc={mapDoc[commandType][fileName].package}
+      pMapDoc={mapDoc["force"][commandType][fileName].package}
       pSFDXParameter="-p"
       pSectionTitle="Package Name"
-      pTitle={mapDoc[commandType][fileName].package}
+      pTitle={mapDoc["force"][commandType][fileName].package}
       pPlaceholder="Insert..."
     />
 
@@ -287,7 +287,7 @@
       this={APEXCOMPILEs}
       bind:this={APEXCOMPILEv}
       pSectionName="apexcompile"
-      pMapDoc={mapDoc[commandType][fileName].apexcompile}
+      pMapDoc={mapDoc["force"][commandType][fileName].apexcompile}
       pSFDXParameter="-a"
       pList={gLists.lAPEXCOMPILE}
       pDefaultValue="all"
@@ -298,7 +298,7 @@
       this={SECURITYTYPEs}
       bind:this={SECURITYTYPEv}
       pSectionName="securitytype"
-      pMapDoc={mapDoc[commandType][fileName].securitytype}
+      pMapDoc={mapDoc["force"][commandType][fileName].securitytype}
       pSFDXParameter="-s"
       pList={gLists.lSECURITYTYPE}
       pDefaultValue="AdminsOnly"
@@ -309,7 +309,7 @@
       this={UPGRADETYPEs}
       bind:this={UPGRADETYPEv}
       pSectionName="upgradetype"
-      pMapDoc={mapDoc[commandType][fileName].upgradetype}
+      pMapDoc={mapDoc["force"][commandType][fileName].upgradetype}
       pSFDXParameter="-t"
       pList={gLists.lUPGRADETYPE}
       pDefaultValue="Mixed"

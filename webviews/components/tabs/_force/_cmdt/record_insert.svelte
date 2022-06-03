@@ -176,7 +176,7 @@
     <svelte:component
       this={JSONs}
       bind:this={JSONv}
-      pMapDoc={mapDoc[commandType][fileName].json}
+      pMapDoc={mapDoc["force"][commandType][fileName].json}
       pShowSectionName={false}
     />
 
@@ -185,7 +185,7 @@
       this={LOGLEVELs}
       bind:this={LOGLEVELv}
       pSectionName="loglevel"
-      pMapDoc={mapDoc[commandType][fileName].loglevel}
+      pMapDoc={mapDoc["force"][commandType][fileName].loglevel}
       pSFDXParameter="--loglevel"
       pList={gLists.lLOGLEVEL}
       pDefaultValue="warn"
@@ -196,7 +196,7 @@
       this={FILEPATHs}
       bind:this={FILEPATHv}
       pSectionName="filepath"
-      pMapDoc={mapDoc[commandType][fileName].filepath}
+      pMapDoc={mapDoc["force"][commandType][fileName].filepath}
       pSFDXParameter="-f"
       pPlaceholder="Insert..."
       pButtonText="Select CSV File"
@@ -211,10 +211,10 @@
       bind:this={TYPENAMEv}
       pSectionName="typename"
       pRequired={true}
-      pMapDoc={mapDoc[commandType][fileName].typename}
+      pMapDoc={mapDoc["force"][commandType][fileName].typename}
       pSFDXParameter="-t"
       pSectionTitle="Type Name"
-      pTitle={mapDoc[commandType][fileName].typename.title}
+      pTitle={mapDoc["force"][commandType][fileName].typename.title}
       pPlaceholder="Insert..."
       pChecked={true}
       pDisabled={true}
@@ -225,7 +225,7 @@
       this={INPUTDIRs}
       bind:this={INPUTDIRv}
       pSectionName="inputdir"
-      pMapDoc={mapDoc[commandType][fileName].inputdir}
+      pMapDoc={mapDoc["force"][commandType][fileName].inputdir}
       pSFDXParameter="-i"
       pDefaultFolder="force-app/main/default/objects"
     />
@@ -235,7 +235,7 @@
       this={OUTPUTDIRs}
       bind:this={OUTPUTDIRv}
       pSectionName="outputdir"
-      pMapDoc={mapDoc[commandType][fileName].outputdir}
+      pMapDoc={mapDoc["force"][commandType][fileName].outputdir}
       pSFDXParameter="-d"
       pDefaultFolder="force-app/main/default/customMetadata"
     />
@@ -245,10 +245,10 @@
       this={NAMECOLUMNs}
       bind:this={NAMECOLUMNv}
       pSectionName="namecolumn"
-      pMapDoc={mapDoc[commandType][fileName].namecolumn}
+      pMapDoc={mapDoc["force"][commandType][fileName].namecolumn}
       pSFDXParameter="-n"
       pSectionTitle="Name Column"
-      pTitle={mapDoc[commandType][fileName].namecolumn.title}
+      pTitle={mapDoc["force"][commandType][fileName].namecolumn.title}
       pPlaceholder="Insert..."
     />
 

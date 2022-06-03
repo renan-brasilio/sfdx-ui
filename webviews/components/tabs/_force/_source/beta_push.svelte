@@ -149,7 +149,7 @@
         <svelte:component 
             this="{JSONs}" 
             bind:this="{JSONv}" 
-            pMapDoc={mapDoc[commandType][fileName].json}
+            pMapDoc={mapDoc["force"][commandType][fileName].json}
             pShowSectionName={false}
         />
 
@@ -158,7 +158,7 @@
             this="{LOGLEVELs}" 
             bind:this="{LOGLEVELv}" 
             pSectionName="loglevel"
-            pMapDoc={mapDoc[commandType][fileName].loglevel} 
+            pMapDoc={mapDoc["force"][commandType][fileName].loglevel} 
             pSFDXParameter="--loglevel"
             pList={gLists.lLOGLEVEL}
             pDefaultValue="warn"
@@ -169,7 +169,7 @@
             this="{TARGETUSERNAMEs}" 
             bind:this="{TARGETUSERNAMEv}" 
             pSectionName="targetusername"
-            pMapDoc={mapDoc[commandType][fileName].targetusername} 
+            pMapDoc={mapDoc["force"][commandType][fileName].targetusername} 
             pSFDXParameter="-u"
             pList={$lTARGETUSERNAME}
         />
@@ -179,7 +179,7 @@
             this="{APIVERSIONs}" 
             bind:this="{APIVERSIONv}" 
             pSectionName="apiversion"
-            pMapDoc={mapDoc[commandType][fileName].apiversion} 
+            pMapDoc={mapDoc["force"][commandType][fileName].apiversion} 
             pSFDXParameter="--apiversion"
             pList={lAPIVERSION}
             pDefaultValue={dAPIVERSION}
@@ -190,7 +190,7 @@
             this="{FORCEOVERWRITEs}" 
             bind:this="{FORCEOVERWRITEv}"
             pSectionName="forceoverwrite"
-            pMapDoc={mapDoc[commandType][fileName].forceoverwrite} 
+            pMapDoc={mapDoc["force"][commandType][fileName].forceoverwrite} 
             pSFDXParameter="-f"
             pShowSectionName={false} 
         />
@@ -200,7 +200,7 @@
             this="{WAITs}" 
             bind:this="{WAITv}" 
             pSectionName="wait"
-            pMapDoc={mapDoc[commandType][fileName].wait} 
+            pMapDoc={mapDoc["force"][commandType][fileName].wait} 
             pSFDXParameter="-w"
         />
 
@@ -209,7 +209,7 @@
             this="{IGNOREWARNINGs}" 
             bind:this="{IGNOREWARNINGv}"
             pSectionName="ignorewarnings"
-            pMapDoc={mapDoc[commandType][fileName].ignorewarnings} 
+            pMapDoc={mapDoc["force"][commandType][fileName].ignorewarnings} 
             pSFDXParameter="-g"
             pShowSectionName={false} 
         />
@@ -219,7 +219,7 @@
             this="{QUIETs}" 
             bind:this="{QUIETv}"
             pSectionName="quiet"
-            pMapDoc={mapDoc[commandType][fileName].quiet} 
+            pMapDoc={mapDoc["force"][commandType][fileName].quiet} 
             pSFDXParameter="--quiet"
             pShowSectionName={false} 
         />

@@ -146,7 +146,7 @@
     <svelte:component
       this={JSONs}
       bind:this={JSONv}
-      pMapDoc={mapDoc[commandType][fileName].json}
+      pMapDoc={mapDoc["force"][commandType][fileName].json}
       pShowSectionName={false}
     />
 
@@ -155,7 +155,7 @@
       this={LOGLEVELs}
       bind:this={LOGLEVELv}
       pSectionName="loglevel"
-      pMapDoc={mapDoc[commandType][fileName].loglevel}
+      pMapDoc={mapDoc["force"][commandType][fileName].loglevel}
       pSFDXParameter="--loglevel"
       pList={gLists.lLOGLEVEL}
       pDefaultValue="warn"
@@ -166,7 +166,7 @@
       this={TARGETUSERNAMEs}
       bind:this={TARGETUSERNAMEv}
       pSectionName="targetusername"
-      pMapDoc={mapDoc[commandType][fileName].targetusername}
+      pMapDoc={mapDoc["force"][commandType][fileName].targetusername}
       pSFDXParameter="-u"
       pList={$lTARGETUSERNAME}
     />
@@ -176,7 +176,7 @@
       this={APIVERSIONs}
       bind:this={APIVERSIONv}
       pSectionName="apiversion"
-      pMapDoc={mapDoc[commandType][fileName].apiversion}
+      pMapDoc={mapDoc["force"][commandType][fileName].apiversion}
       pSFDXParameter="--apiversion"
       pList={lAPIVERSION}
       pDefaultValue={dAPIVERSION}
@@ -187,7 +187,7 @@
       this={LOCALs}
       bind:this={LOCALv}
       pSectionName="local"
-      pMapDoc={mapDoc[commandType][fileName].local}
+      pMapDoc={mapDoc["force"][commandType][fileName].local}
       pSFDXParameter="-l"
       pShowSectionName={false}
     />
@@ -197,7 +197,7 @@
       this={REMOTEs}
       bind:this={REMOTEv}
       pSectionName="remote"
-      pMapDoc={mapDoc[commandType][fileName].remote}
+      pMapDoc={mapDoc["force"][commandType][fileName].remote}
       pSFDXParameter="-r"
       pShowSectionName={false}
     />

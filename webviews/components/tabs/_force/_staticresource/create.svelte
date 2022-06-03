@@ -163,7 +163,7 @@
     <svelte:component
       this={JSONs}
       bind:this={JSONv}
-      pMapDoc={mapDoc[commandType][fileName].json}
+      pMapDoc={mapDoc["force"][commandType][fileName].json}
       pShowSectionName={false}
     />
 
@@ -172,7 +172,7 @@
       this={LOGLEVELs}
       bind:this={LOGLEVELv}
       pSectionName="loglevel"
-      pMapDoc={mapDoc[commandType][fileName].loglevel}
+      pMapDoc={mapDoc["force"][commandType][fileName].loglevel}
       pSFDXParameter="--loglevel"
       pList={gLists.lLOGLEVEL}
       pDefaultValue="warn"
@@ -184,10 +184,10 @@
       bind:this={RESOURCENAMEv}
       pSectionName="resourcename"
       pRequired={true}
-      pMapDoc={mapDoc[commandType][fileName].resourcename}
+      pMapDoc={mapDoc["force"][commandType][fileName].resourcename}
       pSFDXParameter="-n"
       pSectionTitle="Resource Name"
-      pTitle={mapDoc[commandType][fileName].resourcename}
+      pTitle={mapDoc["force"][commandType][fileName].resourcename}
       pPlaceholder="Insert..."
       pChecked={true}
       pDisabled={true}
@@ -198,7 +198,7 @@
       this={CONTENTTYPEs}
       bind:this={CONTENTTYPEv}
       pSectionName="contenttype"
-      pMapDoc={mapDoc[commandType][fileName].contenttype}
+      pMapDoc={mapDoc["force"][commandType][fileName].contenttype}
       pSFDXParameter="--contenttype"
       pList={gLists.lCONTENTTYPE}
       pDefaultValue={dCONTENTTYPE}
@@ -209,7 +209,7 @@
       this={OUTPUTDIRs}
       bind:this={OUTPUTDIRv}
       pSectionName="outputdir"
-      pMapDoc={mapDoc[commandType][fileName].outputdir}
+      pMapDoc={mapDoc["force"][commandType][fileName].outputdir}
       pSFDXParameter="-d"
       pDefaultFolder="."
     />
@@ -219,7 +219,7 @@
       this={APIVERSIONs}
       bind:this={APIVERSIONv}
       pSectionName="apiversion"
-      pMapDoc={mapDoc[commandType][fileName].apiversion}
+      pMapDoc={mapDoc["force"][commandType][fileName].apiversion}
       pSFDXParameter="--apiversion"
       pList={lAPIVERSION}
       pDefaultValue={dAPIVERSION}

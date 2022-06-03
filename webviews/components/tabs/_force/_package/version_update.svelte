@@ -199,7 +199,7 @@
     <svelte:component
       this={JSONs}
       bind:this={JSONv}
-      pMapDoc={mapDoc[commandType][fileName].json}
+      pMapDoc={mapDoc["force"][commandType][fileName].json}
       pShowSectionName={false}
     />
 
@@ -208,7 +208,7 @@
       this={LOGLEVELs}
       bind:this={LOGLEVELv}
       pSectionName="loglevel"
-      pMapDoc={mapDoc[commandType][fileName].loglevel}
+      pMapDoc={mapDoc["force"][commandType][fileName].loglevel}
       pSFDXParameter="--loglevel"
       pList={gLists.lLOGLEVEL}
       pDefaultValue="warn"
@@ -219,7 +219,7 @@
       this={TARGETDEVHUBUSERNAMEs}
       bind:this={TARGETDEVHUBUSERNAMEv}
       pSectionName="targetdevhubusername"
-      pMapDoc={mapDoc[commandType][fileName].targetdevhubusername}
+      pMapDoc={mapDoc["force"][commandType][fileName].targetdevhubusername}
       pSFDXParameter="-v"
       pList={$lTARGETUSERNAME}
     />
@@ -229,7 +229,7 @@
       this={APIVERSIONs}
       bind:this={APIVERSIONv}
       pSectionName="apiversion"
-      pMapDoc={mapDoc[commandType][fileName].apiversion}
+      pMapDoc={mapDoc["force"][commandType][fileName].apiversion}
       pSFDXParameter="--apiversion"
       pList={lAPIVERSION}
       pDefaultValue={dAPIVERSION}
@@ -241,10 +241,10 @@
       bind:this={PACKAGEv}
       pSectionName="package"
       pRequired={true}
-      pMapDoc={mapDoc[commandType][fileName].package}
+      pMapDoc={mapDoc["force"][commandType][fileName].package}
       pSFDXParameter="-p"
       pSectionTitle="Package Id"
-      pTitle={mapDoc[commandType][fileName].package}
+      pTitle={mapDoc["force"][commandType][fileName].package}
       pPlaceholder="Insert..."
       pChecked={true}
       pDisabled={true}
@@ -255,10 +255,10 @@
       this={VERSIONNAMEs}
       bind:this={VERSIONNAMEv}
       pSectionName="versionname"
-      pMapDoc={mapDoc[commandType][fileName].versionname}
+      pMapDoc={mapDoc["force"][commandType][fileName].versionname}
       pSFDXParameter="-a"
       pSectionTitle="Version Name"
-      pTitle={mapDoc[commandType][fileName].versionname}
+      pTitle={mapDoc["force"][commandType][fileName].versionname}
       pPlaceholder="Insert..."
     />
 
@@ -267,10 +267,10 @@
       this={VERSIONDESCRIPTIONs}
       bind:this={VERSIONDESCRIPTIONv}
       pSectionName="versiondescription"
-      pMapDoc={mapDoc[commandType][fileName].versiondescription}
+      pMapDoc={mapDoc["force"][commandType][fileName].versiondescription}
       pSFDXParameter="-e"
       pSectionTitle="Version Description"
-      pTitle={mapDoc[commandType][fileName].versiondescription}
+      pTitle={mapDoc["force"][commandType][fileName].versiondescription}
       pPlaceholder="Insert..."
     />
 
@@ -279,10 +279,10 @@
       this={BRANCHs}
       bind:this={BRANCHv}
       pSectionName="branch"
-      pMapDoc={mapDoc[commandType][fileName].branch}
+      pMapDoc={mapDoc["force"][commandType][fileName].branch}
       pSFDXParameter="-b"
       pSectionTitle="Branch Name"
-      pTitle={mapDoc[commandType][fileName].branch}
+      pTitle={mapDoc["force"][commandType][fileName].branch}
       pPlaceholder="Insert..."
     />
 
@@ -291,10 +291,10 @@
       this={TAGs}
       bind:this={TAGv}
       pSectionName="tag"
-      pMapDoc={mapDoc[commandType][fileName].tag}
+      pMapDoc={mapDoc["force"][commandType][fileName].tag}
       pSFDXParameter="-t"
       pSectionTitle="Tag Name"
-      pTitle={mapDoc[commandType][fileName].tag}
+      pTitle={mapDoc["force"][commandType][fileName].tag}
       pPlaceholder="Insert..."
     />
 
@@ -303,10 +303,10 @@
       this={INSTALLATIONKEYs}
       bind:this={INSTALLATIONKEYv}
       pSectionName="installationkey"
-      pMapDoc={mapDoc[commandType][fileName].installationkey}
+      pMapDoc={mapDoc["force"][commandType][fileName].installationkey}
       pSFDXParameter="-k"
       pSectionTitle="Installation Key"
-      pTitle={mapDoc[commandType][fileName].installationkey}
+      pTitle={mapDoc["force"][commandType][fileName].installationkey}
       pPlaceholder="Insert..."
     />
 

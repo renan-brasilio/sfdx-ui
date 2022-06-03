@@ -202,7 +202,7 @@
     <svelte:component
       this={JSONs}
       bind:this={JSONv}
-      pMapDoc={mapDoc[commandType][fileName].json}
+      pMapDoc={mapDoc["force"][commandType][fileName].json}
       pShowSectionName={false}
     />
 
@@ -211,7 +211,7 @@
       this={LOGLEVELs}
       bind:this={LOGLEVELv}
       pSectionName="loglevel"
-      pMapDoc={mapDoc[commandType][fileName].loglevel}
+      pMapDoc={mapDoc["force"][commandType][fileName].loglevel}
       pSFDXParameter="--loglevel"
       pList={gLists.lLOGLEVEL}
       pDefaultValue="warn"
@@ -222,7 +222,7 @@
       this={TARGETDEVHUBUSERNAMEs}
       bind:this={TARGETDEVHUBUSERNAMEv}
       pSectionName="targetdevhubusername"
-      pMapDoc={mapDoc[commandType][fileName].targetdevhubusername}
+      pMapDoc={mapDoc["force"][commandType][fileName].targetdevhubusername}
       pSFDXParameter="-v"
       pList={$lTARGETUSERNAME}
     />
@@ -232,7 +232,7 @@
       this={APIVERSIONs}
       bind:this={APIVERSIONv}
       pSectionName="apiversion"
-      pMapDoc={mapDoc[commandType][fileName].apiversion}
+      pMapDoc={mapDoc["force"][commandType][fileName].apiversion}
       pSFDXParameter="--apiversion"
       pList={lAPIVERSION}
       pDefaultValue={dAPIVERSION}
@@ -244,10 +244,10 @@
       bind:this={NAMEv}
       pSectionName="name"
       pRequired={true}
-      pMapDoc={mapDoc[commandType][fileName].name}
+      pMapDoc={mapDoc["force"][commandType][fileName].name}
       pSFDXParameter="-n"
       pSectionTitle="Package Name"
-      pTitle={mapDoc[commandType][fileName].name}
+      pTitle={mapDoc["force"][commandType][fileName].name}
       pPlaceholder="Insert..."
       pChecked={true}
       pDisabled={true}
@@ -258,7 +258,7 @@
       this={PACKAGETYPEs}
       bind:this={PACKAGETYPEv}
       pSectionName="packagetype"
-      pMapDoc={mapDoc[commandType][fileName].packagetype}
+      pMapDoc={mapDoc["force"][commandType][fileName].packagetype}
       pSFDXParameter="-t"
       pList={gLists.lPACKAGETYPE}
       pRequired={true}
@@ -271,10 +271,10 @@
       this={DESCRIPTIONs}
       bind:this={DESCRIPTIONv}
       pSectionName="description"
-      pMapDoc={mapDoc[commandType][fileName].description}
+      pMapDoc={mapDoc["force"][commandType][fileName].description}
       pSFDXParameter="-d"
       pSectionTitle="Description"
-      pTitle={mapDoc[commandType][fileName].description}
+      pTitle={mapDoc["force"][commandType][fileName].description}
       pPlaceholder="Insert..."
     />
 
@@ -283,7 +283,7 @@
       this={NONAMESPACEs}
       bind:this={NONAMESPACEv}
       pSectionName="nonamespace"
-      pMapDoc={mapDoc[commandType][fileName].nonamespace}
+      pMapDoc={mapDoc["force"][commandType][fileName].nonamespace}
       pSFDXParameter="-e"
       pShowSectionName={false}
     />
@@ -293,7 +293,7 @@
       this={PATHs}
       bind:this={PATHv}
       pSectionName="path"
-      pMapDoc={mapDoc[commandType][fileName].path}
+      pMapDoc={mapDoc["force"][commandType][fileName].path}
       pSFDXParameter="-r"
       pDefaultFolder="."
     />
@@ -303,7 +303,7 @@
       this={ORGDEPENDENTs}
       bind:this={ORGDEPENDENTv}
       pSectionName="orgdependent"
-      pMapDoc={mapDoc[commandType][fileName].orgdependent}
+      pMapDoc={mapDoc["force"][commandType][fileName].orgdependent}
       pSFDXParameter="--orgdependent"
       pShowSectionName={false}
     />
@@ -313,7 +313,7 @@
       this={ERRORNOTIFICATIONUSERNAMEs}
       bind:this={ERRORNOTIFICATIONUSERNAMEv}
       pSectionName="errornotificationusername"
-      pMapDoc={mapDoc[commandType][fileName].errornotificationusername}
+      pMapDoc={mapDoc["force"][commandType][fileName].errornotificationusername}
       pSFDXParameter="-o"
       pList={$lTARGETUSERNAME}
     />

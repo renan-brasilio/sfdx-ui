@@ -189,7 +189,7 @@
     $mapCommand[pParent] = {};
 
     for (let key in pList) {
-      $mapCommand[pParent][pList[key].value.replace(":", "_")] = false;
+      $mapCommand[pParent][pList[key].value.replaceAll(":", "_")] = false;
     }
   }
 
@@ -324,7 +324,7 @@
 
 {#if $mapForceShowSections.cmdt}
   <div class="sfdxet-select-theme sfdxet-absolute-center">
-    <h4>apex Commands</h4>
+    <h4>cmdt Commands</h4>
     <br />
     <Select
       id="cmdt"

@@ -208,7 +208,7 @@
     <svelte:component
       this={JSONs}
       bind:this={JSONv}
-      pMapDoc={mapDoc[commandType][fileName].json}
+      pMapDoc={mapDoc["force"][commandType][fileName].json}
       pShowSectionName={false}
     />
 
@@ -217,7 +217,7 @@
       this={LOGLEVELs}
       bind:this={LOGLEVELv}
       pSectionName="loglevel"
-      pMapDoc={mapDoc[commandType][fileName].loglevel}
+      pMapDoc={mapDoc["force"][commandType][fileName].loglevel}
       pSFDXParameter="--loglevel"
       pList={gLists.lLOGLEVEL}
       pDefaultValue="warn"
@@ -228,7 +228,7 @@
       this={TARGETDEVHUBUSERNAMEs}
       bind:this={TARGETDEVHUBUSERNAMEv}
       pSectionName="targetdevhubusername"
-      pMapDoc={mapDoc[commandType][fileName].targetdevhubusername}
+      pMapDoc={mapDoc["force"][commandType][fileName].targetdevhubusername}
       pSFDXParameter="-v"
       pList={$lTARGETUSERNAME}
     />
@@ -238,7 +238,7 @@
       this={APIVERSIONs}
       bind:this={APIVERSIONv}
       pSectionName="apiversion"
-      pMapDoc={mapDoc[commandType][fileName].apiversion}
+      pMapDoc={mapDoc["force"][commandType][fileName].apiversion}
       pSFDXParameter="--apiversion"
       pList={lAPIVERSION}
       pDefaultValue={dAPIVERSION}
@@ -250,10 +250,10 @@
       bind:this={PACKAGEIDv}
       pSectionName="packageid"
       pRequired={true}
-      pMapDoc={mapDoc[commandType][fileName].packageid}
+      pMapDoc={mapDoc["force"][commandType][fileName].packageid}
       pSFDXParameter="-i"
       pSectionTitle="Package Id"
-      pTitle={mapDoc[commandType][fileName].packageid}
+      pTitle={mapDoc["force"][commandType][fileName].packageid}
       pPlaceholder="Insert..."
       pChecked={true}
       pDisabled={true}
@@ -265,10 +265,10 @@
       bind:this={NAMEv}
       pSectionName="name"
       pRequired={true}
-      pMapDoc={mapDoc[commandType][fileName].name}
+      pMapDoc={mapDoc["force"][commandType][fileName].name}
       pSFDXParameter="-n"
       pSectionTitle="Package Name"
-      pTitle={mapDoc[commandType][fileName].name}
+      pTitle={mapDoc["force"][commandType][fileName].name}
       pPlaceholder="Insert..."
       pChecked={true}
       pDisabled={true}
@@ -279,10 +279,10 @@
       this={DESCRIPTIONs}
       bind:this={DESCRIPTIONv}
       pSectionName="description"
-      pMapDoc={mapDoc[commandType][fileName].description}
+      pMapDoc={mapDoc["force"][commandType][fileName].description}
       pSFDXParameter="-d"
       pSectionTitle="Package Description"
-      pTitle={mapDoc[commandType][fileName].description}
+      pTitle={mapDoc["force"][commandType][fileName].description}
       pPlaceholder="Insert..."
     />
 
@@ -291,10 +291,10 @@
       this={VERSIONs}
       bind:this={VERSIONv}
       pSectionName="version"
-      pMapDoc={mapDoc[commandType][fileName].version}
+      pMapDoc={mapDoc["force"][commandType][fileName].version}
       pSFDXParameter="-v"
       pSectionTitle="Package Version"
-      pTitle={mapDoc[commandType][fileName].version}
+      pTitle={mapDoc["force"][commandType][fileName].version}
       pPlaceholder="Insert..."
     />
 
@@ -303,7 +303,7 @@
       this={MANAGEDRELEASEDs}
       bind:this={MANAGEDRELEASEDv}
       pSectionName="managedreleased"
-      pMapDoc={mapDoc[commandType][fileName].managedreleased}
+      pMapDoc={mapDoc["force"][commandType][fileName].managedreleased}
       pSFDXParameter="-m"
       pShowSectionName={false}
     />
@@ -313,10 +313,10 @@
       this={RELEASENOTESURLs}
       bind:this={RELEASENOTESURLv}
       pSectionName="releasenotesurl"
-      pMapDoc={mapDoc[commandType][fileName].releasenotesurl}
+      pMapDoc={mapDoc["force"][commandType][fileName].releasenotesurl}
       pSFDXParameter="-r"
       pSectionTitle="Release Notes URL"
-      pTitle={mapDoc[commandType][fileName].releasenotesurl}
+      pTitle={mapDoc["force"][commandType][fileName].releasenotesurl}
       pPlaceholder="Insert..."
     />
 
@@ -325,10 +325,10 @@
       this={POSTINSTALLURLs}
       bind:this={POSTINSTALLURLv}
       pSectionName="postinstallurl"
-      pMapDoc={mapDoc[commandType][fileName].postinstallurl}
+      pMapDoc={mapDoc["force"][commandType][fileName].postinstallurl}
       pSFDXParameter="-p"
       pSectionTitle="Release Install URL"
-      pTitle={mapDoc[commandType][fileName].postinstallurl}
+      pTitle={mapDoc["force"][commandType][fileName].postinstallurl}
       pPlaceholder="Insert..."
     />
 
@@ -337,10 +337,10 @@
       this={INSTALLATIONKEYs}
       bind:this={INSTALLATIONKEYv}
       pSectionName="installationkey"
-      pMapDoc={mapDoc[commandType][fileName].installationkey}
+      pMapDoc={mapDoc["force"][commandType][fileName].installationkey}
       pSFDXParameter="-k"
       pSectionTitle="Installation Key"
-      pTitle={mapDoc[commandType][fileName].installationkey}
+      pTitle={mapDoc["force"][commandType][fileName].installationkey}
       pPlaceholder="Insert..."
     />
 
@@ -349,7 +349,7 @@
       this={WAITs}
       bind:this={WAITv}
       pSectionName="wait"
-      pMapDoc={mapDoc[commandType][fileName].wait}
+      pMapDoc={mapDoc["force"][commandType][fileName].wait}
       pSFDXParameter="-w"
     />
 

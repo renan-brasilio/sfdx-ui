@@ -170,7 +170,7 @@
     <svelte:component
       this={JSONs}
       bind:this={JSONv}
-      pMapDoc={mapDoc[commandType][fileName].json}
+      pMapDoc={mapDoc["force"][commandType][fileName].json}
       pShowSectionName={false}
     />
 
@@ -179,7 +179,7 @@
       this={LOGLEVELs}
       bind:this={LOGLEVELv}
       pSectionName="loglevel"
-      pMapDoc={mapDoc[commandType][fileName].loglevel}
+      pMapDoc={mapDoc["force"][commandType][fileName].loglevel}
       pSFDXParameter="--loglevel"
       pList={gLists.lLOGLEVEL}
       pDefaultValue="warn"
@@ -190,7 +190,7 @@
       this={TARGETDEVHUBUSERNAMEs}
       bind:this={TARGETDEVHUBUSERNAMEv}
       pSectionName="targetdevhubusername"
-      pMapDoc={mapDoc[commandType][fileName].targetdevhubusername}
+      pMapDoc={mapDoc["force"][commandType][fileName].targetdevhubusername}
       pSFDXParameter="-v"
       pList={$lTARGETUSERNAME}
     />
@@ -200,7 +200,7 @@
       this={TARGETUSERNAMEs}
       bind:this={TARGETUSERNAMEv}
       pSectionName="targetusername"
-      pMapDoc={mapDoc[commandType][fileName].targetusername}
+      pMapDoc={mapDoc["force"][commandType][fileName].targetusername}
       pSFDXParameter="-u"
       pList={$lTARGETUSERNAME}
     />
@@ -210,7 +210,7 @@
       this={APIVERSIONs}
       bind:this={APIVERSIONv}
       pSectionName="apiversion"
-      pMapDoc={mapDoc[commandType][fileName].apiversion}
+      pMapDoc={mapDoc["force"][commandType][fileName].apiversion}
       pSFDXParameter="--apiversion"
       pList={lAPIVERSION}
       pDefaultValue={dAPIVERSION}
@@ -221,7 +221,7 @@
       this={TYPEs}
       bind:this={TYPEv}
       pSectionName="type"
-      pMapDoc={mapDoc[commandType][fileName].type}
+      pMapDoc={mapDoc["force"][commandType][fileName].type}
       pSFDXParameter="-t"
       pList={gLists.lTYPE[commandType][fileName]}
       pDefaultValue="scratch"
@@ -232,7 +232,7 @@
       this={DEFINITIONFILEs}
       bind:this={DEFINITIONFILEv}
       pSectionName="definitionfile"
-      pMapDoc={mapDoc[commandType][fileName].definitionfile}
+      pMapDoc={mapDoc["force"][commandType][fileName].definitionfile}
       pSFDXParameter="-f"
     />
 
@@ -241,7 +241,7 @@
       this={NONAMESPACEs}
       bind:this={NONAMESPACEv}
       pSectionName="nonamespace"
-      pMapDoc={mapDoc[commandType][fileName].nonamespace}
+      pMapDoc={mapDoc["force"][commandType][fileName].nonamespace}
       pSFDXParameter="-n"
       pShowSectionName={false}
     />
@@ -251,7 +251,7 @@
       this={NOANCESTORSs}
       bind:this={NOANCESTORSv}
       pSectionName="noancestors"
-      pMapDoc={mapDoc[commandType][fileName].noancestors}
+      pMapDoc={mapDoc["force"][commandType][fileName].noancestors}
       pSFDXParameter="-c"
       pShowSectionName={false}
     />
@@ -261,10 +261,10 @@
       this={CLIENTIDs}
       bind:this={CLIENTIDv}
       pSectionName="clientid"
-      pMapDoc={mapDoc[commandType][fileName].clientid}
+      pMapDoc={mapDoc["force"][commandType][fileName].clientid}
       pSFDXParameter="-i"
       pSectionTitle="Client Id"
-      pTitle={mapDoc[commandType][fileName].clientid.title}
+      pTitle={mapDoc["force"][commandType][fileName].clientid.title}
       pPlaceholder="Insert..."
     />
 
@@ -273,7 +273,7 @@
       this={SETDEFAULTUSERNAMEs}
       bind:this={SETDEFAULTUSERNAMEv}
       pSectionName="setdefaultusername"
-      pMapDoc={mapDoc[commandType][fileName].setdefaultusername}
+      pMapDoc={mapDoc["force"][commandType][fileName].setdefaultusername}
       pSFDXParameter="-s"
       pShowSectionName={false}
     />
@@ -283,10 +283,10 @@
       this={SETALIASs}
       bind:this={SETALIASv}
       pSectionName="setalias"
-      pMapDoc={mapDoc[commandType][fileName].setalias}
+      pMapDoc={mapDoc["force"][commandType][fileName].setalias}
       pSFDXParameter="-a"
       pSectionTitle="Set Alias"
-      pTitle={mapDoc[commandType][fileName].setalias.title}
+      pTitle={mapDoc["force"][commandType][fileName].setalias.title}
       pPlaceholder="Insert..."
     />
 
@@ -295,7 +295,7 @@
       this={WAITs}
       bind:this={WAITv}
       pSectionName="wait"
-      pMapDoc={mapDoc[commandType][fileName].wait}
+      pMapDoc={mapDoc["force"][commandType][fileName].wait}
       pSFDXParameter="-w"
       pDefaultValue="6"
     />
@@ -305,10 +305,10 @@
       this={DURATIONDAYSs}
       bind:this={DURATIONDAYSv}
       pSectionName="durationdays"
-      pMapDoc={mapDoc[commandType][fileName].durationdays}
+      pMapDoc={mapDoc["force"][commandType][fileName].durationdays}
       pSFDXParameter="-d"
       pSectionTitle="durationdays"
-      pTitle={mapDoc[commandType][fileName].durationdays}
+      pTitle={mapDoc["force"][commandType][fileName].durationdays}
       pPlaceholder="7"
       pDefaultValue="7"
     />

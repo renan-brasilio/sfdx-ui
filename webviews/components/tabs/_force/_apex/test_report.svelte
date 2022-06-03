@@ -190,7 +190,7 @@
     <svelte:component
       this={JSONs}
       bind:this={JSONv}
-      pMapDoc={mapDoc[commandType][fileName].json}
+      pMapDoc={mapDoc["force"][commandType][fileName].json}
       pShowSectionName={false}
     />
 
@@ -199,7 +199,7 @@
       this={LOGLEVELs}
       bind:this={LOGLEVELv}
       pSectionName="loglevel"
-      pMapDoc={mapDoc[commandType][fileName].loglevel}
+      pMapDoc={mapDoc["force"][commandType][fileName].loglevel}
       pSFDXParameter="--loglevel"
       pList={gLists.lLOGLEVEL}
       pDefaultValue="warn"
@@ -210,7 +210,7 @@
       this={TARGETUSERNAMEs}
       bind:this={TARGETUSERNAMEv}
       pSectionName="targetusername"
-      pMapDoc={mapDoc[commandType][fileName].targetusername}
+      pMapDoc={mapDoc["force"][commandType][fileName].targetusername}
       pSFDXParameter="-u"
       pList={$lTARGETUSERNAME}
     />
@@ -220,7 +220,7 @@
       this={APIVERSIONs}
       bind:this={APIVERSIONv}
       pSectionName="apiversion"
-      pMapDoc={mapDoc[commandType][fileName].apiversion}
+      pMapDoc={mapDoc["force"][commandType][fileName].apiversion}
       pSFDXParameter="--apiversion"
       pList={lAPIVERSION}
       pDefaultValue={dAPIVERSION}
@@ -232,10 +232,10 @@
       bind:this={TESTRUNIDv}
       pSectionName="testrunid"
       pRequired={true}
-      pMapDoc={mapDoc[commandType][fileName].testrunid}
+      pMapDoc={mapDoc["force"][commandType][fileName].testrunid}
       pSFDXParameter="-n"
       pSectionTitle="Test Run Id"
-      pTitle={mapDoc[commandType][fileName].testrunid.title}
+      pTitle={mapDoc["force"][commandType][fileName].testrunid.title}
       pPlaceholder="Insert..."
       pMaxLength={18}
       pChecked={true}
@@ -247,7 +247,7 @@
       this={CODECOVERAGEs}
       bind:this={CODECOVERAGEv}
       pSectionName="codecoverage"
-      pMapDoc={mapDoc[commandType][fileName].codecoverage}
+      pMapDoc={mapDoc["force"][commandType][fileName].codecoverage}
       pSFDXParameter="-c"
       pShowSectionName={false}
     />
@@ -257,7 +257,7 @@
       this={OUTPUTDIRs}
       bind:this={OUTPUTDIRv}
       pSectionName="outputdir"
-      pMapDoc={mapDoc[commandType][fileName].outputdir}
+      pMapDoc={mapDoc["force"][commandType][fileName].outputdir}
       pSFDXParameter="-d"
     />
 
@@ -266,7 +266,7 @@
       this={RESULTFORMATs}
       bind:this={RESULTFORMATv}
       pSectionName="resultformat"
-      pMapDoc={mapDoc[commandType][fileName].resultformat}
+      pMapDoc={mapDoc["force"][commandType][fileName].resultformat}
       pSFDXParameter="-r"
       pList={gLists.lRESULTFORMAT}
     />
@@ -276,7 +276,7 @@
       this={WAITs}
       bind:this={WAITv}
       pSectionName="wait"
-      pMapDoc={mapDoc[commandType][fileName].wait}
+      pMapDoc={mapDoc["force"][commandType][fileName].wait}
       pSFDXParameter="-w"
     />
 
@@ -285,7 +285,7 @@
       this={VERBOSEs}
       bind:this={VERBOSEv}
       pSectionName="verbose"
-      pMapDoc={mapDoc[commandType][fileName].verbose}
+      pMapDoc={mapDoc["force"][commandType][fileName].verbose}
       pSFDXParameter="--verbose"
       pShowSectionName={false}
     />

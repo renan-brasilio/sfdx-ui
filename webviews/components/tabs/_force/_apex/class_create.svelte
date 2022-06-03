@@ -186,7 +186,7 @@
     <svelte:component
       this={JSONs}
       bind:this={JSONv}
-      pMapDoc={mapDoc[commandType][fileName].json}
+      pMapDoc={mapDoc["force"][commandType][fileName].json}
       pShowSectionName={false}
     />
 
@@ -195,7 +195,7 @@
       this={LOGLEVELs}
       bind:this={LOGLEVELv}
       pSectionName="loglevel"
-      pMapDoc={mapDoc[commandType][fileName].loglevel}
+      pMapDoc={mapDoc["force"][commandType][fileName].loglevel}
       pSFDXParameter="--loglevel"
       pList={gLists.lLOGLEVEL}
       pDefaultValue="warn"
@@ -207,10 +207,10 @@
       bind:this={CLASSNAMEv}
       pSectionName="classname"
       pRequired={true}
-      pMapDoc={mapDoc[commandType][fileName].classname}
+      pMapDoc={mapDoc["force"][commandType][fileName].classname}
       pSFDXParameter="-n"
       pSectionTitle="Apex Class Name"
-      pTitle={mapDoc[commandType][fileName].classname}
+      pTitle={mapDoc["force"][commandType][fileName].classname}
       pPlaceholder="Insert..."
       pMaxLength={40}
       pChecked={true}
@@ -222,7 +222,7 @@
       this={TEMPLATEs}
       bind:this={TEMPLATEv}
       pSectionName="template"
-      pMapDoc={mapDoc[commandType][fileName].template}
+      pMapDoc={mapDoc["force"][commandType][fileName].template}
       pSFDXParameter="-t"
       pList={gLists.lTEMPLATE}
       pDefaultValue="DefaultApexClass"
@@ -233,7 +233,7 @@
       this={OUTPUTDIRs}
       bind:this={OUTPUTDIRv}
       pSectionName="outputdir"
-      pMapDoc={mapDoc[commandType][fileName].outputdir}
+      pMapDoc={mapDoc["force"][commandType][fileName].outputdir}
       pSFDXParameter="-d"
       pDefaultFolder="."
     />
@@ -243,7 +243,7 @@
       this={APIVERSIONs}
       bind:this={APIVERSIONv}
       pSectionName="apiversion"
-      pMapDoc={mapDoc[commandType][fileName].apiversion}
+      pMapDoc={mapDoc["force"][commandType][fileName].apiversion}
       pSFDXParameter="--apiversion"
       pList={lAPIVERSION}
       pDefaultValue={dAPIVERSION}

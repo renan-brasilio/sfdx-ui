@@ -215,7 +215,7 @@
     <svelte:component
       this={JSONs}
       bind:this={JSONv}
-      pMapDoc={mapDoc[commandType][fileName].json}
+      pMapDoc={mapDoc["force"][commandType][fileName].json}
       pShowSectionName={false}
     />
 
@@ -224,7 +224,7 @@
       this={LOGLEVELs}
       bind:this={LOGLEVELv}
       pSectionName="loglevel"
-      pMapDoc={mapDoc[commandType][fileName].loglevel}
+      pMapDoc={mapDoc["force"][commandType][fileName].loglevel}
       pSFDXParameter="--loglevel"
       pList={gLists.lLOGLEVEL}
       pDefaultValue="warn"
@@ -235,7 +235,7 @@
       this={TARGETUSERNAMEs}
       bind:this={TARGETUSERNAMEv}
       pSectionName="targetusername"
-      pMapDoc={mapDoc[commandType][fileName].targetusername}
+      pMapDoc={mapDoc["force"][commandType][fileName].targetusername}
       pSFDXParameter="-u"
       pList={$lTARGETUSERNAME}
     />
@@ -245,7 +245,7 @@
       this={APIVERSIONs}
       bind:this={APIVERSIONv}
       pSectionName="apiversion"
-      pMapDoc={mapDoc[commandType][fileName].apiversion}
+      pMapDoc={mapDoc["force"][commandType][fileName].apiversion}
       pSFDXParameter="--apiversion"
       pList={lAPIVERSION}
       pDefaultValue={dAPIVERSION}
@@ -256,7 +256,7 @@
       this={CODECOVERAGEs}
       bind:this={CODECOVERAGEv}
       pSectionName="codecoverage"
-      pMapDoc={mapDoc[commandType][fileName].codecoverage}
+      pMapDoc={mapDoc["force"][commandType][fileName].codecoverage}
       pSFDXParameter="-c"
       pShowSectionName={false}
     />
@@ -266,7 +266,7 @@
       this={OUTPUTDIRs}
       bind:this={OUTPUTDIRv}
       pSectionName="outputdir"
-      pMapDoc={mapDoc[commandType][fileName].outputdir}
+      pMapDoc={mapDoc["force"][commandType][fileName].outputdir}
       pSFDXParameter="-d"
       pDefaultFolder="."
     />
@@ -276,7 +276,7 @@
       this={TESTLEVELs}
       bind:this={TESTLEVELv}
       pSectionName="testlevel"
-      pMapDoc={mapDoc[commandType][fileName].testlevel}
+      pMapDoc={mapDoc["force"][commandType][fileName].testlevel}
       pSFDXParameter="-l"
       pList={gLists.lTESTLEVEL[commandType][fileName]}
     />
@@ -286,10 +286,10 @@
       this={CLASSNAMEs}
       bind:this={CLASSNAMEv}
       pSectionName="classnames"
-      pMapDoc={mapDoc[commandType][fileName].classnames}
+      pMapDoc={mapDoc["force"][commandType][fileName].classnames}
       pSFDXParameter="-n"
       pSectionTitle="Apex Class Names"
-      pTitle={mapDoc[commandType][fileName].classnames.title}
+      pTitle={mapDoc["force"][commandType][fileName].classnames.title}
       pPlaceholder="Insert..."
       pRequired={true}
       pStyle="color: orange;"
@@ -301,7 +301,7 @@
       this={RESULTFORMATs}
       bind:this={RESULTFORMATv}
       pSectionName="resultformat"
-      pMapDoc={mapDoc[commandType][fileName].resultformat}
+      pMapDoc={mapDoc["force"][commandType][fileName].resultformat}
       pSFDXParameter="-r"
       pList={gLists.lRESULTFORMAT}
     />
@@ -311,10 +311,10 @@
       this={SUITENAMESs}
       bind:this={SUITENAMESv}
       pSectionName="suitenames"
-      pMapDoc={mapDoc[commandType][fileName].suitenames}
+      pMapDoc={mapDoc["force"][commandType][fileName].suitenames}
       pSFDXParameter="-s"
       pSectionTitle="Suite Names"
-      pTitle={mapDoc[commandType][fileName].suitenames.title}
+      pTitle={mapDoc["force"][commandType][fileName].suitenames.title}
       pPlaceholder="Insert..."
       pRequired={true}
       pStyle="color: orange;"
@@ -326,10 +326,10 @@
       this={TESTSs}
       bind:this={TESTSv}
       pSectionName="tests"
-      pMapDoc={mapDoc[commandType][fileName].tests}
+      pMapDoc={mapDoc["force"][commandType][fileName].tests}
       pSFDXParameter="-t"
       pSectionTitle="Test Names"
-      pTitle={mapDoc[commandType][fileName].tests.title}
+      pTitle={mapDoc["force"][commandType][fileName].tests.title}
       pPlaceholder="Insert..."
       pRequired={true}
       pStyle="color: orange;"
@@ -341,7 +341,7 @@
       this={WAITs}
       bind:this={WAITv}
       pSectionName="wait"
-      pMapDoc={mapDoc[commandType][fileName].wait}
+      pMapDoc={mapDoc["force"][commandType][fileName].wait}
       pSFDXParameter="-w"
     />
 
@@ -350,7 +350,7 @@
       this={SYNCHRONOUSs}
       bind:this={SYNCHRONOUSv}
       pSectionName="synchronous"
-      pMapDoc={mapDoc[commandType][fileName].synchronous}
+      pMapDoc={mapDoc["force"][commandType][fileName].synchronous}
       pSFDXParameter="-y"
       pShowSectionName={false}
     />
@@ -360,7 +360,7 @@
       this={VERBOSEs}
       bind:this={VERBOSEv}
       pSectionName="verbose"
-      pMapDoc={mapDoc[commandType][fileName].verbose}
+      pMapDoc={mapDoc["force"][commandType][fileName].verbose}
       pSFDXParameter="--verbose"
       pShowSectionName={false}
     />
@@ -370,7 +370,7 @@
       this={DETAILEDCOVERAGEs}
       bind:this={DETAILEDCOVERAGEv}
       pSectionName="detailedcoverage"
-      pMapDoc={mapDoc[commandType][fileName].detailedcoverage}
+      pMapDoc={mapDoc["force"][commandType][fileName].detailedcoverage}
       pSFDXParameter="-v"
       pShowSectionName={false}
     />

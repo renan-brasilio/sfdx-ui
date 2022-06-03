@@ -185,7 +185,7 @@
     <svelte:component
       this={JSONs}
       bind:this={JSONv}
-      pMapDoc={mapDoc[commandType][fileName].json}
+      pMapDoc={mapDoc["force"][commandType][fileName].json}
       pShowSectionName={false}
     />
 
@@ -194,7 +194,7 @@
       this={LOGLEVELs}
       bind:this={LOGLEVELv}
       pSectionName="loglevel"
-      pMapDoc={mapDoc[commandType][fileName].loglevel}
+      pMapDoc={mapDoc["force"][commandType][fileName].loglevel}
       pSFDXParameter="--loglevel"
       pList={gLists.lLOGLEVEL}
       pDefaultValue="warn"
@@ -205,7 +205,7 @@
       this={TARGETUSERNAMEs}
       bind:this={TARGETUSERNAMEv}
       pSectionName="targetusername"
-      pMapDoc={mapDoc[commandType][fileName].targetusername}
+      pMapDoc={mapDoc["force"][commandType][fileName].targetusername}
       pSFDXParameter="-u"
       pList={$lTARGETUSERNAME}
     />
@@ -215,7 +215,7 @@
       this={APIVERSIONs}
       bind:this={APIVERSIONv}
       pSectionName="apiversion"
-      pMapDoc={mapDoc[commandType][fileName].apiversion}
+      pMapDoc={mapDoc["force"][commandType][fileName].apiversion}
       pSFDXParameter="--apiversion"
       pList={lAPIVERSION}
       pDefaultValue={dAPIVERSION}
@@ -227,10 +227,10 @@
       bind:this={QUERYv}
       pSectionName="query"
       pRequired={true}
-      pMapDoc={mapDoc[commandType][fileName].query}
+      pMapDoc={mapDoc["force"][commandType][fileName].query}
       pSFDXParameter="-q"
       pSectionTitle="Query"
-      pTitle={mapDoc[commandType][fileName].query.title}
+      pTitle={mapDoc["force"][commandType][fileName].query.title}
       pPlaceholder="Insert..."
       pChecked={true}
       pDisabled={true}
@@ -241,7 +241,7 @@
       this={PLANs}
       bind:this={PLANv}
       pSectionName="plan"
-      pMapDoc={mapDoc[commandType][fileName].plan}
+      pMapDoc={mapDoc["force"][commandType][fileName].plan}
       pSFDXParameter="-p"
       pShowSectionName={false}
     />
@@ -251,10 +251,10 @@
       this={PREFIXs}
       bind:this={PREFIXv}
       pSectionName="prefix"
-      pMapDoc={mapDoc[commandType][fileName].prefix}
+      pMapDoc={mapDoc["force"][commandType][fileName].prefix}
       pSFDXParameter="-x"
       pSectionTitle="Prefix"
-      pTitle={mapDoc[commandType][fileName].prefix.title}
+      pTitle={mapDoc["force"][commandType][fileName].prefix.title}
       pPlaceholder="Insert..."
     />
 
@@ -263,7 +263,7 @@
       this={OUTPUTDIRs}
       bind:this={OUTPUTDIRv}
       pSectionName="outputdir"
-      pMapDoc={mapDoc[commandType][fileName].outputdir}
+      pMapDoc={mapDoc["force"][commandType][fileName].outputdir}
       pSFDXParameter="-d"
     />
 
