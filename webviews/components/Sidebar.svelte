@@ -1,7 +1,7 @@
 <script>
   import alias from "./tabs/_alias/alias.svelte";
   import auth from "./tabs/_auth/auth.svelte";
-  // import config from "./tabs/_config/config.svelte";
+  import config from "./tabs/_config/config.svelte";
   import force from "./tabs/_force/force.svelte";
   import Tabs from "./Tabs.svelte";
   import { Circle2 } from "svelte-loading-spinners";
@@ -22,11 +22,11 @@
         value: 2,
         component: auth
     },
-    // {
-    //     label: "config",
-    //     value: 3,
-    //     component: config
-    // },
+    {
+        label: "config",
+        value: 3,
+        component: config
+    },
     {
         label: "force",
         value: 4,

@@ -29,6 +29,10 @@ export const jwt = [
   { value: "grant", label: "grant" },
 ];
 
+export const web = [
+  { value: "login", label: "login" },
+];
+
 export const sfdxurl = [
   { value: "store", label: "store" },
 ];
@@ -36,6 +40,17 @@ export const sfdxurl = [
 export const authC = [
   { value: "list", label: "list" },
   { value: "logout", label: "logout" },
+];
+
+export const config = [
+  { value: "config", label: "config" },
+];
+
+export const configC = [
+  { value: "get", label: "get" },
+  { value: "list", label: "list" },
+  { value: "set", label: "set" },
+  { value: "unset", label: "unset" },
 ];
 
 export const force = [

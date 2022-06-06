@@ -7988,6 +7988,126 @@ export let mapDoc = {
       },
     },
   },
+  config:{
+    config: {
+      get: {
+        json: {
+          type: `<b><i>Optional</i></b>`,
+          body: `
+                      <br/><br/>
+                      Format output as JSON.<br/><br/>
+                      Type: boolean
+                  `,
+          title: `Format output as JSON.`,
+        },
+        loglevel: {
+          type: `<b><i>Optional</i></b>`,
+          body: `
+                      <br/><br/>            
+                      The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.
+                      <br/><br/>
+                      Type: enum<br/>
+                      Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                      Default value: warn
+                  `,
+          title: `The logging level for this command invocation.`,
+        },
+        verbose: {
+          type: `<b><i>Optional</i></b>`,
+          body: `
+                      <br/><br/>            
+                      Emit additional command output to stdout.
+                      Type: boolean
+                  `,
+          title: `Emit additional command output to stdout.`,
+        },
+      },
+      list: {
+        json: {
+          type: `<b><i>Optional</i></b>`,
+          body: `
+                      <br/><br/>
+                      Format output as JSON.<br/><br/>
+                      Type: boolean
+                  `,
+          title: `Format output as JSON.`,
+        },
+        loglevel: {
+          type: `<b><i>Optional</i></b>`,
+          body: `
+                      <br/><br/>            
+                      The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.<br/><br/>
+                      Type: enum<br/>
+                      Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                      Default value: warn
+                  `,
+          title: `The logging level for this command invocation.`,
+        },
+      },
+      set: {
+        json: {
+          type: `<b><i>Optional</i></b>`,
+          body: `
+                      <br/><br/>
+                      Format output as JSON.<br/><br/>
+                      Type: boolean
+                  `,
+          title: `Format output as JSON.`,
+        },
+        loglevel: {
+          type: `<b><i>Optional</i></b>`,
+          body: `
+                      <br/><br/>            
+                      The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.<br/><br/>
+                      Type: enum<br/>
+                      Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                      Default value: warn
+                  `,
+          title: `The logging level for this command invocation.`,
+        },
+        global: {
+          type: `<b><i>Optional</i></b>`,
+          body: `
+                      <br/><br/>            
+                      Sets the configuration variables globally, so they can be used from any directory.<br/><br/>
+                      Type: boolean
+                  `,
+          title: `Sets the configuration variables globally, so they can be used from any directory.`,
+        },
+      },
+      unset: {
+        json: {
+          type: `<b><i>Optional</i></b>`,
+          body: `
+                      <br/><br/>
+                      Format output as JSON.<br/><br/>
+                      Type: boolean
+                  `,
+          title: `Format output as JSON.`,
+        },
+        loglevel: {
+          type: `<b><i>Optional</i></b>`,
+          body: `
+                      <br/><br/>            
+                      The logging level for this command invocation. Logs are stored in $HOME/.sfdx/sfdx.log.<br/><br/>
+                      Type: enum<br/>
+                      Permissible values are: trace, debug, info, warn, error, fatal, TRACE, DEBUG, INFO, WARN, ERROR, FATAL<br/>
+                      Default value: warn
+                  `,
+          title: `The logging level for this command invocation.`,
+        },
+        global: {
+          type: `<b><i>Optional</i></b>`,
+          body: `
+                      <br/><br/>            
+                      Sets the configuration variables globally, so they can be used from any directory.<br/><br/>
+                      Type: boolean
+                  `,
+          title: `Sets the configuration variables globally, so they can be used from any directory.`,
+        },
+      },
+    },
+  },
   advanced: {
     type: `<b><i>Optional</i></b>`,
     body: `
