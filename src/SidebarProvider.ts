@@ -15,7 +15,7 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
   public resolveWebviewView(webviewView: vscode.WebviewView) {
     this._view = webviewView;
     this._sfdxetName = "SFDX UI";
-    this._sfdxetVersion = "v0.4.1";
+    this._sfdxetVersion = "v0.4.2";
 
     webviewView.webview.options = {
       // Allow scripts in the webview
@@ -207,12 +207,12 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
   private _getHtmlForWebview(webview: vscode.Webview) {
     // JS
     const scriptUri = webview.asWebviewUri(
-      vscode.Uri.joinPath(this._extensionUri, "out/compiled", "sidebar.js")
+      vscode.Uri.joinPath(this._extensionUri, "media", "sidebar.js")
     );
 
     // CSS
     const styleMainUri = webview.asWebviewUri(
-      vscode.Uri.joinPath(this._extensionUri, "out/compiled", "sidebar.css")
+      vscode.Uri.joinPath(this._extensionUri, "media", "sidebar.css")
     );
 
     const styleResetUri = webview.asWebviewUri(
