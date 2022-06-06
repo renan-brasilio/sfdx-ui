@@ -5,7 +5,7 @@
   "version": "0.4.4",
   "repository": "https://github.com/renan-brasilio/sfdx-ui",
   "publisher": "renan-brasilio",
-  "icon": "https://github.com/renan-brasilio/sfdx-ui/blob/master/media/SFDXEasy.ico",
+  "icon": "media/SFDXEasy.png",
   "engines": {
     "vscode": "^1.61.0"
   },
