@@ -15,7 +15,7 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
   public resolveWebviewView(webviewView: vscode.WebviewView) {
     this._view = webviewView;
     this._sfdxetName = "SFDX UI";
-    this._sfdxetVersion = "v0.4.5";
+    this._sfdxetVersion = "v0.4.6";
 
     webviewView.webview.options = {
       // Allow scripts in the webview
