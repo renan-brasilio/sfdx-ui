@@ -24,23 +24,24 @@
 [![MIT License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
-
-
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
 <h3 align="center">WIP: SFDX - UI</h3>
 
   <p align="center">
-    We all know and love SFDX CLI, it makes our lifes so much easier and give as Salesforce Developers true Metadata control (well... most of it). So if you're a dev nutella like me, here's the sweaty and nice UI for SFDX that we were waiting for. :tw-1f601:
+    We all know and love SFDX CLI, it makes our lifes so much easier and give as Salesforce Developers true Metadata control (well... most of it). So if you're a dev nutella like me, here's the sweaty and nice UI for SFDX that we were waiting for.
     <br />
     <a href="https://github.com/renan-brasilio/sfdx-ui/issues">Report Bug</a>
     ·
     <a href="https://github.com/renan-brasilio/sfdx-ui/issues">Request Feature</a>
+
+    <br />
+    <br />
+
+    <img source="">
   </p>
 </div>
-
-
 
 <!-- TABLE OF CONTENTS -->
 <details>
@@ -68,8 +69,6 @@
   </ol>
 </details>
 
-
-
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
@@ -78,8 +77,6 @@ Remember, I'm a Salesforce Developer, I did the best to create a solution that w
 **And remember, this is a VERY WIP, so be patient, I'll finish/update as soon as I can.**
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
-
 
 ### Built With
 
@@ -90,8 +87,6 @@ Remember, I'm a Salesforce Developer, I did the best to create a solution that w
 * [VS Code](https://code.visualstudio.com/)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
-
 
 <!-- GETTING STARTED -->
 ## Getting Started
@@ -122,16 +117,12 @@ npm -v
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-
-
 <!-- USAGE EXAMPLES -->
 ## Usage
 
 In progress...
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
-
 
 <!-- ROADMAP -->
 ## Roadmap
@@ -140,8 +131,6 @@ In progress...
 - In progress...
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
-
 
 <!-- CONTRIBUTING -->
 ## Contributing
@@ -159,16 +148,12 @@ Don't forget to give the project a star! Thanks again!
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-
-
 <!-- LICENSE -->
 ## License
 
 Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
-
 
 <!-- CONTACT -->
 ## Contact
@@ -179,16 +164,12 @@ Project Link: [https://github.com/renan-brasilio/sfdx-ui](https://github.com/ren
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-
-
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
 * None (Yet?)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
-
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
