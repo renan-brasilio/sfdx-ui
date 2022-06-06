@@ -35,12 +35,10 @@
     <a href="https://github.com/renan-brasilio/sfdx-ui/issues">Report Bug</a>
     ·
     <a href="https://github.com/renan-brasilio/sfdx-ui/issues">Request Feature</a>
-
-    <br />
-    <br />
-
-    <img src="https://github.com/renan-brasilio/sfdx-ui/blob/master/media/Usage1-v0.4.4.gif"/>
   </p>
+    <br />
+    <br />
+    <img src="https://github.com/renan-brasilio/sfdx-ui/blob/master/media/Usage1-v0.4.4.gif"/>
 </div>
 
 <!-- TABLE OF CONTENTS -->
