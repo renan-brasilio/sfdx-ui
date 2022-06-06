@@ -32,7 +32,8 @@
           "id": "sfdx-ui-sidebar",
           "name": "SFDX UI",
           "icon": "media/SFDXEasy.svg",
-          "contextualTitle": "SFDX UI"
+          "contextualTitle": "SFDX UI",
+          "when": "sfdx:project_opened"
         }
       ]
     },
@@ -49,7 +50,7 @@
     "lint": "eslint src --ext ts",
     "test": "node ./out/test/runTest.js"
   },
-  "devDependencies": {
+  "Dependencies": {
     "@rollup/plugin-commonjs": "^21.0.1",
     "@rollup/plugin-node-resolve": "^13.0.6",
     "@rollup/plugin-typescript": "^8.3.0",
