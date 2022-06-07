@@ -27,10 +27,10 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-<h3 align="center">WIP: SFDX - UI</h3>
+<h3 align="center">Beta: SFDX - UI</h3>
 
   <p align="center">
-    We all know and love SFDX CLI, it makes our lifes so much easier and give as Salesforce Developers true Metadata control (well... most of it). So if you're a dev nutella like me, here's the sweaty and nice UI for SFDX that we were waiting for.
+    We all know and love SFDX CLI, it makes our life so much easier and give as Salesforce Developers true Metadata control (well... most of it). So if you're a dev nutella like me, here's the sweaty and nice UI for SFDX that we were waiting for.
     <br />
     <a href="https://github.com/renan-brasilio/sfdx-ui/issues">Report Bug</a>
     ·
@@ -115,17 +115,17 @@ npm -v
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 <!-- USAGE EXAMPLES -->
-## Usage
+<!-- ## Usage
 
 In progress...
 
-<p align="right">(<a href="#top">back to top</a>)</p>
+<p align="right">(<a href="#top">back to top</a>)</p> -->
 
 <!-- ROADMAP -->
 ## Roadmap
 
 - [14/10/2021] Creation
-- In progress...
+- [07/06/2022] Version Beta 0.4.7
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
