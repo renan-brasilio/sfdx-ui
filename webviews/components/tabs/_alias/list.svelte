@@ -11,10 +11,8 @@
 
   // Store
   import {
-    mapErrors,
     mapInformation,
     mapInputVariables,
-    mapSectionValidation,
     mapShowSections,
     mapSpinner,
     objSFDX,
@@ -26,9 +24,7 @@
   import ADVANCEDs from "../../tabs/-commonSections/ADVANCEDSection.svelte";
 
   // Component Validations
-  let JSONv,
-    LOGLEVELv,
-    ADVANCEDv;
+  let JSONv, LOGLEVELv, ADVANCEDv;
 
   // Documentation
   let fileName = "list";
@@ -48,10 +44,9 @@
     $mapSpinner.alias[fileName] = false;
   }, 1000);
 
-  function startSFDX() {
-    let validation = 0;
-    let sectionError;
+  console.log('nova versão...');
 
+  function startSFDX() {
     $objSFDX.terminal = "";
     $objSFDX.terminal = `${commandType}:${showFileName}`;
 
@@ -61,37 +56,7 @@
       ADVANCEDv.validate(),
     ]).then((values) => {
       if (values) {
-        for (let i in $mapSectionValidation) {
-          if ($mapSectionValidation[i] === 1) {
-            validation++;
-            break;
-          } else if ($mapSectionValidation[i] === 0) {
-            sectionError = i;
-            break;
-          }
-        }
-
-        if (validation === 0) {
-          if (!$mapErrors) {
-            $mapErrors = {};
-          }
-
-          if (sectionError) {
-            $mapErrors[sectionError] = "sfdxet-error-span";
-            sectionError = sectionError.toUpperCase();
-
-            tsvscode.postMessage({
-              type: "onError",
-              value: `ERROR: ${sectionError} is required.`,
-            });
-
-            return;
-          }
-        } else if (!values.includes(false)) {
-          for (let key in $mapErrors) {
-            $mapErrors[key] = "";
-          }
-
+        if (!values.includes(false)) {
           $mapSpinner.main = true;
           $mapInformation.main = true;
 
@@ -123,9 +88,7 @@
     <h3>sfdx alias:{commandType}:{showFileName}</h3>
     <br />
     <br />
-    <button class="sfdxet-buttons" on:click={startSFDX}
-      >{showFileNameUpper}</button
-    >
+    <button class="sfdxet-buttons" on:click={startSFDX}>{showFileNameUpper}</button>
     <br />
     <br />
     <h3>Options:</h3>
@@ -161,9 +124,7 @@
     />
     <br />
     <br />
-    <button class="sfdxet-buttons-icon" on:click={reset} title="Reset Options"
-      ><RefreshIcon /></button
-    >
+    <!-- <button class="sfdxet-buttons-icon" on:click={reset} title="Reset Options"><RefreshIcon /></button> -->
   </div>
 {/if}
 

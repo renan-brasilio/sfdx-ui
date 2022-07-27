@@ -1,7 +1,5 @@
 import * as vscode from "vscode";
 import { getNonce } from "./getNonce";
-import * as cp from "child_process";
-import { setInterval } from "timers";
 import { basename } from 'path';
 
 export class SidebarProvider implements vscode.WebviewViewProvider {
@@ -15,7 +13,7 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
   public resolveWebviewView(webviewView: vscode.WebviewView) {
     this._view = webviewView;
     this._sfdxetName = "SFDX UI";
-    this._sfdxetVersion = "v0.4.7";
+    this._sfdxetVersion = "v0.5.0";
 
     webviewView.webview.options = {
       // Allow scripts in the webview

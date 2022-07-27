@@ -5,3 +5,5 @@ declare global {
         postMessage: ({ type: String, value: any }) => void
     };
 }
+
+/// <reference types="svelte" />

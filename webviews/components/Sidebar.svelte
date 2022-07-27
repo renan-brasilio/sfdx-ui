@@ -17,7 +17,7 @@
         value: 1,
         component: alias
     },
-    {
+    /*{
         label: "auth",
         value: 2,
         component: auth
@@ -31,7 +31,7 @@
         label: "force",
         value: 4,
         component: force
-    },
+    },*/
   ];
 
   // Initial loading
@@ -60,6 +60,9 @@
   {/if}
 {:else}
   <div>
+    <h2 class="sfdxet-absolute-center">SFDX UI: v0.5.0</h2>
+    <br />
+    <br />
     <h3 class="sfdxet-absolute-center">Select a Namespace</h3>
     <br />
     <Tabs {items} />

@@ -1,3 +1,4 @@
+import 'svelte';
 import App from "../components/Sidebar.svelte";
 
 const app = new App({

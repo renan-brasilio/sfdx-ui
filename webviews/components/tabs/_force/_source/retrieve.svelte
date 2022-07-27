@@ -222,7 +222,6 @@
       pSectionTitle="Source Path List"
       pTitle={mapDoc["force"][commandType][fileName].sourcepath.title}
       pPlaceholder="Insert..."
-      {pOnlyOneError}
     />
 
     <!-- [-w WAIT] -->
@@ -243,7 +242,6 @@
       pSFDXParameter="-x"
       pPlaceholder="Insert..."
       pButtonText="Select Manifest File"
-      {pOnlyOneError}
     />
 
     <!-- [-m METADATA] -->
@@ -256,7 +254,6 @@
       pSectionTitle="Metadata List"
       pTitle={mapDoc["force"][commandType][fileName].metadata.title}
       pPlaceholder="Insert..."
-      {pOnlyOneError}
     />
 
     <!-- [-n PACKAGENAMES] -->
