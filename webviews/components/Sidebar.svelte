@@ -1,4 +1,5 @@
 <script>
+  // Importing the components that will be used in the tabs.
   import alias from "./tabs/_alias/alias.svelte";
   import auth from "./tabs/_auth/auth.svelte";
   import config from "./tabs/_config/config.svelte";
@@ -8,30 +9,31 @@
   import { mapSpinner } from "./tabs/-helperFiles/GlobalStore";
   import { mapInformation } from "./tabs/-helperFiles/GlobalStore";
 
+  // Setting the `main` property to `true` in the `mapSpinner` object.
   $mapSpinner.main = true;
 
   // List of tab items with labels, values and assigned components
   let items = [
     {
-        label: "alias",
-        value: 1,
-        component: alias
-    },
-    /*{
-        label: "auth",
-        value: 2,
-        component: auth
+      label: "alias",
+      value: 1,
+      component: alias,
     },
     {
-        label: "config",
-        value: 3,
-        component: config
+      label: "auth",
+      value: 2,
+      component: auth,
     },
     {
-        label: "force",
-        value: 4,
-        component: force
-    },*/
+      label: "config",
+      value: 3,
+      component: config,
+    },
+    {
+      label: "force",
+      value: 4,
+      component: force,
+    },
   ];
 
   // Initial loading
@@ -41,10 +43,13 @@
   }, 1000);
 </script>
 
+<!-- This is a conditional statement that is checking if the `.main` is true. If it is true, then it will render the HTML. -->
 {#if $mapSpinner.main}
+  <!-- Loading -->
   <div class="sfdxet-spinner">
     <Circle2 size="60" colorOuter="#034efc" unit="px" />
   </div>
+  <!-- Shows an information when the Terminal is open -->
   {#if $mapInformation.main}
     <br />
     <br />
@@ -59,10 +64,8 @@
     </div>
   {/if}
 {:else}
+  <!-- The main component that is rendered in the extension. -->
   <div>
-    <h2 class="sfdxet-absolute-center">SFDX UI: v0.5.0</h2>
-    <br />
-    <br />
     <h3 class="sfdxet-absolute-center">Select a Namespace</h3>
     <br />
     <Tabs {items} />
