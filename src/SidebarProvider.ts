@@ -133,33 +133,43 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
           break;
         }
 
-        /* Creating a terminal and sending the command to it. */
+        /* Creating a terminal and sending the command to it with safety validation. */
         case "onTerminalSFDX": {
+          const rawTerminal = typeof data.terminal === "string" ? data.terminal.trim() : "";
+
+          // Guard against command chaining and subshell execution in terminal command
+          if (!rawTerminal || /[;&|`$\n\r]/.test(rawTerminal)) {
+            vscode.window.showErrorMessage(
+              `${this._sfdxetName}: Invalid terminal command contains disallowed shell metacharacters.`
+            );
+            break;
+          }
+
           let term = vscode.window.createTerminal("SFDX");
           term.show();
           term.sendText(`echo "- Starting SFDX..." && echo`);
 
           console.log(JSON.stringify(data));
 
-          let sfdx = "sfdx " + data.terminal;
+          let sfdx = "sfdx " + rawTerminal;
 
-          // JSON
+          // JSON redirection handling with safe paths
           if (data.vJSONPath) {
             const fs = require("fs");
             const path = require("path");
-
-            const filePath = path.join(
-              data.vJSONPath ? data.vJSONPath : vscode.workspace.rootPath,
-              `${data.vJSON ? data.vJSON : "output"}.json`
-            );
+            const defaultRoot = vscode.workspace.workspaceFolders?.[0]?.uri.fsPath || "";
+            const safeDir = data.vJSONPath ? data.vJSONPath : defaultRoot;
+            const rawFile = typeof data.vJSON === "string" ? data.vJSON : "output";
+            const safeBaseName = path.basename(rawFile).replace(/[^a-zA-Z0-9_.-]/g, "") || "output";
+            const filePath = path.join(safeDir, `${safeBaseName}.json`);
 
             let fileExists = false;
 
             try {
-              fileExists = fs.readFileSync(filePath) ? true : false;
+              fileExists = fs.existsSync(filePath);
 
               if (fileExists === true) {
-                fs.unlink(filePath, (err: any) => {
+                fs.unlink(filePath, (err: Error | null) => {
                   if (err) {
                     console.error(
                       `${this._sfdxetName}: Error while deleting the file ${filePath}.`
@@ -173,16 +183,14 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
                 });
               }
             } catch (error) {
-              console.error(`${this._sfdxetName}: File ${filePath} not found.`);
+              console.error(`${this._sfdxetName}: Error checking file ${filePath}.`);
             }
 
-            sfdx += ` ${data.pJSON} > ${
-              data.vJSONPath ? data.vJSONPath + "/" : ""
-            }${data.vJSON ? data.vJSON : "output"}.json`;
+            const jsonParam = data.pJSON === "--json" ? "--json" : "";
+            sfdx += ` ${jsonParam} > "${filePath}"`;
           }
 
           term.sendText(sfdx);
-
           vscode.window.onDidCloseTerminal((terminal) => {
             if (terminal.name === "SFDX") {
               this._view?.webview.postMessage({
